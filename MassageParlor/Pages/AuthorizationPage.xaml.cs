@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MassageParlor.DB;
 
 namespace MassageParlor.Pages
 {
@@ -20,9 +21,41 @@ namespace MassageParlor.Pages
     /// </summary>
     public partial class AuthorizationPage : Page
     {
+        public static List<Worker> workers { get; set; }
+
         public AuthorizationPage()
         {
             InitializeComponent();
+        }
+
+        private void EnterBTN_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string login = LoginTB.Text.Trim();
+                string password = PasswordTB.Password.Trim();
+
+                workers = DBConnection.massageParlor.Worker.ToList();
+                var currentWorker = workers.FirstOrDefault(i => i.Login.Trim() == login && i.Password.Trim() == password);
+                DBConnection.loginedWorker = currentWorker;
+
+                if (currentWorker != null && currentWorker.Position.Name == "Администратор")
+                {
+                    NavigationService.Navigate(new AdminMainMenuPage());
+                }
+                else if (currentWorker != null && currentWorker.Position.Name == "Массажист")
+                {
+
+                }
+                else
+                {
+                    MessageBox.Show("Проверьте правильность логина и пароля.");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Возникла ошибка.");
+            }
         }
     }
 }

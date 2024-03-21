@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="Massage parlor" Height="450" Width="800">
     <Grid>
-        <Frame x:Name="NaFr" Visibility="Hidden"/>
+        <Frame x:Name="NaFr" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

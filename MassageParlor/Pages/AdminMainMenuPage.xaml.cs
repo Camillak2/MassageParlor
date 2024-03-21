@@ -12,20 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MassageParlor.Pages;
 
-namespace MassageParlor
+namespace MassageParlor.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для AdminMainMenuPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AdminMainMenuPage : Page
     {
-
-        public MainWindow()
+        public AdminMainMenuPage()
         {
             InitializeComponent();
-            NaFr.NavigationService.Navigate(new AuthorizationPage());
         }
     }
 }
