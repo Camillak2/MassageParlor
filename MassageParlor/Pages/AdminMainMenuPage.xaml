@@ -28,77 +28,119 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Border Width="100" Height="1080" Grid.Row="0" Grid.RowSpan="7" Grid.Column="6" HorizontalAlignment="Right" Background="#ADD8E6"/>
+        <Border Width="342"
+                Height="600"
+                Grid.Row="0"
+                Grid.RowSpan="7"
+                Grid.Column="6"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Right"/>
 
-        <Image Source="/IMG/logo.png"
-               Grid.Column="0" Grid.ColumnSpan="4"
-               Grid.Row="0" Grid.RowSpan="7"/>
+        <Image Source="/Image/logo.png"
+               Grid.Column="0"
+               Grid.ColumnSpan="4"
+               Grid.Row="0"
+               Grid.RowSpan="7"/>
 
-        <TextBlock x:Name="opisanieTB" TextWrapping="Wrap" Grid.Row="1" Grid.RowSpan="5" Grid.Column="4" Grid.ColumnSpan="2" FontSize="35" Margin="10"/>
+        <Image Source="/Image/profile.png"
+               Grid.Column="7"
+               Grid.ColumnSpan="1"
+               Grid.Row="0"
+               Grid.RowSpan="1"
+               Height="50"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Margin="0 0 0 30"/>
 
-        <!--<Image Source="/IMG/icon_v.png"
-               Grid.Column="6" Grid.ColumnSpan="1"
-               Grid.Row="0" Grid.RowSpan="2"
-               Width="100" Height="60"
-               VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,16,134"/>-->
+        <Button x:Name="ProfileBTN"
+                Content="Профиль"
+                Grid.Column="6"
+                Grid.ColumnSpan="1"
+                Grid.Row="0"
+                Grid.RowSpan="1"
+                Width="150"
+                HorizontalAlignment="Center"
+                VerticalContentAlignment="Bottom"
+                Click="ProfileBTN_Click"
+                Background="{x:Null}"/>
 
-        <Image Source="/IMG/icon_profile.png"
-               Grid.Column="7" Grid.ColumnSpan="1"
-               Grid.Row="0" Grid.RowSpan="1"
-               Width="100" Height="60"
-               VerticalAlignment="Center" HorizontalAlignment="Right" Margin="20, 0, 18, 75"/>
+        <Image Source="/Image/icon_main.png"
+               Grid.Column="6"
+               Grid.ColumnSpan="1"
+               Grid.Row="0"
+               Grid.RowSpan="2"
+               Width="100"
+               Height="60"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Right"
+               Margin="0,0,16,134"/>
 
+        <Button x:Name="WorkersBTN"
+                Content="Сотрудники"
+                Background="{x:Null}"
+                Grid.Column="6"
+                Grid.ColumnSpan="1"
+                Grid.Row="1"
+                Grid.RowSpan="1"
+                HorizontalAlignment="Right"
+                Click="sotrudnikiBTN_Click"/>
 
-        <Image Source="/IMG/icon_main.png"
-               Grid.Column="6" Grid.ColumnSpan="1"
-               Grid.Row="0" Grid.RowSpan="2"
-               Width="100" Height="60"
-               VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,16,134"/>
-
-        <Image Source="/IMG/icon_sotrudniki.png"
-               Grid.Column="6" Grid.ColumnSpan="1"
+        <Image Source="/Image/workers.png"
+               Grid.Column="6"
+               Grid.ColumnSpan="1"
                Grid.Row="1"
-               Width="100" Height="60"
-               VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,14,34"/>
+               Width="100"
+               Height="60"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Right"
+               Margin="0,0,14,34"/>
 
-        <Image Source="/IMG/icon_animal.png"
-               Grid.Column="6" Grid.ColumnSpan="1"
+        <Image Source="/Image/icon_animal.png"
+               Grid.Column="6"
+               Grid.ColumnSpan="1"
                Grid.Row="2"
-               Width="100" Height="60"
-               VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,14,86"/>
+               Width="100"
+               Height="60"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Right"
+               Margin="0,0,14,86"/>
 
-        <Image Source="/IMG/icon_artist.png"
-               Grid.Column="6" Grid.ColumnSpan="1"
+        <Image Source="/Image/icon_artist.png"
+               Grid.Column="6"
+               Grid.ColumnSpan="1"
                Grid.Row="2"
-               Width="100" Height="60"
-               VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,14,146" Grid.RowSpan="2"/>
+               Width="100"
+               Height="60"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Right"
+               Margin="0,0,14,146"
+               Grid.RowSpan="2"/>
 
-        <Image Source="/IMG/icon_obspersonal.png"
+        <Image Source="/Image/icon_obspersonal.png"
                Grid.Column="6" Grid.ColumnSpan="1"
                Grid.Row="3"
                Width="100" Height="60"
                VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,14,54"/>
 
-        <Image Source="/IMG/icon_v.png"
-               Grid.Column="6" Grid.ColumnSpan="1"
+        <Image Source="/Image/icon_v.png"
+               Grid.Column="6"
+               Grid.ColumnSpan="1"
                Grid.Row="3"
-               Width="100" Height="60"
-               VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,16,119" Grid.RowSpan="2"/>
+               Grid.RowSpan="2"
+               Width="100"
+               Height="60"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Right"
+               Margin="0,0,16,119"/>
 
-        <Button x:Name="profileBTN" Background="{x:Null}" Foreground="Black"
-                Grid.Column="7" Grid.ColumnSpan="1"
-                Grid.Row="0" Grid.RowSpan="1"
-                Width="100" Height="50" HorizontalAlignment="Right" VerticalContentAlignment="Bottom"  BorderThickness="0" Click="profileBTN_Click" >Профиль</Button>
+
 
         <Button x:Name="mainBTN" Background="{x:Null}" Foreground="Black"
                 Grid.Column="6" Grid.ColumnSpan="1"
                 Grid.Row="1" Grid.RowSpan="1"
                 Width="100" Height="50" HorizontalAlignment="Right" BorderThickness="0"  Margin="0,6,0,99" Click="mainBTN_Click">Главная</Button>
 
-        <Button x:Name="sotrudnikiBTN" Background="{x:Null}" Foreground="Black"
-                Grid.Column="6" Grid.ColumnSpan="1"
-                Grid.Row="1" Grid.RowSpan="2"
-                Width="120" Height="50" HorizontalAlignment="Right" BorderThickness="0"  Margin="0,106,-10,153" Click="sotrudnikiBTN_Click" >Сотрудники</Button>
+
 
         <Button x:Name="animalBTN" Background="{x:Null}" Foreground="Black"
                 Grid.Column="6" Grid.ColumnSpan="1"

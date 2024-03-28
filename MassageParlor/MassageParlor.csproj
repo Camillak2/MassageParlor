@@ -141,6 +141,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\MyPersonalAccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\WorkerPersonalAccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\AdminMainMenuPage.xaml.cs">
@@ -148,6 +156,12 @@
     </Compile>
     <Compile Include="Pages\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MyPersonalAccountPage.xaml.cs">
+      <DependentUpon>MyPersonalAccountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\WorkerPersonalAccountPage.xaml.cs">
+      <DependentUpon>WorkerPersonalAccountPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -183,7 +197,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\" />
     <Folder Include="Windowsss\" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +213,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Image\workers.png" />
+    <Resource Include="Image\profile.png" />
+    <Resource Include="Image\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.5.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.5.0.0\build\MaterialDesignThemes.targets')" />
