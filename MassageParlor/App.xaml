@@ -15,8 +15,25 @@
             <Setter Property="FontFamily" Value="Courier New" />
         </Style>
 
-        <Style TargetType="Border">
+        <Style TargetType="Border" x:Key="Border1">
+            <Setter Property="Background" Value="#a98f81"/>
+            <Setter Property="BorderBrush" Value="#FF3F3333"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+
+        <Style TargetType="Border" x:Key="Border2">
             <Setter Property="Background" Value="#907669"/>
+            <Setter Property="BorderBrush" Value="#FF3F3333"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+
+        <Style TargetType="Border" x:Key="BorderForImage">
+            <Setter Property="Background" Value="#907669"/>
+            <Setter Property="BorderBrush" Value="#FF3F3333"/>
+            <Setter Property="BorderThickness" Value="5"/>
+            <Setter Property="CornerRadius" Value="400"/>
+            <Setter Property="Height" Value="800"/>
+            <Setter Property="Width" Value="800"/>
         </Style>
 
         <Style TargetType="Button">
