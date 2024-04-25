@@ -213,6 +213,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\lotus.png" />
+    <Resource Include="Images\lotuslogo.png" />
     <Resource Include="Images\clients.png" />
     <Resource Include="Images\logout.png" />
     <Resource Include="Images\logo.png" />
