@@ -7,12 +7,12 @@
 
         <Style TargetType="{x:Type Window}">
             <Setter Property="Background" Value="#a98f81" />
-            <Setter Property="FontFamily" Value="Courier New" />
+            <Setter Property="FontFamily" Value="Book Antiqua"/>
         </Style>
 
         <Style TargetType="{x:Type Page}">
             <Setter Property="Background" Value="#a98f81" />
-            <Setter Property="FontFamily" Value="Courier New" />
+            <Setter Property="FontFamily" Value="Book Antiqua"/>
         </Style>
 
         <Style TargetType="Border" x:Key="Border1">
