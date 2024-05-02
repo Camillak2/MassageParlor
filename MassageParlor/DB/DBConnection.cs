@@ -8,7 +8,7 @@ namespace MassageParlor.DB
 {
     internal class DBConnection
     {
-        public static MassageParlorEntities massageParlor = new MassageParlorEntities();
+        public static MassageSalonEntities massageSalon = new MassageSalonEntities();
         
         public static Worker loginedWorker;
     }

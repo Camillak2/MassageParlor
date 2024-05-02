@@ -4,25 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="db485512fdb64b52844dacb00f111576" Name="Diagram1">
-        <EntityTypeShape EntityType="MassageParlorModel.Client" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MassageParlorModel.DayOfWeek" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MassageParlorModel.Gender" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="MassageParlorModel.Position" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MassageParlorModel.Record" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MassageParlorModel.Record_Worker" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MassageParlorModel.Schedule" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MassageParlorModel.Service" Width="1.5" PointX="0.75" PointY="15.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MassageParlorModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MassageParlorModel.Worker" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
-        <AssociationConnector Association="MassageParlorModel.FK_Record_Client" ManuallyRouted="false" />
-        <AssociationConnector Association="MassageParlorModel.FK_Schedule_DayOfWeek" ManuallyRouted="false" />
-        <AssociationConnector Association="MassageParlorModel.FK_Worker_Gender" ManuallyRouted="false" />
-        <AssociationConnector Association="MassageParlorModel.FK_Worker_Position" ManuallyRouted="false" />
-        <AssociationConnector Association="MassageParlorModel.FK_Record_Service" ManuallyRouted="false" />
-        <AssociationConnector Association="MassageParlorModel.FK_Record_Worker_Record" ManuallyRouted="false" />
-        <AssociationConnector Association="MassageParlorModel.FK_Record_Worker_Worker" ManuallyRouted="false" />
-        <AssociationConnector Association="MassageParlorModel.FK_Schedule_Worker" ManuallyRouted="false" />
+      <Diagram DiagramId="cafff6d4728b4eada50474df6990ea40" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="MassageSalonModel.Client" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MassageSalonModel.DayOfWeek" Width="1.5" PointX="6" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="MassageSalonModel.Gender" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MassageSalonModel.Position" Width="1.5" PointX="3.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MassageSalonModel.Record" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MassageSalonModel.Schedule" Width="1.5" PointX="8.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MassageSalonModel.Service" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MassageSalonModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MassageSalonModel.Worker" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="MassageSalonModel.FK_Client_Gender" ManuallyRouted="false" />
+        <AssociationConnector Association="MassageSalonModel.FK_Record_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="MassageSalonModel.FK_Schedule_DayOfWeek" ManuallyRouted="false" />
+        <AssociationConnector Association="MassageSalonModel.FK_Worker_Gender" ManuallyRouted="false" />
+        <AssociationConnector Association="MassageSalonModel.FK_Worker_Position" ManuallyRouted="false" />
+        <AssociationConnector Association="MassageSalonModel.FK_Record_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="MassageSalonModel.FK_Record_Worker" ManuallyRouted="false" />
+        <AssociationConnector Association="MassageSalonModel.FK_Schedule_Worker" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -5,69 +5,64 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MassageParlor.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="1080"
-      d:DesignWidth="1920"
+      d:DesignHeight="960"
+      d:DesignWidth="1550"
       Title="AdminMainMenuPage">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1520"/>
-            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="1250"/>
+            <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Style="{StaticResource Border1}">
-            <Grid Grid.Column="0"
-                  Grid.Row="0"
-                  Height="1080"
-                  Width="1520">
-                <Border Style="{StaticResource BorderForImage}"
+        
+        <Grid Grid.Column="0"
+              Background="#a98f81">
+            <Border Style="{StaticResource BorderForImage}"
                         HorizontalAlignment="Left"
-                        Margin="20 0 0 0">
-                    <Image Source="/Images/logo.png"
+                        Margin="400 0 0 0">
+                <Image Source="/Images/logo.png"
                         Grid.Column="0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Height="800"/>
-                </Border>
-
-                <Image Source="/Images/lotus.png"
+            </Border>
+            <Image Source="/Images/lotus.png"
                        Grid.Column="0"
-                       HorizontalAlignment="Center"
+                       HorizontalAlignment="Left"
                        VerticalAlignment="Center"
-                       Height="1000"
-                       Margin="1000 0 0 0"/>
-            </Grid>
-        </Border>
-        <Border Style="{StaticResource Border2}"
-                Grid.Column="1"
-                Grid.Row="0"
-                Height="1080"
-                Width="400"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top">
-            <Grid Grid.Column="0">
-                <StackPanel Orientation="Vertical">
-                    <Image Source="/Images/logoo.png"
-                           Width="250"
-                           Height="250"
-                           Margin="0 10 0 0"
+                       Height="800"
+                       Margin="10 0 0 0"/>
+            <TextBlock Text="Добро пожаловать, "
+                       Margin="20"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       x:Name="NameTB"/>
+            <Frame x:Name="NaFr"
+                    NavigationUIVisibility="Hidden"/>
+        </Grid>
+
+        <Grid Grid.Column="1"
+              Background="#907669">
+            <StackPanel Orientation="Vertical">
+                <Image Source="/Images/logoo.png"
+                           Width="230"
+                           Height="230"
+                           Margin="0 20 0 0"
                            VerticalAlignment="Bottom"/>
-                </StackPanel>
-
-            </Grid>
-        </Border>
-
+            </StackPanel>
+        </Grid>
 
         <Button Grid.Column="1"
                 Grid.Row="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Margin="20 300 20 20"
-                Height="120"
-                Width="300"
+                Margin="0 260 0 0"
+                Height="100"
+                Width="250"
                 x:Name="ProfileBTN" Click="ProfileBTN_Click">
             <Grid>
                 <Grid.RowDefinitions>
@@ -75,9 +70,8 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Image Source="/Images/profile.png"
-                       Width="50"
-                       Height="50"
-                       Margin="5"
+                       Width="48"
+                       Height="48"
                        Grid.Row="0"/>
                 <TextBlock Text="Профиль"
                            HorizontalAlignment="Center"
@@ -89,9 +83,9 @@
                 Grid.Row="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Margin="20 430 20 20"
-                Height="120"
-                Width="300"
+                Margin="0 370 0 0"
+                Height="100"
+                Width="250"
                 x:Name="WorkersBTN" Click="WorkersBTN_Click">
             <Grid>
                 <Grid.RowDefinitions>
@@ -99,9 +93,8 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Image Source="/Images/workers.png"
-                       Width="50"
-                       Height="50"
-                       Margin="5"
+                       Width="48"
+                       Height="48"
                        Grid.Row="0"/>
                 <TextBlock Text="Сотрудники"
                            HorizontalAlignment="Center"
@@ -113,9 +106,9 @@
                 Grid.Row="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Margin="20 560 20 20"
-                Height="120"
-                Width="300"
+                Margin="0 480 0 0"
+                Height="100"
+                Width="250"
                 x:Name="ClientsBTN" Click="ClientsBTN_Click">
             <Grid>
                 <Grid.RowDefinitions>
@@ -123,9 +116,8 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Image Source="/Images/clients.png"
-                       Width="50"
-                       Height="50"
-                       Margin="5"
+                       Width="48"
+                       Height="48"
                        Grid.Row="0"/>
                 <TextBlock Text="Клиенты"
                            HorizontalAlignment="Center"
@@ -137,9 +129,9 @@
                 Grid.Row="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Margin="20 690 20 20"
-                Height="120"
-                Width="300"
+                Margin="0 590 0 0"
+                Height="100"
+                Width="250"
                 x:Name="RecordsBTN" Click="RecordsBTN_Click">
             <Grid>
                 <Grid.RowDefinitions>
@@ -147,9 +139,8 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Image Source="/Images/records.png"
-                       Width="50"
+                       Width="48"
                        Height="48"
-                       Margin="5"
                        Grid.Row="0"/>
                 <TextBlock Text="Записи"
                            HorizontalAlignment="Center"
@@ -161,19 +152,19 @@
                 Grid.Row="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
-                Margin="20 280 20 20"
-                Height="120"
-                Width="300"
-                x:Name="LogOutBTN" Click="LogOutBTN_Click">
+                Margin="0 280 0 20"
+                Height="100"
+                Width="250"
+                x:Name="LogOutBTN"
+                Click="LogOutBTN_Click">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Image Source="/Images/logout.png"
-                       Width="50"
-                       Height="50"
-                       Margin="5"
+                       Width="48"
+                       Height="48"
                        Grid.Row="0"/>
                 <TextBlock Text="Выйти"
                            HorizontalAlignment="Center"

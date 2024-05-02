@@ -14,20 +14,14 @@ namespace MassageParlor.DB
     
     public partial class Record
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Record()
-        {
-            this.Record_Worker = new HashSet<Record_Worker>();
-        }
-    
         public int ID { get; set; }
         public Nullable<int> ID_Client { get; set; }
         public Nullable<int> ID_Service { get; set; }
         public Nullable<System.DateTime> DateTime { get; set; }
+        public Nullable<int> ID_Worker { get; set; }
     
         public virtual Client Client { get; set; }
         public virtual Service Service { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Record_Worker> Record_Worker { get; set; }
+        public virtual Worker Worker { get; set; }
     }
 }

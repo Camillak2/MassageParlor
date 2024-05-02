@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:MassageParlor"
         mc:Ignorable="d"
         Title="Golden Lotus"
-        Height="1080"
-        Width="1920">
+        Height="960"
+        Width="1550"
+        Icon="/Images/logoo.png">
     <Grid>
-        <Frame x:Name="NaFr"/>
+        <Frame x:Name="NaFr" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

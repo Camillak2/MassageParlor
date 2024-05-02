@@ -47,7 +47,7 @@ namespace MassageParlor.Pages
 
         private void LogOutBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new AuthorizationPage());
         }
     }
 }

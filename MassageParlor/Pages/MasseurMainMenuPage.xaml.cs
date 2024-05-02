@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace MassageParlor.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для Page1.xaml
+    /// Логика взаимодействия для MasseurMainMenuPage.xaml
     /// </summary>
-    public partial class Page1 : Page
+    public partial class MasseurMainMenuPage : Page
     {
-        public Page1()
+        public MasseurMainMenuPage()
         {
             InitializeComponent();
         }

@@ -35,7 +35,7 @@ namespace MassageParlor.Pages
                 string login = LoginTB.Text.Trim();
                 string password = PasswordTB.Password.Trim();
 
-                workers = DBConnection.massageParlor.Worker.ToList();
+                workers = DBConnection.massageSalon.Worker.ToList();
                 var currentWorker = workers.FirstOrDefault(i => i.Login.Trim() == login && i.Password.Trim() == password);
                 DBConnection.loginedWorker = currentWorker;
 
@@ -45,7 +45,7 @@ namespace MassageParlor.Pages
                 }
                 else if (currentWorker != null && currentWorker.Position.Name == "Массажист")
                 {
-
+                    NavigationService.Navigate(new MasseurMainMenuPage());
                 }
                 else
                 {
@@ -57,5 +57,31 @@ namespace MassageParlor.Pages
                 MessageBox.Show("Возникла ошибка.");
             }
         }
+        public partial class CustomMessageBox : Window
+        {
+            public CustomMessageBox(string message, string title, MessageBoxButton buttons)
+            {
+                InitializeComponent();
+                Title = title;
+                MessageTextBlock.Text = message;
+                // Добавление кнопок в зависимости от MessageBoxButton
+                // ...
+            }
+
+            // Обработчики событий для кнопок
+            // ...
+
+            // Метод для отображения окна и возврата результата
+            public static MessageBoxResult Show(string message, string title, MessageBoxButton buttons)
+            {
+                var messageBox = new CustomMessageBox(message, title, buttons);
+                messageBox.ShowDialog();
+                return messageBox.Result;
+            }
+
+            // Свойство для хранения результата
+            public MessageBoxResult Result { get; private set; }
+        }
+
     }
 }

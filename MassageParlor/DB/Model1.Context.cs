@@ -13,10 +13,10 @@ namespace MassageParlor.DB
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MassageParlorEntities : DbContext
+    public partial class MassageSalonEntities : DbContext
     {
-        public MassageParlorEntities()
-            : base("name=MassageParlorEntities")
+        public MassageSalonEntities()
+            : base("name=MassageSalonEntities")
         {
         }
     
@@ -30,7 +30,6 @@ namespace MassageParlor.DB
         public virtual DbSet<Gender> Gender { get; set; }
         public virtual DbSet<Position> Position { get; set; }
         public virtual DbSet<Record> Record { get; set; }
-        public virtual DbSet<Record_Worker> Record_Worker { get; set; }
         public virtual DbSet<Schedule> Schedule { get; set; }
         public virtual DbSet<Service> Service { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }

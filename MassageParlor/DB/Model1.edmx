@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище MassageParlorModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище MassageSalonModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ID" />
@@ -15,7 +15,15 @@
           <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
           <Property Name="DateOfBirth" Type="date" />
           <Property Name="Phone" Type="nvarchar" MaxLength="17" />
+          <Property Name="ID_Gender" Type="int" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "MassageSalon.dbo.ClientService" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="ClientService">
+          <Property Name="Client" Type="nvarchar(max)" />
+          <Property Name="Service" Type="nvarchar(max)" />
+          <Property Name="DateTime" Type="datetime" />
+        </EntityType>-->
         <EntityType Name="DayOfWeek">
           <Key>
             <PropertyRef Name="ID" />
@@ -38,6 +46,12 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Salary" Type="money" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "MassageSalon.dbo.Position2" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Position2">
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
+          <Property Name="Salary" Type="money" />
+        </EntityType>-->
         <EntityType Name="Record">
           <Key>
             <PropertyRef Name="ID" />
@@ -46,20 +60,6 @@
           <Property Name="ID_Client" Type="int" />
           <Property Name="ID_Service" Type="int" />
           <Property Name="DateTime" Type="datetime" />
-        </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6013: Первичный ключ в таблице или представлении "MassageParlor.dbo.Record_Service" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
-        <EntityType Name="Record_Service">
-          <Property Name="ID" Type="int" />
-          <Property Name="ID_Record" Type="int" />
-          <Property Name="ID_Service" Type="int" />
-        </EntityType>-->
-        <EntityType Name="Record_Worker">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_Record" Type="int" />
           <Property Name="ID_Worker" Type="int" />
         </EntityType>
         <EntityType Name="Schedule">
@@ -78,6 +78,12 @@
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="Price" Type="money" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "MassageSalon.dbo.Service2" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Service2">
+          <Property Name="Service" Type="nvarchar(max)" />
+          <Property Name="Price" Type="money" />
+        </EntityType>-->
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -88,6 +94,8 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "MassageSalon.dbo.TheFirstNormalForm" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="Worker">
           <Key>
             <PropertyRef Name="ID" />
@@ -101,9 +109,34 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="17" />
           <Property Name="ID_Position" Type="int" />
           <Property Name="ID_Gender" Type="int" />
-          <Property Name="Login" Type="nvarchar(max)" />
-          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "MassageSalon.dbo.Worker2" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Worker2">
+          <Property Name="Worker" Type="nvarchar(max)" />
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
+        </EntityType>-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "MassageSalon.dbo.WorkerService" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="WorkerService">
+          <Property Name="Worker" Type="nvarchar(max)" />
+          <Property Name="Service" Type="nvarchar(max)" />
+          <Property Name="DateTime" Type="datetime" />
+        </EntityType>-->
+        <Association Name="FK_Client_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="ID_Gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Record_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <End Role="Record" Type="Self.Record" Multiplicity="*" />
@@ -128,26 +161,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Record_Worker_Record">
-          <End Role="Record" Type="Self.Record" Multiplicity="0..1" />
-          <End Role="Record_Worker" Type="Self.Record_Worker" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Record">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Record_Worker">
-              <PropertyRef Name="ID_Record" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Record_Worker_Worker">
+        <Association Name="FK_Record_Worker">
           <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
-          <End Role="Record_Worker" Type="Self.Record_Worker" Multiplicity="*" />
+          <End Role="Record" Type="Self.Record" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Worker">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Record_Worker">
+            <Dependent Role="Record">
               <PropertyRef Name="ID_Worker" />
             </Dependent>
           </ReferentialConstraint>
@@ -200,17 +221,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище MassageParlorModelContainer">
+        <EntityContainer Name="Хранилище MassageSalonModelContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DayOfWeek" EntityType="Self.DayOfWeek" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Record" EntityType="Self.Record" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Record_Worker" EntityType="Self.Record_Worker" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Client_Gender" Association="Self.FK_Client_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
           <AssociationSet Name="FK_Record_Client" Association="Self.FK_Record_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="Record" EntitySet="Record" />
@@ -219,13 +243,9 @@
             <End Role="Service" EntitySet="Service" />
             <End Role="Record" EntitySet="Record" />
           </AssociationSet>
-          <AssociationSet Name="FK_Record_Worker_Record" Association="Self.FK_Record_Worker_Record">
-            <End Role="Record" EntitySet="Record" />
-            <End Role="Record_Worker" EntitySet="Record_Worker" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Record_Worker_Worker" Association="Self.FK_Record_Worker_Worker">
+          <AssociationSet Name="FK_Record_Worker" Association="Self.FK_Record_Worker">
             <End Role="Worker" EntitySet="Worker" />
-            <End Role="Record_Worker" EntitySet="Record_Worker" />
+            <End Role="Record" EntitySet="Record" />
           </AssociationSet>
           <AssociationSet Name="FK_Schedule_DayOfWeek" Association="Self.FK_Schedule_DayOfWeek">
             <End Role="DayOfWeek" EntitySet="DayOfWeek" />
@@ -248,7 +268,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="MassageParlorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="MassageSalonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ID" />
@@ -259,6 +279,8 @@
           <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
           <Property Name="Phone" Type="String" MaxLength="17" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Gender" Type="Int32" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK_Client_Gender" FromRole="Client" ToRole="Gender" />
           <NavigationProperty Name="Record" Relationship="Self.FK_Record_Client" FromRole="Client" ToRole="Record" />
         </EntityType>
         <EntityType Name="DayOfWeek">
@@ -275,6 +297,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Client_Gender" FromRole="Gender" ToRole="Client" />
           <NavigationProperty Name="Worker" Relationship="Self.FK_Worker_Gender" FromRole="Gender" ToRole="Worker" />
         </EntityType>
         <EntityType Name="Position">
@@ -294,19 +317,10 @@
           <Property Name="ID_Client" Type="Int32" />
           <Property Name="ID_Service" Type="Int32" />
           <Property Name="DateTime" Type="DateTime" Precision="3" />
+          <Property Name="ID_Worker" Type="Int32" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Record_Client" FromRole="Record" ToRole="Client" />
           <NavigationProperty Name="Service" Relationship="Self.FK_Record_Service" FromRole="Record" ToRole="Service" />
-          <NavigationProperty Name="Record_Worker" Relationship="Self.FK_Record_Worker_Record" FromRole="Record" ToRole="Record_Worker" />
-        </EntityType>
-        <EntityType Name="Record_Worker">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Record" Type="Int32" />
-          <Property Name="ID_Worker" Type="Int32" />
-          <NavigationProperty Name="Record" Relationship="Self.FK_Record_Worker_Record" FromRole="Record_Worker" ToRole="Record" />
-          <NavigationProperty Name="Worker" Relationship="Self.FK_Record_Worker_Worker" FromRole="Record_Worker" ToRole="Worker" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK_Record_Worker" FromRole="Record" ToRole="Worker" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
@@ -350,13 +364,25 @@
           <Property Name="Phone" Type="String" MaxLength="17" FixedLength="false" Unicode="true" />
           <Property Name="ID_Position" Type="Int32" />
           <Property Name="ID_Gender" Type="Int32" />
-          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Gender" Relationship="Self.FK_Worker_Gender" FromRole="Worker" ToRole="Gender" />
           <NavigationProperty Name="Position" Relationship="Self.FK_Worker_Position" FromRole="Worker" ToRole="Position" />
-          <NavigationProperty Name="Record_Worker" Relationship="Self.FK_Record_Worker_Worker" FromRole="Worker" ToRole="Record_Worker" />
+          <NavigationProperty Name="Record" Relationship="Self.FK_Record_Worker" FromRole="Worker" ToRole="Record" />
           <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_Worker" FromRole="Worker" ToRole="Schedule" />
         </EntityType>
+        <Association Name="FK_Client_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="ID_Gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Record_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <End Role="Record" Type="Self.Record" Multiplicity="*" />
@@ -417,26 +443,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Record_Worker_Record">
-          <End Role="Record" Type="Self.Record" Multiplicity="0..1" />
-          <End Role="Record_Worker" Type="Self.Record_Worker" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Record">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Record_Worker">
-              <PropertyRef Name="ID_Record" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Record_Worker_Worker">
+        <Association Name="FK_Record_Worker">
           <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
-          <End Role="Record_Worker" Type="Self.Record_Worker" Multiplicity="*" />
+          <End Role="Record" Type="Self.Record" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Worker">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Record_Worker">
+            <Dependent Role="Record">
               <PropertyRef Name="ID_Worker" />
             </Dependent>
           </ReferentialConstraint>
@@ -453,17 +467,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MassageParlorEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MassageSalonEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="DayOfWeek" EntityType="Self.DayOfWeek" />
           <EntitySet Name="Gender" EntityType="Self.Gender" />
           <EntitySet Name="Position" EntityType="Self.Position" />
           <EntitySet Name="Record" EntityType="Self.Record" />
-          <EntitySet Name="Record_Worker" EntityType="Self.Record_Worker" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" />
           <EntitySet Name="Service" EntityType="Self.Service" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Worker" EntityType="Self.Worker" />
+          <AssociationSet Name="FK_Client_Gender" Association="Self.FK_Client_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
           <AssociationSet Name="FK_Record_Client" Association="Self.FK_Record_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="Record" EntitySet="Record" />
@@ -484,13 +501,9 @@
             <End Role="Service" EntitySet="Service" />
             <End Role="Record" EntitySet="Record" />
           </AssociationSet>
-          <AssociationSet Name="FK_Record_Worker_Record" Association="Self.FK_Record_Worker_Record">
-            <End Role="Record" EntitySet="Record" />
-            <End Role="Record_Worker" EntitySet="Record_Worker" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Record_Worker_Worker" Association="Self.FK_Record_Worker_Worker">
+          <AssociationSet Name="FK_Record_Worker" Association="Self.FK_Record_Worker">
             <End Role="Worker" EntitySet="Worker" />
-            <End Role="Record_Worker" EntitySet="Record_Worker" />
+            <End Role="Record" EntitySet="Record" />
           </AssociationSet>
           <AssociationSet Name="FK_Schedule_Worker" Association="Self.FK_Schedule_Worker">
             <End Role="Worker" EntitySet="Worker" />
@@ -502,9 +515,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище MassageParlorModelContainer" CdmEntityContainer="MassageParlorEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище MassageSalonModelContainer" CdmEntityContainer="MassageSalonEntities">
           <EntitySetMapping Name="Client">
-            <EntityTypeMapping TypeName="MassageParlorModel.Client">
+            <EntityTypeMapping TypeName="MassageSalonModel.Client">
               <MappingFragment StoreEntitySet="Client">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
@@ -512,11 +525,12 @@
                 <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="ID_Gender" ColumnName="ID_Gender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DayOfWeek">
-            <EntityTypeMapping TypeName="MassageParlorModel.DayOfWeek">
+            <EntityTypeMapping TypeName="MassageSalonModel.DayOfWeek">
               <MappingFragment StoreEntitySet="DayOfWeek">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -524,7 +538,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Gender">
-            <EntityTypeMapping TypeName="MassageParlorModel.Gender">
+            <EntityTypeMapping TypeName="MassageSalonModel.Gender">
               <MappingFragment StoreEntitySet="Gender">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -532,7 +546,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Position">
-            <EntityTypeMapping TypeName="MassageParlorModel.Position">
+            <EntityTypeMapping TypeName="MassageSalonModel.Position">
               <MappingFragment StoreEntitySet="Position">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -541,26 +555,18 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Record">
-            <EntityTypeMapping TypeName="MassageParlorModel.Record">
+            <EntityTypeMapping TypeName="MassageSalonModel.Record">
               <MappingFragment StoreEntitySet="Record">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
                 <ScalarProperty Name="ID_Service" ColumnName="ID_Service" />
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Record_Worker">
-            <EntityTypeMapping TypeName="MassageParlorModel.Record_Worker">
-              <MappingFragment StoreEntitySet="Record_Worker">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ID_Record" ColumnName="ID_Record" />
                 <ScalarProperty Name="ID_Worker" ColumnName="ID_Worker" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Schedule">
-            <EntityTypeMapping TypeName="MassageParlorModel.Schedule">
+            <EntityTypeMapping TypeName="MassageSalonModel.Schedule">
               <MappingFragment StoreEntitySet="Schedule">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Worker" ColumnName="ID_Worker" />
@@ -569,7 +575,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Service">
-            <EntityTypeMapping TypeName="MassageParlorModel.Service">
+            <EntityTypeMapping TypeName="MassageSalonModel.Service">
               <MappingFragment StoreEntitySet="Service">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -578,7 +584,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="MassageParlorModel.sysdiagrams">
+            <EntityTypeMapping TypeName="MassageSalonModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -589,7 +595,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Worker">
-            <EntityTypeMapping TypeName="MassageParlorModel.Worker">
+            <EntityTypeMapping TypeName="MassageSalonModel.Worker">
               <MappingFragment StoreEntitySet="Worker">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
