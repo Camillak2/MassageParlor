@@ -24,5 +24,30 @@ namespace MassageParlor.Pages
         {
             InitializeComponent();
         }
+
+        private void ProfileBTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void WorkersBTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ClientsBTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RecordsBTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LogOutBTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MassageParlor"
         mc:Ignorable="d"
-        Title="Золотой лотос"
+        Title="Golden Lotus"
         Height="1080"
         Width="1920">
     <Grid>

@@ -145,6 +145,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Page1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\WorkerPersonalAccountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -159,6 +163,9 @@
     </Compile>
     <Compile Include="Pages\MyPersonalAccountPage.xaml.cs">
       <DependentUpon>MyPersonalAccountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Page1.xaml.cs">
+      <DependentUpon>Page1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\WorkerPersonalAccountPage.xaml.cs">
       <DependentUpon>WorkerPersonalAccountPage.xaml</DependentUpon>
@@ -213,6 +220,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\records.png" />
+    <Resource Include="Images\logoo.png" />
     <Resource Include="Images\lotus.png" />
     <Resource Include="Images\lotuslogo.png" />
     <Resource Include="Images\clients.png" />
