@@ -22,11 +22,10 @@ namespace MassageParlor.Pages
     public partial class AdminMainMenuPage : Page
     {
         public static List<Worker> workers { get; set; }
-        public static Worker loggedWorker;
+        Worker loggedWorker;
 
         public AdminMainMenuPage()
         {
-            InitializeComponent();
             InitializeComponent();
             loggedWorker = DBConnection.loginedWorker;
             NameTB.Text = "Добро пожаловать, " + DBConnection.loginedWorker.Surname.ToString() + " " + DBConnection.loginedWorker.Name.ToString() + " " + DBConnection.loginedWorker.Patronymic.ToString() + "!";

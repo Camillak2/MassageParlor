@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MassageParlor.DB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace MassageParlor.Pages
     /// </summary>
     public partial class MyPersonalAccountPage : Page
     {
+        public static Worker loggedWorker;
+
         public MyPersonalAccountPage()
         {
             InitializeComponent();
