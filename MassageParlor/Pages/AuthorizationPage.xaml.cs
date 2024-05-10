@@ -57,31 +57,5 @@ namespace MassageParlor.Pages
                 MessageBox.Show("Возникла ошибка.");
             }
         }
-        public partial class CustomMessageBox : Window
-        {
-            public CustomMessageBox(string message, string title, MessageBoxButton buttons)
-            {
-                InitializeComponent();
-                Title = title;
-                MessageTextBlock.Text = message;
-                // Добавление кнопок в зависимости от MessageBoxButton
-                // ...
-            }
-
-            // Обработчики событий для кнопок
-            // ...
-
-            // Метод для отображения окна и возврата результата
-            public static MessageBoxResult Show(string message, string title, MessageBoxButton buttons)
-            {
-                var messageBox = new CustomMessageBox(message, title, buttons);
-                messageBox.ShowDialog();
-                return messageBox.Result;
-            }
-
-            // Свойство для хранения результата
-            public MessageBoxResult Result { get; private set; }
-        }
-
     }
 }

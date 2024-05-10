@@ -10,6 +10,7 @@
         Width="1550"
         Icon="/Images/logoo.png">
     <Grid>
-        <Frame x:Name="NaFr" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="NaFr"
+               NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

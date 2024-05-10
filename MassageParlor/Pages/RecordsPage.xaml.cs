@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace MassageParlor.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для WorkerPersonalAccountPage.xaml
+    /// Логика взаимодействия для RecordsPage.xaml
     /// </summary>
-    public partial class WorkerPersonalAccountPage : Page
+    public partial class RecordsPage : Page
     {
-        public WorkerPersonalAccountPage()
+        public RecordsPage()
         {
             InitializeComponent();
-        }
-
-        private void RecordsBTN_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)
@@ -36,6 +31,11 @@ namespace MassageParlor.Pages
         }
 
         private void ClientsBTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RecordsBTN_Click(object sender, RoutedEventArgs e)
         {
 
         }
