@@ -14,154 +14,268 @@
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0"
-       Background="#a98f81">
-            <Border Style="{StaticResource BorderForImage}"
-                 HorizontalAlignment="Left"
-                 Margin="400 0 0 0">
-                <Image Source="/Images/logo.png"
-                 Grid.Column="0"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Center"
-                 Height="800"/>
-            </Border>
-            <Image Source="/Images/lotus.png"
-                Grid.Column="0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Height="800"
-                Margin="10 0 0 0"/>
-            <TextBlock Text="Добро пожаловать, "
+        <StackPanel Grid.Column="0"
+                    Margin="20"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top">
+            <TextBlock Style="{StaticResource Title}"
+                Text="Сотрудники"
                 Margin="20"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                x:Name="NameTB"/>
-        </Grid>
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"/>
+            <ListView x:Name="WorkersLV"
+                Width="1200"
+                Height="600"
+                d:ItemsSource="{d:SampleData ItemCount=10}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ItemsSource="{Binding Worker}"
+                BorderThickness="3"
+                ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"
+                                   VerticalAlignment="Top"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="500"
+                            Width="370"
+                            Margin="5"
+                            Background="#907669">
+                            <Image Stretch="Fill"
+                                Source="{Binding Image}"
+                                   Width="150"
+                                   Height="200"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Top"
+                                   Margin="10"/>
+                            <StackPanel Background="#6d584e"
+                                Orientation="Vertical"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                Height="280"
+                                Width="370">
+                                <StackPanel Margin="20">
+                                <TextBlock Text="{Binding Surname}"
+                                    HorizontalAlignment="Left"
+                                    Foreground="White"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Left"
+                                    FontSize="24"
+                                    Width="220"/>
+                                <TextBlock Text="{Binding Name}"
+                                    HorizontalAlignment="Left"
+                                    Foreground="White"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Left"
+                                    FontSize="24"
+                                    Width="220"/>
+                                <TextBlock Text="{Binding Patronymic}"
+                                    HorizontalAlignment="Left"
+                                    Foreground="White"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Left"
+                                    FontSize="24"
+                                    Width="220"/>
+                                <TextBlock Text="{Binding DateOfBirth}"
+                                    HorizontalAlignment="Left"
+                                    Foreground="White"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Left"
+                                    FontSize="24"
+                                    Width="220"/>
+                                <TextBlock Text="{Binding Gender.Name}"
+                                    HorizontalAlignment="Left"
+                                    Foreground="White"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Left"
+                                    FontSize="24"
+                                    Width="220"/>
+                                <TextBlock Text="{Binding Position.Name}"
+                                    HorizontalAlignment="Left"
+                                    Foreground="White"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Left"
+                                    FontSize="24"
+                                    Width="220"/>
+                                <TextBlock>
+                                    <Hyperlink Style="{StaticResource DeleteKey}"
+                                        x:Name="DeleteHL"
+                                        Click="DeleteHL_Click">Delete</Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="30">
+                <Button HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Height="100"
+                    Width="250"
+                    x:Name="AddBTN"
+                    Margin="20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/logout.png"
+                            Width="48"
+                            Height="48"
+                            Grid.Row="0"/>
+                        <TextBlock Text="Выйти"
+                            HorizontalAlignment="Center"
+                            Grid.Row="1"/>
+                    </Grid>
+                </Button>
+                <Button HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Height="100"
+                    Width="250"
+                    x:Name="EditBTN"
+                    Margin="20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/logout.png"
+                            Width="48"
+                            Height="48"
+                            Grid.Row="0"/>
+                        <TextBlock Text="Выйти"
+                            HorizontalAlignment="Center"
+                            Grid.Row="1"/>
+                    </Grid>
+                </Button>
+            </StackPanel>
+        </StackPanel>
         <StackPanel Grid.Column="1"
-     Background="#907669"
-     Orientation="Vertical">
+            Background="#907669"
+            Orientation="Vertical">
             <Image Source="/Images/logoo.png"
             Width="230"
             Height="230"
             Margin="0 20 0 0"
             VerticalAlignment="Bottom"/>
-            <Button 
-            Grid.Column="1"
-         Grid.Row="0"
-         HorizontalAlignment="Center"
-         VerticalAlignment="Top"
-         Margin="0 10 0 0"
-         Height="100"
-         Width="250"
-         x:Name="ProfileBTN"
-         Click="ProfileBTN_Click">
+            <Button Grid.Column="1"
+                Grid.Row="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0 10 0 0"
+                Height="100"
+                Width="250"
+                x:Name="ProfileBTN"
+                Click="ProfileBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="/Images/profile.png"
-        Width="48"
-        Height="48"
-        Grid.Row="0"/>
+                        Width="48"
+                        Height="48"
+                        Grid.Row="0"/>
                     <TextBlock Text="Профиль"
-            HorizontalAlignment="Center"
-            Grid.Row="1"/>
+                        HorizontalAlignment="Center"
+                        Grid.Row="1"/>
                 </Grid>
             </Button>
-            <Button
-         HorizontalAlignment="Center"
-         VerticalAlignment="Top"
-         Margin="0 10 0 0"
-         Height="100"
-         Width="250"
-         x:Name="ClientsBTN"
-         Click="ClientsBTN_Click">
+            <Button HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0 10 0 0"
+                Height="100"
+                Width="250"
+                x:Name="ClientsBTN"
+                Click="ClientsBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="/Images/clients.png"
-        Width="48"
-        Height="48"
-        Grid.Row="0"/>
+                        Width="48"
+                        Height="48"
+                        Grid.Row="0"/>
                     <TextBlock Text="Клиенты"
-            HorizontalAlignment="Center"
-            Grid.Row="1"/>
+                        HorizontalAlignment="Center"
+                        Grid.Row="1"/>
                 </Grid>
             </Button>
 
-            <Button
-         HorizontalAlignment="Center"
-         VerticalAlignment="Top"
-         Margin="0 10 0 0"
-         Height="100"
-         Width="250"
-         x:Name="RecordsBTN"
-         Click="RecordsBTN_Click">
+            <Button HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0 10 0 0"
+                Height="100"
+                Width="250"
+                x:Name="RecordsBTN"
+                Click="RecordsBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="/Images/records.png"
-        Width="48"
-        Height="48"
-        Grid.Row="0"/>
+                        Width="48"
+                        Height="48"
+                        Grid.Row="0"/>
                     <TextBlock Text="Записи"
-            HorizontalAlignment="Center"
-            Grid.Row="1"/>
+                        HorizontalAlignment="Center"
+                        Grid.Row="1"/>
                 </Grid>
             </Button>
 
             <Button Style="{StaticResource ClickedButton}"
-         HorizontalAlignment="Center"
-         VerticalAlignment="Top"
-         Margin="0 10 0 0"
-         Height="100"
-         Width="250"
-         x:Name="WorkersBTN"
-         Click="WorkersBTN_Click">
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0 10 0 0"
+                Height="100"
+                Width="250"
+                x:Name="WorkersBTN"
+                Click="WorkersBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="/Images/workers.png"
-                 Width="48"
-                 Height="48"
-                 Grid.Row="0"/>
+                        Width="48"
+                        Height="48"
+                        Grid.Row="0"/>
                     <TextBlock Text="Сотрудники"
-                 HorizontalAlignment="Center"
-                 Grid.Row="1"/>
+                        HorizontalAlignment="Center"
+                        Grid.Row="1"/>
                 </Grid>
             </Button>
 
-            <Button
-         HorizontalAlignment="Center"
-         VerticalAlignment="Bottom"
-         Margin="0 90 0 20"
-         Height="100"
-         Width="250"
-         x:Name="LogOutBTN"
-         Click="LogOutBTN_Click">
+            <Button HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="0 90 0 20"
+                Height="100"
+                Width="250"
+                x:Name="LogOutBTN"
+                Click="LogOutBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="/Images/logout.png"
-        Width="48"
-        Height="48"
-        Grid.Row="0"/>
+                        Width="48"
+                        Height="48"
+                        Grid.Row="0"/>
                     <TextBlock Text="Выйти"
-            HorizontalAlignment="Center"
-            Grid.Row="1"/>
+                        HorizontalAlignment="Center"
+                        Grid.Row="1"/>
                 </Grid>
             </Button>
         </StackPanel>
-
-
     </Grid>
 </Page>

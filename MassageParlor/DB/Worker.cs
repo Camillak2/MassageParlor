@@ -32,6 +32,7 @@ namespace MassageParlor.DB
         public Nullable<int> ID_Gender { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public byte[] Image { get; set; }
     
         public virtual Gender Gender { get; set; }
         public virtual Position Position { get; set; }

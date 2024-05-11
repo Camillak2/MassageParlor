@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MassageParlor.DB;
 
 namespace MassageParlor.Pages
 {
@@ -20,9 +21,33 @@ namespace MassageParlor.Pages
     /// </summary>
     public partial class WorkersPage : Page
     {
+        public static List<Worker> workers {  get; set; }
+        public static List<Position> positions { get; set; }
+        public static List<Gender> genders { get; set; }
         public WorkersPage()
         {
             InitializeComponent();
+        }
+
+        public void Refresh()
+        {
+            WorkersLV.ItemsSource = workers;
+        }
+
+        private void DeleteHL_Click(object sender, RoutedEventArgs e)
+        {
+            var worker = (sender as Hyperlink).DataContext as Worker;
+            try
+            {
+                DBConnection.massageSalon.Worker.Remove(worker);
+                DBConnection.massageSalon.SaveChanges();
+            }
+            catch
+            {
+                MessageBox.Show("This product cannot be removed");
+            }
+
+            Refresh();
         }
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)

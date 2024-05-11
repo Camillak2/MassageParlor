@@ -31,7 +31,16 @@
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Height="800"
-                       Margin="10 0 0 0"/>
+                       Margin="10 0 0 0" RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="9.212"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
             <TextBlock Margin="20"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"

@@ -27,27 +27,27 @@ namespace MassageParlor.Pages
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void ClientsBTN_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RecordsBTN_Click(object sender, RoutedEventArgs e)
-        {
-
+            NavigationService.Navigate(new MyPersonalAccountPage());
         }
 
         private void WorkersBTN_Click(object sender, RoutedEventArgs e)
         {
+            NavigationService.Navigate(new WorkersPage());
+        }
 
+        private void ClientsBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ClientsPage());
+        }
+
+        private void RecordsBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new RecordsPage());
         }
 
         private void LogOutBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new AuthorizationPage());
         }
     }
 }
