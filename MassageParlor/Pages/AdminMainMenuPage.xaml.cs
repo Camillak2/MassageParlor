@@ -28,7 +28,7 @@ namespace MassageParlor.Pages
         {
             InitializeComponent();
             loggedWorker = DBConnection.loginedWorker;
-            NameTB.Text = "Добро пожаловать, " + DBConnection.loginedWorker.Surname.ToString() + " " + DBConnection.loginedWorker.Name.ToString() + " " + DBConnection.loginedWorker.Patronymic.ToString() + "!";
+            NameTB.Text = "Добро пожаловать, " + DBConnection.loginedWorker.Name.ToString() + "!";
             CheckConditionAndToggleButtonVisibility();
         }
 

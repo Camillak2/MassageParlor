@@ -27,11 +27,12 @@ namespace MassageParlor.Pages
         public WorkersPage()
         {
             InitializeComponent();
+            Refresh();
         }
 
         public void Refresh()
         {
-            WorkersLV.ItemsSource = workers;
+            WorkersLV.ItemsSource = DBConnection.massageSalon.Worker.ToList();
         }
 
         private void DeleteHL_Click(object sender, RoutedEventArgs e)

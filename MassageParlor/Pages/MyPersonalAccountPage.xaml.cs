@@ -21,11 +21,21 @@ namespace MassageParlor.Pages
     /// </summary>
     public partial class MyPersonalAccountPage : Page
     {
-        public static Worker loggedWorker;
+        Worker loggedWorker;
 
         public MyPersonalAccountPage()
         {
             InitializeComponent();
+            loggedWorker = DBConnection.loginedWorker;
+            SurnameTB.Text = loggedWorker.Surname;
+            NameTB.Text = loggedWorker.Name;
+            PatronymicTB.Text = loggedWorker.Patronymic;
+            DateOfBirthDP.SelectedDate = loggedWorker.DateOfBirth;
+            PositionTB.Text = loggedWorker.Position.Name;
+            GenderTB.Text = loggedWorker.Gender.Name;
+            LoginTB.Text = loggedWorker.Login;
+            PasswordTB.Text = loggedWorker.Password;
+            PhoneTB.Text = loggedWorker.Phone;
         }
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)
@@ -51,6 +61,11 @@ namespace MassageParlor.Pages
         private void LogOutBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new AuthorizationPage());
+        }
+
+        private void EditBTN_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
