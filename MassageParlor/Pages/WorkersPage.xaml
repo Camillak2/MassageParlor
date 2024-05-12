@@ -119,7 +119,7 @@
                     Height="100"
                     Width="250"
                     x:Name="AddBTN"
-                    Margin="300 0 0 0">
+                    Margin="300 0 0 0" Click="AddBTN_Click">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -139,7 +139,7 @@
                     Height="100"
                     Width="250"
                     x:Name="EditBTN"
-                    Margin="0 0 300 0">
+                    Margin="0 0 300 0" Click="EditBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>

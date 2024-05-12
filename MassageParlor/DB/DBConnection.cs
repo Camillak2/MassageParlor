@@ -11,5 +11,11 @@ namespace MassageParlor.DB
         public static MassageSalonEntities massageSalon = new MassageSalonEntities();
         
         public static Worker loginedWorker;
+
+        public static Worker selectedForEditWorker;
+
+        public static Worker selectedForEditClient;
+
+        public static Worker selectedForEditRecord;
     }
 }

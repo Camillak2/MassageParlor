@@ -75,5 +75,19 @@ namespace MassageParlor.Pages
         {
             NavigationService.Navigate(new AuthorizationPage());
         }
+
+        private void AddBTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditBTN_Click(object sender, RoutedEventArgs e)
+        {
+            if (WorkersLV.SelectedItem is Worker)
+            {
+                DBConnection.selectedForEditWorker = WorkersLV.SelectedItem as Worker;
+                NavigationService.Navigate(new EditWorkerPage(WorkersLV.SelectedItem as Worker));
+            }
+        }
     }
 }

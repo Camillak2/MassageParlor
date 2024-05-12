@@ -14,17 +14,17 @@
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
 
-        <WrapPanel Grid.Column="0"
+        <Grid Grid.Column="0"
            Background="#a98f81">
             <TextBlock Style="{StaticResource Title}"
                 Text="Мой профиль"
                        Margin="20"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Top"/>
-            <WrapPanel Orientation="Horizontal"
+            <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left">
-                <WrapPanel Orientation="Vertical"
+                <StackPanel Orientation="Vertical"
                     Margin="20"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center">
@@ -55,7 +55,7 @@
                     <TextBlock Text="Пароль:"
                         Margin="10"
                         FontSize="40"/>
-                </WrapPanel>
+                </StackPanel>
                 <StackPanel Orientation="Vertical"
                     Margin="20"
                     HorizontalAlignment="Left"
@@ -63,51 +63,84 @@
                     <TextBox x:Name="SurnameTB"
                         Margin="10"
                         FontSize="40"
-                        Width="400"/>
+                        Width="400"
+                        IsReadOnly="True"/>
                     <TextBox x:Name="NameTB"
                         Margin="10"
-                        FontSize="40"/>
+                        FontSize="40"
+                        IsReadOnly="True"/>
                     <TextBox x:Name="PatronymicTB"
                         Margin="10"
-                        FontSize="40"/>
+                        FontSize="40"
+                        IsReadOnly="True"/>
                     <DatePicker x:Name="DateOfBirthDP"
                         Margin="10"
                         FontSize="40"
                         IsEnabled="False"/>
                     <TextBox x:Name="PhoneTB"
                         Margin="10"
-                        FontSize="40"/>
+                        FontSize="40"
+                        IsReadOnly="True"/>
                     <TextBox x:Name="PositionTB"
                         Margin="10"
-                        FontSize="40"/>
+                        FontSize="40"
+                        IsReadOnly="True"/>
                     <TextBox x:Name="GenderTB"
                         Margin="10"
-                        FontSize="40"/>
+                        FontSize="40"
+                        IsReadOnly="True"/>
                     <TextBox x:Name="LoginTB"
                         Margin="10"
-                        FontSize="40"/>
+                        FontSize="40"
+                        IsReadOnly="True"/>
                     <TextBox x:Name="PasswordTB"
                         Margin="15"
-                        FontSize="40"/>
+                        FontSize="40"
+                        IsReadOnly="True"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical"
                             HorizontalAlignment="Center"
-                            VerticalAlignment="Bottom">
-                    <Button x:Name="EditBTN"
-                            Visibility="Visible"
-                            Click="EditBTN_Click">
+                            VerticalAlignment="Top"
+                            Margin="30 0 0 0"
+                            Height="690">
+                    <Border Style="{StaticResource BorderForPhoto}">
+                        <Image Width="300"
+                            Height="400"
+                            x:Name="PhotoWorker"/>
+                    </Border>
+                    <Button x:Name="EditPhotoBTN"
+                            Height="80"
+                            Width="300"
+                            Visibility="Collapsed"
+                            Margin="0 30 0 0"
+                            Click="EditPhotoBTN_Click">
                         <TextBlock Text="Изменить"
                                    FontSize="40"/>
                     </Button>
-                    <Button x:Name="SaveBTN"
-                            Visibility="Hidden">
-                        <TextBlock Text="Сохранить"/>
-                    </Button>
                 </StackPanel>
-            </WrapPanel>
-            
-            
-        </WrapPanel>
+            </StackPanel>
+        </Grid>
+        <Button x:Name="EditBTN"
+            Height="80"
+            Width="300"
+            Visibility="Visible"
+            Margin="100 0 100 140"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom" Click="EditBTN_Click">
+            <TextBlock Text="Изменить"
+                   FontSize="40"/>
+        </Button>
+        <Button x:Name="SaveBTN"
+            Height="80"
+            Width="300"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Margin="100 0 100 140"
+            Visibility="Collapsed"
+            Click="SaveBTN_Click">
+            <TextBlock Text="Сохранить"
+                       FontSize="40"/>
+        </Button>
         <Grid Grid.Column="1"
             Background="#907669">
             <Image Source="/Images/logoo.png"

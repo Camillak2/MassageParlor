@@ -115,6 +115,7 @@
                 x:Name="WorkersBTN"
                 VerticalAlignment="Top"
                 Margin="0 590 0 0"
+                Visibility="Collapsed"
                 Click="WorkersBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -126,6 +127,30 @@
                         Height="48"
                         Grid.Row="0"/>
                     <TextBlock Text="Сотрудники"
+                        HorizontalAlignment="Center"
+                        Grid.Row="1"/>
+                </Grid>
+            </Button>
+
+            <Button Grid.Row="4"
+                Grid.Column="1"
+                Height="100"
+                Width="250"
+                x:Name="MassageBTN"
+                VerticalAlignment="Top"
+                Margin="0 590 0 0"
+                Visibility="Collapsed"
+                Click="MassageBTN_Click">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Images/massage.png"
+                        Width="48"
+                        Height="48"
+                        Grid.Row="0"/>
+                    <TextBlock Text="Массаж"
                         HorizontalAlignment="Center"
                         Grid.Row="1"/>
                 </Grid>

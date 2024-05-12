@@ -23,7 +23,8 @@
                      Grid.Column="0"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center"
-                     Height="800"/>
+                     Height="800"
+                       Width="800"/>
             </Border>
             <Image Source="/Images/lotus.png"
                     Grid.Column="0"

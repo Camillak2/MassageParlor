@@ -1,6 +1,8 @@
 ﻿using MassageParlor.DB;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,7 +67,44 @@ namespace MassageParlor.Pages
 
         private void EditBTN_Click(object sender, RoutedEventArgs e)
         {
+            SurnameTB.IsReadOnly = false;
+            NameTB.IsReadOnly = false;
+            PatronymicTB.IsReadOnly = false;
+            DateOfBirthDP.IsEnabled = false;
+            PhoneTB.IsReadOnly = false;
+            PasswordTB.IsReadOnly = false;
 
+            SaveBTN.Visibility = Visibility.Visible;
+            EditPhotoBTN.Visibility = Visibility.Visible;
+            EditBTN.Visibility = Visibility.Collapsed;
+        }
+
+        private void EditPhotoBTN_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "*.png|*.png|*.jpeg|*.jpeg|*.jpg|*.jpg"
+            };
+
+            if (openFileDialog.ShowDialog().GetValueOrDefault())
+            {
+                DBConnection.loginedWorker.Image = File.ReadAllBytes(openFileDialog.FileName);
+                PhotoWorker.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
+        }
+
+        private void SaveBTN_Click(object sender, RoutedEventArgs e)
+        {
+            SurnameTB.IsReadOnly = true;
+            NameTB.IsReadOnly = true;
+            PatronymicTB.IsReadOnly = true;
+            DateOfBirthDP.IsEnabled = true;
+            PhoneTB.IsReadOnly = true;
+            PasswordTB.IsReadOnly = true;
+
+            SaveBTN.Visibility = Visibility.Collapsed;
+            EditPhotoBTN.Visibility = Visibility.Collapsed;
+            EditBTN.Visibility = Visibility.Visible;
         }
     }
 }

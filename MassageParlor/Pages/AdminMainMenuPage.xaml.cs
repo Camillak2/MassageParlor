@@ -52,6 +52,11 @@ namespace MassageParlor.Pages
             NavigationService.Navigate(new RecordsPage());
         }
 
+        private void MassageBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MassagePage());
+        }
+
         private void LogOutBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new AuthorizationPage());
@@ -61,12 +66,15 @@ namespace MassageParlor.Pages
         {
             if (loggedWorker.ID_Position == 1)
             {
-                ClientsBTN.Visibility = Visibility.Visible; // Показать кнопку
+                WorkersBTN.Visibility = Visibility.Visible;
+                MassageBTN.Visibility = Visibility.Collapsed;
             }
             else
             {
-                ClientsBTN.Visibility = Visibility.Collapsed; // Скрыть кнопку
+                WorkersBTN.Visibility = Visibility.Collapsed;
+                MassageBTN.Visibility = Visibility.Visible;
             }
         }
+        
     }
 }
