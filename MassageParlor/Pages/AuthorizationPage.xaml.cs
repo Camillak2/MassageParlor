@@ -39,13 +39,9 @@ namespace MassageParlor.Pages
                 var currentWorker = workers.FirstOrDefault(i => i.Login.Trim() == login && i.Password.Trim() == password);
                 DBConnection.loginedWorker = currentWorker;
 
-                if (currentWorker != null && currentWorker.Position.Name == "Администратор")
+                if (currentWorker != null)
                 {
-                    NavigationService.Navigate(new AdminMainMenuPage());
-                }
-                else if (currentWorker != null && currentWorker.Position.Name == "Массажист")
-                {
-                    NavigationService.Navigate(new MasseurMainMenuPage());
+                    NavigationService.Navigate(new MainMenuPage());
                 }
                 else
                 {

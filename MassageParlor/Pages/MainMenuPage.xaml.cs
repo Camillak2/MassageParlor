@@ -1,5 +1,4 @@
-﻿using MassageParlor.DB;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,18 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MassageParlor.DB;
 
 namespace MassageParlor.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для AdminMainMenuPage.xaml
+    /// Логика взаимодействия для MainMenuPage.xaml
     /// </summary>
-    public partial class AdminMainMenuPage : Page
+    public partial class MainMenuPage : Page
     {
         public static List<Worker> workers { get; set; }
         Worker loggedWorker;
 
-        public AdminMainMenuPage()
+        public MainMenuPage()
         {
             InitializeComponent();
             loggedWorker = DBConnection.loginedWorker;
@@ -57,6 +57,11 @@ namespace MassageParlor.Pages
             NavigationService.Navigate(new MassagePage());
         }
 
+        private void ServicesBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ServicesPage());
+        }
+
         private void LogOutBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new AuthorizationPage());
@@ -75,6 +80,5 @@ namespace MassageParlor.Pages
                 MassageBTN.Visibility = Visibility.Visible;
             }
         }
-        
     }
 }

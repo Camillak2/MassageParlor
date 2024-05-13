@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MassageParlor.DB;
+using MassageParlor.Windowww;
 
 namespace MassageParlor.Pages
 {
@@ -86,7 +87,8 @@ namespace MassageParlor.Pages
             if (WorkersLV.SelectedItem is Worker)
             {
                 DBConnection.selectedForEditWorker = WorkersLV.SelectedItem as Worker;
-                NavigationService.Navigate(new EditWorkerPage(WorkersLV.SelectedItem as Worker));
+                EditWorkerWindow editWorkerWindow = new EditWorkerWindow();
+                editWorkerWindow.Show(WorkersLV.SelectedItem as Worker);
             }
         }
     }

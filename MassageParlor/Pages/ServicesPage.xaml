@@ -1,4 +1,4 @@
-﻿<Page x:Class="MassageParlor.Pages.MassagePage"
+﻿<Page x:Class="MassageParlor.Pages.ServicesPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:MassageParlor.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="960" d:DesignWidth="1550"
-      Title="MassagePage">
+      Title="ServicesPage">
 
     <Grid>
         <Grid.ColumnDefinitions>
