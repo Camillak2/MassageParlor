@@ -36,12 +36,12 @@ namespace MassageParlor.Pages
 
         private void CheckConditionAndToggleButtonVisibility()
         {
-            if (loggedWorker.ID_Position == 1)
+            if (loggedWorker.Position.Name == "Администратор")
             {
                 WorkersBTN.Visibility = Visibility.Visible;
                 MassageBTN.Visibility = Visibility.Collapsed;
             }
-            else
+            else if (loggedWorker.Position.Name == "Массажист")
             {
                 WorkersBTN.Visibility = Visibility.Collapsed;
                 MassageBTN.Visibility = Visibility.Visible;
@@ -55,19 +55,26 @@ namespace MassageParlor.Pages
 
         private void DeleteHL_Click(object sender, RoutedEventArgs e)
         {
-            var worker = (sender as Hyperlink).DataContext as Worker;
-            try
-            {
-                DBConnection.massageSalon.Worker.Remove(worker);
-                DBConnection.massageSalon.SaveChanges();
-            }
-            catch
-            {
-                MessageBox.Show("Сотрудник не может быть удален!");
-            }
+            MessageBoxResult result = MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            Refresh();
+            if (result == MessageBoxResult.Yes)
+            {
+                var worker = (sender as Hyperlink).DataContext as Worker;
+                try
+                {
+                    DBConnection.massageSalon.Worker.Remove(worker);
+                    DBConnection.massageSalon.SaveChanges();
+                }
+                catch
+                {
+                    MessageBox.Show("Сотрудник не может быть удален!");
+                }
+
+                Refresh();
+            }
+            else if (result == MessageBoxResult.No){ }
         }
+
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)
         {

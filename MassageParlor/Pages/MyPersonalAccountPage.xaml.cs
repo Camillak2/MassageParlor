@@ -95,12 +95,12 @@ namespace MassageParlor.Pages
 
         private void CheckConditionAndToggleButtonVisibility()
         {
-            if (loggedWorker.ID_Position == 1)
+            if (loggedWorker.Position.Name == "Администратор")
             {
                 WorkersBTN.Visibility = Visibility.Visible;
                 MassageBTN.Visibility = Visibility.Collapsed;
             }
-            else
+            else if (loggedWorker.Position.Name == "Массажист")
             {
                 WorkersBTN.Visibility = Visibility.Collapsed;
                 MassageBTN.Visibility = Visibility.Visible;

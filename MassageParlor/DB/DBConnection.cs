@@ -17,5 +17,9 @@ namespace MassageParlor.DB
         public static Client selectedForEditClient;
 
         public static Record selectedForEditRecord;
+
+        public static TypeOfService selectedForEditType;
+
+        public static Service selectedForEditService;
     }
 }

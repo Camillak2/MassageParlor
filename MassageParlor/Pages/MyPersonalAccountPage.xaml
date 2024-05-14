@@ -241,7 +241,7 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Image Source="/Images/records.png"
+                    <Image Source="/Images/services.png"
                 Width="45"
                 Height="45"
                 Grid.Row="0"/>

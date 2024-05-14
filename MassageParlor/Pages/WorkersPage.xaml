@@ -41,8 +41,8 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="500"
-                            Width="370"
+                        <Grid Height="460"
+                            Width="273"
                             Margin="5"
                             Background="#907669">
                             <Image Stretch="Fill"
@@ -54,10 +54,10 @@
                                    Margin="10"/>
                             <StackPanel Background="#6d584e"
                                 Orientation="Vertical"
-                                HorizontalAlignment="Left"
+                                HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom"
-                                Height="280"
-                                Width="370">
+                                Height="240"
+                                Width="273">
                                 <StackPanel Margin="20">
                                     <TextBlock Text="{Binding Surname}"
                                     HorizontalAlignment="Left"

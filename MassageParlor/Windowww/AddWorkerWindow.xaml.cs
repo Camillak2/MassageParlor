@@ -103,7 +103,7 @@ namespace MassageParlor.Windowww
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Проверяем, что введенный символ - русская буква
-            Regex regex = new Regex(@"^[а-яА-Я]+$");
+            Regex regex = new Regex(@"^[а-яА-Я]$");
             e.Handled = !regex.IsMatch(e.Text);
         }
 
@@ -202,72 +202,29 @@ namespace MassageParlor.Windowww
             }
         }
 
-        private void SavePassportNumber(string passportNumber)
-        {
-            try
-            {
-                var phoneNumberEntity = worker;
-                if (phoneNumberEntity != null)
-                {
-                    phoneNumberEntity.PassportDetails = passportNumber; // Обновите номер телефона
-                    DBConnection.massageSalon.SaveChanges(); // Сохраните изменения в базе данных
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ошибка при сохранении паспортных данных: " + ex.Message);
-            }
-        }
-
-        private string FormatPassportNumber(string passportNumber)
-        {
-            string digitsOnly = new string(passportNumber.Where(char.IsDigit).ToArray());
-            if (digitsOnly.Length != 10) return passportNumber; // Вернуть исходный номер, если он некорректный
-
-            return String.Format("{0:####} {1:######}",
-                digitsOnly.Substring(0, 4),
-                digitsOnly.Substring(3, 6));
-        }
-
         private void PassportTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            // Разрешаем только цифры
-            if (!char.IsDigit(e.Text, 0))
+            // Используем регулярное выражение для проверки, является ли введенный символ цифрой
+            Regex regex = new Regex("[^0-9]");
+            e.Handled = regex.IsMatch(e.Text);
+
+            if (PassportTB.Text.Length >= 10 && !string.IsNullOrEmpty(e.Text))
             {
                 e.Handled = true;
                 return;
             }
-
-            TextBox textBox = (TextBox)sender;
-            string currentText = textBox.Text.Replace(" ", "").Replace(" ", "");
-
-            // Ограничиваем ввод до 11 цифр
-            if (currentText.Length >= 9 && !string.IsNullOrEmpty(e.Text))
-            {
-                e.Handled = true;
-                return;
-            }
-
-            // Применяем маску
-            string maskedText = FormatPassportNumber(currentText + e.Text);
-            textBox.Text = maskedText;
-            textBox.CaretIndex = maskedText.Length;
-            e.Handled = true;
         }
 
         private void PassportTB_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox textBox = (TextBox)sender;
-            string currentText = textBox.Text.Replace(" ", "").Replace(" ", "");
-
-            if (currentText.Length < 9)
+            if (PassportTB.Text.Length < 9)
             {
                 MessageBox.Show("Паспортные данные должны содержать 10 цифр.");
             }
             else
             {
                 // Сохранить номер телефона в базе данных
-                SavePassportNumber(currentText);
+                DBConnection.massageSalon.SaveChanges();
             }
         }
     }

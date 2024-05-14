@@ -23,7 +23,7 @@
                 Margin="10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"/>
-                <ListView x:Name="TypesLV"
+                <ListView x:Name="ServicesLV"
                 VerticalAlignment="Top"
                 Margin="0 100 0 150"
                 Width="1200"
@@ -42,40 +42,51 @@
                     </ListView.ItemsPanel>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Height="620"
-                            Width="1150"
-                            Margin="5"
-                            Background="#907669">
-                                <Image Stretch="Fill"
-                                Source="{Binding Image}"
-                                Width="1150"
-                                Height="610"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Margin="10"/>
+                            <Grid Height="200"
+                                Width="370"
+                                Margin="5"
+                                Background="#907669">
                                 <Rectangle Fill="Black"
                                 Opacity="0.3"
                                 VerticalAlignment="Center"
-                                Width="1150"
-                                Height="610"/>
-                                <TextBlock Text="{Binding Name}"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
+                                Width="370"
+                                Height="200"/>
+                                <StackPanel Orientation="Vertical"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Name}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
                                         Foreground="White"
-                                        TextWrapping="Wrap"
-                                        TextAlignment="Left"
-                                        FontSize="100"/>
+                                        FontSize="30"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Price}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="White"
+                                        FontSize="30"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding TypeOfService.Name}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="White"
+                                        FontSize="30"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap"/>
+                                </StackPanel>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
                 <Button HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            Height="100"
-            Width="250"
-            x:Name="AddBTN"
-            Margin="300 0 0 30"
-            Click="AddBTN_Click">
+                    VerticalAlignment="Bottom"
+                    Height="100"
+                    Width="250"
+                    x:Name="AddBTN"
+                    Margin="100 0 0 30"
+                    Click="AddBTN_Click">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -90,13 +101,13 @@
                     Grid.Row="1"/>
                     </Grid>
                 </Button>
-                <Button HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Height="100"
-            Width="250"
-            x:Name="EditBTN"
-            Margin="0 0 300 30"
-            Click="EditBTN_Click">
+                <Button HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Height="100"
+                    Width="250"
+                    x:Name="EditBTN"
+                    Margin="0 0 0 30"
+                    Click="EditBTN_Click">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -107,6 +118,27 @@
                     Height="48"
                     Grid.Row="0"/>
                         <TextBlock Text="Изменить"
+                    HorizontalAlignment="Center"
+                    Grid.Row="1"/>
+                    </Grid>
+                </Button>
+                <Button HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Height="100"
+                    Width="250"
+                    x:Name="BackBTN"
+                    Margin="0 0 100 30"
+                    Click="BackBTN_Click">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/back.png"
+                    Width="48"
+                    Height="48"
+                    Grid.Row="0"/>
+                        <TextBlock Text="Назад"
                     HorizontalAlignment="Center"
                     Grid.Row="1"/>
                     </Grid>
@@ -193,7 +225,7 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Image Source="/Images/records.png"
+                        <Image Source="/Images/services.png"
                 Width="45"
                 Height="45"
                 Grid.Row="0"/>

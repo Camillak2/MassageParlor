@@ -43,7 +43,7 @@ namespace MassageParlor.Windowww
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Проверяем, что введенный символ - русская буква
-            Regex regex = new Regex(@"^[а-яА-Я]+$");
+            Regex regex = new Regex(@"^[а-яА-Я]$");
             e.Handled = !regex.IsMatch(e.Text);
         }
 
@@ -115,7 +115,7 @@ namespace MassageParlor.Windowww
 
             if (openFileDialog.ShowDialog().GetValueOrDefault())
             {
-                DBConnection.loginedWorker.Photo = File.ReadAllBytes(openFileDialog.FileName);
+                contextWorker.Photo = File.ReadAllBytes(openFileDialog.FileName);
                 PhotoWorker.Source = new BitmapImage(new Uri(openFileDialog.FileName));
             }
         }
@@ -273,37 +273,12 @@ namespace MassageParlor.Windowww
             }
         }
 
-        private void SavePassportNumber(string passportNumber)
-        {
-            try
-            {
-                var phoneNumberEntity = contextWorker;
-                if (phoneNumberEntity != null)
-                {
-                    phoneNumberEntity.PassportDetails = passportNumber; // Обновите номер телефона
-                    DBConnection.massageSalon.SaveChanges(); // Сохраните изменения в базе данных
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ошибка при сохранении паспортных данных: " + ex.Message);
-            }
-        }
-
         private void PassportTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            // Разрешаем только цифры
-            if (!char.IsDigit(e.Text, 0))
-            {
-                e.Handled = true;
-                return;
-            }
+            Regex regex = new Regex("[^0-9]");
+            e.Handled = regex.IsMatch(e.Text);
 
-            TextBox textBox = (TextBox)sender;
-            string currentText = textBox.Text;
-
-            // Ограничиваем ввод до 11 цифр
-            if (currentText.Length >= 10 && !string.IsNullOrEmpty(e.Text))
+            if (PassportTB.Text.Length >= 10 && !string.IsNullOrEmpty(e.Text))
             {
                 e.Handled = true;
                 return;
@@ -312,17 +287,14 @@ namespace MassageParlor.Windowww
 
         private void PassportTB_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox textBox = (TextBox)sender;
-            string currentText = textBox.Text;
-
-            if (currentText.Length < 9)
+            Worker worker = contextWorker;
+            if (PassportTB.Text.Length < 9)
             {
                 MessageBox.Show("Паспортные данные должны содержать 10 цифр.");
             }
             else
             {
-                // Сохранить номер телефона в базе данных
-                SavePassportNumber(currentText);
+                 worker.Phone = PhoneTB.Text;
             }
         }
     }

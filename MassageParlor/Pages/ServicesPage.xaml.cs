@@ -1,4 +1,5 @@
 ﻿using MassageParlor.DB;
+using MassageParlor.Windowww;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,26 +76,49 @@ namespace MassageParlor.Pages
 
         private void CheckConditionAndToggleButtonVisibility()
         {
-            if (loggedWorker.ID_Position == 1)
+            if (loggedWorker.Position.Name == "Администратор")
             {
                 WorkersBTN.Visibility = Visibility.Visible;
                 MassageBTN.Visibility = Visibility.Collapsed;
             }
-            else
+            else if (loggedWorker.Position.Name == "Массажист")
             {
                 WorkersBTN.Visibility = Visibility.Collapsed;
+                EditBTN.Visibility = Visibility.Collapsed;
+                AddBTN.Visibility = Visibility.Collapsed;
                 MassageBTN.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void TypesLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (TypesLV.SelectedItem is TypeOfService typeOfService)
+            {
+                TypesLV.SelectedItem = null;
+                NavigationService.Navigate(new AllServicesPage(typeOfService));
             }
         }
 
         private void AddBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            AddTypeWindow addTypeWindow = new AddTypeWindow();
+            addTypeWindow.ShowDialog();
+            Refresh();
         }
 
         private void EditBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            if (TypesLV.SelectedItem is TypeOfService type)
+            {
+                DBConnection.selectedForEditType = TypesLV.SelectedItem as TypeOfService;
+                EditTypeWindow editTypeWindow = new EditTypeWindow(type);
+                editTypeWindow.ShowDialog();
+            }
+            else if (TypesLV.SelectedItem is null)
+            {
+                MessageBox.Show("Выберите тип услуги!");
+            }
+            Refresh();
         }
     }
 }

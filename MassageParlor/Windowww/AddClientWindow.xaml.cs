@@ -73,7 +73,7 @@ namespace MassageParlor.Windowww
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Проверяем, что введенный символ - русская буква
-            Regex regex = new Regex(@"^[а-яА-Я]+$");
+            Regex regex = new Regex(@"^[а-яА-Я]$");
             e.Handled = !regex.IsMatch(e.Text);
         }
 
