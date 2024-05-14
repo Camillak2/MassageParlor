@@ -59,8 +59,7 @@ namespace MassageParlor.Windowww
                 StringBuilder error = new StringBuilder();
                 if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
                         DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PassportTB.Text) || string.IsNullOrWhiteSpace(PhoneTB.Text) ||
-                        string.IsNullOrWhiteSpace(LoginTB.Text) || string.IsNullOrWhiteSpace(PasswordTB.Text) || string.IsNullOrWhiteSpace(PositionCB.Text) ||
-                        string.IsNullOrWhiteSpace(GenderCB.Text))
+                        string.IsNullOrWhiteSpace(LoginTB.Text) || string.IsNullOrWhiteSpace(PasswordTB.Text))
                 {
                     error.AppendLine("Заполните все поля!");
                 }
@@ -122,7 +121,7 @@ namespace MassageParlor.Windowww
 
                 if (age < 18)
                 {
-                    MessageBox.Show("Вы должны быть старше 18 лет.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Сотрудник должен быть старше 18 лет.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                     datePicker.SelectedDate = null; // Сбрасываем выбранную дату
                 }
             }
@@ -250,7 +249,7 @@ namespace MassageParlor.Windowww
             }
 
             // Применяем маску
-            string maskedText = FormatPhoneNumber(currentText + e.Text);
+            string maskedText = FormatPassportNumber(currentText + e.Text);
             textBox.Text = maskedText;
             textBox.CaretIndex = maskedText.Length;
             e.Handled = true;
@@ -270,7 +269,7 @@ namespace MassageParlor.Windowww
             else
             {
                 // Сохранить номер телефона в базе данных
-                SavePhoneNumber(currentText);
+                SavePassport(currentText);
             }
         }
     }

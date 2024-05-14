@@ -39,6 +39,14 @@ namespace MassageParlor.Windowww
             this.DataContext = this;
 
         }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Проверяем, что введенный символ - русская буква
+            Regex regex = new Regex(@"^[а-яА-Я]+$");
+            e.Handled = !regex.IsMatch(e.Text);
+        }
+
         private void InitializeDataInPage()
         {
             workers = DBConnection.massageSalon.Worker.ToList();
@@ -118,10 +126,9 @@ namespace MassageParlor.Windowww
             {
                 StringBuilder error = new StringBuilder();
                 Worker worker = contextWorker;
-                if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) ||
-                    string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
-                        DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PhoneTB.Text) ||
-                        string.IsNullOrWhiteSpace(LoginTB.Text) || string.IsNullOrWhiteSpace(PasswordTB.Text))
+                if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
+                DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PhoneTB.Text) || string.IsNullOrWhiteSpace(LoginTB.Text) ||
+                string.IsNullOrWhiteSpace(PasswordTB.Text))
                 {
                     error.AppendLine("Заполните все поля!");
                 }
@@ -169,13 +176,6 @@ namespace MassageParlor.Windowww
             {
                 MessageBox.Show("Произошла ошибка!");
             }
-        }
-
-        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            // Проверяем, что введенный символ - русская буква
-            Regex regex = new Regex(@"^[а-яА-Я]+$");
-            e.Handled = !regex.IsMatch(e.Text);
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)

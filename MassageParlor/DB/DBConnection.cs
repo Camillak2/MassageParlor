@@ -14,8 +14,8 @@ namespace MassageParlor.DB
 
         public static Worker selectedForEditWorker;
 
-        public static Worker selectedForEditClient;
+        public static Client selectedForEditClient;
 
-        public static Worker selectedForEditRecord;
+        public static Record selectedForEditRecord;
     }
 }

@@ -63,7 +63,7 @@ namespace MassageParlor.Pages
             }
             catch
             {
-                MessageBox.Show("This product cannot be removed");
+                MessageBox.Show("Сотрудник не может быть удален!");
             }
 
             Refresh();

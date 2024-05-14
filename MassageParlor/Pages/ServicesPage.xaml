@@ -8,7 +8,7 @@
       d:DesignHeight="960" d:DesignWidth="1550"
       Title="ServicesPage">
 
-    <Grid>
+    <Grid Background="#a98f81">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1250"/>
             <ColumnDefinition Width="300"/>

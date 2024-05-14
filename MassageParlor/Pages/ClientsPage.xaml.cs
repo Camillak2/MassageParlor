@@ -90,8 +90,8 @@ namespace MassageParlor.Pages
 
         private void AddBTN_Click(object sender, RoutedEventArgs e)
         {
-            AddWorkerWindow addWorkerWindow = new AddWorkerWindow();
-            addWorkerWindow.ShowDialog();
+            AddClientWindow addClientWindow = new AddClientWindow();
+            addClientWindow.ShowDialog();
             Refresh();
         }
 
@@ -100,13 +100,29 @@ namespace MassageParlor.Pages
             if (ClientsLV.SelectedItem is Client client)
             {
                 DBConnection.selectedForEditClient = ClientsLV.SelectedItem as Client;
-                EditWorkerWindow editWorkerWindow = new EditWorkerWindow(client);
-                editWorkerWindow.ShowDialog();
+                EditClientWindow editClientWindow = new EditClientWindow(client);
+                editClientWindow.ShowDialog();
             }
             else if (ClientsLV.SelectedItem is null)
             {
                 MessageBox.Show("Выберите клиента!");
             }
+            Refresh();
+        }
+
+        private void DeleteHL_Click(object sender, RoutedEventArgs e)
+        {
+            var client = (sender as Hyperlink).DataContext as Client;
+            try
+            {
+                DBConnection.massageSalon.Client.Remove(client);
+                DBConnection.massageSalon.SaveChanges();
+            }
+            catch
+            {
+                MessageBox.Show("Этот клиент не может быть удален!");
+            }
+
             Refresh();
         }
     }

@@ -5,89 +5,87 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MassageParlor.Windowww"
         mc:Ignorable="d"
-        Title="AddWorkerWindow" Height="800" Width="1200">
-    <Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1200"/>
-            </Grid.ColumnDefinitions>
+        Title="Golden Lotus" Height="800" Width="1200">
+    <Grid Background="#a98f81">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1200"/>
+        </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0"
-                Background="#a98f81">
-                <StackPanel Orientation="Horizontal"
+        <Grid Grid.Column="0">
+            <StackPanel Orientation="Horizontal"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left">
-                    <StackPanel Orientation="Vertical"
+                <StackPanel Orientation="Vertical"
                         Margin="20"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center">
-                        <TextBlock Text="Фамилия:"
+                    <TextBlock Text="Фамилия:"
                             Margin="10"
                             FontSize="40"/>
-                        <TextBlock Text="Имя:"
+                    <TextBlock Text="Имя:"
                             Margin="10"
                             FontSize="40"/>
-                        <TextBlock Text="Отчество:"
+                    <TextBlock Text="Отчество:"
                             Margin="10"
                             FontSize="40"/>
-                        <TextBlock Text="Дата рождения:"
+                    <TextBlock Text="Дата рождения:"
                             Margin="10"
                             FontSize="40"/>
-                        <TextBlock Text="Телефон:"
+                    <TextBlock Text="Телефон:"
                             Margin="10"
                             FontSize="40"/>
-                        <TextBlock Text="Должность:"
+                    <TextBlock Text="Должность:"
                             Margin="10"
                             FontSize="40"/>
-                        <TextBlock Text="Пол:"
+                    <TextBlock Text="Пол:"
                             Margin="10"
                             FontSize="40"/>
-                        <TextBlock Text="Логин:"
+                    <TextBlock Text="Логин:"
                             Margin="10"
                             FontSize="40"/>
-                        <TextBlock Text="Пароль:"
+                    <TextBlock Text="Пароль:"
                             Margin="10"
                             FontSize="40"/>
-                        <TextBlock Text="Паспорт:"
+                    <TextBlock Text="Паспорт:"
                             Margin="10"
                             FontSize="40"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical"
+                </StackPanel>
+                <StackPanel Orientation="Vertical"
                 Margin="20"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center">
-                        <TextBox x:Name="SurnameTB"
+                    <TextBox x:Name="SurnameTB"
                     Margin="10"
                     FontSize="40"
                     Width="400"
                     Height="50"
                     PreviewTextInput="TextBox_PreviewTextInput"/>
-                        <TextBox x:Name="NameTB"
+                    <TextBox x:Name="NameTB"
                     Margin="10"
                     FontSize="40"
                     Width="400"
                     Height="50"
                     PreviewTextInput="TextBox_PreviewTextInput"/>
-                        <TextBox x:Name="PatronymicTB"
+                    <TextBox x:Name="PatronymicTB"
                     Margin="10"
                     FontSize="40"
                     Width="400"
                     Height="50"
                     PreviewTextInput="TextBox_PreviewTextInput"/>
-                        <DatePicker x:Name="DateOfBirthDP"
+                    <DatePicker x:Name="DateOfBirthDP"
                     Margin="10"
                     FontSize="40"
                     Width="400"
                     Height="50"
                     SelectedDateChanged="DatePicker_SelectedDateChanged"/>
-                        <TextBox x:Name="PhoneTB"
+                    <TextBox x:Name="PhoneTB"
                     Margin="10"
                     FontSize="40"
                     Width="400"
                     Height="50"
                     PreviewTextInput="PhoneTextBox_PreviewTextInput" 
                     LostFocus="PhoneTextBox_LostFocus"/>
-                        <ComboBox x:Name="PositionCB"
+                    <ComboBox x:Name="PositionCB"
                             Margin="10"
                             FontSize="40"
                             Width="400"
@@ -95,13 +93,13 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             ItemsSource="{Binding positions}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Name}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                        <ComboBox x:Name="GenderCB"
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox x:Name="GenderCB"
                             Margin="10"
                             FontSize="40"
                             Width="400"
@@ -109,67 +107,66 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             ItemsSource="{Binding genders}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Name}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                        <TextBox x:Name="LoginTB"
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBox x:Name="LoginTB"
                             Margin="10"
                             FontSize="40"
                             Width="400"
                             Height="50"/>
-                        <TextBox x:Name="PasswordTB"
+                    <TextBox x:Name="PasswordTB"
                             Margin="15"
                             FontSize="40"
                             Width="400"
                             Height="50"/>
-                        <TextBox x:Name="PassportTB"
+                    <TextBox x:Name="PassportTB"
                             Margin="15"
                             FontSize="40"
                             Width="400"
                             Height="50"
                             PreviewTextInput="PassportTB_PreviewTextInput" 
                             LostFocus="PassportTB_LostFocus"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical"
+                </StackPanel>
+                <StackPanel Orientation="Vertical"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Margin="30 50 0 0"
                 Height="680"
                 Width="300">
-                        <Border Style="{StaticResource BorderForPhoto}"
+                    <Border Style="{StaticResource BorderForPhoto}"
                     Width="250"
                     Height="350"
                     CornerRadius="10">
-                            <Image Width="250"
+                        <Image Width="250"
                         Height="350"
                         x:Name="PhotoWorker"
                         Source="{Binding Photo}"
                         Stretch="UniformToFill"/>
-                        </Border>
-                        <Button x:Name="AddPhotoBTN"
+                    </Border>
+                    <Button x:Name="AddPhotoBTN"
                             Height="80"
                             Width="300"
                             Margin="0 30 0 0" Click="AddPhotoBTN_Click_1">
-                            <TextBlock Text="Добавить"
+                        <TextBlock Text="Добавить"
                         FontSize="40"/>
-                        </Button>
-                    </StackPanel>
+                    </Button>
                 </StackPanel>
-            </Grid>
+            </StackPanel>
+        </Grid>
 
-            <Button x:Name="SaveBTN"
+        <Button x:Name="SaveBTN"
                 Height="80"
                 Width="300"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Margin="0 0 46 80"
                 Click="SaveBTN_Click">
-                <TextBlock Text="Сохранить"
+            <TextBlock Text="Сохранить"
             FontSize="40"/>
-            </Button>
-        </Grid>
+        </Button>
     </Grid>
 </Window>

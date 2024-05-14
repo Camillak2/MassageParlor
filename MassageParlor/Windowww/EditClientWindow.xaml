@@ -5,8 +5,113 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MassageParlor.Windowww"
         mc:Ignorable="d"
-        Title="EditClientWindow" Height="800" Width="1200">
-    <Grid>
-        
+        Title="Golden Lotus" Height="600" Width="1000">
+    <Grid Background="#a98f81">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1000"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center">
+                <StackPanel Orientation="Vertical"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                    <TextBlock Text="Фамилия:"
+            Margin="10"
+            FontSize="40"/>
+                    <TextBlock Text="Имя:"
+            Margin="10"
+            FontSize="40"/>
+                    <TextBlock Text="Отчество:"
+            Margin="10"
+            FontSize="40"/>
+                    <TextBlock Text="Дата рождения:"
+            Margin="10"
+            FontSize="40"/>
+                    <TextBlock Text="Телефон:"
+            Margin="10"
+            FontSize="40"/>
+                    <TextBlock Text="Пол:"
+            Margin="10"
+            FontSize="40"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical"
+                Margin="20"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center">
+                    <TextBox x:Name="SurnameTB"
+                    Margin="10"
+                    FontSize="40"
+                    Width="400"
+                    Height="50"
+                    PreviewTextInput="TextBox_PreviewTextInput"/>
+                    <TextBox x:Name="NameTB"
+                    Margin="10"
+                    FontSize="40"
+                    Width="400"
+                    Height="50"
+                    PreviewTextInput="TextBox_PreviewTextInput"/>
+                    <TextBox x:Name="PatronymicTB"
+                    Margin="10"
+                    FontSize="40"
+                    Width="400"
+                    Height="50"
+                    PreviewTextInput="TextBox_PreviewTextInput"/>
+                    <DatePicker x:Name="DateOfBirthDP"
+                    Margin="10"
+                    FontSize="40"
+                    Width="400"
+                    Height="50"
+                    SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+                    <TextBox x:Name="PhoneTB"
+                    Margin="10"
+                    FontSize="40"
+                    Width="400"
+                    Height="50"
+                    PreviewTextInput="PhoneTextBox_PreviewTextInput" 
+                    LostFocus="PhoneTextBox_LostFocus"/>
+                    <ComboBox x:Name="GenderCB"
+                    Margin="10"
+                    FontSize="40"
+                    Width="400"
+                    Height="50"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    ItemsSource="{Binding genders}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Button x:Name="EditBTN"
+                Height="80"
+                Width="300"
+                Visibility="Visible"
+                 Margin="0 0 0 40"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Click="EditBTN_Click">
+            <TextBlock Text="Изменить"
+                    FontSize="40"/>
+        </Button>
+        <Button x:Name="SaveBTN"
+                Height="80"
+                Width="300"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Click="SaveBTN_Click"
+                Visibility="Collapsed"
+                Margin="0 0 0 40">
+            <TextBlock Text="Сохранить"
+                    FontSize="40"/>
+        </Button>
     </Grid>
 </Window>

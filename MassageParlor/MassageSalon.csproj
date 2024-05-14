@@ -173,10 +173,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\MasseurMainMenuPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\MyPersonalAccountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -219,9 +215,6 @@
     </Compile>
     <Compile Include="Pages\MassagePage.xaml.cs">
       <DependentUpon>MassagePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\MasseurMainMenuPage.xaml.cs">
-      <DependentUpon>MasseurMainMenuPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MyPersonalAccountPage.xaml.cs">
       <DependentUpon>MyPersonalAccountPage.xaml</DependentUpon>
