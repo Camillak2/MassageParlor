@@ -9,7 +9,7 @@
       Title="RecordsPage">
 
     <Grid>
-        <Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="1250"/>
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
@@ -172,6 +172,6 @@
                             Grid.Row="1"/>
                 </Grid>
             </Button>
-        </Grid>
+        </Grid>-->
     </Grid>
 </Page>

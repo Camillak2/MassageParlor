@@ -75,11 +75,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DB\Discount.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\TheFirstNormalForm.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\TypeOfService.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pages\MainMenuPage.xaml.cs">
       <DependentUpon>MainMenuPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ServicesPage.xaml.cs">
       <DependentUpon>ServicesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windowww\AddClientWindow.xaml.cs">
+      <DependentUpon>AddClientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windowww\AddWorkerWindow.xaml.cs">
+      <DependentUpon>AddWorkerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windowww\EditClientWindow.xaml.cs">
+      <DependentUpon>EditClientWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windowww\EditWorkerWindow.xaml.cs">
       <DependentUpon>EditWorkerWindow.xaml</DependentUpon>
@@ -175,6 +193,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windowww\AddClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windowww\AddWorkerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windowww\EditClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windowww\EditWorkerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -261,6 +291,13 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\girudo.jpg" />
+    <Resource Include="Images\iglouk.jpg" />
+    <Resource Include="Images\krovopusk.png" />
+    <Resource Include="Images\massage.jpg" />
+    <Resource Include="Images\mokso.jpg" />
+    <Resource Include="Images\other.jpg" />
+    <Resource Include="Images\stounterapy.jpg" />
     <Resource Include="Images\massage.png" />
     <Resource Include="Images\add.png" />
     <Resource Include="Images\edit.png" />

@@ -13,15 +13,19 @@
         <EntityTypeShape EntityType="MassageSalonModel.Schedule" Width="1.5" PointX="8.25" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MassageSalonModel.Service" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MassageSalonModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MassageSalonModel.Worker" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="MassageSalonModel.FK_Client_Gender" ManuallyRouted="false" />
         <AssociationConnector Association="MassageSalonModel.FK_Record_Client" ManuallyRouted="false" />
         <AssociationConnector Association="MassageSalonModel.FK_Schedule_DayOfWeek" ManuallyRouted="false" />
-        <AssociationConnector Association="MassageSalonModel.FK_Worker_Gender" ManuallyRouted="false" />
-        <AssociationConnector Association="MassageSalonModel.FK_Worker_Position" ManuallyRouted="false" />
         <AssociationConnector Association="MassageSalonModel.FK_Record_Service" ManuallyRouted="false" />
-        <AssociationConnector Association="MassageSalonModel.FK_Record_Worker" ManuallyRouted="false" />
-        <AssociationConnector Association="MassageSalonModel.FK_Schedule_Worker" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MassageSalonModel.Discount" Width="1.5" PointX="7.375" PointY="5.625" />
+        <EntityTypeShape EntityType="MassageSalonModel.TypeOfService" Width="1.5" PointX="0.75" PointY="11" />
+        <EntityTypeShape EntityType="MassageSalonModel.Worker" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="MassageSalonModel.TheFirstNormalForm" Width="1.5" PointX="8.375" PointY="8.625" />
+        <AssociationConnector Association="MassageSalonModel.FK_Worker_Gender" />
+        <AssociationConnector Association="MassageSalonModel.FK_Worker_Position" />
+        <AssociationConnector Association="MassageSalonModel.FK_Record_Worker" />
+        <AssociationConnector Association="MassageSalonModel.FK_Schedule_Worker" />
+        <AssociationConnector Association="MassageSalonModel.FK_Service_TypeOfService" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

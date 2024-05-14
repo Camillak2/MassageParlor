@@ -2,10 +2,8 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -19,129 +17,37 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MassageParlor.Pages
+namespace MassageParlor.Windowww
 {
     /// <summary>
-    /// Логика взаимодействия для MyPersonalAccountPage.xaml
+    /// Логика взаимодействия для AddWorkerWindow.xaml
     /// </summary>
-    public partial class MyPersonalAccountPage : Page
+    public partial class AddWorkerWindow : Window
     {
-        Worker loggedWorker;
-
         public static List<Worker> workers { get; set; }
+        public static List<Position> positions { get; set; }
+        public static List<Gender> genders { get; set; }
 
-        public MyPersonalAccountPage()
+        public static Worker worker = new Worker();
+
+        public AddWorkerWindow()
         {
             InitializeComponent();
-            loggedWorker = DBConnection.loginedWorker;
-            SurnameTB.Text = loggedWorker.Surname;
-            NameTB.Text = loggedWorker.Name;
-            PatronymicTB.Text = loggedWorker.Patronymic;
-            DateOfBirthDP.SelectedDate = loggedWorker.DateOfBirth;
-            PositionTB.Text = loggedWorker.Position.Name;
-            GenderTB.Text = loggedWorker.Gender.Name;
-            LoginTB.Text = loggedWorker.Login;
-            PasswordTB.Text = loggedWorker.Password;
-            PhoneTB.Text = loggedWorker.Phone;
-            if (loggedWorker.Photo != null)
-            {
-                using (var stream = new MemoryStream(loggedWorker.Photo))
-                {
-                    var bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.StreamSource = stream;
-                    bitmap.EndInit();
-                    PhotoWorker.Source = bitmap;
-                }
-            }
-            CheckConditionAndToggleButtonVisibility();
+            workers = DBConnection.massageSalon.Worker.ToList();
+            positions = DBConnection.massageSalon.Position.ToList();
+            genders = DBConnection.massageSalon.Gender.ToList();
+            this.DataContext = this;
         }
 
-        private void ProfileBTN_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new MyPersonalAccountPage());
-        }
-
-        private void WorkersBTN_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new WorkersPage());
-        }
-
-        private void ClientsBTN_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new ClientsPage());
-        }
-
-        private void RecordsBTN_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new RecordsPage());
-        }
-
-        private void ServicesBTN_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new ServicesPage());
-        }
-
-        private void MassageBTN_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new MassagePage());
-        }
-
-        private void LogOutBTN_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new AuthorizationPage());
-        }
-
-        private void CheckConditionAndToggleButtonVisibility()
-        {
-            if (loggedWorker.ID_Position == 1)
-            {
-                WorkersBTN.Visibility = Visibility.Visible;
-                MassageBTN.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                WorkersBTN.Visibility = Visibility.Collapsed;
-                MassageBTN.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void EditBTN_Click(object sender, RoutedEventArgs e)
-        {
-            SurnameTB.IsReadOnly = false;
-            NameTB.IsReadOnly = false;
-            PatronymicTB.IsReadOnly = false;
-            DateOfBirthDP.IsEnabled = true;
-            PhoneTB.IsReadOnly = false;
-            PasswordTB.IsReadOnly = false;
-
-            SaveBTN.Visibility = Visibility.Visible;
-            EditPhotoBTN.Visibility = Visibility.Visible;
-            EditBTN.Visibility = Visibility.Collapsed;
-
-            //
-            SurnameTB.Text = loggedWorker.Surname;
-            NameTB.Text = loggedWorker.Name;
-            PatronymicTB.Text = loggedWorker.Patronymic;
-            DateOfBirthDP.SelectedDate = loggedWorker.DateOfBirth;
-            PositionTB.Text = loggedWorker.Position.Name;
-            GenderTB.Text = loggedWorker.Gender.Name;
-            LoginTB.Text = loggedWorker.Login;
-            PasswordTB.Text = loggedWorker.Password;
-            PhoneTB.Text = loggedWorker.Phone;
-        }
-
-        private void EditPhotoBTN_Click(object sender, RoutedEventArgs e)
+        private void AddPhotoBTN_Click_1(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
                 Filter = "*.png|*.png|*.jpeg|*.jpeg|*.jpg|*.jpg"
             };
-
             if (openFileDialog.ShowDialog().GetValueOrDefault())
             {
-                DBConnection.loginedWorker.Photo = File.ReadAllBytes(openFileDialog.FileName);
+                worker.Photo = File.ReadAllBytes(openFileDialog.FileName);
                 PhotoWorker.Source = new BitmapImage(new Uri(openFileDialog.FileName));
             }
         }
@@ -151,17 +57,16 @@ namespace MassageParlor.Pages
             try
             {
                 StringBuilder error = new StringBuilder();
-                Worker worker = loggedWorker;
-                if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) ||
-                    string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
-                        DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PhoneTB.Text) ||
-                        string.IsNullOrWhiteSpace(LoginTB.Text) || string.IsNullOrWhiteSpace(PasswordTB.Text))
+                if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
+                        DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PassportTB.Text) || string.IsNullOrWhiteSpace(PhoneTB.Text) ||
+                        string.IsNullOrWhiteSpace(LoginTB.Text) || string.IsNullOrWhiteSpace(PasswordTB.Text) || string.IsNullOrWhiteSpace(PositionCB.Text) ||
+                        string.IsNullOrWhiteSpace(GenderCB.Text))
                 {
                     error.AppendLine("Заполните все поля!");
                 }
                 if (DateOfBirthDP.SelectedDate != null && (DateTime.Now - (DateTime)DateOfBirthDP.SelectedDate).TotalDays < 365 * 18 + 4)
                 {
-                    error.AppendLine("Вы должны быть старше 18 лет.");
+                    error.AppendLine("Сотрудник не может быть младше 18 лет.");
                 }
                 if (error.Length > 0)
                 {
@@ -169,31 +74,29 @@ namespace MassageParlor.Pages
                 }
                 else
                 {
-                    worker.Surname = SurnameTB.Text;
-                    worker.Name = NameTB.Text;
-                    worker.Patronymic = PatronymicTB.Text;
+                    worker.Surname = SurnameTB.Text.Trim();
+                    worker.Name = NameTB.Text.Trim();
+                    worker.Patronymic = PatronymicTB.Text.Trim();
+                    worker.Phone = PhoneTB.Text.Trim();
                     worker.DateOfBirth = DateOfBirthDP.SelectedDate;
-                    worker.Phone = PhoneTB.Text;
-                    worker.Login = LoginTB.Text;
-                    worker.Password = PasswordTB.Text;
+                    worker.PassportDetails = PassportTB.Text.Trim();
+                    worker.Login = LoginTB.Text.Trim();
+                    worker.Password = PasswordTB.Text.Trim();
+
+                    var a = PositionCB.SelectedItem as Position;
+                    worker.ID_Position = a.ID;
+
+                    var b = GenderCB.SelectedItem as Gender;
+                    worker.ID_Gender = b.ID;
+
+                    DBConnection.massageSalon.Worker.Add(worker);
                     DBConnection.massageSalon.SaveChanges();
-
-
+                    Close();
                 }
-                SurnameTB.IsReadOnly = true;
-                NameTB.IsReadOnly = true;
-                PatronymicTB.IsReadOnly = true;
-                DateOfBirthDP.IsEnabled = false;
-                PhoneTB.IsReadOnly = true;
-                PasswordTB.IsReadOnly = true;
-
-                SaveBTN.Visibility = Visibility.Collapsed;
-                EditPhotoBTN.Visibility = Visibility.Collapsed;
-                EditBTN.Visibility = Visibility.Visible;
             }
             catch
             {
-                MessageBox.Show("Произошла ошибка!");
+                MessageBox.Show("Заполните все поля!");
             }
         }
 
@@ -290,6 +193,78 @@ namespace MassageParlor.Pages
             if (currentText.Length < 10)
             {
                 MessageBox.Show("Номер телефона должен содержать 11 цифр.");
+                textBox.Focus();
+            }
+            else
+            {
+                // Сохранить номер телефона в базе данных
+                SavePhoneNumber(currentText);
+            }
+        }
+
+        private void SavePassport(string passportNumber)
+        {
+            try
+            {
+                var phoneNumberEntity = DBConnection.loginedWorker;
+                if (phoneNumberEntity != null)
+                {
+                    phoneNumberEntity.PassportDetails = passportNumber; // Обновите номер телефона
+                    DBConnection.massageSalon.SaveChanges(); // Сохраните изменения в базе данных
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при сохранении паспортных данных: " + ex.Message);
+            }
+        }
+
+        private string FormatPassportNumber(string passportNumber)
+        {
+            string digitsOnly = new string(passportNumber.Where(char.IsDigit).ToArray());
+            if (digitsOnly.Length != 10) return passportNumber; // Вернуть исходный номер, если он некорректный
+
+            return String.Format("{0:####}) {1:######}",
+                digitsOnly.Substring(0, 4),
+                digitsOnly.Substring(3, 6));
+        }
+
+        // Обработчик события PreviewTextInput для TextBox
+        private void PassportTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Разрешаем только цифры
+            if (!char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            TextBox textBox = (TextBox)sender;
+            string currentText = textBox.Text.Replace(" ", "").Replace("", "");
+
+            // Ограничиваем ввод до 10 цифр
+            if (currentText.Length >= 9 && !string.IsNullOrEmpty(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            // Применяем маску
+            string maskedText = FormatPhoneNumber(currentText + e.Text);
+            textBox.Text = maskedText;
+            textBox.CaretIndex = maskedText.Length;
+            e.Handled = true;
+        }
+
+        // Обработчик события LostFocus для TextBox
+        private void PassportTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            string currentText = textBox.Text.Replace(" ", "").Replace("", "");
+
+            if (currentText.Length < 9)
+            {
+                MessageBox.Show("Паспортные данные должны содержать 10 цифр.");
                 textBox.Focus();
             }
             else

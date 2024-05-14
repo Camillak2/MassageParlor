@@ -64,50 +64,70 @@
                         Margin="10"
                         FontSize="40"
                         Width="400"
-                        IsReadOnly="True"/>
+                        IsReadOnly="True" 
+                        PreviewTextInput="TextBox_PreviewTextInput"/>
                     <TextBox x:Name="NameTB"
                         Margin="10"
                         FontSize="40"
-                        IsReadOnly="True"/>
+                        Width="400"
+                        IsReadOnly="True"
+                        PreviewTextInput="TextBox_PreviewTextInput"/>
                     <TextBox x:Name="PatronymicTB"
                         Margin="10"
                         FontSize="40"
-                        IsReadOnly="True"/>
+                        Width="400"
+                        IsReadOnly="True"
+                        PreviewTextInput="TextBox_PreviewTextInput"/>
                     <DatePicker x:Name="DateOfBirthDP"
                         Margin="10"
                         FontSize="40"
-                        IsEnabled="False"/>
+                        Width="400"
+                        IsEnabled="False"
+                        SelectedDateChanged="DatePicker_SelectedDateChanged"/>
                     <TextBox x:Name="PhoneTB"
                         Margin="10"
                         FontSize="40"
-                        IsReadOnly="True"/>
+                        Width="400"
+                        IsReadOnly="True"
+                        PreviewTextInput="PhoneTextBox_PreviewTextInput" 
+                        LostFocus="PhoneTextBox_LostFocus"/>
                     <TextBox x:Name="PositionTB"
                         Margin="10"
                         FontSize="40"
+                        Width="400"
                         IsReadOnly="True"/>
                     <TextBox x:Name="GenderTB"
                         Margin="10"
                         FontSize="40"
+                        Width="400"
                         IsReadOnly="True"/>
                     <TextBox x:Name="LoginTB"
                         Margin="10"
                         FontSize="40"
+                        Width="400"
                         IsReadOnly="True"/>
                     <TextBox x:Name="PasswordTB"
                         Margin="15"
                         FontSize="40"
+                        Width="400"
                         IsReadOnly="True"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
-                            Margin="30 0 0 0"
-                            Height="690">
-                    <Border Style="{StaticResource BorderForPhoto}">
+                            Margin="30 40 0 0"
+                            Height="700">
+                    <Border Style="{StaticResource BorderForPhoto}"
+                            Width="300"
+                            Height="400"
+                            CornerRadius="10">
                         <Image Width="300"
                             Height="400"
-                            x:Name="PhotoWorker"/>
+                            x:Name="PhotoWorker"
+                            Source="{Binding Photo}"
+                           Stretch="UniformToFill"/>
                     </Border>
+
                     <Button x:Name="EditPhotoBTN"
                             Height="80"
                             Width="300"
@@ -124,7 +144,7 @@
             Height="80"
             Width="300"
             Visibility="Visible"
-            Margin="100 0 100 140"
+            Margin="100 0 100 120"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom" Click="EditBTN_Click">
             <TextBlock Text="Изменить"
@@ -135,26 +155,25 @@
             Width="300"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Margin="100 0 100 140"
+            Margin="100 0 100 120"
             Visibility="Collapsed"
             Click="SaveBTN_Click">
             <TextBlock Text="Сохранить"
                        FontSize="40"/>
         </Button>
         <Grid Grid.Column="1"
-            Background="#907669">
+      Background="#907669">
             <Image Source="/Images/logoo.png"
-                Width="230"
-                Height="230"
-                VerticalAlignment="Top"
-                Margin="10"
-                Grid.Row="0"
-                Grid.Column="1"/>
-            <Button Style="{StaticResource ClickedButton}" 
-                Height="100"
+        Width="200"
+        Height="200"
+        VerticalAlignment="Top"
+        Margin="10"
+        Grid.Row="0"
+        Grid.Column="1"/>
+            <Button Height="95" Style="{StaticResource ClickedButton}"
                 Width="250"
                 VerticalAlignment="Top"
-                Margin="0 260 0 0"
+                Margin="0 220 0 0"
                 x:Name="ProfileBTN"
                 Click="ProfileBTN_Click">
                 <Grid>
@@ -163,19 +182,19 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="/Images/profile.png"
-                Width="48"
-                Height="48"
+                Width="45"
+                Height="45"
                 Grid.Row="0"/>
                     <TextBlock Text="Профиль"
                 HorizontalAlignment="Center"
                 Grid.Row="1"/>
                 </Grid>
             </Button>
-            <Button Height="100"
+            <Button Height="95"
         Width="250"
         x:Name="ClientsBTN"
         VerticalAlignment="Top"
-        Margin="0 370 0 0"
+        Margin="0 320 0 0"
         Click="ClientsBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -183,18 +202,18 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="/Images/clients.png"
-                Width="48"
-                Height="48"
+                Width="45"
+                Height="45"
                 Grid.Row="0"/>
                     <TextBlock Text="Клиенты"
                 HorizontalAlignment="Center"
                 Grid.Row="1"/>
                 </Grid>
             </Button>
-            <Button Height="100"
+            <Button Height="95"
         Width="250"
         VerticalAlignment="Top"
-        Margin="0 480 0 0"
+        Margin="0 420 0 0"
         x:Name="RecordsBTN"
         Click="RecordsBTN_Click">
                 <Grid>
@@ -203,21 +222,42 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="/Images/records.png"
-                Width="48"
-                Height="48"
+                Width="45"
+                Height="45"
                 Grid.Row="0"/>
                     <TextBlock Text="Записи"
                 HorizontalAlignment="Center"
                 Grid.Row="1"/>
                 </Grid>
             </Button>
+            <Button Height="95"
+                Width="250"
+                VerticalAlignment="Top"
+                Margin="0 520 0 0"
+                x:Name="ServicesBTN"
+                Click="ServicesBTN_Click">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Images/records.png"
+                Width="45"
+                Height="45"
+                Grid.Row="0"/>
+                    <TextBlock Text="Услуги"
+                HorizontalAlignment="Center"
+                Grid.Row="1"/>
+                </Grid>
+            </Button>
             <Button Grid.Row="4"
         Grid.Column="1"
-        Height="100"
+        Height="95"
         Width="250"
         x:Name="WorkersBTN"
         VerticalAlignment="Top"
-        Margin="0 590 0 0"
+        Margin="0 620 0 0"
+        Visibility="Collapsed"
         Click="WorkersBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -225,8 +265,8 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="/Images/workers.png"
-                Width="48"
-                Height="48"
+                Width="45"
+                Height="45"
                 Grid.Row="0"/>
                     <TextBlock Text="Сотрудники"
                 HorizontalAlignment="Center"
@@ -234,9 +274,33 @@
                 </Grid>
             </Button>
 
+            <Button Grid.Row="4"
+        Grid.Column="1"
+        Height="95"
+        Width="250"
+        x:Name="MassageBTN"
+        VerticalAlignment="Top"
+        Margin="0 620 0 0"
+        Visibility="Collapsed"
+        Click="MassageBTN_Click">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Images/massage.png"
+                Width="45"
+                Height="45"
+                Grid.Row="0"/>
+                    <TextBlock Text="Массаж"
+                HorizontalAlignment="Center"
+                Grid.Row="1"/>
+                </Grid>
+            </Button>
+
             <Button Grid.Row="5"
         Grid.Column="1"
-            Height="100"
+            Height="95"
             Width="250"
             x:Name="LogOutBTN"
             Click="LogOutBTN_Click"
@@ -248,8 +312,8 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="/Images/logout.png"
-                    Width="48"
-                    Height="48"
+                    Width="45"
+                    Height="45"
                     Grid.Row="0"/>
                     <TextBlock Text="Выйти"
                     HorizontalAlignment="Center"

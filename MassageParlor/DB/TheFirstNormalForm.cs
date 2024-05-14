@@ -12,21 +12,12 @@ namespace MassageParlor.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Service
+    public partial class TheFirstNormalForm
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Service()
-        {
-            this.Record = new HashSet<Record>();
-        }
-    
-        public int ID { get; set; }
-        public string Name { get; set; }
+        public string Client { get; set; }
+        public string Service { get; set; }
+        public string Worker { get; set; }
+        public Nullable<System.DateTime> DateTime { get; set; }
         public Nullable<decimal> Price { get; set; }
-        public Nullable<int> ID_TypeOfService { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Record> Record { get; set; }
-        public virtual TypeOfService TypeOfService { get; set; }
     }
 }

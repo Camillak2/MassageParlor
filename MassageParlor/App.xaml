@@ -170,12 +170,14 @@
             <Setter Property="FontFamily" Value="Courier New"/>
             <Setter Property="Foreground" Value="#FF976C68"/>
             <Setter Property="FontFamily" Value="Courier New"/>
+            <Setter Property="Background" Value="#907669"/>
         </Style>
 
         <Style TargetType="Hyperlink" x:Key="DeleteKey">
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="Foreground" Value="Red"/>
         </Style>
+        
 
     </Application.Resources>
 </Application>

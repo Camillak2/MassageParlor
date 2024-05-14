@@ -22,13 +22,30 @@ namespace MassageParlor.Pages
     /// </summary>
     public partial class WorkersPage : Page
     {
+        Worker loggedWorker;
         public static List<Worker> workers {  get; set; }
         public static List<Position> positions { get; set; }
         public static List<Gender> genders { get; set; }
         public WorkersPage()
         {
             InitializeComponent();
+            loggedWorker = DBConnection.loginedWorker;
             Refresh();
+            CheckConditionAndToggleButtonVisibility();
+        }
+
+        private void CheckConditionAndToggleButtonVisibility()
+        {
+            if (loggedWorker.ID_Position == 1)
+            {
+                WorkersBTN.Visibility = Visibility.Visible;
+                MassageBTN.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                WorkersBTN.Visibility = Visibility.Collapsed;
+                MassageBTN.Visibility = Visibility.Visible;
+            }
         }
 
         public void Refresh()
@@ -57,11 +74,6 @@ namespace MassageParlor.Pages
             NavigationService.Navigate(new MyPersonalAccountPage());
         }
 
-        private void WorkersBTN_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new WorkersPage());
-        }
-
         private void ClientsBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new ClientsPage());
@@ -72,6 +84,21 @@ namespace MassageParlor.Pages
             NavigationService.Navigate(new RecordsPage());
         }
 
+        private void ServicesBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ServicesPage());
+        }
+
+        private void WorkersBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new WorkersPage());
+        }
+
+        private void MassageBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MassagePage());
+        }
+
         private void LogOutBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new AuthorizationPage());
@@ -79,17 +106,25 @@ namespace MassageParlor.Pages
 
         private void AddBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            AddWorkerWindow addWorkerWindow = new AddWorkerWindow();
+            addWorkerWindow.ShowDialog();
+            Refresh();
         }
 
         private void EditBTN_Click(object sender, RoutedEventArgs e)
         {
-            if (WorkersLV.SelectedItem is Worker)
+            if (WorkersLV.SelectedItem is Worker worker)
             {
                 DBConnection.selectedForEditWorker = WorkersLV.SelectedItem as Worker;
-                EditWorkerWindow editWorkerWindow = new EditWorkerWindow();
-                editWorkerWindow.Show(WorkersLV.SelectedItem as Worker);
+                EditWorkerWindow editWorkerWindow = new EditWorkerWindow(worker);
+                editWorkerWindow.ShowDialog();
             }
+            else if (WorkersLV.SelectedItem is null)
+            {
+                MessageBox.Show("Выберите сотрудника!");
+            }
+            Refresh();
         }
+
     }
 }
