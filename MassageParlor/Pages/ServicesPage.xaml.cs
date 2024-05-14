@@ -30,6 +30,7 @@ namespace MassageParlor.Pages
             loggedWorker = DBConnection.loginedWorker;
             CheckConditionAndToggleButtonVisibility();
             Refresh();
+            this.DataContext = this;
         }
 
         public void Refresh()

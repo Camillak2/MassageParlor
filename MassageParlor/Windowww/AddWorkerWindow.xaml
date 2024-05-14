@@ -85,7 +85,7 @@
                     Height="50"
                     PreviewTextInput="PhoneTextBox_PreviewTextInput" 
                     LostFocus="PhoneTextBox_LostFocus"/>
-                    <ComboBox x:Name="PositionCB"
+                    <ComboBox x:Name="PositionCB" Style="{StaticResource ComboboxStyle}"
                             Margin="10"
                             FontSize="40"
                             Width="400"
@@ -99,7 +99,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <ComboBox x:Name="GenderCB"
+                    <ComboBox x:Name="GenderCB" Style="{StaticResource ComboboxStyle}"
                             Margin="10"
                             FontSize="40"
                             Width="400"
@@ -128,8 +128,8 @@
                             FontSize="40"
                             Width="400"
                             Height="50"
-                            PreviewTextInput="PassportTB_PreviewTextInput" 
-                            LostFocus="PassportTB_LostFocus"/>
+                            LostFocus="PassportTB_LostFocus"
+                            PreviewTextInput="PassportTextBox_PreviewTextInput"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical"
                 HorizontalAlignment="Center"

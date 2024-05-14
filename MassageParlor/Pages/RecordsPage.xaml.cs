@@ -50,6 +50,22 @@ namespace MassageParlor.Pages
             }
         }
 
+        private void DeleteHL_Click(object sender, RoutedEventArgs e)
+        {
+            var client = (sender as Hyperlink).DataContext as Client;
+            try
+            {
+                DBConnection.massageSalon.Client.Remove(client);
+                DBConnection.massageSalon.SaveChanges();
+            }
+            catch
+            {
+                MessageBox.Show("Этот клиент не может быть удален!");
+            }
+
+            Refresh();
+        }
+
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MyPersonalAccountPage());
@@ -83,6 +99,16 @@ namespace MassageParlor.Pages
         private void LogOutBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new AuthorizationPage());
+        }
+
+        private void AddBTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditBTN_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

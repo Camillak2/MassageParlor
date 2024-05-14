@@ -22,6 +22,7 @@ namespace MassageParlor.Windowww
     public partial class AddClientWindow : Window
     {
         public static Client client = new Client();
+
         public static List<Gender> genders {  get; set; }
         public static List<Client> clients { get; set; }
 
@@ -39,7 +40,7 @@ namespace MassageParlor.Windowww
             {
                 StringBuilder error = new StringBuilder();
                 if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
-                   DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PhoneTB.Text))
+                        DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PhoneTB.Text) || GenderCB.SelectedItem == null)
                 {
                     error.AppendLine("Заполните все поля!");
                 }
@@ -101,7 +102,7 @@ namespace MassageParlor.Windowww
         {
             try
             {
-                var phoneNumberEntity = DBConnection.loginedWorker;
+                var phoneNumberEntity = client;
                 if (phoneNumberEntity != null)
                 {
                     phoneNumberEntity.Phone = phoneNumber; // Обновите номер телефона

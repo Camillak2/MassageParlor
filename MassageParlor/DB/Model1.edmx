@@ -17,6 +17,13 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="17" />
           <Property Name="ID_Gender" Type="int" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "MassageSalon.dbo.ClientService" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="ClientService">
+          <Property Name="Client" Type="nvarchar(max)" />
+          <Property Name="Service" Type="nvarchar(max)" />
+          <Property Name="DateTime" Type="datetime" />
+        </EntityType>-->
         <EntityType Name="DayOfWeek">
           <Key>
             <PropertyRef Name="ID" />
@@ -47,6 +54,12 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Salary" Type="money" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "MassageSalon.dbo.Position2" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Position2">
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
+          <Property Name="Salary" Type="money" />
+        </EntityType>-->
         <EntityType Name="Record">
           <Key>
             <PropertyRef Name="ID" />
@@ -74,6 +87,12 @@
           <Property Name="Price" Type="money" />
           <Property Name="ID_TypeOfService" Type="int" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "MassageSalon.dbo.Service2" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Service2">
+          <Property Name="Service" Type="nvarchar(max)" />
+          <Property Name="Price" Type="money" />
+        </EntityType>-->
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -102,7 +121,7 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Image" Type="varbinary" MaxLength="50" />
+          <Property Name="Image" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Worker">
           <Key>
@@ -113,7 +132,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
           <Property Name="DateOfBirth" Type="date" />
-          <Property Name="PassportDetails" Type="nvarchar" MaxLength="11" />
+          <Property Name="PassportDetails" Type="nvarchar" MaxLength="10" />
           <Property Name="Phone" Type="nvarchar" MaxLength="18" />
           <Property Name="ID_Position" Type="int" />
           <Property Name="ID_Gender" Type="int" />
@@ -121,6 +140,19 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="Photo" Type="varbinary(max)" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "MassageSalon.dbo.Worker2" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Worker2">
+          <Property Name="Worker" Type="nvarchar(max)" />
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
+        </EntityType>-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "MassageSalon.dbo.WorkerService" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="WorkerService">
+          <Property Name="Worker" Type="nvarchar(max)" />
+          <Property Name="Service" Type="nvarchar(max)" />
+          <Property Name="DateTime" Type="datetime" />
+        </EntityType>-->
         <Association Name="FK_Client_Gender">
           <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
@@ -463,7 +495,6 @@
             <End Role="Record" EntitySet="Record" />
           </AssociationSet>
           <EntitySet Name="Discount" EntityType="MassageSalonModel.Discount" />
-          <EntitySet Name="TypeOfService" EntityType="MassageSalonModel.TypeOfService" />
           <EntitySet Name="Worker" EntityType="MassageSalonModel.Worker" />
           <EntitySet Name="TheFirstNormalForm" EntityType="MassageSalonModel.TheFirstNormalForm" />
           <AssociationSet Name="FK_Worker_Gender" Association="MassageSalonModel.FK_Worker_Gender">
@@ -482,6 +513,7 @@
             <End Role="Worker" EntitySet="Worker" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
+          <EntitySet Name="TypeOfService" EntityType="MassageSalonModel.TypeOfService" />
           <AssociationSet Name="FK_Service_TypeOfService" Association="MassageSalonModel.FK_Service_TypeOfService">
             <End Role="TypeOfService" EntitySet="TypeOfService" />
             <End Role="Service" EntitySet="Service" />
@@ -495,15 +527,6 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="TypeOfService">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Service" Relationship="MassageSalonModel.FK_Service_TypeOfService" FromRole="TypeOfService" ToRole="Service" />
-          <Property Name="Image" Type="Binary" MaxLength="50" FixedLength="false" />
-        </EntityType>
         <EntityType Name="Worker">
           <Key>
             <PropertyRef Name="ID" />
@@ -513,7 +536,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
-          <Property Name="PassportDetails" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="PassportDetails" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="18" FixedLength="false" Unicode="true" />
           <Property Name="ID_Position" Type="Int32" />
           <Property Name="ID_Gender" Type="Int32" />
@@ -589,6 +612,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TypeOfService">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Service" Relationship="MassageSalonModel.FK_Service_TypeOfService" FromRole="TypeOfService" ToRole="Service" />
+        </EntityType>
         <Association Name="FK_Service_TypeOfService">
           <End Type="MassageSalonModel.TypeOfService" Role="TypeOfService" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -697,15 +729,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TypeOfService">
-            <EntityTypeMapping TypeName="MassageSalonModel.TypeOfService">
-              <MappingFragment StoreEntitySet="TypeOfService">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Worker">
             <EntityTypeMapping TypeName="MassageSalonModel.Worker">
               <MappingFragment StoreEntitySet="Worker">
@@ -732,6 +755,15 @@
                 <ScalarProperty Name="Worker" ColumnName="Worker" />
                 <ScalarProperty Name="Service" ColumnName="Service" />
                 <ScalarProperty Name="Client" ColumnName="Client" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeOfService">
+            <EntityTypeMapping TypeName="MassageSalonModel.TypeOfService">
+              <MappingFragment StoreEntitySet="TypeOfService">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

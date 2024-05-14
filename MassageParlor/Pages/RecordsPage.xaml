@@ -210,7 +210,8 @@
                 VerticalAlignment="Top"
                 Margin="0 420 0 0"
                 x:Name="RecordsBTN"
-                Click="RecordsBTN_Click">
+                Click="RecordsBTN_Click"
+                Style="{StaticResource ClickedButton}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>

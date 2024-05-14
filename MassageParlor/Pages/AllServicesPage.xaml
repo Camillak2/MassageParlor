@@ -1,4 +1,4 @@
-﻿<Page x:Class="MassageParlor.Pages.ServicesPage"
+﻿<Page x:Class="MassageParlor.Pages.AllServicesPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,23 +6,24 @@
       xmlns:local="clr-namespace:MassageParlor.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="960" d:DesignWidth="1550"
-      Title="ServicesPage">
+      Title="AllServicesPage">
 
-    <Grid Background="#a98f81">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1250"/>
-            <ColumnDefinition Width="300"/>
-        </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid Background="#a98f81">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1250"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0"
+            <Grid Grid.Column="0"
       HorizontalAlignment="Center"
       VerticalAlignment="Center">
-            <TextBlock Style="{StaticResource Title}"
-                Text="Типы услуг"
+                <TextBlock Style="{StaticResource Title}"
+                Text="Услуги"
                 Margin="10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"/>
-            <ListView x:Name="TypesLV"
+                <ListView x:Name="TypesLV"
                 VerticalAlignment="Top"
                 Margin="0 100 0 150"
                 Width="1200"
@@ -30,178 +31,178 @@
                 d:ItemsSource="{d:SampleData ItemCount=10}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                ItemsSource="{Binding TypeOfService}"
+                ItemsSource="{Binding Service}"
                 BorderThickness="3"
                 ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"
                            VerticalAlignment="Top"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Height="620"
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="620"
                             Width="1150"
                             Margin="5"
                             Background="#907669">
-                            <Image Stretch="Fill"
+                                <Image Stretch="Fill"
                                 Source="{Binding Image}"
                                 Width="1150"
                                 Height="610"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Top"
                                 Margin="10"/>
-                            <Rectangle Fill="Black"
+                                <Rectangle Fill="Black"
                                 Opacity="0.3"
                                 VerticalAlignment="Center"
                                 Width="1150"
                                 Height="610"/>
-                            <TextBlock Text="{Binding Name}"
+                                <TextBlock Text="{Binding Name}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                         Foreground="White"
                                         TextWrapping="Wrap"
                                         TextAlignment="Left"
                                         FontSize="100"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button HorizontalAlignment="Left"
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
             Height="100"
             Width="250"
             x:Name="AddBTN"
             Margin="300 0 0 30"
             Click="AddBTN_Click">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Images/add.png"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/add.png"
                     Width="48"
                     Height="48"
                     Grid.Row="0"/>
-                    <TextBlock Text="Добавить"
+                        <TextBlock Text="Добавить"
                     HorizontalAlignment="Center"
                     Grid.Row="1"/>
-                </Grid>
-            </Button>
-            <Button HorizontalAlignment="Right"
+                    </Grid>
+                </Button>
+                <Button HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             Height="100"
             Width="250"
             x:Name="EditBTN"
             Margin="0 0 300 30"
             Click="EditBTN_Click">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Images/edit.png"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/edit.png"
                     Width="48"
                     Height="48"
                     Grid.Row="0"/>
-                    <TextBlock Text="Изменить"
+                        <TextBlock Text="Изменить"
                     HorizontalAlignment="Center"
                     Grid.Row="1"/>
-                </Grid>
-            </Button>
-        </Grid>
+                    </Grid>
+                </Button>
+            </Grid>
 
-        <Grid Grid.Column="1"
+            <Grid Grid.Column="1"
             Background="#907669">
-            <Image Source="/Images/logoo.png"
+                <Image Source="/Images/logoo.png"
         Width="200"
         Height="200"
         VerticalAlignment="Top"
         Margin="10"
         Grid.Row="0"
         Grid.Column="1"/>
-            <Button Height="95" 
+                <Button Height="95" 
         Width="250"
         VerticalAlignment="Top"
         Margin="0 220 0 0"
         x:Name="ProfileBTN"
         Click="ProfileBTN_Click">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Images/profile.png"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/profile.png"
                 Width="45"
                 Height="45"
                 Grid.Row="0"/>
-                    <TextBlock Text="Профиль"
+                        <TextBlock Text="Профиль"
                 HorizontalAlignment="Center"
                 Grid.Row="1"/>
-                </Grid>
-            </Button>
-            <Button Height="95"
+                    </Grid>
+                </Button>
+                <Button Height="95"
         Width="250"
         x:Name="ClientsBTN"
         VerticalAlignment="Top"
         Margin="0 320 0 0"
         Click="ClientsBTN_Click">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Images/clients.png"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/clients.png"
                 Width="45"
                 Height="45"
                 Grid.Row="0"/>
-                    <TextBlock Text="Клиенты"
+                        <TextBlock Text="Клиенты"
                 HorizontalAlignment="Center"
                 Grid.Row="1"/>
-                </Grid>
-            </Button>
-            <Button Height="95"
+                    </Grid>
+                </Button>
+                <Button Height="95"
         Width="250"
         VerticalAlignment="Top"
         Margin="0 420 0 0"
         x:Name="RecordsBTN"
         Click="RecordsBTN_Click">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Images/records.png"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/records.png"
                 Width="45"
                 Height="45"
                 Grid.Row="0"/>
-                    <TextBlock Text="Записи"
+                        <TextBlock Text="Записи"
                 HorizontalAlignment="Center"
                 Grid.Row="1"/>
-                </Grid>
-            </Button>
-            <Button Height="95" Style="{StaticResource ClickedButton}"
+                    </Grid>
+                </Button>
+                <Button Height="95" Style="{StaticResource ClickedButton}"
                 Width="250"
                 VerticalAlignment="Top"
                 Margin="0 520 0 0"
                 x:Name="ServicesBTN"
                 Click="ServicesBTN_Click">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Images/records.png"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/records.png"
                 Width="45"
                 Height="45"
                 Grid.Row="0"/>
-                    <TextBlock Text="Услуги"
+                        <TextBlock Text="Услуги"
                 HorizontalAlignment="Center"
                 Grid.Row="1"/>
-                </Grid>
-            </Button>
-            <Button Grid.Row="4"
+                    </Grid>
+                </Button>
+                <Button Grid.Row="4"
         Grid.Column="1"
         Height="95"
         Width="250"
@@ -210,22 +211,22 @@
         Margin="0 620 0 0"
         Visibility="Collapsed"
         Click="WorkersBTN_Click">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Images/workers.png"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/workers.png"
                 Width="45"
                 Height="45"
                 Grid.Row="0"/>
-                    <TextBlock Text="Сотрудники"
+                        <TextBlock Text="Сотрудники"
                 HorizontalAlignment="Center"
                 Grid.Row="1"/>
-                </Grid>
-            </Button>
+                    </Grid>
+                </Button>
 
-            <Button Grid.Row="4"
+                <Button Grid.Row="4"
         Grid.Column="1"
         Height="95"
         Width="250"
@@ -234,22 +235,22 @@
         Margin="0 620 0 0"
         Visibility="Collapsed"
         Click="MassageBTN_Click">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Images/massage.png"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/massage.png"
                 Width="45"
                 Height="45"
                 Grid.Row="0"/>
-                    <TextBlock Text="Массаж"
+                        <TextBlock Text="Массаж"
                 HorizontalAlignment="Center"
                 Grid.Row="1"/>
-                </Grid>
-            </Button>
+                    </Grid>
+                </Button>
 
-            <Button Grid.Row="5"
+                <Button Grid.Row="5"
         Grid.Column="1"
         Height="95"
         Width="250"
@@ -257,20 +258,21 @@
         Click="LogOutBTN_Click"
         VerticalAlignment="Bottom"
         Margin="0 0 0 40">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Images/logout.png"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/logout.png"
       Width="45"
       Height="45"
       Grid.Row="0"/>
-                    <TextBlock Text="Выйти"
+                        <TextBlock Text="Выйти"
       HorizontalAlignment="Center"
       Grid.Row="1"/>
-                </Grid>
-            </Button>
+                    </Grid>
+                </Button>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

@@ -149,7 +149,7 @@ namespace MassageParlor.Windowww
                     worker.Phone = PhoneTB.Text;
                     worker.Login = LoginTB.Text;
                     worker.Password = PasswordTB.Text;
-                    worker.PassportDetails = PasswordTB.Text;
+                    worker.PassportDetails = PassportTB.Text;
                     worker.ID_Position = (PositionCB.SelectedItem as Position).ID;
                     worker.ID_Gender = (GenderCB.SelectedItem as Gender).ID;
                     DBConnection.massageSalon.SaveChanges();
@@ -273,14 +273,11 @@ namespace MassageParlor.Windowww
             }
         }
 
-
-
-
-        private void SavePassport(string passportNumber)
+        private void SavePassportNumber(string passportNumber)
         {
             try
             {
-                var phoneNumberEntity = DBConnection.loginedWorker;
+                var phoneNumberEntity = contextWorker;
                 if (phoneNumberEntity != null)
                 {
                     phoneNumberEntity.PassportDetails = passportNumber; // Обновите номер телефона
@@ -293,18 +290,7 @@ namespace MassageParlor.Windowww
             }
         }
 
-        private string FormatPassportNumber(string passportNumber)
-        {
-            string digitsOnly = new string(passportNumber.Where(char.IsDigit).ToArray());
-            if (digitsOnly.Length != 10) return passportNumber; // Вернуть исходный номер, если он некорректный
-
-            return String.Format("{0:####}) {1:######}",
-                digitsOnly.Substring(0, 4),
-                digitsOnly.Substring(3, 6));
-        }
-
-        // Обработчик события PreviewTextInput для TextBox
-        private void PassportTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void PassportTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Разрешаем только цифры
             if (!char.IsDigit(e.Text, 0))
@@ -314,37 +300,29 @@ namespace MassageParlor.Windowww
             }
 
             TextBox textBox = (TextBox)sender;
-            string currentText = textBox.Text.Replace(" ", "");
+            string currentText = textBox.Text;
 
-            // Ограничиваем ввод до 10 цифр
-            if (currentText.Length >= 9 && !string.IsNullOrEmpty(e.Text))
+            // Ограничиваем ввод до 11 цифр
+            if (currentText.Length >= 10 && !string.IsNullOrEmpty(e.Text))
             {
                 e.Handled = true;
                 return;
             }
-
-            // Применяем маску
-            string maskedText = FormatPhoneNumber(currentText + e.Text);
-            textBox.Text = maskedText;
-            textBox.CaretIndex = maskedText.Length;
-            e.Handled = true;
         }
 
-        // Обработчик события LostFocus для TextBox
         private void PassportTB_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
-            string currentText = textBox.Text.Replace(" ", "").Replace("", "");
+            string currentText = textBox.Text;
 
             if (currentText.Length < 9)
             {
                 MessageBox.Show("Паспортные данные должны содержать 10 цифр.");
-                textBox.Focus();
             }
             else
             {
                 // Сохранить номер телефона в базе данных
-                SavePhoneNumber(currentText);
+                SavePassportNumber(currentText);
             }
         }
     }
