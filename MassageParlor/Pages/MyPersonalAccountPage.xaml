@@ -162,7 +162,7 @@
                        FontSize="40"/>
         </Button>
         <Grid Grid.Column="1"
-      Background="#907669">
+            Background="#907669">
             <Image Source="/Images/logoo.png"
         Width="200"
         Height="200"

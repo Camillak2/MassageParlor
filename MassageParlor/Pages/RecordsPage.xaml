@@ -9,10 +9,153 @@
       Title="RecordsPage">
 
     <Grid Background="#a98f81">
-        <!--<Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1250"/>
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center">
+            <TextBlock Style="{StaticResource Title}"
+            Text="Записи"
+            Margin="10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"/>
+            <ListView x:Name="RecordsLV"
+        VerticalAlignment="Top"
+        Margin="0 100 0 150"
+        Width="1200"
+        Height="650"
+        d:ItemsSource="{d:SampleData ItemCount=10}"
+        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        ScrollViewer.VerticalScrollBarVisibility="Auto"
+        ItemsSource="{Binding Record}"
+        BorderThickness="3"
+        ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"
+                           VerticalAlignment="Top"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="500"
+                    Width="370"
+                    Margin="5"
+                    Background="#907669">
+                            <Image Stretch="Fill"
+                        Source="{Binding Photo}"
+                           Width="150"
+                           Height="200"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           Margin="10"/>
+                            <StackPanel Background="#6d584e"
+                        Orientation="Vertical"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Height="280"
+                        Width="370">
+                                <StackPanel Margin="20">
+                                    <TextBlock Text="{Binding Surname}"
+                            HorizontalAlignment="Left"
+                            Foreground="White"
+                            TextWrapping="Wrap"
+                            TextAlignment="Left"
+                            FontSize="24"
+                            Width="220"/>
+                                    <TextBlock Text="{Binding Name}"
+                            HorizontalAlignment="Left"
+                            Foreground="White"
+                            TextWrapping="Wrap"
+                            TextAlignment="Left"
+                            FontSize="24"
+                            Width="220"/>
+                                    <TextBlock Text="{Binding Patronymic}"
+                            HorizontalAlignment="Left"
+                            Foreground="White"
+                            TextWrapping="Wrap"
+                            TextAlignment="Left"
+                            FontSize="24"
+                            Width="220"/>
+                                    <TextBlock Text="{Binding DateOfBirth, StringFormat = dd.MM.yyyy}"
+                            HorizontalAlignment="Left"
+                            Foreground="White"
+                            TextWrapping="Wrap"
+                            TextAlignment="Left"
+                            FontSize="24"
+                            Width="220"/>
+                                    <TextBlock Text="{Binding Gender.Name}"
+                            HorizontalAlignment="Left"
+                            Foreground="White"
+                            TextWrapping="Wrap"
+                            TextAlignment="Left"
+                            FontSize="24"
+                            Width="220"/>
+                                    <TextBlock Text="{Binding Position.Name}"
+                            HorizontalAlignment="Left"
+                            Foreground="White"
+                            TextWrapping="Wrap"
+                            TextAlignment="Left"
+                            FontSize="24"
+                            Width="220"/>
+                                    <TextBlock>
+                            <Hyperlink Style="{StaticResource DeleteKey}"
+                                x:Name="DeleteHL"
+                                Click="DeleteHL_Click">Delete</Hyperlink>
+                                    </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Height="100"
+            Width="250"
+            x:Name="AddBTN"
+            Margin="300 0 0 30"
+            Click="AddBTN_Click">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Images/add.png"
+                    Width="48"
+                    Height="48"
+                    Grid.Row="0"/>
+                    <TextBlock Text="Добавить"
+                    HorizontalAlignment="Center"
+                    Grid.Row="1"/>
+                </Grid>
+            </Button>
+            <Button HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Height="100"
+            Width="250"
+            x:Name="EditBTN"
+            Margin="0 0 300 30"
+            Click="EditBTN_Click">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Images/edit.png"
+                    Width="48"
+                    Height="48"
+                    Grid.Row="0"/>
+                    <TextBlock Text="Изменить"
+                    HorizontalAlignment="Center"
+                    Grid.Row="1"/>
+                </Grid>
+            </Button>
+        </Grid>
+
         <Grid Grid.Column="1"
               Background="#907669">
             <Image Source="/Images/logoo.png"
@@ -172,6 +315,6 @@
                             Grid.Row="1"/>
                 </Grid>
             </Button>
-        </Grid>-->
+        </Grid>
     </Grid>
 </Page>
