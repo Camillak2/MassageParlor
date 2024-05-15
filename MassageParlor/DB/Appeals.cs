@@ -16,9 +16,12 @@ namespace MassageParlor.DB
     {
         public int ID { get; set; }
         public Nullable<int> ID_Worker { get; set; }
-        public string Description { get; set; }
         public Nullable<System.DateTime> DateTime { get; set; }
+        public Nullable<int> ID_Task { get; set; }
+        public Nullable<int> ID_Status { get; set; }
     
+        public virtual Status Status { get; set; }
         public virtual Worker Worker { get; set; }
+        public virtual Taskk Taskk { get; set; }
     }
 }

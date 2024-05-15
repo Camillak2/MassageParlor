@@ -18,8 +18,8 @@ namespace MassageParlor.DB
 
         public static Record selectedForEditRecord;
 
-        public static TypeOfService selectedForEditType;
-
         public static Service selectedForEditService;
+
+        public static Appeals selectedForEditAppeal;
     }
 }

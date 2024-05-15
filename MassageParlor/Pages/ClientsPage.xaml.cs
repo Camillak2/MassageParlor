@@ -92,8 +92,8 @@ namespace MassageParlor.Pages
 
         private void AddBTN_Click(object sender, RoutedEventArgs e)
         {
-            AddClientWindow addClientWindow = new AddClientWindow();
-            addClientWindow.ShowDialog();
+            AddAppealWindow addAppealWindow = new AddAppealWindow();
+            addAppealWindow.ShowDialog();
             Refresh();
         }
 
@@ -102,8 +102,8 @@ namespace MassageParlor.Pages
             if (ClientsLV.SelectedItem is Client client)
             {
                 DBConnection.selectedForEditClient = ClientsLV.SelectedItem as Client;
-                EditClientWindow editClientWindow = new EditClientWindow(client);
-                editClientWindow.ShowDialog();
+                EditAppealWindow editAppealWindow = new EditAppealWindow(client);
+                editAppealWindow.ShowDialog();
             }
             else if (ClientsLV.SelectedItem is null)
             {

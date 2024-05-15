@@ -23,9 +23,16 @@ namespace MassageParlor.Pages
     public partial class AppealsPage : Page
     {
         Worker loggedWorker;
+        public static List<Worker> workers { get; set; }
+        public static List<Status> statuses { get; set; }
+        public static List<Appeals> appeals { get; set; }
 
         public AppealsPage()
         {
+            workers = DBConnection.massageSalon.Worker.ToList();
+            statuses = DBConnection.massageSalon.Status.ToList();
+            appeals = DBConnection.massageSalon.Appeals.ToList();
+
             InitializeComponent();
             loggedWorker = DBConnection.loginedWorker;
             if (loggedWorker.Position.Name == "Администратор")
@@ -40,7 +47,7 @@ namespace MassageParlor.Pages
 
         public void Refresh()
         {
-            ClientsLV.ItemsSource = DBConnection.massageSalon.Client.ToList();
+            AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.ToList();
         }
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)
@@ -80,14 +87,29 @@ namespace MassageParlor.Pages
 
         private void AddBTN_Click(object sender, RoutedEventArgs e)
         {
-            AddClientWindow addClientWindow = new AddClientWindow();
-            addClientWindow.ShowDialog();
+            AddAppealWindow addAppealWindow = new AddAppealWindow();
+            addAppealWindow.ShowDialog();
             Refresh();
         }
 
         private void EditBTN_Click(object sender, RoutedEventArgs e)
         {
+            if (AppealsLV.SelectedItem is Appeals appeals)
+            {
+                DBConnection.selectedForEditAppeal = AppealsLV.SelectedItem as Appeals;
+                EditClientWindow editClientWindow = new EditClientWindow(appeals);
+                editClientWindow.ShowDialog();
+            }
+            else if (AppealsLV.SelectedItem is null)
+            {
+                MessageBox.Show("Выберите обращение!");
+            }
+            Refresh();
+        }
 
+        private void BackBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MainMenuPage());
         }
     }
 }

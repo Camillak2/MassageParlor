@@ -12,17 +12,18 @@ namespace MassageParlor.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Record
+    public partial class Taskk
     {
-        public int ID { get; set; }
-        public Nullable<int> ID_Client { get; set; }
-        public Nullable<int> ID_Service { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<int> ID_Worker { get; set; }
-        public string Time { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Taskk()
+        {
+            this.Appeals = new HashSet<Appeals>();
+        }
     
-        public virtual Client Client { get; set; }
-        public virtual Service Service { get; set; }
-        public virtual Worker Worker { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Appeals> Appeals { get; set; }
     }
 }

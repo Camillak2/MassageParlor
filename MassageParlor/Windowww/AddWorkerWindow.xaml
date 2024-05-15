@@ -165,7 +165,7 @@
                 VerticalAlignment="Bottom"
                 Margin="0 0 46 80"
                 Click="SaveBTN_Click">
-            <TextBlock Text="Сохранить"
+            <TextBlock Text="Добавить"
             FontSize="40"/>
         </Button>
     </Grid>

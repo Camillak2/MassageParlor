@@ -63,7 +63,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     Click="SaveBTN_Click">
-                    <TextBlock Text="Сохранить"
+                    <TextBlock Text="Добавить"
                         FontSize="40"/>
                 </Button>
             </StackPanel>

@@ -15,14 +15,14 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0"
-      HorizontalAlignment="Center"
-      VerticalAlignment="Center">
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
             <TextBlock Style="{StaticResource Title}"
             x:Name="NameTB"
             Margin="10"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"/>
-            <ListView x:Name="ClientsLV"
+            <ListView x:Name="AppealsLV"
                 VerticalAlignment="Top"
                 Margin="0 100 0 150"
                 Width="1200"
@@ -30,7 +30,7 @@
                 d:ItemsSource="{d:SampleData ItemCount=10}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                ItemsSource="{Binding Client}"
+                ItemsSource="{Binding Appeals}"
                 BorderThickness="3"
                 ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
                 <ListView.ItemsPanel>
@@ -41,46 +41,53 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="200"
-                    Width="370"
-                    Margin="5"
-                    Background="#907669">
+                        <Grid Height="220"
+                            Width="370"
+                            Margin="5"
+                            Background="#907669">
                             <StackPanel Background="#6d584e"
-                            Orientation="Vertical"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Bottom"
-                            Height="200"
-                            Width="370">
+                                Orientation="Vertical"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Height="220"
+                                Width="370">
                                 <StackPanel Margin="30 10">
-                                    <TextBlock Text="{Binding Surname}"
+                                    <TextBlock Text="{Binding Worker.Surname}"
                                     HorizontalAlignment="Left"
                                     Foreground="White"
                                     TextWrapping="Wrap"
                                     TextAlignment="Left"
                                     FontSize="24"
                                     Width="220"/>
-                                    <TextBlock Text="{Binding Name}"
+                                    <TextBlock Text="{Binding Worker.Name}"
                                     HorizontalAlignment="Left"
                                     Foreground="White"
                                     TextWrapping="Wrap"
                                     TextAlignment="Left"
                                     FontSize="24"
                                     Width="220"/>
-                                    <TextBlock Text="{Binding Patronymic}"
+                                    <TextBlock Text="{Binding Worker.Patronymic}"
                                     HorizontalAlignment="Left"
                                     Foreground="White"
                                     TextWrapping="Wrap"
                                     TextAlignment="Left"
                                     FontSize="24"
                                     Width="220"/>
-                                    <TextBlock Text="{Binding DateOfBirth, StringFormat = dd.MM.yyyy}"
+                                    <TextBlock Text="{Binding Task.Name}"
                                     HorizontalAlignment="Left"
                                     Foreground="White"
                                     TextWrapping="Wrap"
                                     TextAlignment="Left"
                                     FontSize="24"
                                     Width="220"/>
-                                    <TextBlock Text="{Binding Gender.Name}"
+                                    <TextBlock Text="{Binding DateTime, StringFormat = dd.MM.yyyy}"
+                                    HorizontalAlignment="Left"
+                                    Foreground="White"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Left"
+                                    FontSize="24"
+                                    Width="220"/>
+                                    <TextBlock Text="{Binding Status.Name}"
                                     HorizontalAlignment="Left"
                                     Foreground="White"
                                     TextWrapping="Wrap"
@@ -99,12 +106,12 @@
                 </ListView.ItemTemplate>
             </ListView>
             <Button HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            Height="100"
-            Width="250"
-            x:Name="AddBTN"
-            Margin="300 0 0 30"
-            Click="AddBTN_Click">
+                    VerticalAlignment="Bottom"
+                    Height="100"
+                    Width="250"
+                    x:Name="AddBTN"
+                    Margin="100 0 0 30"
+                    Click="AddBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -119,13 +126,13 @@
                     Grid.Row="1"/>
                 </Grid>
             </Button>
-            <Button HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Height="100"
-            Width="250"
-            x:Name="EditBTN"
-            Margin="0 0 300 30"
-            Click="EditBTN_Click">
+            <Button HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Height="100"
+                    Width="250"
+                    x:Name="EditBTN"
+                    Margin="0 0 0 30"
+                    Click="EditBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -136,6 +143,28 @@
                     Height="48"
                     Grid.Row="0"/>
                     <TextBlock Text="Изменить"
+                    HorizontalAlignment="Center"
+                    Grid.Row="1"/>
+                </Grid>
+            </Button>
+
+            <Button HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Height="100"
+                    Width="250"
+                    x:Name="BackBTN"
+                    Margin="0 0 100 30"
+                    Click="BackBTN_Click">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Images/back.png"
+                    Width="48"
+                    Height="48"
+                    Grid.Row="0"/>
+                    <TextBlock Text="Назад"
                     HorizontalAlignment="Center"
                     Grid.Row="1"/>
                 </Grid>
