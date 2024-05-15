@@ -22,9 +22,20 @@ namespace MassageParlor.Pages
     /// </summary>
     public partial class AppealsPage : Page
     {
+        Worker loggedWorker;
+
         public AppealsPage()
         {
             InitializeComponent();
+            loggedWorker = DBConnection.loginedWorker;
+            if (loggedWorker.Position.Name == "Администратор")
+            {
+                NameTB.Text = "Обращения";
+            }
+            if (loggedWorker.Position.Name == "Массажист")
+            {
+                NameTB.Text = "Мои обращения";
+            }
         }
 
         public void Refresh()
@@ -72,6 +83,11 @@ namespace MassageParlor.Pages
             AddClientWindow addClientWindow = new AddClientWindow();
             addClientWindow.ShowDialog();
             Refresh();
+        }
+
+        private void EditBTN_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
