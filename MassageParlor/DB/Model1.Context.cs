@@ -26,16 +26,15 @@ namespace MassageParlor.DB
         }
     
         public virtual DbSet<Client> Client { get; set; }
-        public virtual DbSet<DayOfWeek> DayOfWeek { get; set; }
         public virtual DbSet<Gender> Gender { get; set; }
         public virtual DbSet<Position> Position { get; set; }
         public virtual DbSet<Record> Record { get; set; }
-        public virtual DbSet<Schedule> Schedule { get; set; }
         public virtual DbSet<Service> Service { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Discount> Discount { get; set; }
         public virtual DbSet<Worker> Worker { get; set; }
         public virtual DbSet<TheFirstNormalForm> TheFirstNormalForm { get; set; }
         public virtual DbSet<TypeOfService> TypeOfService { get; set; }
+        public virtual DbSet<Appeals> Appeals { get; set; }
     }
 }

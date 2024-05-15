@@ -18,7 +18,7 @@ namespace MassageParlor.DB
         public Worker()
         {
             this.Record = new HashSet<Record>();
-            this.Schedule = new HashSet<Schedule>();
+            this.Appeals = new HashSet<Appeals>();
         }
     
         public int ID { get; set; }
@@ -39,6 +39,6 @@ namespace MassageParlor.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Record> Record { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Schedule> Schedule { get; set; }
+        public virtual ICollection<Appeals> Appeals { get; set; }
     }
 }

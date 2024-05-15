@@ -12,13 +12,13 @@ namespace MassageParlor.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Schedule
+    public partial class Appeals
     {
         public int ID { get; set; }
         public Nullable<int> ID_Worker { get; set; }
-        public Nullable<int> ID_Day { get; set; }
+        public string Description { get; set; }
+        public Nullable<System.DateTime> DateTime { get; set; }
     
-        public virtual DayOfWeek DayOfWeek { get; set; }
         public virtual Worker Worker { get; set; }
     }
 }

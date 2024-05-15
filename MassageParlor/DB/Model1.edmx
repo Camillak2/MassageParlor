@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Хранилище MassageSalonModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appeals">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Worker" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="DateTime" Type="datetime" />
+        </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ID" />
@@ -24,13 +33,6 @@
           <Property Name="Service" Type="nvarchar(max)" />
           <Property Name="DateTime" Type="datetime" />
         </EntityType>-->
-        <EntityType Name="DayOfWeek">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="Discount">
           <Key>
             <PropertyRef Name="ID" />
@@ -69,14 +71,6 @@
           <Property Name="ID_Service" Type="int" />
           <Property Name="DateTime" Type="datetime" />
           <Property Name="ID_Worker" Type="int" />
-        </EntityType>
-        <EntityType Name="Schedule">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_Worker" Type="int" />
-          <Property Name="ID_Day" Type="int" />
         </EntityType>
         <EntityType Name="Service">
           <Key>
@@ -153,6 +147,18 @@
           <Property Name="Service" Type="nvarchar(max)" />
           <Property Name="DateTime" Type="datetime" />
         </EntityType>-->
+        <Association Name="FK_Appeals_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
+          <End Role="Appeals" Type="Self.Appeals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appeals">
+              <PropertyRef Name="ID_Worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Client_Gender">
           <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
@@ -207,34 +213,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Schedule_DayOfWeek">
-          <End Role="DayOfWeek" Type="Self.DayOfWeek" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DayOfWeek">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="ID_Day" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Schedule_Worker">
-          <End Role="Worker" Type="Self.Worker" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Worker">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="ID_Worker" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Service_TypeOfService">
           <End Role="TypeOfService" Type="Self.TypeOfService" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -276,13 +254,12 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище MassageSalonModelContainer">
+          <EntitySet Name="Appeals" EntityType="Self.Appeals" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DayOfWeek" EntityType="Self.DayOfWeek" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Record" EntityType="Self.Record" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeOfService" EntityType="Self.TypeOfService" Schema="dbo" store:Type="Tables" />
@@ -296,6 +273,10 @@
     [TheFirstNormalForm].[Price] AS [Price]
     FROM [dbo].[TheFirstNormalForm] AS [TheFirstNormalForm]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_Appeals_Worker" Association="Self.FK_Appeals_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Appeals" EntitySet="Appeals" />
+          </AssociationSet>
           <AssociationSet Name="FK_Client_Gender" Association="Self.FK_Client_Gender">
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Client" EntitySet="Client" />
@@ -311,14 +292,6 @@
           <AssociationSet Name="FK_Record_Worker" Association="Self.FK_Record_Worker">
             <End Role="Worker" EntitySet="Worker" />
             <End Role="Record" EntitySet="Record" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Schedule_DayOfWeek" Association="Self.FK_Schedule_DayOfWeek">
-            <End Role="DayOfWeek" EntitySet="DayOfWeek" />
-            <End Role="Schedule" EntitySet="Schedule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Schedule_Worker" Association="Self.FK_Schedule_Worker">
-            <End Role="Worker" EntitySet="Worker" />
-            <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
           <AssociationSet Name="FK_Service_TypeOfService" Association="Self.FK_Service_TypeOfService">
             <End Role="TypeOfService" EntitySet="TypeOfService" />
@@ -351,14 +324,6 @@
           <NavigationProperty Name="Gender" Relationship="Self.FK_Client_Gender" FromRole="Client" ToRole="Gender" />
           <NavigationProperty Name="Record" Relationship="Self.FK_Record_Client" FromRole="Client" ToRole="Record" />
         </EntityType>
-        <EntityType Name="DayOfWeek">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_DayOfWeek" FromRole="DayOfWeek" ToRole="Schedule" />
-        </EntityType>
         <EntityType Name="Gender">
           <Key>
             <PropertyRef Name="ID" />
@@ -389,16 +354,6 @@
           <NavigationProperty Name="Client" Relationship="Self.FK_Record_Client" FromRole="Record" ToRole="Client" />
           <NavigationProperty Name="Service" Relationship="Self.FK_Record_Service" FromRole="Record" ToRole="Service" />
           <NavigationProperty Name="Worker" Relationship="MassageSalonModel.FK_Record_Worker" FromRole="Record" ToRole="Worker" />
-        </EntityType>
-        <EntityType Name="Schedule">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Worker" Type="Int32" />
-          <Property Name="ID_Day" Type="Int32" />
-          <NavigationProperty Name="DayOfWeek" Relationship="Self.FK_Schedule_DayOfWeek" FromRole="Schedule" ToRole="DayOfWeek" />
-          <NavigationProperty Name="Worker" Relationship="MassageSalonModel.FK_Schedule_Worker" FromRole="Schedule" ToRole="Worker" />
         </EntityType>
         <EntityType Name="Service">
           <Key>
@@ -445,18 +400,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Schedule_DayOfWeek">
-          <End Role="DayOfWeek" Type="Self.DayOfWeek" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DayOfWeek">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="ID_Day" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Record_Service">
           <End Role="Service" Type="Self.Service" Multiplicity="0..1" />
           <End Role="Record" Type="Self.Record" Multiplicity="*" />
@@ -471,11 +414,9 @@
         </Association>
         <EntityContainer Name="MassageSalonEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Client" EntityType="Self.Client" />
-          <EntitySet Name="DayOfWeek" EntityType="Self.DayOfWeek" />
           <EntitySet Name="Gender" EntityType="Self.Gender" />
           <EntitySet Name="Position" EntityType="Self.Position" />
           <EntitySet Name="Record" EntityType="Self.Record" />
-          <EntitySet Name="Schedule" EntityType="Self.Schedule" />
           <EntitySet Name="Service" EntityType="Self.Service" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <AssociationSet Name="FK_Client_Gender" Association="Self.FK_Client_Gender">
@@ -485,10 +426,6 @@
           <AssociationSet Name="FK_Record_Client" Association="Self.FK_Record_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="Record" EntitySet="Record" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Schedule_DayOfWeek" Association="Self.FK_Schedule_DayOfWeek">
-            <End Role="DayOfWeek" EntitySet="DayOfWeek" />
-            <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
           <AssociationSet Name="FK_Record_Service" Association="Self.FK_Record_Service">
             <End Role="Service" EntitySet="Service" />
@@ -509,14 +446,15 @@
             <End Role="Worker" EntitySet="Worker" />
             <End Role="Record" EntitySet="Record" />
           </AssociationSet>
-          <AssociationSet Name="FK_Schedule_Worker" Association="MassageSalonModel.FK_Schedule_Worker">
-            <End Role="Worker" EntitySet="Worker" />
-            <End Role="Schedule" EntitySet="Schedule" />
-          </AssociationSet>
           <EntitySet Name="TypeOfService" EntityType="MassageSalonModel.TypeOfService" />
           <AssociationSet Name="FK_Service_TypeOfService" Association="MassageSalonModel.FK_Service_TypeOfService">
             <End Role="TypeOfService" EntitySet="TypeOfService" />
             <End Role="Service" EntitySet="Service" />
+          </AssociationSet>
+          <EntitySet Name="Appeals" EntityType="MassageSalonModel.Appeals" />
+          <AssociationSet Name="FK_Appeals_Worker" Association="MassageSalonModel.FK_Appeals_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Appeals" EntitySet="Appeals" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Discount">
@@ -546,7 +484,7 @@
           <NavigationProperty Name="Gender" Relationship="MassageSalonModel.FK_Worker_Gender" FromRole="Worker" ToRole="Gender" />
           <NavigationProperty Name="Position" Relationship="MassageSalonModel.FK_Worker_Position" FromRole="Worker" ToRole="Position" />
           <NavigationProperty Name="Record" Relationship="MassageSalonModel.FK_Record_Worker" FromRole="Worker" ToRole="Record" />
-          <NavigationProperty Name="Schedule" Relationship="MassageSalonModel.FK_Schedule_Worker" FromRole="Worker" ToRole="Schedule" />
+          <NavigationProperty Name="Appeals" Relationship="MassageSalonModel.FK_Appeals_Worker" FromRole="Worker" ToRole="Appeals" />
         </EntityType>
         <EntityType Name="TheFirstNormalForm">
           <Key>
@@ -598,20 +536,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Schedule_Worker">
-          <End Type="MassageSalonModel.Worker" Role="Worker" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="MassageSalonModel.Schedule" Role="Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Worker">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="ID_Worker" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="TypeOfService">
           <Key>
             <PropertyRef Name="ID" />
@@ -635,6 +559,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Appeals">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Worker" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Worker" Relationship="MassageSalonModel.FK_Appeals_Worker" FromRole="Appeals" ToRole="Worker" />
+        </EntityType>
+        <Association Name="FK_Appeals_Worker">
+          <End Type="MassageSalonModel.Worker" Role="Worker" Multiplicity="0..1" />
+          <End Type="MassageSalonModel.Appeals" Role="Appeals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appeals">
+              <PropertyRef Name="ID_Worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -651,14 +597,6 @@
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="ID_Gender" ColumnName="ID_Gender" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DayOfWeek">
-            <EntityTypeMapping TypeName="MassageSalonModel.DayOfWeek">
-              <MappingFragment StoreEntitySet="DayOfWeek">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -687,15 +625,6 @@
                 <ScalarProperty Name="ID_Service" ColumnName="ID_Service" />
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />
                 <ScalarProperty Name="ID_Worker" ColumnName="ID_Worker" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Schedule">
-            <EntityTypeMapping TypeName="MassageSalonModel.Schedule">
-              <MappingFragment StoreEntitySet="Schedule">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ID_Worker" ColumnName="ID_Worker" />
-                <ScalarProperty Name="ID_Day" ColumnName="ID_Day" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -763,6 +692,16 @@
               <MappingFragment StoreEntitySet="TypeOfService">
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Appeals">
+            <EntityTypeMapping TypeName="MassageSalonModel.Appeals">
+              <MappingFragment StoreEntitySet="Appeals">
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID_Worker" ColumnName="ID_Worker" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MassageParlor.Windowww;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,19 +18,18 @@ using MassageParlor.DB;
 namespace MassageParlor.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainMenuPage.xaml
+    /// Логика взаимодействия для AppealsPage.xaml
     /// </summary>
-    public partial class MainMenuPage : Page
+    public partial class AppealsPage : Page
     {
-        public static List<Worker> workers { get; set; }
-        Worker loggedWorker;
-
-        public MainMenuPage()
+        public AppealsPage()
         {
             InitializeComponent();
-            loggedWorker = DBConnection.loginedWorker;
-            NameTB.Text = "Добро пожаловать, " + DBConnection.loginedWorker.Name.ToString() + "!";
-            CheckConditionAndToggleButtonVisibility();
+        }
+
+        public void Refresh()
+        {
+            ClientsLV.ItemsSource = DBConnection.massageSalon.Client.ToList();
         }
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)
@@ -67,28 +67,11 @@ namespace MassageParlor.Pages
             NavigationService.Navigate(new AuthorizationPage());
         }
 
-        private void CheckConditionAndToggleButtonVisibility()
+        private void AddBTN_Click(object sender, RoutedEventArgs e)
         {
-            if (loggedWorker.Position.Name == "Администратор")
-            {
-                WorkersBTN.Visibility = Visibility.Visible;
-                MassageBTN.Visibility = Visibility.Collapsed;
-            }
-            else if (loggedWorker.Position.Name == "Массажист")
-            {
-                WorkersBTN.Visibility = Visibility.Collapsed;
-                MassageBTN.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void ConnectionBTN_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void AppealsBTN_Click(object sender, RoutedEventArgs e)
-        {
-
+            AddClientWindow addClientWindow = new AddClientWindow();
+            addClientWindow.ShowDialog();
+            Refresh();
         }
     }
 }

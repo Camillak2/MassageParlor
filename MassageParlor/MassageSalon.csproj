@@ -75,6 +75,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DB\Appeals.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Discount.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -86,6 +89,9 @@
     </Compile>
     <Compile Include="Pages\AllServicesPage.xaml.cs">
       <DependentUpon>AllServicesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AppealsPage.xaml.cs">
+      <DependentUpon>AppealsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MainMenuPage.xaml.cs">
       <DependentUpon>MainMenuPage.xaml</DependentUpon>
@@ -128,9 +134,6 @@
     <Compile Include="DB\Client.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\DayOfWeek.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="DB\DBConnection.cs" />
     <Compile Include="DB\Gender.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -156,9 +159,6 @@
     <Compile Include="DB\Record.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\Schedule.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="DB\Service.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -173,6 +173,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\AllServicesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AppealsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
