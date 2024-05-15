@@ -96,5 +96,10 @@ namespace MassageParlor.Pages
                 NavigationService.Navigate(new AllServicesPage(typeOfService));
             }
         }
+
+        private void BackBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MainMenuPage());
+        }
     }
 }

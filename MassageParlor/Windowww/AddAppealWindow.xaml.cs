@@ -52,7 +52,7 @@ namespace MassageParlor.Windowww
                 {
                     MessageBox.Show(error.ToString());
                 }
-                else
+                try
                 {
                     DateTime currentDateTime = DateTime.Now;
                     appeal.DateTime = currentDateTime;
@@ -65,10 +65,14 @@ namespace MassageParlor.Windowww
                     DBConnection.massageSalon.SaveChanges();
                     Close();
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при работе с базой данных: {ex.Message}");
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Заполните все поля!");
+                MessageBox.Show($"Произошла непредвиденная ошибка: {ex.Message}");
             }
         }
     }

@@ -175,17 +175,30 @@ namespace MassageParlor.Pages
                 }
                 else
                 {
+                    if (PasswordTB.Text.Length > 13)
+                    {
+                        MessageBox.Show("Слишком длинный пароль!");
+                        return;
+                    }
+                    else if (PasswordTB.Text.Length < 6)
+                    {
+                        MessageBox.Show("Слишком короткий пароль!");
+                        return;
+                    }
+                    else
+                    {
+                        worker.Password = PasswordTB.Text.Trim();
+                    }
+
                     worker.Surname = SurnameTB.Text;
                     worker.Name = NameTB.Text;
                     worker.Patronymic = PatronymicTB.Text;
                     worker.DateOfBirth = DateOfBirthDP.SelectedDate;
                     worker.Phone = PhoneTB.Text;
                     worker.Login = LoginTB.Text;
-                    worker.Password = PasswordTB.Text;
                     DBConnection.massageSalon.SaveChanges();
-
-
                 }
+
                 SurnameTB.IsReadOnly = true;
                 NameTB.IsReadOnly = true;
                 PatronymicTB.IsReadOnly = true;

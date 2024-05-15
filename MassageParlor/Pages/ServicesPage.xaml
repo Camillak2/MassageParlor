@@ -68,6 +68,27 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Height="100"
+                Width="250"
+                x:Name="BackBTN"
+                Margin="0 0 100 30"
+                Click="BackBTN_Click">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Images/back.png"
+                        Width="48"
+                        Height="48"
+                        Grid.Row="0"/>
+                    <TextBlock Text="На главную"
+                        HorizontalAlignment="Center"
+                        Grid.Row="1"/>
+                </Grid>
+            </Button>
         </Grid>
 
         <Grid Grid.Column="1"

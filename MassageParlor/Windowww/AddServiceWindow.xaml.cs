@@ -60,7 +60,7 @@ namespace MassageParlor.Windowww
                 {
                     MessageBox.Show(error.ToString());
                 }
-                else
+                try
                 {
                     service.Name = NameTB.Text.Trim();
                     service.Price = Convert.ToDecimal(CostTB.Text.Trim());
@@ -72,10 +72,14 @@ namespace MassageParlor.Windowww
                     InitializeDataInPage();
                     Close();
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при работе с базой данных: {ex.Message}");
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Заполните все поля!");
+                MessageBox.Show($"Произошла непредвиденная ошибка: {ex.Message}");
             }
         }
 

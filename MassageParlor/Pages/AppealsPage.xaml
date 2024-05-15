@@ -159,7 +159,7 @@
                     Width="48"
                     Height="48"
                     Grid.Row="0"/>
-                    <TextBlock Text="Назад"
+                    <TextBlock Text="На главную"
                     HorizontalAlignment="Center"
                     Grid.Row="1"/>
                 </Grid>

@@ -143,25 +143,25 @@
                     </Button>
                 </StackPanel>
             </StackPanel>
-            <Button HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
-                Height="100"
-                Width="250"
-                x:Name="BackBTN"
-                Margin="100 0 0 20"
-                Click="BackBTN_Click">
+            <Button HorizontalAlignment="Right"
+    VerticalAlignment="Bottom"
+    Height="100"
+    Width="250"
+    x:Name="BackBTN"
+    Margin="0 0 100 30"
+    Click="BackBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="/Images/back.png"
-                        Width="48"
-                        Height="48"
-                        Grid.Row="0"/>
-                    <TextBlock Text="Назад"
-                        HorizontalAlignment="Center"
-                        Grid.Row="1"/>
+            Width="48"
+            Height="48"
+            Grid.Row="0"/>
+                    <TextBlock Text="На главную"
+            HorizontalAlignment="Center"
+            Grid.Row="1"/>
                 </Grid>
             </Button>
         </Grid>
@@ -169,7 +169,7 @@
             Height="80"
             Width="300"
             Visibility="Visible"
-            Margin="100 0 100 120"
+            Margin="100 0 100 150"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom" Click="EditBTN_Click">
             <TextBlock Text="Изменить"
@@ -180,7 +180,7 @@
             Width="300"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Margin="100 0 100 120"
+            Margin="100 0 100 150"
             Visibility="Collapsed"
             Click="SaveBTN_Click">
             <TextBlock Text="Сохранить"
