@@ -34,6 +34,9 @@ namespace MassageParlor.Windowww
             loggedWorker = DBConnection.loginedWorker;
             InitializeDataInPage();
             this.DataContext = this;
+
+            NameTB.TextChanged += TextBox_TextChanged;
+            CostTB.TextChanged += TextBox_TextChanged;
         }
 
         private void InitializeDataInPage()
@@ -60,7 +63,7 @@ namespace MassageParlor.Windowww
                 else
                 {
                     service.Name = NameTB.Text.Trim();
-                    service.Price = Convert.ToInt32(CostTB.Text.Trim());
+                    service.Price = Convert.ToDecimal(CostTB.Text.Trim());
                     //service.TypeOfService.Name = TypeTB.Text.Trim();
                     service.ID_TypeOfService = contextType.ID;
 
@@ -80,12 +83,41 @@ namespace MassageParlor.Windowww
         {
             Regex regex = new Regex(@"^[а-яА-Я]$");
             e.Handled = !regex.IsMatch(e.Text);
+
+            TextBox textBox = (TextBox)sender;
+            string currentText = textBox.Text;
+
+            if (currentText.Length >= 50 && !string.IsNullOrEmpty(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
         }
 
         private void CostTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex(@"^[0-9]$");
             e.Handled = !regex.IsMatch(e.Text);
+
+            TextBox textBox = (TextBox)sender;
+            string currentText = textBox.Text;
+
+            if (currentText.Length >= 16 && !string.IsNullOrEmpty(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Имя
+            NameTB.Text = Regex.Replace(NameTB.Text, @"\s", "");
+            NameTB.CaretIndex = NameTB.Text.Length;
+
+            //Цена
+            CostTB.Text = Regex.Replace(CostTB.Text, @"\s", "");
+            CostTB.CaretIndex = CostTB.Text.Length;
         }
     }
 }

@@ -75,7 +75,6 @@ namespace MassageParlor.Pages
             else if (result == MessageBoxResult.No){ }
         }
 
-
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MyPersonalAccountPage());

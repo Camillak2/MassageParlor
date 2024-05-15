@@ -23,12 +23,20 @@ namespace MassageParlor.Windowww
         Worker loggedWorker;
 
         public static Appeals appeal = new Appeals();
-        public static List<Status> statuses { get; set; } 
+        public static List<Status> statuses { get; set; }
+        public static List<Taskk> tasks { get; set; }
 
         public AddAppealWindow()
         {
             InitializeComponent();
             loggedWorker = DBConnection.loginedWorker;
+            tasks = DBConnection.massageSalon.Taskk.ToList();
+            statuses = DBConnection.massageSalon.Status.ToList();
+            DateTime currentDateTime = DateTime.Now;
+            DateTimeDP.SelectedDate = currentDateTime;
+            DateTimeDP.IsEnabled = false;
+            StatusTB.Text = "Не выполнено";
+            this.DataContext = this;
         }
 
         private void AddBTN_Click(object sender, RoutedEventArgs e)
@@ -46,9 +54,10 @@ namespace MassageParlor.Windowww
                 }
                 else
                 {
-                    appeal.DateTime = ;
+                    DateTime currentDateTime = DateTime.Now;
+                    appeal.DateTime = currentDateTime;
                     appeal.ID_Worker = loggedWorker.ID;
-                    appeal.Status.Name = "Не выполнено";
+                    appeal.ID_Status = 0;
                     var a = TaskCB.SelectedItem as Taskk;
                     appeal.ID_Task = a.ID;
 

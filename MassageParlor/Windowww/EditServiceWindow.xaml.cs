@@ -33,10 +33,13 @@ namespace MassageParlor.Windowww
 
             services = DBConnection.massageSalon.Service.ToList();
             typeOfServices = DBConnection.massageSalon.TypeOfService.ToList();
-            this.DataContext = this;
             NameTB.Text = contextService.Name;
             CostTB.Text = contextService.Price.ToString();
             TypeTB.Text = contextService.TypeOfService.Name;
+            this.DataContext = this;
+
+            NameTB.TextChanged += TextBox_TextChanged;
+            CostTB.TextChanged += TextBox_TextChanged;
         }
 
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
@@ -58,8 +61,8 @@ namespace MassageParlor.Windowww
                     service.Name = NameTB.Text.Trim();
                     //service.Price = CostTB.Text.Trim();
 
-                    EditBTN.Visibility = Visibility.Collapsed;
-                    SaveBTN.Visibility = Visibility.Visible;
+                    EditBTN.Visibility = Visibility.Visible;
+                    SaveBTN.Visibility = Visibility.Collapsed;
                     NameTB.IsReadOnly = true;
                     CostTB.IsReadOnly = true;
 
@@ -75,8 +78,8 @@ namespace MassageParlor.Windowww
 
         private void EditBTN_Click(object sender, RoutedEventArgs e)
         {
-            EditBTN.Visibility = Visibility.Visible;
-            SaveBTN.Visibility = Visibility.Collapsed;
+            EditBTN.Visibility = Visibility.Collapsed;
+            SaveBTN.Visibility = Visibility.Visible;
             NameTB.IsReadOnly = false;
             CostTB.IsReadOnly = false;
         }
@@ -85,13 +88,41 @@ namespace MassageParlor.Windowww
         {
             Regex regex = new Regex(@"^[а-яА-Я]$");
             e.Handled = !regex.IsMatch(e.Text);
+
+            TextBox textBox = (TextBox)sender;
+            string currentText = textBox.Text;
+
+            if (currentText.Length >= 50 && !string.IsNullOrEmpty(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
         }
 
         private void CostTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex(@"^[0-9]$");
             e.Handled = !regex.IsMatch(e.Text);
+
+            TextBox textBox = (TextBox)sender;
+            string currentText = textBox.Text;
+
+            if (currentText.Length >= 16 && !string.IsNullOrEmpty(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
         }
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Имя
+            NameTB.Text = Regex.Replace(NameTB.Text, @"\s", "");
+            NameTB.CaretIndex = NameTB.Text.Length;
+
+            //Цена
+            CostTB.Text = Regex.Replace(CostTB.Text, @"\s", "");
+            CostTB.CaretIndex = CostTB.Text.Length;
+        }
     }
 }

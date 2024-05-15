@@ -65,19 +65,21 @@
                         FontSize="40"
                         Width="400"
                         IsReadOnly="True" 
-                        PreviewTextInput="TextBox_PreviewTextInput"/>
+                        PreviewTextInput="TextBox_PreviewTextInput" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="NameTB"
                         Margin="10"
                         FontSize="40"
                         Width="400"
                         IsReadOnly="True"
-                        PreviewTextInput="TextBox_PreviewTextInput"/>
+                        PreviewTextInput="TextBox_PreviewTextInput"
+                             TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="PatronymicTB"
                         Margin="10"
                         FontSize="40"
                         Width="400"
                         IsReadOnly="True"
-                        PreviewTextInput="TextBox_PreviewTextInput"/>
+                        PreviewTextInput="TextBox_PreviewTextInput"
+                             TextChanged="TextBox_TextChanged"/>
                     <DatePicker x:Name="DateOfBirthDP"
                         Margin="10"
                         FontSize="40"
@@ -90,7 +92,8 @@
                         Width="400"
                         IsReadOnly="True"
                         PreviewTextInput="PhoneTextBox_PreviewTextInput" 
-                        LostFocus="PhoneTextBox_LostFocus"/>
+                        LostFocus="PhoneTextBox_LostFocus"
+                             TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="PositionTB"
                         Margin="10"
                         FontSize="40"
@@ -110,7 +113,8 @@
                         Margin="15"
                         FontSize="40"
                         Width="400"
-                        IsReadOnly="True"/>
+                        IsReadOnly="True"
+                        TextChanged="TextBox_TextChanged"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical"
                             HorizontalAlignment="Center"
@@ -139,6 +143,27 @@
                     </Button>
                 </StackPanel>
             </StackPanel>
+            <Button HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Height="100"
+                Width="250"
+                x:Name="BackBTN"
+                Margin="100 0 0 20"
+                Click="BackBTN_Click">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Images/back.png"
+                        Width="48"
+                        Height="48"
+                        Grid.Row="0"/>
+                    <TextBlock Text="Назад"
+                        HorizontalAlignment="Center"
+                        Grid.Row="1"/>
+                </Grid>
+            </Button>
         </Grid>
         <Button x:Name="EditBTN"
             Height="80"

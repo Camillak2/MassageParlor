@@ -32,23 +32,30 @@ namespace MassageParlor.Windowww
             genders = DBConnection.massageSalon.Gender.ToList();
             clients = DBConnection.massageSalon.Client.ToList();
             this.DataContext = this;
+
+            SurnameTB.TextChanged += TextBox_TextChanged;
+            NameTB.TextChanged += TextBox_TextChanged;
+            PatronymicTB.TextChanged += TextBox_TextChanged;
+            PhoneTB.TextChanged += TextBox_TextChanged;
         }
 
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                Client client = new Client();
                 StringBuilder error = new StringBuilder();
                 if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
-                        DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PhoneTB.Text) || GenderCB.SelectedItem == null)
+                   DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PhoneTB.Text) || GenderCB.SelectedItem == null)
                 {
                     error.AppendLine("Заполните все поля!");
                 }
                 if (error.Length > 0)
                 {
                     MessageBox.Show(error.ToString());
+                    return;
                 }
-                else
+                try
                 {
                     client.Surname = SurnameTB.Text.Trim();
                     client.Name = NameTB.Text.Trim();
@@ -56,17 +63,21 @@ namespace MassageParlor.Windowww
                     client.Phone = PhoneTB.Text.Trim();
                     client.DateOfBirth = DateOfBirthDP.SelectedDate;
 
-                    var b = GenderCB.SelectedItem as Gender;
-                    client.ID_Gender = b.ID;
+                    var a = GenderCB.SelectedItem as Gender;
+                    client.ID_Gender = a.ID;
 
                     DBConnection.massageSalon.Client.Add(client);
                     DBConnection.massageSalon.SaveChanges();
                     Close();
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при работе с базой данных: {ex.Message}");
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Заполните все поля!");
+                MessageBox.Show($"Произошла непредвиденная ошибка: {ex.Message}");
             }
         }
 
@@ -75,6 +86,15 @@ namespace MassageParlor.Windowww
             // Проверяем, что введенный символ - русская буква
             Regex regex = new Regex(@"^[а-яА-Я]$");
             e.Handled = !regex.IsMatch(e.Text);
+
+            TextBox textBox = (TextBox)sender;
+            string currentText = textBox.Text;
+
+            if (currentText.Length >= 50 && !string.IsNullOrEmpty(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -163,13 +183,32 @@ namespace MassageParlor.Windowww
             if (currentText.Length < 10)
             {
                 MessageBox.Show("Номер телефона должен содержать 11 цифр.");
-                textBox.Focus();
+                return;
             }
             else
             {
                 // Сохранить номер телефона в базе данных
                 SavePhoneNumber(currentText);
             }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Фамилия
+            SurnameTB.Text = Regex.Replace(SurnameTB.Text, @"\s", "");
+            SurnameTB.CaretIndex = SurnameTB.Text.Length;
+
+            //Имя
+            NameTB.Text = Regex.Replace(NameTB.Text, @"\s", "");
+            NameTB.CaretIndex = NameTB.Text.Length;
+
+            //Отчество
+            PatronymicTB.Text = Regex.Replace(PatronymicTB.Text, @"\s", "");
+            PatronymicTB.CaretIndex = PatronymicTB.Text.Length;
+
+            //Номер телефона
+            PhoneTB.Text = Regex.Replace(PhoneTB.Text, @"\s", "");
+            PhoneTB.CaretIndex = PhoneTB.Text.Length;
         }
     }
 }

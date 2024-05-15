@@ -53,7 +53,8 @@
                                 Height="250"/>
                                 <StackPanel Orientation="Vertical"
                                             HorizontalAlignment="Center"
-                                            VerticalAlignment="Center">
+                                            VerticalAlignment="Center"
+                                            Width="330">
                                     <TextBlock Text="{Binding Name}"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -61,14 +62,21 @@
                                         FontSize="30"
                                         TextAlignment="Center"
                                         TextWrapping="Wrap"
-                                               Margin="0 0 0 20"/>
-                                    <TextBlock Text="{Binding Price}"
+                                        Margin="0 0 0 20"/>
+                                    <TextBlock Text="{Binding Price, StringFormat={}{0:F2}₽}"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Foreground="White"
                                         FontSize="24"
                                         TextAlignment="Center"
-                                        TextWrapping="Wrap"/>
+                                        TextWrapping="Wrap"
+                                        Margin="0 0 0 20"/>
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center">
+                                        <Hyperlink Style="{StaticResource DeleteKey}"
+                                            x:Name="DeleteHL"
+                                            Click="DeleteHL_Click">Delete</Hyperlink>
+                                    </TextBlock>
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>

@@ -56,6 +56,12 @@ namespace MassageParlor.Pages
                 }
             }
             CheckConditionAndToggleButtonVisibility();
+
+            SurnameTB.TextChanged += TextBox_TextChanged;
+            NameTB.TextChanged += TextBox_TextChanged;
+            PatronymicTB.TextChanged += TextBox_TextChanged;
+            PhoneTB.TextChanged += TextBox_TextChanged;
+            PasswordTB.TextChanged += TextBox_TextChanged;
         }
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)
@@ -202,6 +208,15 @@ namespace MassageParlor.Pages
             // Проверяем, что введенный символ - русская буква
             Regex regex = new Regex(@"^[а-яА-Я]+$");
             e.Handled = !regex.IsMatch(e.Text);
+
+            TextBox textBox = (TextBox)sender;
+            string currentText = textBox.Text;
+
+            if (currentText.Length >= 50 && !string.IsNullOrEmpty(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -297,6 +312,34 @@ namespace MassageParlor.Pages
                 // Сохранить номер телефона в базе данных
                 SavePhoneNumber(currentText);
             }
+        }
+
+        private void BackBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MainMenuPage());
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Фамилия
+            SurnameTB.Text = Regex.Replace(SurnameTB.Text, @"\s", "");
+            SurnameTB.CaretIndex = SurnameTB.Text.Length;
+
+            //Имя
+            NameTB.Text = Regex.Replace(NameTB.Text, @"\s", "");
+            NameTB.CaretIndex = NameTB.Text.Length;
+
+            //Отчество
+            PatronymicTB.Text = Regex.Replace(PatronymicTB.Text, @"\s", "");
+            PatronymicTB.CaretIndex = PatronymicTB.Text.Length;
+
+            //Номер телефона
+            PhoneTB.Text = Regex.Replace(PhoneTB.Text, @"\s", "");
+            PhoneTB.CaretIndex = PhoneTB.Text.Length;
+
+            //Пароль
+            PasswordTB.Text = Regex.Replace(PasswordTB.Text, @"\s", "");
+            PasswordTB.CaretIndex = PasswordTB.Text.Length;
         }
     }
 }

@@ -41,13 +41,15 @@
                         FontSize="40"
                         Width="400"
                         Height="50"
-                        PreviewTextInput="NameTB_PreviewTextInput"/>
+                        PreviewTextInput="NameTB_PreviewTextInput"
+                                 TextChanged="TextBox_TextChanged"/>
                         <TextBox x:Name="CostTB"
                         Margin="10"
                         FontSize="40"
                         Width="400"
                         Height="50"
-                        PreviewTextInput="CostTB_PreviewTextInput"/>
+                        PreviewTextInput="CostTB_PreviewTextInput"
+                                 TextChanged="TextBox_TextChanged"/>
                         <TextBox x:Name="TypeTB"
                         Margin="10"
                         FontSize="40"

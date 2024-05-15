@@ -38,6 +38,12 @@ namespace MassageParlor.Windowww
             InitializeDataInPage();
             this.DataContext = this;
 
+            SurnameTB.TextChanged += TextBox_TextChanged;
+            NameTB.TextChanged += TextBox_TextChanged;
+            PatronymicTB.TextChanged += TextBox_TextChanged;
+            PhoneTB.TextChanged += TextBox_TextChanged;
+            PasswordTB.TextChanged += TextBox_TextChanged;
+            PassportTB.TextChanged += TextBox_TextChanged;
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -45,6 +51,15 @@ namespace MassageParlor.Windowww
             // Проверяем, что введенный символ - русская буква
             Regex regex = new Regex(@"^[а-яА-Я]$");
             e.Handled = !regex.IsMatch(e.Text);
+
+            TextBox textBox = (TextBox)sender;
+            string currentText = textBox.Text;
+
+            if (currentText.Length >= 50 && !string.IsNullOrEmpty(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
         }
 
         private void InitializeDataInPage()
@@ -128,7 +143,7 @@ namespace MassageParlor.Windowww
                 Worker worker = contextWorker;
                 if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
                 DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PhoneTB.Text) || string.IsNullOrWhiteSpace(LoginTB.Text) ||
-                string.IsNullOrWhiteSpace(PasswordTB.Text))
+                string.IsNullOrWhiteSpace(PasswordTB.Text) || GenderCB.SelectedItem == null || PositionCB.SelectedItem == null) 
                 {
                     error.AppendLine("Заполните все поля!");
                 }
@@ -142,19 +157,45 @@ namespace MassageParlor.Windowww
                 }
                 else
                 {
+                    if (LoginTB.Text.Length > 13)
+                    {
+                        MessageBox.Show("Слишком длинный логин!");
+                        return;
+                    }
+                    else if (LoginTB.Text.Length < 6)
+                    {
+                        MessageBox.Show("Слишком короткий логин!");
+                        return;
+                    }
+                    else
+                    {
+                        worker.Login = LoginTB.Text.Trim();
+                    }
+
+                    if (PasswordTB.Text.Length > 13)
+                    {
+                        MessageBox.Show("Слишком длинный пароль!");
+                        return;
+                    }
+                    else if (PasswordTB.Text.Length < 6)
+                    {
+                        MessageBox.Show("Слишком короткий пароль!");
+                        return;
+                    }
+                    else
+                    {
+                        worker.Password = PasswordTB.Text.Trim();
+                    }
+
                     worker.Surname = SurnameTB.Text;
                     worker.Name = NameTB.Text;
                     worker.Patronymic = PatronymicTB.Text;
                     worker.DateOfBirth = DateOfBirthDP.SelectedDate;
                     worker.Phone = PhoneTB.Text;
-                    worker.Login = LoginTB.Text;
-                    worker.Password = PasswordTB.Text;
                     worker.PassportDetails = PassportTB.Text;
                     worker.ID_Position = (PositionCB.SelectedItem as Position).ID;
                     worker.ID_Gender = (GenderCB.SelectedItem as Gender).ID;
                     DBConnection.massageSalon.SaveChanges();
-
-
                 }
                 SurnameTB.IsReadOnly = true;
                 NameTB.IsReadOnly = true;
@@ -264,7 +305,7 @@ namespace MassageParlor.Windowww
             if (currentText.Length < 10)
             {
                 MessageBox.Show("Номер телефона должен содержать 11 цифр.");
-                textBox.Focus();
+                return;
             }
             else
             {
@@ -296,6 +337,33 @@ namespace MassageParlor.Windowww
             {
                  worker.Phone = PhoneTB.Text;
             }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Фамилия
+            SurnameTB.Text = Regex.Replace(SurnameTB.Text, @"\s", "");
+            SurnameTB.CaretIndex = SurnameTB.Text.Length;
+
+            //Имя
+            NameTB.Text = Regex.Replace(NameTB.Text, @"\s", "");
+            NameTB.CaretIndex = NameTB.Text.Length;
+
+            //Отчество
+            PatronymicTB.Text = Regex.Replace(PatronymicTB.Text, @"\s", "");
+            PatronymicTB.CaretIndex = PatronymicTB.Text.Length;
+
+            //Номер телефона
+            PhoneTB.Text = Regex.Replace(PhoneTB.Text, @"\s", "");
+            PhoneTB.CaretIndex = PhoneTB.Text.Length;
+
+            //Паспорт
+            PassportTB.Text = Regex.Replace(PassportTB.Text, @"\s", "");
+            PassportTB.CaretIndex = PassportTB.Text.Length;
+
+            //Пароль
+            PasswordTB.Text = Regex.Replace(PasswordTB.Text, @"\s", "");
+            PasswordTB.CaretIndex = PasswordTB.Text.Length;
         }
     }
 }

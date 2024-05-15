@@ -45,13 +45,12 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             IsReadOnly="True"/>
-                    <DatePicker x:Name="DateOfBirthDP"
+                    <DatePicker x:Name="DateTimeDP"
                             Margin="10"
                             FontSize="40"
                             Width="400"
                             Height="50"
-                            IsEnabled="False"
-                            SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+                            IsEnabled="False"/>
                     <ComboBox x:Name="StatusCB" Style="{StaticResource ComboboxStyle}"
                             Margin="10"
                             FontSize="40"

@@ -39,6 +39,14 @@ namespace MassageParlor.Windowww
             positions = DBConnection.massageSalon.Position.ToList();
             genders = DBConnection.massageSalon.Gender.ToList();
             this.DataContext = this;
+
+            SurnameTB.TextChanged += TextBox_TextChanged;
+            NameTB.TextChanged += TextBox_TextChanged;
+            PatronymicTB.TextChanged += TextBox_TextChanged;
+            PhoneTB.TextChanged += TextBox_TextChanged;
+            LoginTB.TextChanged += TextBox_TextChanged;
+            PasswordTB.TextChanged += TextBox_TextChanged;
+            PassportTB.TextChanged += TextBox_TextChanged;
         }
 
         private void AddPhotoBTN_Click_1(object sender, RoutedEventArgs e)
@@ -229,7 +237,7 @@ namespace MassageParlor.Windowww
             if (currentText.Length < 10)
             {
                 MessageBox.Show("Номер телефона должен содержать 11 цифр.");
-                textBox.Focus();
+                return;
             }
             else
             {
@@ -262,6 +270,42 @@ namespace MassageParlor.Windowww
                 // Сохранить номер телефона в базе данных
                 DBConnection.massageSalon.SaveChanges();
             }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Фамилия
+            SurnameTB.Text = Regex.Replace(SurnameTB.Text, @"\s", "");
+            SurnameTB.CaretIndex = SurnameTB.Text.Length;
+
+            //Имя
+            NameTB.Text = Regex.Replace(NameTB.Text, @"\s", "");
+            NameTB.CaretIndex = NameTB.Text.Length;
+
+            //Отчество
+            PatronymicTB.Text = Regex.Replace(PatronymicTB.Text, @"\s", "");
+            PatronymicTB.CaretIndex = PatronymicTB.Text.Length;
+
+            //Номер телефона
+            PhoneTB.Text = Regex.Replace(PhoneTB.Text, @"\s", "");
+            PhoneTB.CaretIndex = PhoneTB.Text.Length;
+
+            //Паспорт
+            PassportTB.Text = Regex.Replace(PassportTB.Text, @"\s", "");
+            PassportTB.CaretIndex = PassportTB.Text.Length;
+
+            //Логин
+            LoginTB.Text = Regex.Replace(LoginTB.Text, @"\s", "");
+            LoginTB.CaretIndex = LoginTB.Text.Length;
+
+            //Пароль
+            PasswordTB.Text = Regex.Replace(PasswordTB.Text, @"\s", "");
+            PasswordTB.CaretIndex = PasswordTB.Text.Length;
+        }
+
+        private void SurnameTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

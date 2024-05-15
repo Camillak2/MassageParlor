@@ -92,8 +92,8 @@ namespace MassageParlor.Pages
 
         private void AddBTN_Click(object sender, RoutedEventArgs e)
         {
-            AddAppealWindow addAppealWindow = new AddAppealWindow();
-            addAppealWindow.ShowDialog();
+            AddClientWindow addClientWindow = new AddClientWindow();
+            addClientWindow.ShowDialog();
             Refresh();
         }
 
@@ -102,8 +102,8 @@ namespace MassageParlor.Pages
             if (ClientsLV.SelectedItem is Client client)
             {
                 DBConnection.selectedForEditClient = ClientsLV.SelectedItem as Client;
-                EditAppealWindow editAppealWindow = new EditAppealWindow(client);
-                editAppealWindow.ShowDialog();
+                EditClientWindow editClientWindow = new EditClientWindow(client);
+                editClientWindow.ShowDialog();
             }
             else if (ClientsLV.SelectedItem is null)
             {
@@ -114,18 +114,29 @@ namespace MassageParlor.Pages
 
         private void DeleteHL_Click(object sender, RoutedEventArgs e)
         {
-            var client = (sender as Hyperlink).DataContext as Client;
-            try
-            {
-                DBConnection.massageSalon.Client.Remove(client);
-                DBConnection.massageSalon.SaveChanges();
-            }
-            catch
-            {
-                MessageBox.Show("Этот клиент не может быть удален!");
-            }
+            MessageBoxResult result = MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            Refresh();
+            if (result == MessageBoxResult.Yes)
+            {
+                var client = (sender as Hyperlink).DataContext as Client;
+                try
+                {
+                    DBConnection.massageSalon.Client.Remove(client);
+                    DBConnection.massageSalon.SaveChanges();
+                }
+                catch
+                {
+                    MessageBox.Show("Этот клиент не может быть удален!");
+                }
+
+                Refresh();
+            }
+            else if (result == MessageBoxResult.No) { }
+        }
+
+        private void BackBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MainMenuPage());
         }
     }
 }

@@ -29,25 +29,45 @@ namespace MassageParlor.Pages
 
         public AppealsPage()
         {
+            InitializeComponent();
+            loggedWorker = DBConnection.loginedWorker;
             workers = DBConnection.massageSalon.Worker.ToList();
             statuses = DBConnection.massageSalon.Status.ToList();
             appeals = DBConnection.massageSalon.Appeals.ToList();
+            CheckConditionAndToggleButtonVisibility();
+        }
 
-            InitializeComponent();
-            loggedWorker = DBConnection.loginedWorker;
+        private void CheckConditionAndToggleButtonVisibility()
+        {
             if (loggedWorker.Position.Name == "Администратор")
             {
+                WorkersBTN.Visibility = Visibility.Visible;
+                MassageBTN.Visibility = Visibility.Collapsed;
+                EditBTN.Visibility = Visibility.Visible;
                 NameTB.Text = "Обращения";
+                AddBTN.Visibility = Visibility.Collapsed;
             }
-            if (loggedWorker.Position.Name == "Массажист")
+            else if (loggedWorker.Position.Name == "Массажист")
             {
+                WorkersBTN.Visibility = Visibility.Collapsed;
+                EditBTN.Visibility = Visibility.Visible;
+                AddBTN.Visibility = Visibility.Collapsed;
+                MassageBTN.Visibility = Visibility.Visible;
+                AddBTN.Visibility = Visibility.Visible;
                 NameTB.Text = "Мои обращения";
             }
         }
 
         public void Refresh()
         {
-            AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.ToList();
+            if (loggedWorker.Position.Name == "Администратор")
+            {
+                AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.ToList();
+            }
+            if (loggedWorker.Position.Name == "Массажист")
+            {
+                AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.Where(i => i.ID_Worker == loggedWorker.ID).ToList();
+            }
         }
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)
@@ -94,17 +114,34 @@ namespace MassageParlor.Pages
 
         private void EditBTN_Click(object sender, RoutedEventArgs e)
         {
-            if (AppealsLV.SelectedItem is Appeals appeals)
+            if (loggedWorker.Position.Name == "Администратор")
             {
-                DBConnection.selectedForEditAppeal = AppealsLV.SelectedItem as Appeals;
-                EditAppealWindow editAppealWindow = new EditAppealWindow(appeals);
-                editAppealWindow.ShowDialog();
+                if (AppealsLV.SelectedItem is Appeals appeals)
+                {
+                    DBConnection.selectedForEditAppeal = AppealsLV.SelectedItem as Appeals;
+                    EditStatusWindow editStatusWindow = new EditStatusWindow(appeals);
+                    editStatusWindow.ShowDialog();
+                }
+                else if (AppealsLV.SelectedItem is null)
+                {
+                    MessageBox.Show("Выберите обращение!");
+                }
+                Refresh();
             }
-            else if (AppealsLV.SelectedItem is null)
+            else if (loggedWorker.Position.Name == "Массажист")
             {
-                MessageBox.Show("Выберите обращение!");
+                if (AppealsLV.SelectedItem is Appeals appeals)
+                {
+                    DBConnection.selectedForEditAppeal = AppealsLV.SelectedItem as Appeals;
+                    EditAppealWindow editAppealWindow = new EditAppealWindow(appeals);
+                    editAppealWindow.ShowDialog();
+                }
+                else if (AppealsLV.SelectedItem is null)
+                {
+                    MessageBox.Show("Выберите обращение!");
+                }
+                Refresh();
             }
-            Refresh();
         }
 
         private void BackBTN_Click(object sender, RoutedEventArgs e)

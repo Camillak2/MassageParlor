@@ -54,18 +54,24 @@ namespace MassageParlor.Pages
 
         private void DeleteHL_Click(object sender, RoutedEventArgs e)
         {
-            var client = (sender as Hyperlink).DataContext as Client;
-            try
-            {
-                DBConnection.massageSalon.Client.Remove(client);
-                DBConnection.massageSalon.SaveChanges();
-            }
-            catch
-            {
-                MessageBox.Show("Этот клиент не может быть удален!");
-            }
+            MessageBoxResult result = MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            Refresh();
+            if (result == MessageBoxResult.Yes)
+            {
+                var record = (sender as Hyperlink).DataContext as Record;
+                try
+                {
+                    DBConnection.massageSalon.Record.Remove(record);
+                    DBConnection.massageSalon.SaveChanges();
+                }
+                catch
+                {
+                    MessageBox.Show("Эта запись не может быть удалена!");
+                }
+
+                Refresh();
+            }
+            else if (result == MessageBoxResult.No) { }
         }
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)

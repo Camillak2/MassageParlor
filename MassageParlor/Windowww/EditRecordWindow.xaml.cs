@@ -22,6 +22,7 @@ namespace MassageParlor.Windowww
         public EditRecordWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
     }
 }

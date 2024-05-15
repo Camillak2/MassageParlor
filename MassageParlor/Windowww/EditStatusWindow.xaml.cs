@@ -23,6 +23,7 @@ namespace MassageParlor.Windowww
         Appeals contextAppeal;
         public static List<Taskk> tasks { get; set; }
         public static List<Worker> workers { get; set; }
+        public static List<Appeals> appeals { get; set; }
 
         public EditStatusWindow(Appeals appeal)
         {
@@ -34,17 +35,12 @@ namespace MassageParlor.Windowww
 
         private void InitializeDataInPage()
         {
-            TaskTB.Text = contextAppeal.Taskk.Name;
-            WorkerTB.Text = contextAppeal.Worker.Surname + " " + contextAppeal.Worker.Name + " " + contextAppeal.Worker.Patronymic;
             tasks = DBConnection.massageSalon.Taskk.ToList();
             workers = DBConnection.massageSalon.Worker.ToList();
             this.DataContext = this;
-            SurnameTB.Text = contextClient.Surname;
-            NameTB.Text = contextClient.Name;
-            PatronymicTB.Text = contextClient.Patronymic;
-            DateOfBirthDP.SelectedDate = contextClient.DateOfBirth;
-            PhoneTB.Text = contextClient.Phone;
-            WorkerCB.SelectedIndex = (int)contextAppeal.ID_Worker - 1;
+            TaskTB.Text = contextAppeal.Taskk.Name;
+            DateTimeDP.SelectedDate = contextAppeal.DateTime;
+            WorkerTB.Text = contextAppeal.Worker.Surname + " " + contextAppeal.Worker.Name + " " + contextAppeal.Worker.Patronymic;
             StatusCB.SelectedIndex = (int)contextAppeal.ID_Status;
         }
 
@@ -55,7 +51,33 @@ namespace MassageParlor.Windowww
 
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                StringBuilder error = new StringBuilder();
+                Appeals appeal = contextAppeal;
+                if (StatusCB.SelectedItem == null)
+                {
+                    error.AppendLine("Заполните все поля!");
+                }
+                if (error.Length > 0)
+                {
+                    MessageBox.Show(error.ToString());
+                }
+                else
+                {
+                    appeal.ID_Status = (StatusCB.SelectedItem as Status).ID;
+                    DBConnection.massageSalon.SaveChanges();
 
+
+                }
+                SaveBTN.Visibility = Visibility.Collapsed;
+                EditBTN.Visibility = Visibility.Visible;
+                Close();
+            }
+            catch
+            {
+                MessageBox.Show("Произошла ошибка!");
+            }
         }
     }
 }

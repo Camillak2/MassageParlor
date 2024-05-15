@@ -60,21 +60,24 @@
                             Width="400"
                             Height="50"
                             IsReadOnly="True"
-                            PreviewTextInput="TextBox_PreviewTextInput"/>
+                            PreviewTextInput="TextBox_PreviewTextInput"
+                             TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="NameTB"
                             Margin="10"
                             FontSize="40"
                             Width="400"
                             Height="50"
                             IsReadOnly="True"
-                            PreviewTextInput="TextBox_PreviewTextInput"/>
+                            PreviewTextInput="TextBox_PreviewTextInput"
+                             TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="PatronymicTB"
                             Margin="10"
                             FontSize="40"
                             Width="400"
                             Height="50"
                             IsReadOnly="True"
-                            PreviewTextInput="TextBox_PreviewTextInput"/>
+                            PreviewTextInput="TextBox_PreviewTextInput"
+                             TextChanged="TextBox_TextChanged"/>
                     <DatePicker x:Name="DateOfBirthDP"
                             Margin="10"
                             FontSize="40"
@@ -89,7 +92,8 @@
                             Height="50"
                             IsReadOnly="True"
                             PreviewTextInput="PhoneTextBox_PreviewTextInput" 
-                            LostFocus="PhoneTextBox_LostFocus"/>
+                            LostFocus="PhoneTextBox_LostFocus"
+                             TextChanged="TextBox_TextChanged"/>
                     <ComboBox x:Name="PositionCB" Style="{StaticResource ComboboxStyle}"
                             Margin="10"
                             FontSize="40"
@@ -131,7 +135,8 @@
                             FontSize="40"
                             Width="400"
                             Height="50"
-                            IsReadOnly="True"/>
+                            IsReadOnly="True"
+                             TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="PassportTB"
                             Margin="15"
                             FontSize="40"
@@ -139,7 +144,8 @@
                             Height="50"
                             IsReadOnly="True"
                             PreviewTextInput="PassportTextBox_PreviewTextInput" 
-                            LostFocus="PassportTB_LostFocus"/>
+                            LostFocus="PassportTB_LostFocus"
+                             TextChanged="TextBox_TextChanged"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical"
                         HorizontalAlignment="Center"

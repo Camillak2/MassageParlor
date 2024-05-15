@@ -73,22 +73,26 @@ namespace MassageParlor.Pages
             {
                 WorkersBTN.Visibility = Visibility.Visible;
                 MassageBTN.Visibility = Visibility.Collapsed;
+                AppealsBTN.Visibility = Visibility.Visible;
+                ConnectionBTN.Visibility = Visibility.Collapsed;
             }
             else if (loggedWorker.Position.Name == "Массажист")
             {
                 WorkersBTN.Visibility = Visibility.Collapsed;
                 MassageBTN.Visibility = Visibility.Visible;
+                AppealsBTN.Visibility = Visibility.Collapsed;
+                ConnectionBTN.Visibility = Visibility.Visible;
             }
         }
 
         private void ConnectionBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new AppealsPage());
         }
 
         private void AppealsBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new AppealsPage());
         }
     }
 }

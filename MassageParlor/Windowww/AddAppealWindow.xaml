@@ -13,7 +13,8 @@
 
         <Grid Grid.Column="0"
                   HorizontalAlignment="Center"
-                  VerticalAlignment="Top">
+                  VerticalAlignment="Center"
+              Margin="0 0 0 100">
             <StackPanel Orientation="Horizontal"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
@@ -29,9 +30,7 @@
                     <TextBlock Text="Статус:"
                     Margin="10"
                     FontSize="40"/>
-                    <TextBlock Text="Сотрудник:"
-                    Margin="10"
-                    FontSize="40"/>
+                    
                 </StackPanel>
                 <StackPanel Orientation="Vertical"
                         Margin="20"
@@ -56,39 +55,15 @@
                             FontSize="40"
                             Width="400"
                             Height="50"
-                            SelectedDateChanged="DatePicker_SelectedDateChanged"/>
-                    <ComboBox x:Name="StatusCB" Style="{StaticResource ComboboxStyle}"
+                            IsEnabled="False"/>
+                    <TextBox x:Name="StatusTB"
                             Margin="10"
                             FontSize="40"
                             Width="400"
                             Height="50"
+                            IsReadOnly="True"
                             HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            ItemsSource="{Binding statuses}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <ComboBox x:Name="WorkerCB" Style="{StaticResource ComboboxStyle}"
-                            Margin="10"
-                            FontSize="40"
-                            Width="400"
-                            Height="50"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            ItemsSource="{Binding workers}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Surname}"/>
-                                    <TextBlock Text="{Binding Name}"/>
-                                    <TextBlock Text="{Binding Patronymic}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                            VerticalAlignment="Center"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

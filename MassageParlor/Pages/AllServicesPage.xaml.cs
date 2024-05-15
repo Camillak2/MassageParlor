@@ -120,6 +120,28 @@ namespace MassageParlor.Pages
             Refresh();
         }
 
+        private void DeleteHL_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                var service = (sender as Hyperlink).DataContext as Service;
+                try
+                {
+                    DBConnection.massageSalon.Service.Remove(service);
+                    DBConnection.massageSalon.SaveChanges();
+                }
+                catch
+                {
+                    MessageBox.Show("Эта услуга не может быть удалена!");
+                }
+
+                Refresh();
+            }
+            else if (result == MessageBoxResult.No) { }
+        }
+
         private void BackBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new ServicesPage());
