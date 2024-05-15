@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -64,10 +65,6 @@ namespace MassageParlor.Windowww
                 {
                     error.AppendLine("Заполните все поля!");
                 }
-                if (DateOfBirthDP.SelectedDate != null && (DateTime.Now - (DateTime)DateOfBirthDP.SelectedDate).TotalDays < 365 * 18 + 4)
-                {
-                    error.AppendLine("Сотрудник не может быть младше 18 лет.");
-                }
                 if (error.Length > 0)
                 {
                     MessageBox.Show(error.ToString());
@@ -80,8 +77,47 @@ namespace MassageParlor.Windowww
                     worker.Phone = PhoneTB.Text.Trim();
                     worker.DateOfBirth = DateOfBirthDP.SelectedDate;
                     worker.PassportDetails = PassportTB.Text.Trim();
-                    worker.Login = LoginTB.Text.Trim();
-                    worker.Password = PasswordTB.Text.Trim();
+
+                    string login = LoginTB.Text;
+                    bool loginExists = DBConnection.massageSalon.Worker.Any(w => w.Login == login);
+
+                    if (loginExists)
+                    {
+                        MessageBox.Show("Этот логин уже занят. Выберите другой.");
+                        return;
+                    }
+                    else
+                    {
+                        if (LoginTB.Text.Length > 13)
+                        {
+                            MessageBox.Show("Слишком длинный логин!");
+                            return;
+                        }
+                        else if (LoginTB.Text.Length < 6)
+                        {
+                            MessageBox.Show("Слишком короткий логин!");
+                            return;
+                        }
+                        else
+                        {
+                            worker.Login = LoginTB.Text.Trim();
+                        }
+                    }
+
+                    if (PasswordTB.Text.Length > 13)
+                    {
+                        MessageBox.Show("Слишком длинный пароль!");
+                        return;
+                    }
+                    else if (PasswordTB.Text.Length < 6)
+                    {
+                        MessageBox.Show("Слишком короткий пароль!");
+                        return;
+                    }
+                    else
+                    {
+                        worker.Password = PasswordTB.Text.Trim();
+                    }
 
                     var a = PositionCB.SelectedItem as Position;
                     worker.ID_Position = a.ID;
@@ -217,7 +253,7 @@ namespace MassageParlor.Windowww
 
         private void PassportTB_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (PassportTB.Text.Length < 9)
+            if (PassportTB.Text.Length < 10)
             {
                 MessageBox.Show("Паспортные данные должны содержать 10 цифр.");
             }

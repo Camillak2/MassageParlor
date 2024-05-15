@@ -24,22 +24,27 @@ namespace MassageParlor.Pages
     {
         Worker loggedWorker;
 
-        public static List<TypeOfService> typeOfServices { get; set; }
+        public static List<TypeOfService> types { get; set; }
         public static List<Service> services { get; set; }
+        public static Service service { get; set; }
         TypeOfService contextType;
 
-        public AllServicesPage(TypeOfService typeOfService)
+        public AllServicesPage(TypeOfService type)
         {
             InitializeComponent();
-            contextType = typeOfService;
+            contextType = type;
             loggedWorker = DBConnection.loginedWorker;
             CheckConditionAndToggleButtonVisibility();
             Refresh();
+            types = DBConnection.massageSalon.TypeOfService.Where(i => i.Name == contextType.Name).ToList();
+            ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID).ToList();
+            NameTB.Text = Convert.ToString(contextType.Name);
+            services = DBConnection.massageSalon.Service.ToList();
             this.DataContext = this;
         }
         public void Refresh()
         {
-            TypesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID).ToList();
+            ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID).ToList();
         }
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)
@@ -95,7 +100,7 @@ namespace MassageParlor.Pages
 
         private void AddBTN_Click(object sender, RoutedEventArgs e)
         {
-            AddServiceWindow addServiceWindow = new AddServiceWindow();
+            AddServiceWindow addServiceWindow = new AddServiceWindow(contextType);
             addServiceWindow.ShowDialog();
             Refresh();
         }

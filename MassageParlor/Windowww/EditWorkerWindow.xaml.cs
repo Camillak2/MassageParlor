@@ -134,7 +134,7 @@ namespace MassageParlor.Windowww
                 }
                 if (DateOfBirthDP.SelectedDate != null && (DateTime.Now - (DateTime)DateOfBirthDP.SelectedDate).TotalDays < 365 * 18 + 4)
                 {
-                    error.AppendLine("Вы должны быть старше 18 лет.");
+                    error.AppendLine("Сотрудник должен быть старше 18 лет.");
                 }
                 if (error.Length > 0)
                 {
@@ -193,7 +193,7 @@ namespace MassageParlor.Windowww
 
                 if (age < 18)
                 {
-                    MessageBox.Show("Вы должны быть старше 18 лет.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Сотрудник должен быть старше 18 лет.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                     datePicker.SelectedDate = null; // Сбрасываем выбранную дату
                 }
             }

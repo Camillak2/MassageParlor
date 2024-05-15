@@ -84,8 +84,6 @@ namespace MassageParlor.Pages
             else if (loggedWorker.Position.Name == "Массажист")
             {
                 WorkersBTN.Visibility = Visibility.Collapsed;
-                EditBTN.Visibility = Visibility.Collapsed;
-                AddBTN.Visibility = Visibility.Collapsed;
                 MassageBTN.Visibility = Visibility.Visible;
             }
         }
@@ -97,28 +95,6 @@ namespace MassageParlor.Pages
                 TypesLV.SelectedItem = null;
                 NavigationService.Navigate(new AllServicesPage(typeOfService));
             }
-        }
-
-        private void AddBTN_Click(object sender, RoutedEventArgs e)
-        {
-            AddTypeWindow addTypeWindow = new AddTypeWindow();
-            addTypeWindow.ShowDialog();
-            Refresh();
-        }
-
-        private void EditBTN_Click(object sender, RoutedEventArgs e)
-        {
-            if (TypesLV.SelectedItem is TypeOfService type)
-            {
-                DBConnection.selectedForEditType = TypesLV.SelectedItem as TypeOfService;
-                EditTypeWindow editTypeWindow = new EditTypeWindow(type);
-                editTypeWindow.ShowDialog();
-            }
-            else if (TypesLV.SelectedItem is null)
-            {
-                MessageBox.Show("Выберите тип услуги!");
-            }
-            Refresh();
         }
     }
 }

@@ -12,7 +12,6 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0"
-                  
                   HorizontalAlignment="Center"
                   VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal"

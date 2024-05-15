@@ -5,8 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MassageParlor.Windowww"
         mc:Ignorable="d"
-        Title="Golden Lotus" Height="600" Width="1000">
-    <Grid>
-        
+        Title="Golden Lotus" Height="450" Width="800">
+    <Grid Background="#a98f81">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="800"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <StackPanel Orientation="Vertical"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                    <StackPanel Orientation="Vertical"
+                        Margin="20"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                        <TextBlock Text="Название:"
+                        Margin="10"
+                        FontSize="40"/>
+                        <TextBlock Text="Стоимость:"
+                        Margin="10"
+                        FontSize="40"/>
+                        <TextBlock Text="Тип услуги:"
+                        Margin="10"
+                        FontSize="40"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                        Margin="20"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                        <TextBox x:Name="NameTB"
+                        Margin="10"
+                        FontSize="40"
+                        Width="400"
+                        Height="50"
+                        PreviewTextInput="NameTB_PreviewTextInput"/>
+                        <TextBox x:Name="CostTB"
+                        Margin="10"
+                        FontSize="40"
+                        Width="400"
+                        Height="50"
+                        PreviewTextInput="CostTB_PreviewTextInput"/>
+                        <TextBox x:Name="TypeTB"
+                        Margin="10"
+                        FontSize="40"
+                        Width="400"
+                        Height="50"
+                        IsEnabled="False"/>
+
+                    </StackPanel>
+                </StackPanel>
+                <Button x:Name="SaveBTN"
+                    Height="80"
+                    Width="300"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Click="SaveBTN_Click">
+                    <TextBlock Text="Сохранить"
+                        FontSize="40"/>
+                </Button>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
