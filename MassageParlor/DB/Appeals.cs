@@ -21,7 +21,7 @@ namespace MassageParlor.DB
         public Nullable<int> ID_Status { get; set; }
     
         public virtual Status Status { get; set; }
-        public virtual Worker Worker { get; set; }
         public virtual Taskk Taskk { get; set; }
+        public virtual Worker Worker { get; set; }
     }
 }

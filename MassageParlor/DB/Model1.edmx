@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище MassageSalonModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище MassageSalonModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Appeals">
           <Key>
             <PropertyRef Name="ID" />
@@ -356,10 +356,24 @@
             <End Role="Worker" EntitySet="Worker" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MassageSalonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appeals">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Worker" Type="Int32" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
+          <Property Name="ID_Task" Type="Int32" />
+          <Property Name="ID_Status" Type="Int32" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Appeals_Status1" FromRole="Appeals" ToRole="Status" />
+          <NavigationProperty Name="Taskk" Relationship="Self.FK_Appeals_Task" FromRole="Appeals" ToRole="Taskk" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK_Appeals_Worker" FromRole="Appeals" ToRole="Worker" />
+        </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ID" />
@@ -431,7 +445,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Appeals" Relationship="MassageSalonModel.FK_Appeals_Status1" FromRole="Status" ToRole="Appeals" />
+          <NavigationProperty Name="Appeals" Relationship="Self.FK_Appeals_Status1" FromRole="Status" ToRole="Appeals" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -443,11 +457,19 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="Taskk">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Appeals" Relationship="Self.FK_Appeals_Task" FromRole="Taskk" ToRole="Appeals" />
+        </EntityType>
         <EntityType Name="TypeOfService">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Service" Relationship="Self.FK_Service_TypeOfService" FromRole="TypeOfService" ToRole="Service" />
@@ -468,10 +490,10 @@
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Appeals" Relationship="Self.FK_Appeals_Worker" FromRole="Worker" ToRole="Appeals" />
           <NavigationProperty Name="Gender" Relationship="Self.FK_Worker_Gender" FromRole="Worker" ToRole="Gender" />
           <NavigationProperty Name="Position" Relationship="Self.FK_Worker_Position" FromRole="Worker" ToRole="Position" />
           <NavigationProperty Name="Record" Relationship="Self.FK_Record_Worker" FromRole="Worker" ToRole="Record" />
-          <NavigationProperty Name="Appeals" Relationship="MassageSalonModel.FK_Appeals_Worker" FromRole="Worker" ToRole="Appeals" />
         </EntityType>
         <EntityType Name="TheFirstNormalForm">
           <Key>
@@ -483,6 +505,42 @@
           <Property Name="DateTime" Type="DateTime" Precision="3" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
+        <Association Name="FK_Appeals_Status1">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Appeals" Type="Self.Appeals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appeals">
+              <PropertyRef Name="ID_Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appeals_Task">
+          <End Role="Taskk" Type="Self.Taskk" Multiplicity="0..1" />
+          <End Role="Appeals" Type="Self.Appeals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Taskk">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appeals">
+              <PropertyRef Name="ID_Task" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appeals_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
+          <End Role="Appeals" Type="Self.Appeals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appeals">
+              <PropertyRef Name="ID_Worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Client_Gender">
           <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
@@ -578,6 +636,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="MassageSalonEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appeals" EntityType="Self.Appeals" />
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="Discount" EntityType="Self.Discount" />
           <EntitySet Name="Gender" EntityType="Self.Gender" />
@@ -586,9 +645,22 @@
           <EntitySet Name="Service" EntityType="Self.Service" />
           <EntitySet Name="Status" EntityType="Self.Status" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Taskk" EntityType="Self.Taskk" />
           <EntitySet Name="TypeOfService" EntityType="Self.TypeOfService" />
           <EntitySet Name="Worker" EntityType="Self.Worker" />
           <EntitySet Name="TheFirstNormalForm" EntityType="Self.TheFirstNormalForm" />
+          <AssociationSet Name="FK_Appeals_Status1" Association="Self.FK_Appeals_Status1">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Appeals" EntitySet="Appeals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appeals_Task" Association="Self.FK_Appeals_Task">
+            <End Role="Taskk" EntitySet="Taskk" />
+            <End Role="Appeals" EntitySet="Appeals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appeals_Worker" Association="Self.FK_Appeals_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Appeals" EntitySet="Appeals" />
+          </AssociationSet>
           <AssociationSet Name="FK_Client_Gender" Association="Self.FK_Client_Gender">
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Client" EntitySet="Client" />
@@ -617,84 +689,24 @@
             <End Role="TypeOfService" EntitySet="TypeOfService" />
             <End Role="Service" EntitySet="Service" />
           </AssociationSet>
-          <EntitySet Name="Appeals" EntityType="MassageSalonModel.Appeals" />
-          <AssociationSet Name="FK_Appeals_Status1" Association="MassageSalonModel.FK_Appeals_Status1">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Appeals" EntitySet="Appeals" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Appeals_Worker" Association="MassageSalonModel.FK_Appeals_Worker">
-            <End Role="Worker" EntitySet="Worker" />
-            <End Role="Appeals" EntitySet="Appeals" />
-          </AssociationSet>
-          <EntitySet Name="Taskk" EntityType="MassageSalonModel.Taskk" />
-          <AssociationSet Name="FK_Appeals_Task" Association="MassageSalonModel.FK_Appeals_Task">
-            <End Role="Taskk" EntitySet="Taskk" />
-            <End Role="Appeals" EntitySet="Appeals" />
-          </AssociationSet>
-          </EntityContainer>
-        <EntityType Name="Appeals">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Worker" Type="Int32" />
-          <Property Name="DateTime" Type="DateTime" Precision="3" />
-          <Property Name="ID_Task" Type="Int32" />
-          <Property Name="ID_Status" Type="Int32" />
-          <NavigationProperty Name="Status" Relationship="MassageSalonModel.FK_Appeals_Status1" FromRole="Appeals" ToRole="Status" />
-          <NavigationProperty Name="Worker" Relationship="MassageSalonModel.FK_Appeals_Worker" FromRole="Appeals" ToRole="Worker" />
-          <NavigationProperty Name="Taskk" Relationship="MassageSalonModel.FK_Appeals_Task" FromRole="Appeals" ToRole="Taskk" />
-        </EntityType>
-        <Association Name="FK_Appeals_Status1">
-          <End Type="MassageSalonModel.Status" Role="Status" Multiplicity="0..1" />
-          <End Type="MassageSalonModel.Appeals" Role="Appeals" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Appeals">
-              <PropertyRef Name="ID_Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Appeals_Worker">
-          <End Type="MassageSalonModel.Worker" Role="Worker" Multiplicity="0..1" />
-          <End Type="MassageSalonModel.Appeals" Role="Appeals" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Worker">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Appeals">
-              <PropertyRef Name="ID_Worker" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Taskk">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Appeals" Relationship="MassageSalonModel.FK_Appeals_Task" FromRole="Taskk" ToRole="Appeals" />
-        </EntityType>
-        <Association Name="FK_Appeals_Task">
-          <End Type="MassageSalonModel.Taskk" Role="Taskk" Multiplicity="0..1" />
-          <End Type="MassageSalonModel.Appeals" Role="Appeals" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Taskk">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Appeals">
-              <PropertyRef Name="ID_Task" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        </Schema>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище MassageSalonModelContainer" CdmEntityContainer="MassageSalonEntities">
+          <EntitySetMapping Name="Appeals">
+            <EntityTypeMapping TypeName="MassageSalonModel.Appeals">
+              <MappingFragment StoreEntitySet="Appeals">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Worker" ColumnName="ID_Worker" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="ID_Task" ColumnName="ID_Task" />
+                <ScalarProperty Name="ID_Status" ColumnName="ID_Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="MassageSalonModel.Client">
               <MappingFragment StoreEntitySet="Client">
@@ -775,6 +787,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Taskk">
+            <EntityTypeMapping TypeName="MassageSalonModel.Taskk">
+              <MappingFragment StoreEntitySet="Taskk">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TypeOfService">
             <EntityTypeMapping TypeName="MassageSalonModel.TypeOfService">
               <MappingFragment StoreEntitySet="TypeOfService">
@@ -810,25 +830,6 @@
                 <ScalarProperty Name="Worker" ColumnName="Worker" />
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Appeals">
-            <EntityTypeMapping TypeName="MassageSalonModel.Appeals">
-              <MappingFragment StoreEntitySet="Appeals">
-                <ScalarProperty Name="ID_Status" ColumnName="ID_Status" />
-                <ScalarProperty Name="ID_Task" ColumnName="ID_Task" />
-                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
-                <ScalarProperty Name="ID_Worker" ColumnName="ID_Worker" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Taskk">
-            <EntityTypeMapping TypeName="MassageSalonModel.Taskk">
-              <MappingFragment StoreEntitySet="Taskk">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

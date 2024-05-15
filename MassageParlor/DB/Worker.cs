@@ -17,8 +17,8 @@ namespace MassageParlor.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Worker()
         {
-            this.Record = new HashSet<Record>();
             this.Appeals = new HashSet<Appeals>();
+            this.Record = new HashSet<Record>();
         }
     
         public int ID { get; set; }
@@ -34,11 +34,11 @@ namespace MassageParlor.DB
         public string Password { get; set; }
         public byte[] Photo { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Appeals> Appeals { get; set; }
         public virtual Gender Gender { get; set; }
         public virtual Position Position { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Record> Record { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Appeals> Appeals { get; set; }
     }
 }

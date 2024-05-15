@@ -97,8 +97,8 @@ namespace MassageParlor.Pages
             if (AppealsLV.SelectedItem is Appeals appeals)
             {
                 DBConnection.selectedForEditAppeal = AppealsLV.SelectedItem as Appeals;
-                EditClientWindow editClientWindow = new EditClientWindow(appeals);
-                editClientWindow.ShowDialog();
+                EditAppealWindow editAppealWindow = new EditAppealWindow(appeals);
+                editAppealWindow.ShowDialog();
             }
             else if (AppealsLV.SelectedItem is null)
             {
