@@ -24,7 +24,7 @@ namespace MassageParlor.Pages
     {
         Worker loggedWorker;
         public static List<Client> clients { get; set; }
-        public static List<Worker> workers { get; set; }
+        
         public static List<Gender> genders { get; set; }
         public ClientsPage()
         {

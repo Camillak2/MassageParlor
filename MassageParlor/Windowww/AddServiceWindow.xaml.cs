@@ -1,6 +1,7 @@
 ﻿using MassageParlor.DB;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -35,8 +36,7 @@ namespace MassageParlor.Windowww
             InitializeDataInPage();
             this.DataContext = this;
 
-            NameTB.TextChanged += TextBox_TextChanged;
-            CostTB.TextChanged += TextBox_TextChanged;
+            CostTB.TextChanged += CostTB_TextChanged;
         }
 
         private void InitializeDataInPage()
@@ -62,11 +62,20 @@ namespace MassageParlor.Windowww
                 }
                 try
                 {
+                    if (decimal.TryParse(CostTB.Text, out decimal cost))
+                    {
+                        if (cost > 10000)
+                        {
+                            MessageBox.Show("Услуга не может быть дороже 10000 рублей!");
+                            return;
+                        }
+                        else
+                        {
+                            service.Price = Convert.ToDecimal(CostTB.Text.Trim());
+                        }
+                    }
                     service.Name = NameTB.Text.Trim();
-                    service.Price = Convert.ToDecimal(CostTB.Text.Trim());
-                    //service.TypeOfService.Name = TypeTB.Text.Trim();
                     service.ID_TypeOfService = contextType.ID;
-
                     DBConnection.massageSalon.Service.Add(service);
                     DBConnection.massageSalon.SaveChanges();
                     InitializeDataInPage();
@@ -106,22 +115,38 @@ namespace MassageParlor.Windowww
             TextBox textBox = (TextBox)sender;
             string currentText = textBox.Text;
 
-            if (currentText.Length >= 16 && !string.IsNullOrEmpty(e.Text))
+            if (currentText.Length >= 8 && !string.IsNullOrEmpty(e.Text))
             {
                 e.Handled = true;
                 return;
             }
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void CostTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //Имя
-            NameTB.Text = Regex.Replace(NameTB.Text, @"\s", "");
-            NameTB.CaretIndex = NameTB.Text.Length;
-
-            //Цена
             CostTB.Text = Regex.Replace(CostTB.Text, @"\s", "");
             CostTB.CaretIndex = CostTB.Text.Length;
+
+            if (decimal.TryParse(CostTB.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out decimal amount))
+            {
+                CostTB.Text = amount.ToString("F2");
+                CostTB.CaretIndex = CostTB.Text.IndexOf(',');
+            }
+            else
+            {
+                // Обработка ошибки, если ввод не является числом
+                MessageBox.Show("Неверный формат числа.");
+                return;
+            }
+
+            if (decimal.TryParse(CostTB.Text, out decimal cost))
+            {
+                if (cost > 10000)
+                {
+                    MessageBox.Show("Услуга не может быть дороже 10000 рублей!");
+                    return;
+                }
+            }
         }
     }
 }

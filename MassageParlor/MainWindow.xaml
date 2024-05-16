@@ -8,7 +8,8 @@
         Title="Golden Lotus"
         Height="960"
         Width="1550"
-        Icon="/Images/logoo.png">
+        Icon="/Images/logoo.png"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Frame x:Name="NaFr"
                NavigationUIVisibility="Hidden"/>

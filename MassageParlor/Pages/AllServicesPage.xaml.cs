@@ -92,7 +92,6 @@ namespace MassageParlor.Pages
             else if (loggedWorker.Position.Name == "Массажист")
             {
                 WorkersBTN.Visibility = Visibility.Collapsed;
-                EditBTN.Visibility = Visibility.Collapsed;
                 AddBTN.Visibility = Visibility.Collapsed;
                 MassageBTN.Visibility = Visibility.Visible;
             }
@@ -105,7 +104,7 @@ namespace MassageParlor.Pages
             Refresh();
         }
 
-        private void EditBTN_Click(object sender, RoutedEventArgs e)
+        private void ServicesLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ServicesLV.SelectedItem is Service service)
             {

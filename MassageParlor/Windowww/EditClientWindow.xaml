@@ -86,9 +86,9 @@
                     <ComboBox x:Name="GenderCB" Style="{StaticResource ComboboxStyle}"
                         Margin="10"
                         FontSize="40"
+                        IsEnabled="False"
                         Width="400"
                         Height="50"
-                        IsEditable="False"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         ItemsSource="{Binding genders}">

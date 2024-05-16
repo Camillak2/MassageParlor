@@ -147,7 +147,7 @@
                             IsReadOnly="True"
                             PreviewTextInput="PassportTextBox_PreviewTextInput" 
                             LostFocus="PassportTB_LostFocus"
-                             TextChanged="TextBox_TextChanged"/>
+                            TextChanged="TextBox_TextChanged"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical"
                         HorizontalAlignment="Center"

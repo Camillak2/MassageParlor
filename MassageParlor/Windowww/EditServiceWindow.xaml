@@ -42,8 +42,7 @@
                     Width="400"
                     Height="50"
                     IsReadOnly="True"
-                    PreviewTextInput="NameTB_PreviewTextInput"
-                                 TextChanged="TextBox_TextChanged"/>
+                    PreviewTextInput="NameTB_PreviewTextInput"/>
                         <TextBox x:Name="CostTB"
                     Margin="10"
                     FontSize="40"
@@ -51,7 +50,7 @@
                     Height="50"
                     IsReadOnly="True"
                     PreviewTextInput="CostTB_PreviewTextInput"
-                                 TextChanged="TextBox_TextChanged"/>
+                                 TextChanged="CostTB_TextChanged"/>
                         <TextBox x:Name="TypeTB"
                     Margin="10"
                     FontSize="40"

@@ -44,13 +44,14 @@ namespace MassageParlor.Windowww
         {
             clients = DBConnection.massageSalon.Client.ToList();
             genders = DBConnection.massageSalon.Gender.ToList();
-            this.DataContext = this;
+            
             SurnameTB.Text = contextClient.Surname;
             NameTB.Text = contextClient.Name;
             PatronymicTB.Text = contextClient.Patronymic;
             DateOfBirthDP.SelectedDate = contextClient.DateOfBirth;
             PhoneTB.Text = contextClient.Phone;
             GenderCB.SelectedIndex = (int)contextClient.ID_Gender - 1;
+            this.DataContext = this;
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -76,7 +77,7 @@ namespace MassageParlor.Windowww
             PatronymicTB.IsReadOnly = false;
             DateOfBirthDP.IsEnabled = true;
             PhoneTB.IsReadOnly = false;
-            GenderCB.IsEditable = true;
+            GenderCB.IsEnabled = true;
 
             SaveBTN.Visibility = Visibility.Visible;
             EditBTN.Visibility = Visibility.Collapsed;

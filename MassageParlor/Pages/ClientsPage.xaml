@@ -30,7 +30,7 @@
             d:ItemsSource="{d:SampleData ItemCount=10}"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
-            ItemsSource="{Binding Client}"
+            ItemsSource="{Binding clients}"
             BorderThickness="3"
             ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
                 <ListView.ItemsPanel>
