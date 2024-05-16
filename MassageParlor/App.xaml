@@ -208,9 +208,9 @@
                         <Border  
                             x:Name="border"   
                             CornerRadius="0,5,5,0"   
-                            BorderThickness="0,1,1,1"  
+                            BorderThickness="0,2,2,2"  
                             Background="#907669"
-                            BorderBrush="#FF3F3333">
+                            BorderBrush="#6d584e">
                             <ContentPresenter />
                         </Border>
                     </ControlTemplate>
@@ -224,9 +224,9 @@
                     <ControlTemplate TargetType="{x:Type TextBox}">
                         <Grid>
                             <Border CornerRadius="20,0,0,20"  
-                                BorderThickness="1,1,0,1"  
+                                BorderThickness="2,2,0,2"  
                                 Background="#907669"  
-                                BorderBrush="#FF3F3333">
+                                BorderBrush="#6d584e">
                                 <ScrollViewer x:Name="PART_ContentHost"/>
                             </Border>
                         </Grid>
@@ -261,7 +261,7 @@
                                     HorizontalAlignment="Center"  
                                     VerticalAlignment="Center"  
                                     Data="M 0 0 L 4 4 L 8 0 Z"  
-                                    Fill="#FF3F3333" />
+                                    Fill="#6d584e" />
                             </ToggleButton>
                             <ContentPresenter Name="ContentSite"  
                                 Content="{TemplateBinding SelectionBoxItem}"  
@@ -281,9 +281,9 @@
                                     MinWidth="{TemplateBinding ActualWidth}"  
                                     MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                     <Border x:Name="DropDownBorder"  
-                                        BorderThickness="1"  
+                                        BorderThickness="2"  
                                         CornerRadius="5"  
-                                        BorderBrush="#FF3F3333"
+                                        BorderBrush="#6d584e"
                                         Background="#907669"/>
                                     <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
                                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />

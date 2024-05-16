@@ -99,7 +99,8 @@
                             ItemsSource="{Binding positions}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Name}"
+                                           FontSize="40"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
@@ -113,7 +114,8 @@
                             ItemsSource="{Binding genders}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Name}"
+                                           FontSize="40"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
