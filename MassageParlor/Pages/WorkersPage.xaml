@@ -104,7 +104,7 @@
                                     <TextBlock>
                                     <Hyperlink Style="{StaticResource DeleteKey}"
                                         x:Name="DeleteHL"
-                                        Click="DeleteHL_Click">Delete</Hyperlink>
+                                        Click="DeleteHL_Click">Удалить</Hyperlink>
                                     </TextBlock>
                                 </StackPanel>
                             </StackPanel>
@@ -113,45 +113,66 @@
                 </ListView.ItemTemplate>
             </ListView>
             <Button HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom"
-                    Height="100"
-                    Width="250"
-                    x:Name="AddBTN"
-                    Margin="300 0 0 30"
-                    Click="AddBTN_Click">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Image Source="/Images/add.png"
-                            Width="48"
-                            Height="48"
-                            Grid.Row="0"/>
-                        <TextBlock Text="Добавить"
-                            HorizontalAlignment="Center"
-                            Grid.Row="1"/>
-                    </Grid>
-                </Button>
-            <Button HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Height="100"
-                    Width="250"
-                    x:Name="EditBTN"
-                    Margin="0 0 300 30"
-                    Click="EditBTN_Click">
+    VerticalAlignment="Bottom"
+    Height="100"
+    Width="250"
+    x:Name="AddBTN"
+    Margin="100 0 0 30"
+    Click="AddBTN_Click">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Images/add.png"
+            Width="48"
+            Height="48"
+            Grid.Row="0"/>
+                    <TextBlock Text="Добавить"
+            HorizontalAlignment="Center"
+            Grid.Row="1"/>
+                </Grid>
+            </Button>
+            <Button HorizontalAlignment="Center"
+    VerticalAlignment="Bottom"
+    Height="100"
+    Width="250"
+    x:Name="EditBTN"
+    Margin="0 0 0 30"
+    Click="EditBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="/Images/edit.png"
-                            Width="48"
-                            Height="48"
-                            Grid.Row="0"/>
+            Width="48"
+            Height="48"
+            Grid.Row="0"/>
                     <TextBlock Text="Изменить"
-                            HorizontalAlignment="Center"
-                            Grid.Row="1"/>
+            HorizontalAlignment="Center"
+            Grid.Row="1"/>
+                </Grid>
+            </Button>
+            <Button HorizontalAlignment="Right"
+    VerticalAlignment="Bottom"
+    Height="100"
+    Width="250"
+    x:Name="BackBTN"
+    Margin="0 0 100 30"
+    Click="BackBTN_Click">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Images/back.png"
+            Width="48"
+            Height="48"
+            Grid.Row="0"/>
+                    <TextBlock Text="На главную"
+            HorizontalAlignment="Center"
+            Grid.Row="1"/>
                 </Grid>
             </Button>
         </Grid>

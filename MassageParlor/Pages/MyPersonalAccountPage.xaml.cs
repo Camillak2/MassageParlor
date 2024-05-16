@@ -318,7 +318,7 @@ namespace MassageParlor.Pages
             if (currentText.Length < 10)
             {
                 MessageBox.Show("Номер телефона должен содержать 11 цифр.");
-                textBox.Focus();
+                return;
             }
             else
             {

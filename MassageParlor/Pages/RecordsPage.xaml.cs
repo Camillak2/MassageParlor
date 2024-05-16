@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MassageParlor.DB;
+using MassageParlor.Windowww;
 
 namespace MassageParlor.Pages
 {
@@ -33,7 +36,26 @@ namespace MassageParlor.Pages
 
         public void Refresh()
         {
-            RecordsLV.ItemsSource = DBConnection.massageSalon.Record.ToList();
+            if (loggedWorker.Position.Name == "Администратор")
+            {
+                RecordsForAdminLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.Date >= DateTime.Now).ToList();
+            }
+            else if (loggedWorker.Position.Name == "Массажист")
+            {
+                RecordsForMassagistLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.ID_Worker == loggedWorker.ID && i.Date >= DateTime.Now).ToList();
+            }
+        }
+
+        public void Refresh2()
+        {
+            if (loggedWorker.Position.Name == "Администратор")
+            {
+                RecordsForAdminLV.ItemsSource = DBConnection.massageSalon.Record.ToList();
+            }
+            else if (loggedWorker.Position.Name == "Массажист")
+            {
+                RecordsForMassagistLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.ID_Worker == loggedWorker.ID).ToList();
+            }
         }
 
         private void CheckConditionAndToggleButtonVisibility()
@@ -42,6 +64,9 @@ namespace MassageParlor.Pages
             {
                 WorkersBTN.Visibility = Visibility.Visible;
                 MassageBTN.Visibility = Visibility.Collapsed;
+                RecordsForAdminLV.Visibility = Visibility.Visible;
+                RecordsForMassagistLV.Visibility = Visibility.Collapsed;
+                NameTB.Text = "Записи";
             }
             else if (loggedWorker.Position.Name == "Массажист")
             {
@@ -49,6 +74,9 @@ namespace MassageParlor.Pages
                 EditBTN.Visibility = Visibility.Collapsed;
                 AddBTN.Visibility = Visibility.Collapsed;
                 MassageBTN.Visibility = Visibility.Visible;
+                RecordsForAdminLV.Visibility = Visibility.Collapsed;
+                RecordsForMassagistLV.Visibility = Visibility.Visible;
+                NameTB.Text = "Мои записи";
             }
         }
 
@@ -111,17 +139,41 @@ namespace MassageParlor.Pages
 
         private void AddBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            AddRecordWindow addRecordWindow = new AddRecordWindow();
+            addRecordWindow.ShowDialog();
+            Refresh();
         }
 
         private void EditBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            //if (RecordsForAdminLV.SelectedItem is Record record)
+            //{
+            //    DBConnection.selectedForEditRecord = RecordsForAdminLV.SelectedItem as Record;
+            //    EditRecordWindow editRecordWindow = new EditRecordWindow(record);
+            //    editRecordWindow.ShowDialog();
+            //}
+            //else if (RecordsForAdminLV.SelectedItem is null)
+            //{
+            //    MessageBox.Show("Выберите запись!");
+            //}
+            //Refresh();
         }
 
         private void BackBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainMenuPage());
+        }
+
+        private void AllCHB_Checked(object sender, RoutedEventArgs e)
+        {
+            if (AllCHB.IsChecked == true)
+            {
+                Refresh();
+            }
+            else if (AllCHB.IsChecked == false)
+            {
+                Refresh2();
+            }
         }
     }
 }

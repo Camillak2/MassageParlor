@@ -75,7 +75,7 @@
                                                VerticalAlignment="Center">
                                         <Hyperlink Style="{StaticResource DeleteKey}"
                                             x:Name="DeleteHL"
-                                            Click="DeleteHL_Click">Delete</Hyperlink>
+                                            Click="DeleteHL_Click">Удалить</Hyperlink>
                                     </TextBlock>
                                 </StackPanel>
                             </Grid>

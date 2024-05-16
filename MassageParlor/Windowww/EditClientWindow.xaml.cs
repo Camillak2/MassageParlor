@@ -76,7 +76,7 @@ namespace MassageParlor.Windowww
             PatronymicTB.IsReadOnly = false;
             DateOfBirthDP.IsEnabled = true;
             PhoneTB.IsReadOnly = false;
-            GenderCB.IsEnabled = true;
+            GenderCB.IsEditable = true;
 
             SaveBTN.Visibility = Visibility.Visible;
             EditBTN.Visibility = Visibility.Collapsed;
@@ -122,7 +122,7 @@ namespace MassageParlor.Windowww
                 PatronymicTB.IsReadOnly = true;
                 DateOfBirthDP.IsEnabled = false;
                 PhoneTB.IsReadOnly = true;
-                GenderCB.IsEnabled = false;
+                GenderCB.IsEditable = false;
 
                 SaveBTN.Visibility = Visibility.Collapsed;
                 EditBTN.Visibility = Visibility.Visible;
