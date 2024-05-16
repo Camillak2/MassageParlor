@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MassageParlor.Windowww"
         mc:Ignorable="d"
-        Title="Golden Lotus" Height="600" Width="1000">
+        Title="Golden Lotus" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
     <Grid Background="#a98f81">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1000"/>
