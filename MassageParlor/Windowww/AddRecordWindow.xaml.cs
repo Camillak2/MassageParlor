@@ -251,11 +251,11 @@ namespace MassageParlor.Windowww
 
             TimeTB.Text = Regex.Replace(TimeTB.Text, @"\s", "");
             TimeTB.CaretIndex = TimeTB.Text.Length;
-            // Ограничение на 4 символа
-            if (TimeTB.Text.Length > 4)
+
+            if (TimeTB.Text.Length >= 5 && !string.IsNullOrEmpty(e.Text))
             {
-                TimeTB.Text = TimeTB.Text.Substring(0, 4);
-                TimeTB.SelectionStart = TimeTB.Text.Length;
+                e.Handled = true;
+                return;
             }
 
             // Форматирование маски ##:##
@@ -263,6 +263,22 @@ namespace MassageParlor.Windowww
             {
                 TimeTB.Text += ":";
                 TimeTB.SelectionStart = TimeTB.Text.Length;
+            }
+
+            switch (TimeTB.Text.Length)
+            {
+                case 0:
+                    if (e.Text != "1") e.Handled = true;
+                    break;
+                case 1:
+                    if (int.Parse(e.Text) < 0 || int.Parse(e.Text) > 9) e.Handled = true;
+                    break;
+                case 3:
+                    if (int.Parse(e.Text) < 0 || int.Parse(e.Text) > 5) e.Handled = true;
+                    break;
+                case 4:
+                    if (int.Parse(e.Text) < 0 || int.Parse(e.Text) > 9) e.Handled = true;
+                    break;
             }
 
             // Проверка на 4 цифры

@@ -27,7 +27,7 @@
                 Margin="0 100 0 250"
                 Width="1200"
                 Height="555"
-                Visibility="Visible"
+                Visibility="Collapsed"
                 d:ItemsSource="{d:SampleData ItemCount=10}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -174,8 +174,8 @@
                 VerticalAlignment="Top"
                 Margin="0 100 0 250"
                 Width="1200"
-                Height="500"
-                Visibility="Collapsed"
+                Height="555"
+                Visibility="Visible"
                 d:ItemsSource="{d:SampleData ItemCount=10}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -190,70 +190,86 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="330"
-                Width="370"
-                Margin="5"
-                Background="#907669">
+                        <Grid Height="220"
+                            Width="380"
+                            Background="#907669">
                             <StackPanel Background="#6d584e"
-                    Orientation="Vertical"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom"
-                    Height="330"
-                    Width="370">
-                                <StackPanel Margin="20">
+                                Orientation="Vertical"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                Height="220"
+                                Width="380">
+                                <StackPanel Margin="10">
                                     <StackPanel Margin="0 0 0 10">
                                         <TextBlock Text="Клиент:"
-                                FontSize="24"/>
-                                        <TextBlock Text="{Binding Client.Surname}"
-                                HorizontalAlignment="Left"
-                                Foreground="White"
-                                TextWrapping="Wrap"
-                                TextAlignment="Left"
-                                FontSize="24"
-                                Width="220"/>
-                                        <TextBlock Text="{Binding Client.Name}"
-                                HorizontalAlignment="Left"
-                                Foreground="White"
-                                TextWrapping="Wrap"
-                                TextAlignment="Left"
-                                FontSize="24"
-                                Width="220"/>
-                                        <TextBlock Text="{Binding Client.Patronymic}"
-                                HorizontalAlignment="Left"
-                                Foreground="White"
-                                TextWrapping="Wrap"
-                                TextAlignment="Left"
-                                FontSize="24"
-                                Width="220"/>
+                                            FontSize="24"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Client.Surname}"
+                                                HorizontalAlignment="Left"
+                                                Foreground="White"
+                                                TextWrapping="Wrap"
+                                                TextAlignment="Left"
+                                                FontSize="22"/>
+                                            <TextBlock Text=" "
+                                                HorizontalAlignment="Left"
+                                                Foreground="White"
+                                                TextWrapping="Wrap"
+                                                TextAlignment="Left"
+                                                FontSize="22"/>
+                                            <TextBlock Text="{Binding Client.Name}"
+                                                HorizontalAlignment="Left"
+                                                Foreground="White"
+                                                TextWrapping="Wrap"
+                                                TextAlignment="Left"
+                                                FontSize="22"/>
+                                            <TextBlock Text=" "
+                                                HorizontalAlignment="Left"
+                                                Foreground="White"
+                                                TextWrapping="Wrap"
+                                                TextAlignment="Left"
+                                                FontSize="22"/>
+                                            <TextBlock Text="{Binding Client.Patronymic}"
+                                                HorizontalAlignment="Left"
+                                                Foreground="White"
+                                                TextWrapping="Wrap"
+                                                TextAlignment="Left"
+                                                FontSize="22"/>
+                                        </StackPanel>
                                     </StackPanel>
                                     <StackPanel Margin="0 0 0 10">
                                         <TextBlock Text="Услуга:"
-                                FontSize="24"/>
+                                            FontSize="24"/>
                                         <TextBlock Text="{Binding Service.Name}"
-                                HorizontalAlignment="Left"
-                                Foreground="White"
-                                TextWrapping="Wrap"
-                                TextAlignment="Left"
-                                FontSize="24"
-                                Width="220"/>
+                                            HorizontalAlignment="Left"
+                                            Foreground="White"
+                                            TextWrapping="Wrap"
+                                            TextAlignment="Left"
+                                            FontSize="22"/>
                                     </StackPanel>
                                     <StackPanel Margin="0 0 0 30">
                                         <TextBlock Text="Дата и время:"
-                                FontSize="24"/>
-                                        <TextBlock Text="{Binding Date, StringFormat = dd.MM.yyyy}"
-                                HorizontalAlignment="Left"
-                                Foreground="White"
-                                TextWrapping="Wrap"
-                                TextAlignment="Left"
-                                FontSize="24"
-                                Width="220"/>
-                                        <TextBlock Text="{Binding Time}"
-                                HorizontalAlignment="Left"
-                                Foreground="White"
-                                TextWrapping="Wrap"
-                                TextAlignment="Left"
-                                FontSize="24"
-                                Width="220"/>
+                                            FontSize="24"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Date, StringFormat = dd.MM.yyyy}"
+                                                HorizontalAlignment="Left"
+                                                Foreground="White"
+                                                TextWrapping="Wrap"
+                                                TextAlignment="Left"
+                                                FontSize="22"/>
+                                            <TextBlock Text=" "
+                                                HorizontalAlignment="Left"
+                                                Foreground="White"
+                                                TextWrapping="Wrap"
+                                                TextAlignment="Left"
+                                                FontSize="22"/>
+                                            <TextBlock Text="{Binding Time}"
+                                                HorizontalAlignment="Left"
+                                                Foreground="White"
+                                                TextWrapping="Wrap"
+                                                TextAlignment="Left"
+                                                FontSize="22"/>
+                                        </StackPanel>
+                                        
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
