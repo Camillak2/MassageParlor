@@ -23,59 +23,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             x:Name="NameTB"/>
-                <ListView x:Name="ServicesLV"
-            VerticalAlignment="Top"
-            Margin="0 100 0 150"
-            Width="1200"
-            Height="650"
-            d:ItemsSource="{d:SampleData ItemCount=10}"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-            ScrollViewer.VerticalScrollBarVisibility="Auto"
-            ItemsSource="{Binding Service}"
-            BorderThickness="3"
-            ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal"
-                       VerticalAlignment="Top"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Height="250"
-                            Width="370"
-                            Margin="5"
-                            Background="#907669">
-                                <Rectangle Fill="Black"
-                            Opacity="0.3"
-                            VerticalAlignment="Center"
-                            Width="370"
-                            Height="250"/>
-                                <StackPanel Orientation="Vertical"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Width="330">
-                                    <TextBlock Text="{Binding Name}"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Foreground="White"
-                                    FontSize="30"
-                                    TextAlignment="Center"
-                                    TextWrapping="Wrap"
-                                    Margin="0 0 0 20"/>
-                                    <TextBlock Text="{Binding Price, StringFormat={}{0:F2}₽}"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Foreground="White"
-                                    FontSize="24"
-                                    TextAlignment="Center"
-                                    TextWrapping="Wrap"
-                                    Margin="0 0 0 20"/>
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <Button Height="50" Width="300" Click="Button_Click"/>
             </Grid>
 
             <Grid Grid.Column="1"

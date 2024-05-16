@@ -43,14 +43,12 @@ namespace MassageParlor.Pages
             {
                 WorkersBTN.Visibility = Visibility.Visible;
                 MassageBTN.Visibility = Visibility.Collapsed;
-                EditBTN.Visibility = Visibility.Visible;
                 NameTB.Text = "Обращения";
                 AddBTN.Visibility = Visibility.Collapsed;
             }
             else if (loggedWorker.Position.Name == "Массажист")
             {
                 WorkersBTN.Visibility = Visibility.Collapsed;
-                EditBTN.Visibility = Visibility.Visible;
                 AddBTN.Visibility = Visibility.Collapsed;
                 MassageBTN.Visibility = Visibility.Visible;
                 AddBTN.Visibility = Visibility.Visible;
@@ -112,7 +110,7 @@ namespace MassageParlor.Pages
             Refresh();
         }
 
-        private void EditBTN_Click(object sender, RoutedEventArgs e)
+        private void AppealsLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (loggedWorker.Position.Name == "Администратор")
             {

@@ -6,7 +6,418 @@
         xmlns:local="clr-namespace:MassageParlor.Windowww"
         mc:Ignorable="d"
         Title="Golden Lotus" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
-    <Grid>
-        
+    <Grid Background="#a98f81">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1000"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="Grid1" 
+        Grid.Column="0"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Margin="0 0 0 100"
+          Visibility="Visible">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                    <TextBlock Text="Массажист:"
+            Margin="10"
+            FontSize="40"/>
+                    <TextBlock Text="Клиент:"
+            Margin="10"
+            FontSize="40"/>
+                    <TextBlock Text="Услуга:"
+            Margin="10"
+            FontSize="40"/>
+                    <TextBlock Text="Дата:"
+            Margin="10"
+            FontSize="40"/>
+                    <TextBlock Text="Время:"
+            Margin="10"
+            FontSize="40"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="MassagistTB"
+                        Margin="10"
+                        FontSize="40"
+                        Width="650"
+                        Height="60"
+                        IsReadOnly="True"/>
+                        <Button x:Name="ChooseMassagistBTN"
+                        Width="60"
+                        Height="60"
+                        Content="+"
+                        IsEnabled="False"
+                        Style="{StaticResource ChooseButton}" Click="ChooseMassagistBTN_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="ClientTB"
+                        Margin="10"
+                        FontSize="40"
+                        Width="650"
+                        Height="60"
+                        IsReadOnly="True"/>
+                        <Button x:Name="ChooseClientBTN"
+                        Width="60"
+                        Height="60"
+                        IsEnabled="False"
+                        Content="+"
+                        Style="{StaticResource ChooseButton}" Click="ChooseClientBTN_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="ServiceTB"
+                        Margin="10"
+                        FontSize="40"
+                        Width="650"
+                        Height="60"
+                        IsReadOnly="True"/>
+                        <Button x:Name="ChooseServiceBTN"
+                        Width="60"
+                        Height="60"
+                        IsEnabled="False"
+                        Content="+"
+                        Style="{StaticResource ChooseButton}" Click="ChooseServiceBTN_Click"/>
+                    </StackPanel>
+                    <DatePicker x:Name="DateDP"
+                    Margin="10"
+                    FontSize="40"
+                    Width="400"
+                    Height="60"
+                    IsEnabled="False"
+                    HorizontalAlignment="Left"
+                    SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+                    <TextBox x:Name="TimeTB"
+                    Margin="10"
+                    FontSize="40"
+                    Width="400"
+                    Height="60"
+                    IsReadOnly="True"
+                    TextChanged="TimeTB_TextChanged"
+                    PreviewTextInput="TimeTB_PreviewTextInput" 
+                    LostFocus="TimeTB_LostFocus"
+                    HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical"
+                Margin="20"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center">
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="Grid2" 
+        Grid.Column="0"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Visibility="Collapsed">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Поиск"
+                           Margin="20 10"/>
+                    <TextBox x:Name="Search1TB"
+                         Width="790"
+                         Height="50"
+                         FontSize="30" TextChanged="Search1TB_TextChanged"/>
+                </StackPanel>
+                <ListView x:Name="WorkersLV"
+                VerticalAlignment="Top"
+                Width="950"
+                Height="410"
+                d:ItemsSource="{d:SampleData ItemCount=10}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ItemsSource="{Binding Worker}"
+                BorderThickness="3"
+                ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" SelectionChanged="WorkersLV_SelectionChanged">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"
+                            VerticalAlignment="Top"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="390"
+                            Width="288"
+                            Margin="5"
+                            Background="#907669">
+                                <Image Stretch="Fill"
+                                Width="130"
+                                Source="{Binding Photo}"
+                                Height="180"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Margin="10"/>
+                                <StackPanel Background="#6d584e"
+                                Orientation="Vertical"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Height="190"
+                                Width="288">
+                                    <StackPanel Margin="20">
+                                        <TextBlock Text="{Binding Surname}"
+                                        HorizontalAlignment="Left"
+                                        Foreground="White"
+                                        TextWrapping="Wrap"
+                                        TextAlignment="Left"
+                                        FontSize="24"
+                                        Width="220"/>
+                                        <TextBlock Text="{Binding Name}"
+                                        HorizontalAlignment="Left"
+                                        Foreground="White"
+                                        TextWrapping="Wrap"
+                                        TextAlignment="Left"
+                                        FontSize="24"
+                                        Width="220"/>
+                                        <TextBlock Text="{Binding Patronymic}"
+                                        HorizontalAlignment="Left"
+                                        Foreground="White"
+                                        TextWrapping="Wrap"
+                                        TextAlignment="Left"
+                                        FontSize="24"
+                                        Width="220"/>
+                                        <TextBlock Text="{Binding DateOfBirth, StringFormat = dd.MM.yyyy}"
+                                        HorizontalAlignment="Left"
+                                        Foreground="White"
+                                        TextWrapping="Wrap"
+                                        TextAlignment="Left"
+                                        FontSize="24"
+                                        Width="220"/>
+                                        <TextBlock Text="{Binding Gender.Name}"
+                                        HorizontalAlignment="Left"
+                                        Foreground="White"
+                                        TextWrapping="Wrap"
+                                        TextAlignment="Left"
+                                        FontSize="24"
+                                        Width="220"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackPanel Margin="10"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                    <Button x:Name="Close1BTN"
+                    Height="50"
+                    Width="300"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Click="Close1BTN_Click">
+                        <TextBlock Text="Закрыть"
+                        FontSize="30"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="Grid3" 
+        Grid.Column="0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Visibility="Collapsed">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Поиск"
+                   Margin="20 10"/>
+                    <TextBox x:Name="Search2TB"
+                 Width="790"
+                 Height="50"
+                 FontSize="30" TextChanged="Search2TB_TextChanged"/>
+                </StackPanel>
+                <ListView x:Name="ClientsLV"
+                VerticalAlignment="Center"
+                Width="950"
+                Height="410"
+                d:ItemsSource="{d:SampleData ItemCount=10}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ItemsSource="{Binding Client}"
+                BorderThickness="3"
+                ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" SelectionChanged="ClientsLV_SelectionChanged">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"
+                            VerticalAlignment="Top"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="170"
+                            Width="288"
+                            Margin="5"
+                            Background="#907669">
+                                <StackPanel Background="#6d584e"
+                                Orientation="Vertical"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                Height="170"
+                                Width="288">
+                                    <StackPanel Margin="30 10">
+                                        <TextBlock Text="{Binding Surname}"
+                                        HorizontalAlignment="Left"
+                                        Foreground="White"
+                                        TextWrapping="Wrap"
+                                        TextAlignment="Left"
+                                        FontSize="24"
+                                        Width="220"/>
+                                        <TextBlock Text="{Binding Name}"
+                                        HorizontalAlignment="Left"
+                                        Foreground="White"
+                                        TextWrapping="Wrap"
+                                        TextAlignment="Left"
+                                        FontSize="24"
+                                        Width="220"/>
+                                        <TextBlock Text="{Binding Patronymic}"
+                                        HorizontalAlignment="Left"
+                                        Foreground="White"
+                                        TextWrapping="Wrap"
+                                        TextAlignment="Left"
+                                        FontSize="24"
+                                        Width="220"/>
+                                        <TextBlock Text="{Binding DateOfBirth, StringFormat = dd.MM.yyyy}"
+                                        HorizontalAlignment="Left"
+                                        Foreground="White"
+                                        TextWrapping="Wrap"
+                                        TextAlignment="Left"
+                                        FontSize="24"
+                                        Width="220"/>
+                                        <TextBlock Text="{Binding Gender.Name}"
+                                        HorizontalAlignment="Left"
+                                        Foreground="White"
+                                        TextWrapping="Wrap"
+                                        TextAlignment="Left"
+                                        FontSize="24"
+                                        Width="220"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackPanel Margin="10"
+                Orientation="Horizontal"
+                HorizontalAlignment="Center">
+                    <Button x:Name="Close2BTN"
+            Height="50"
+            Width="300"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Click="Close2BTN_Click">
+                        <TextBlock Text="Закрыть"
+                FontSize="30"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Visibility="Collapsed"
+        x:Name="Grid4">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Поиск"
+                    Margin="20 10"/>
+                    <TextBox x:Name="Search3TB"
+                    Width="790"
+                    Height="50"
+                    FontSize="30" TextChanged="Search3TB_TextChanged"/>
+                </StackPanel>
+                <ListView x:Name="ServicesLV"
+                VerticalAlignment="Center"
+                Width="950"
+                Height="410"
+                d:ItemsSource="{d:SampleData ItemCount=10}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ItemsSource="{Binding Service}"
+                BorderThickness="3"
+                ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" SelectionChanged="ServicesLV_SelectionChanged">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"
+                            VerticalAlignment="Top"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="200"
+                            Width="288"
+                            Margin="5"
+                            Background="#907669">
+                                <Rectangle Fill="Black"
+                                Opacity="0.3"
+                                VerticalAlignment="Center"
+                                Width="370"
+                                Height="250"/>
+                                <StackPanel Orientation="Vertical"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Width="330">
+                                    <TextBlock Text="{Binding Name}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="White"
+                                    FontSize="25"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap"
+                                    Margin="0 0 0 20"/>
+                                    <TextBlock Text="{Binding Price, StringFormat={}{0:F2}₽}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="White"
+                                    FontSize="20"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap"
+                                    Margin="0 0 0 20"/>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackPanel Margin="10"
+                Orientation="Horizontal"
+                HorizontalAlignment="Center">
+                    <Button x:Name="Close3BTN"
+                    Height="50"
+                    Width="300"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Click="Close3BTN_Click">
+                        <TextBlock Text="Закрыть"
+                    FontSize="30"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Button x:Name="EditBTN"
+            Height="80"
+            Width="300"
+            Visibility="Visible"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Click="EditBTN_Click"
+                Margin="0 0 0 40">
+            <TextBlock Text="Изменить"
+                FontSize="40"/>
+        </Button>
+        <Button x:Name="SaveBTN"
+            Height="80"
+            Width="300"
+            Visibility="Collapsed"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Click="SaveBTN_Click"
+                Margin="0 0 0 40">
+            <TextBlock Text="Сохранить"
+                FontSize="40"/>
+        </Button>
     </Grid>
 </Window>

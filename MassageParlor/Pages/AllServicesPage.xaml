@@ -82,12 +82,12 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button HorizontalAlignment="Left"
+                <Button HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     Height="100"
                     Width="250"
                     x:Name="AddBTN"
-                    Margin="100 0 0 30"
+                    Margin="300 0 0 30"
                     Click="AddBTN_Click">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -109,7 +109,7 @@
                     Height="100"
                     Width="250"
                     x:Name="BackBTN"
-                    Margin="0 0 100 30"
+                    Margin="0 0 0 30"
                     Click="BackBTN_Click">
                     <Grid>
                         <Grid.RowDefinitions>

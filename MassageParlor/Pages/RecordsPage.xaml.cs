@@ -71,7 +71,6 @@ namespace MassageParlor.Pages
             else if (loggedWorker.Position.Name == "Массажист")
             {
                 WorkersBTN.Visibility = Visibility.Collapsed;
-                EditBTN.Visibility = Visibility.Collapsed;
                 AddBTN.Visibility = Visibility.Collapsed;
                 MassageBTN.Visibility = Visibility.Visible;
                 RecordsForAdminLV.Visibility = Visibility.Collapsed;
@@ -144,21 +143,6 @@ namespace MassageParlor.Pages
             Refresh();
         }
 
-        private void EditBTN_Click(object sender, RoutedEventArgs e)
-        {
-            //if (RecordsForAdminLV.SelectedItem is Record record)
-            //{
-            //    DBConnection.selectedForEditRecord = RecordsForAdminLV.SelectedItem as Record;
-            //    EditRecordWindow editRecordWindow = new EditRecordWindow(record);
-            //    editRecordWindow.ShowDialog();
-            //}
-            //else if (RecordsForAdminLV.SelectedItem is null)
-            //{
-            //    MessageBox.Show("Выберите запись!");
-            //}
-            //Refresh();
-        }
-
         private void BackBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainMenuPage());
@@ -174,6 +158,21 @@ namespace MassageParlor.Pages
             {
                 Refresh2();
             }
+        }
+
+        private void RecordsForAdminLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (RecordsForAdminLV.SelectedItem is Record record)
+            {
+                DBConnection.selectedForEditRecord = RecordsForAdminLV.SelectedItem as Record;
+                EditRecordWindow editRecordWindow = new EditRecordWindow(record);
+                editRecordWindow.ShowDialog();
+            }
+            else if (RecordsForAdminLV.SelectedItem is null)
+            {
+                MessageBox.Show("Выберите запись!");
+            }
+            Refresh();
         }
     }
 }

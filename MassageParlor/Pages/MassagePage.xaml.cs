@@ -60,5 +60,16 @@ namespace MassageParlor.Pages
         {
             NavigationService.Navigate(new AuthorizationPage());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var printDialog = new PrintDialog();
+            if (printDialog.ShowDialog().GetValueOrDefault())
+            {
+                printDialog.PrintVisual(this, "Отчёт");
+            }
+            printDialog.PrintQueue.Dispose();
+        }
+    }
     }
 }
