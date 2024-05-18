@@ -51,22 +51,18 @@ namespace MassageParlor.Windowww
             Service service = new Service();
             try
             {
-                StringBuilder error = new StringBuilder();
                 if (string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(CostTB.Text))
                 {
-                    error.AppendLine("Заполните все поля!");
+                    MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
-                if (error.Length > 0)
-                {
-                    MessageBox.Show(error.ToString());
-                }
-                try
+                else
                 {
                     if (decimal.TryParse(CostTB.Text, out decimal cost))
                     {
                         if (cost > 10000)
                         {
-                            MessageBox.Show("Услуга не может быть дороже 10000 рублей!");
+                            MessageBox.Show("Услуга не может быть дороже 10000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                             return;
                         }
                         else
@@ -81,14 +77,11 @@ namespace MassageParlor.Windowww
                     InitializeDataInPage();
                     Close();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка при работе с базой данных: {ex.Message}");
-                }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show($"Произошла непредвиденная ошибка: {ex.Message}");
+                MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
 
@@ -135,15 +128,14 @@ namespace MassageParlor.Windowww
             else
             {
                 // Обработка ошибки, если ввод не является числом
-                MessageBox.Show("Неверный формат числа.");
+                MessageBox.Show("Неверный формат числа.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
             if (decimal.TryParse(CostTB.Text, out decimal cost))
             {
                 if (cost > 10000)
                 {
-                    MessageBox.Show("Услуга не может быть дороже 10000 рублей!");
+                    MessageBox.Show("Услуга не может быть дороже 10000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
             }

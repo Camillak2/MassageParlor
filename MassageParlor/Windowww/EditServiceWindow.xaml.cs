@@ -46,15 +46,11 @@ namespace MassageParlor.Windowww
         {
             try
             {
-                StringBuilder error = new StringBuilder();
                 Service service = contextService;
                 if (string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(CostTB.Text))
                 {
-                    error.AppendLine("Заполните все поля!");
-                }
-                if (error.Length > 0)
-                {
-                    MessageBox.Show(error.ToString());
+                    MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
                 else
                 {
@@ -62,7 +58,7 @@ namespace MassageParlor.Windowww
                     {
                         if (cost > 10000)
                         {
-                            MessageBox.Show("Услуга не может быть дороже 10000 рублей!");
+                            MessageBox.Show("Услуга не может быть дороже 10000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                             return;
                         }
                         else
@@ -83,7 +79,8 @@ namespace MassageParlor.Windowww
             }
             catch
             {
-                MessageBox.Show("Заполните все поля!");
+                MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
 
@@ -138,15 +135,14 @@ namespace MassageParlor.Windowww
             else
             {
                 // Обработка ошибки, если ввод не является числом
-                MessageBox.Show("Неверный формат числа.");
+                MessageBox.Show("Неверный формат числа.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
             if (decimal.TryParse(CostTB.Text, out decimal cost))
             {
                 if (cost > 10000)
                 {
-                    MessageBox.Show("Услуга не может быть дороже 10000 рублей!");
+                    MessageBox.Show("Услуга не может быть дороже 10000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
             }

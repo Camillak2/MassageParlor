@@ -115,6 +115,16 @@
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "MassageSalon.dbo.TheFirstNormalForm" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="TheFirstNormalForm">
+          <Key>
+            <PropertyRef Name="Client" />
+          </Key>
+          <Property Name="Client" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Service" Type="nvarchar(max)" />
+          <Property Name="Worker" Type="nvarchar(max)" />
+          <Property Name="DateTime" Type="datetime" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
         <EntityType Name="TypeOfService">
           <Key>
             <PropertyRef Name="ID" />
@@ -296,6 +306,15 @@
           <EntitySet Name="Taskk" EntityType="Self.Taskk" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeOfService" EntityType="Self.TypeOfService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TheFirstNormalForm" EntityType="Self.TheFirstNormalForm" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TheFirstNormalForm].[Client] AS [Client], 
+    [TheFirstNormalForm].[Service] AS [Service], 
+    [TheFirstNormalForm].[Worker] AS [Worker], 
+    [TheFirstNormalForm].[DateTime] AS [DateTime], 
+    [TheFirstNormalForm].[Price] AS [Price]
+    FROM [dbo].[TheFirstNormalForm] AS [TheFirstNormalForm]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Appeals_Status1" Association="Self.FK_Appeals_Status1">
             <End Role="Status" EntitySet="Status" />
             <End Role="Appeals" EntitySet="Appeals" />
@@ -476,6 +495,16 @@
           <NavigationProperty Name="Position" Relationship="Self.FK_Worker_Position" FromRole="Worker" ToRole="Position" />
           <NavigationProperty Name="Record" Relationship="Self.FK_Record_Worker" FromRole="Worker" ToRole="Record" />
         </EntityType>
+        <EntityType Name="TheFirstNormalForm">
+          <Key>
+            <PropertyRef Name="Client" />
+          </Key>
+          <Property Name="Client" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Service" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Worker" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
         <Association Name="FK_Appeals_Status1">
           <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
           <End Role="Appeals" Type="Self.Appeals" Multiplicity="*" />
@@ -619,6 +648,7 @@
           <EntitySet Name="Taskk" EntityType="Self.Taskk" />
           <EntitySet Name="TypeOfService" EntityType="Self.TypeOfService" />
           <EntitySet Name="Worker" EntityType="Self.Worker" />
+          <EntitySet Name="TheFirstNormalForm" EntityType="Self.TheFirstNormalForm" />
           <AssociationSet Name="FK_Appeals_Status1" Association="Self.FK_Appeals_Status1">
             <End Role="Status" EntitySet="Status" />
             <End Role="Appeals" EntitySet="Appeals" />
@@ -789,6 +819,17 @@
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TheFirstNormalForm">
+            <EntityTypeMapping TypeName="MassageSalonModel.TheFirstNormalForm">
+              <MappingFragment StoreEntitySet="TheFirstNormalForm">
+                <ScalarProperty Name="Client" ColumnName="Client" />
+                <ScalarProperty Name="Service" ColumnName="Service" />
+                <ScalarProperty Name="Worker" ColumnName="Worker" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

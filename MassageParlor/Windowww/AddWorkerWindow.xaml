@@ -153,15 +153,15 @@
                         <Image Width="250"
                         Height="350"
                         x:Name="PhotoWorker"
-                        Source="{Binding Photo}"
                         Stretch="UniformToFill"/>
                     </Border>
                     <Button x:Name="AddPhotoBTN"
                             Height="80"
                             Width="300"
-                            Margin="0 30 0 0" Click="AddPhotoBTN_Click_1">
-                        <TextBlock Text="Добавить"
-                        FontSize="40"/>
+                            Margin="0 30 0 0" Click="AddPhotoBTN_Click">
+                        <TextBlock x:Name="AddPhotoTB"
+                            Text="Добавить фото"
+                        FontSize="36"/>
                     </Button>
                 </StackPanel>
             </StackPanel>

@@ -68,8 +68,7 @@ namespace MassageParlor.Pages
             {
                 printDialog.PrintVisual(this, "Отчёт");
             }
-            printDialog.PrintQueue.Dispose();
+            //printDialog.PrintQueue.Dispose();
         }
-    }
     }
 }

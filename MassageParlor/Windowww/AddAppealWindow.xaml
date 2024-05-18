@@ -30,7 +30,6 @@
                     <TextBlock Text="Статус:"
                     Margin="10"
                     FontSize="40"/>
-                    
                 </StackPanel>
                 <StackPanel Orientation="Vertical"
                         Margin="20"

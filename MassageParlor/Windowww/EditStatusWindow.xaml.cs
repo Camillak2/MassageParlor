@@ -53,15 +53,11 @@ namespace MassageParlor.Windowww
         {
             try
             {
-                StringBuilder error = new StringBuilder();
                 Appeals appeal = contextAppeal;
                 if (StatusCB.SelectedItem == null)
                 {
-                    error.AppendLine("Заполните все поля!");
-                }
-                if (error.Length > 0)
-                {
-                    MessageBox.Show(error.ToString());
+                    MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
                 else
                 {
@@ -76,7 +72,8 @@ namespace MassageParlor.Windowww
             }
             catch
             {
-                MessageBox.Show("Произошла ошибка!");
+                MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
     }

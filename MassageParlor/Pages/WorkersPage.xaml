@@ -32,7 +32,7 @@
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                 ItemsSource="{Binding Worker}"
                 BorderThickness="3"
-                ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+                ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" SelectionChanged="WorkersLV_SelectionChanged">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"
@@ -112,85 +112,65 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button HorizontalAlignment="Left"
-    VerticalAlignment="Bottom"
-    Height="100"
-    Width="250"
-    x:Name="AddBTN"
-    Margin="100 0 0 30"
-    Click="AddBTN_Click">
+            <Button HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Height="100"
+                Width="250"
+                x:Name="AddBTN"
+                Margin="300 0 0 30"
+                Click="AddBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="/Images/add.png"
-            Width="48"
-            Height="48"
-            Grid.Row="0"/>
+                        Width="48"
+                        Height="48"
+                        Grid.Row="0"/>
                     <TextBlock Text="Добавить"
-            HorizontalAlignment="Center"
-            Grid.Row="1"/>
+                        HorizontalAlignment="Center"
+                        Grid.Row="1"/>
                 </Grid>
             </Button>
-            <Button HorizontalAlignment="Center"
-    VerticalAlignment="Bottom"
-    Height="100"
-    Width="250"
-    x:Name="EditBTN"
-    Margin="0 0 0 30"
-    Click="EditBTN_Click">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Images/edit.png"
-            Width="48"
-            Height="48"
-            Grid.Row="0"/>
-                    <TextBlock Text="Изменить"
-            HorizontalAlignment="Center"
-            Grid.Row="1"/>
-                </Grid>
-            </Button>
+
             <Button HorizontalAlignment="Right"
-    VerticalAlignment="Bottom"
-    Height="100"
-    Width="250"
-    x:Name="BackBTN"
-    Margin="0 0 100 30"
-    Click="BackBTN_Click">
+                VerticalAlignment="Bottom"
+                Height="100"
+                Width="250"
+                x:Name="BackBTN"
+                Margin="0 0 0 30"
+                Click="BackBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Source="/Images/back.png"
-            Width="48"
-            Height="48"
-            Grid.Row="0"/>
-                    <TextBlock Text="На главную"
-            HorizontalAlignment="Center"
-            Grid.Row="1"/>
+                        Width="48"
+                        Height="48"
+                        Grid.Row="0"/>
+                    <TextBlock Text="Назад"
+                        HorizontalAlignment="Center"
+                        Grid.Row="1"/>
                 </Grid>
             </Button>
         </Grid>
         <Grid Grid.Column="2"
             Background="#907669">
             <Image Source="/Images/logoo.png"
-        Width="200"
-        Height="200"
-        VerticalAlignment="Top"
-        Margin="10"
-        Grid.Row="0"
-        Grid.Column="1"/>
+                Width="200"
+                Height="200"
+                VerticalAlignment="Top"
+                Margin="10"
+                Grid.Row="0"
+                Grid.Column="1"/>
             <Button Height="95"
-        Width="250"
-        VerticalAlignment="Top"
-        Margin="0 220 0 0"
-        x:Name="ProfileBTN"
-        Click="ProfileBTN_Click">
+                Width="250"
+                VerticalAlignment="Top"
+                Margin="0 220 0 0"
+                x:Name="ProfileBTN"
+                Click="ProfileBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -206,11 +186,11 @@
                 </Grid>
             </Button>
             <Button Height="95"
-        Width="250"
-        x:Name="ClientsBTN"
-        VerticalAlignment="Top"
-        Margin="0 320 0 0"
-        Click="ClientsBTN_Click">
+                Width="250"
+                x:Name="ClientsBTN"
+                VerticalAlignment="Top"
+                Margin="0 320 0 0"
+                Click="ClientsBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -226,11 +206,11 @@
                 </Grid>
             </Button>
             <Button Height="95"
-        Width="250"
-        VerticalAlignment="Top"
-        Margin="0 420 0 0"
-        x:Name="RecordsBTN"
-        Click="RecordsBTN_Click">
+                Width="250"
+                VerticalAlignment="Top"
+                Margin="0 420 0 0"
+                x:Name="RecordsBTN"
+                Click="RecordsBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -246,11 +226,11 @@
                 </Grid>
             </Button>
             <Button Height="95"
-        Width="250"
-        VerticalAlignment="Top"
-        Margin="0 520 0 0"
-        x:Name="ServicesBTN"
-        Click="ServicesBTN_Click">
+                Width="250"
+                VerticalAlignment="Top"
+                Margin="0 520 0 0"
+                x:Name="ServicesBTN"
+                Click="ServicesBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>

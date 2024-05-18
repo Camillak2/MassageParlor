@@ -139,47 +139,24 @@ namespace MassageParlor.Windowww
         {
             try
             {
-                StringBuilder error = new StringBuilder();
                 Worker worker = contextWorker;
                 if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
                 DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PhoneTB.Text) || string.IsNullOrWhiteSpace(LoginTB.Text) ||
                 string.IsNullOrWhiteSpace(PasswordTB.Text) || GenderCB.SelectedItem == null || PositionCB.SelectedItem == null) 
                 {
-                    error.AppendLine("Заполните все поля!");
-                }
-                if (DateOfBirthDP.SelectedDate != null && (DateTime.Now - (DateTime)DateOfBirthDP.SelectedDate).TotalDays < 365 * 18 + 4)
-                {
-                    error.AppendLine("Сотрудник должен быть старше 18 лет.");
-                }
-                if (error.Length > 0)
-                {
-                    MessageBox.Show(error.ToString());
+                    MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
                 else
                 {
-                    if (LoginTB.Text.Length > 13)
-                    {
-                        MessageBox.Show("Слишком длинный логин!");
-                        return;
-                    }
-                    else if (LoginTB.Text.Length < 6)
-                    {
-                        MessageBox.Show("Слишком короткий логин!");
-                        return;
-                    }
-                    else
-                    {
-                        worker.Login = LoginTB.Text.Trim();
-                    }
-
                     if (PasswordTB.Text.Length > 13)
                     {
-                        MessageBox.Show("Слишком длинный пароль!");
+                        MessageBox.Show("Слишком длинный пароль.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
                     else if (PasswordTB.Text.Length < 6)
                     {
-                        MessageBox.Show("Слишком короткий пароль!");
+                        MessageBox.Show("Слишком короткий пароль.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
                     else
@@ -215,7 +192,8 @@ namespace MassageParlor.Windowww
             }
             catch
             {
-                MessageBox.Show("Произошла ошибка!");
+                MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
 
@@ -234,7 +212,7 @@ namespace MassageParlor.Windowww
 
                 if (age < 18)
                 {
-                    MessageBox.Show("Сотрудник должен быть старше 18 лет.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Сотрудник должен быть старше 18 лет.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     datePicker.SelectedDate = null; // Сбрасываем выбранную дату
                 }
             }
@@ -251,9 +229,10 @@ namespace MassageParlor.Windowww
                     DBConnection.massageSalon.SaveChanges(); // Сохраните изменения в базе данных
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show("Ошибка при сохранении номера телефона: " + ex.Message);
+                MessageBox.Show("Ошибка при сохранении номера телефона.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
 
@@ -304,7 +283,7 @@ namespace MassageParlor.Windowww
 
             if (currentText.Length < 10)
             {
-                MessageBox.Show("Номер телефона должен содержать 11 цифр.");
+                MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             else
@@ -331,11 +310,13 @@ namespace MassageParlor.Windowww
             Worker worker = contextWorker;
             if (PassportTB.Text.Length < 9)
             {
-                MessageBox.Show("Паспортные данные должны содержать 10 цифр.");
+                MessageBox.Show("Паспортные данные должны содержать 10 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
             else
             {
-                 worker.Phone = PhoneTB.Text;
+                 worker.PassportDetails = PassportTB.Text;
+                 DBConnection.massageSalon.SaveChanges();
             }
         }
 

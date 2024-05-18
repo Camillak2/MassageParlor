@@ -43,16 +43,12 @@ namespace MassageParlor.Windowww
         {
             try
             {
-                StringBuilder error = new StringBuilder();
                 if (DateTimeDP.SelectedDate == null || TaskCB.SelectedItem == null)
                 {
-                    error.AppendLine("Заполните все поля!");
+                    MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
-                if (error.Length > 0)
-                {
-                    MessageBox.Show(error.ToString());
-                }
-                try
+                else
                 {
                     DateTime currentDateTime = DateTime.Now;
                     appeal.DateTime = currentDateTime;
@@ -65,14 +61,11 @@ namespace MassageParlor.Windowww
                     DBConnection.massageSalon.SaveChanges();
                     Close();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка при работе с базой данных: {ex.Message}");
-                }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show($"Произошла непредвиденная ошибка: {ex.Message}");
+                MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
         }
     }

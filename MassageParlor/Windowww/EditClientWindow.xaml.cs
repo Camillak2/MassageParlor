@@ -95,16 +95,12 @@ namespace MassageParlor.Windowww
         {
             try
             {
-                StringBuilder error = new StringBuilder();
                 Client client = contextClient;
                 if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
                    DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PhoneTB.Text))
                 {
-                    error.AppendLine("Заполните все поля!");
-                }
-                if (error.Length > 0)
-                {
-                    MessageBox.Show(error.ToString());
+                    MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
                 else
                 {
@@ -132,7 +128,8 @@ namespace MassageParlor.Windowww
             }
             catch
             {
-                MessageBox.Show("Произошла ошибка!");
+                MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
 
@@ -151,7 +148,7 @@ namespace MassageParlor.Windowww
 
                 if (age < 7)
                 {
-                    MessageBox.Show("Клиент не может быть младше 7 лет.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Клиент не может быть младше 7 лет.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     datePicker.SelectedDate = null; // Сбрасываем выбранную дату
                 }
             }
@@ -168,9 +165,10 @@ namespace MassageParlor.Windowww
                     DBConnection.massageSalon.SaveChanges(); // Сохраните изменения в базе данных
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show("Ошибка при сохранении номера телефона: " + ex.Message);
+                MessageBox.Show("Ошибка при сохранении номера телефона.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
 
@@ -221,7 +219,7 @@ namespace MassageParlor.Windowww
 
             if (currentText.Length < 10)
             {
-                MessageBox.Show("Номер телефона должен содержать 11 цифр.");
+                MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             else

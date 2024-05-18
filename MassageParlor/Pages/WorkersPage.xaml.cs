@@ -117,7 +117,7 @@ namespace MassageParlor.Pages
             Refresh();
         }
 
-        private void EditBTN_Click(object sender, RoutedEventArgs e)
+        private void WorkersLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (WorkersLV.SelectedItem is Worker worker)
             {
@@ -136,5 +136,7 @@ namespace MassageParlor.Pages
         {
             NavigationService.Navigate(new MainMenuPage());
         }
+
+        
     }
 }

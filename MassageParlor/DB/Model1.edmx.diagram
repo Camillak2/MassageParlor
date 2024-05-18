@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a5cfffd481a64b998e908b530ceee077" Name="Diagram1" ZoomLevel="64">
+      <Diagram DiagramId="fb206c94a42d488197e0db72843f4c04" Name="Diagram1">
         <EntityTypeShape EntityType="MassageSalonModel.Appeals" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MassageSalonModel.Client" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MassageSalonModel.Discount" Width="1.5" PointX="7.75" PointY="3.5" IsExpanded="true" />
@@ -17,6 +17,7 @@
         <EntityTypeShape EntityType="MassageSalonModel.Taskk" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MassageSalonModel.TypeOfService" Width="1.5" PointX="0.75" PointY="15.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MassageSalonModel.Worker" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MassageSalonModel.TheFirstNormalForm" Width="1.5" PointX="5.75" PointY="10.5" IsExpanded="true" />
         <AssociationConnector Association="MassageSalonModel.FK_Appeals_Status1" ManuallyRouted="false" />
         <AssociationConnector Association="MassageSalonModel.FK_Appeals_Task" ManuallyRouted="false" />
         <AssociationConnector Association="MassageSalonModel.FK_Appeals_Worker" ManuallyRouted="false" />

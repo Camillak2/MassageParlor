@@ -171,8 +171,8 @@
                             Margin="0 30 0 0"
                             Visibility="Collapsed"
                             Click="EditPhotoBTN_Click">
-                        <TextBlock Text="Изменить"
-                                FontSize="40"/>
+                        <TextBlock Text="Изменить фото"
+                                FontSize="36"/>
                     </Button>
                 </StackPanel>
             </StackPanel>

@@ -37,5 +37,6 @@ namespace MassageParlor.DB
         public virtual DbSet<Taskk> Taskk { get; set; }
         public virtual DbSet<TypeOfService> TypeOfService { get; set; }
         public virtual DbSet<Worker> Worker { get; set; }
+        public virtual DbSet<TheFirstNormalForm> TheFirstNormalForm { get; set; }
     }
 }

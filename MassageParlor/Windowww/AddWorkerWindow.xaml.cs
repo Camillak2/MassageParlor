@@ -49,7 +49,7 @@ namespace MassageParlor.Windowww
             PassportTB.TextChanged += TextBox_TextChanged;
         }
 
-        private void AddPhotoBTN_Click_1(object sender, RoutedEventArgs e)
+        private void AddPhotoBTN_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
@@ -59,6 +59,8 @@ namespace MassageParlor.Windowww
             {
                 worker.Photo = File.ReadAllBytes(openFileDialog.FileName);
                 PhotoWorker.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+
+                AddPhotoTB.Text = "Изменить фото";
             }
         }
 
@@ -66,16 +68,12 @@ namespace MassageParlor.Windowww
         {
             try
             {
-                StringBuilder error = new StringBuilder();
                 if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
                         DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PassportTB.Text) || string.IsNullOrWhiteSpace(PhoneTB.Text) ||
                         string.IsNullOrWhiteSpace(LoginTB.Text) || PositionCB.SelectedItem == null || GenderCB.SelectedItem == null)
                 {
-                    error.AppendLine("Заполните все поля!");
-                }
-                if (error.Length > 0)
-                {
-                    MessageBox.Show(error.ToString());
+                    MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
                 else
                 {
@@ -91,19 +89,19 @@ namespace MassageParlor.Windowww
 
                     if (loginExists)
                     {
-                        MessageBox.Show("Этот логин уже занят. Выберите другой.");
+                        MessageBox.Show("Этот логин уже занят. Выберите другой.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
                     else
                     {
                         if (LoginTB.Text.Length > 13)
                         {
-                            MessageBox.Show("Слишком длинный логин!");
+                            MessageBox.Show("Слишком длинный логин.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                             return;
                         }
                         else if (LoginTB.Text.Length < 6)
                         {
-                            MessageBox.Show("Слишком короткий логин!");
+                            MessageBox.Show("Слишком короткий логин.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                             return;
                         }
                         else
@@ -114,12 +112,12 @@ namespace MassageParlor.Windowww
 
                     if (PasswordTB.Text.Length > 13)
                     {
-                        MessageBox.Show("Слишком длинный пароль!");
+                        MessageBox.Show("Слишком длинный пароль.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
                     else if (PasswordTB.Text.Length < 6)
                     {
-                        MessageBox.Show("Слишком короткий пароль!");
+                        MessageBox.Show("Слишком короткий пароль.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);    
                         return;
                     }
                     else
@@ -140,7 +138,8 @@ namespace MassageParlor.Windowww
             }
             catch
             {
-                MessageBox.Show("Заполните все поля!");
+                MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
 
@@ -166,7 +165,7 @@ namespace MassageParlor.Windowww
 
                 if (age < 18)
                 {
-                    MessageBox.Show("Сотрудник должен быть старше 18 лет.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Сотрудник должен быть старше 18 лет.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     datePicker.SelectedDate = null; // Сбрасываем выбранную дату
                 }
             }
@@ -183,9 +182,10 @@ namespace MassageParlor.Windowww
                     DBConnection.massageSalon.SaveChanges(); // Сохраните изменения в базе данных
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show("Ошибка при сохранении номера телефона: " + ex.Message);
+                MessageBox.Show("Ошибка при сохранении номера телефона.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
 
@@ -236,7 +236,7 @@ namespace MassageParlor.Windowww
 
             if (currentText.Length < 10)
             {
-                MessageBox.Show("Номер телефона должен содержать 11 цифр.");
+                MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             else
@@ -263,12 +263,12 @@ namespace MassageParlor.Windowww
         {
             if (PassportTB.Text.Length < 10)
             {
-                MessageBox.Show("Паспортные данные должны содержать 10 цифр.");
+                MessageBox.Show("Паспортные данные должны содержать 10 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
             else
             {
-                // Сохранить номер телефона в базе данных
-                DBConnection.massageSalon.SaveChanges();
+                worker.PassportDetails = PassportTB.Text;
             }
         }
 
@@ -301,11 +301,6 @@ namespace MassageParlor.Windowww
             //Пароль
             PasswordTB.Text = Regex.Replace(PasswordTB.Text, @"\s", "");
             PasswordTB.CaretIndex = PasswordTB.Text.Length;
-        }
-
-        private void SurnameTB_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

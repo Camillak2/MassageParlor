@@ -75,16 +75,12 @@ namespace MassageParlor.Windowww
         {
             try
             {
-                StringBuilder error = new StringBuilder();
                 Record record = contextRecord;
                 if (string.IsNullOrWhiteSpace(MassagistTB.Text) || string.IsNullOrWhiteSpace(ServiceTB.Text) || string.IsNullOrWhiteSpace(ClientTB.Text) ||
                         DateDP.SelectedDate == null || string.IsNullOrWhiteSpace(TimeTB.Text))
                 {
-                    error.AppendLine("Заполните все поля!");
-                }
-                if (error.Length > 0)
-                {
-                    MessageBox.Show(error.ToString());
+                    MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
                 else
                 {
@@ -96,7 +92,8 @@ namespace MassageParlor.Windowww
                     }
                     else
                     {
-                        MessageBox.Show("Заполните все поля!");
+                        MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
                     }
                     record.Date = DateDP.SelectedDate;
                     record.Time = TimeTB.Text.Trim();
@@ -108,7 +105,8 @@ namespace MassageParlor.Windowww
             }
             catch
             {
-                MessageBox.Show("Заполните все поля!");
+                MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
 
@@ -306,7 +304,7 @@ namespace MassageParlor.Windowww
         {
             if (TimeTB.Text.Length < 4)
             {
-                MessageBox.Show("Время должно состоять из 4 цифр.");
+                MessageBox.Show("Неверный формат времени.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else
@@ -325,7 +323,7 @@ namespace MassageParlor.Windowww
         {
             if (DateDP.SelectedDate < DateTime.Now.Date)
             {
-                MessageBox.Show("Нельзя выбрать прошедшую дату.");
+                MessageBox.Show("Нельзя выбрать прошедшую дату.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 DateDP.SelectedDate = null;
             }
         }
