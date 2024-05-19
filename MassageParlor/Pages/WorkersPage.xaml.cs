@@ -70,26 +70,48 @@ namespace MassageParlor.Pages
             WorkersLV.ItemsSource = DBConnection.massageSalon.Worker.ToList();
         }
 
+        private bool IsWorkerExists(Worker worker)
+        {
+            return DBConnection.massageSalon.Record.Any(c => c.ID_Worker == worker.ID);
+        }
+
         private void DeleteHL_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
+            var worker = (sender as Hyperlink).DataContext as Worker;
             if (result == MessageBoxResult.Yes)
             {
-                var worker = (sender as Hyperlink).DataContext as Worker;
-                try
+                if (IsWorkerExists(worker))
                 {
-                    DBConnection.massageSalon.Worker.Remove(worker);
-                    DBConnection.massageSalon.SaveChanges();
+                    MessageBox.Show("Этот сотрудник не может быть удален. Он участвует в записи.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
-                catch
+                else
                 {
-                    MessageBox.Show("Сотрудник не может быть удален!");
-                }
+                    using (var db = new MassageSalonEntities())
+                    {
+                        // Находим клиента по его ID
+                        var serviceToDelete = DBConnection.massageSalon.Worker.Find(worker.ID);
 
-                Refresh();
+                        if (serviceToDelete != null)
+                        {
+                            // Удаляем клиента из контекста
+                            DBConnection.massageSalon.Worker.Remove(worker);
+                            DBConnection.massageSalon.SaveChanges();
+
+                            Refresh();
+                            MessageBox.Show("Сотрудник удален.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Сотрудник не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+                }
             }
-            else if (result == MessageBoxResult.No){ }
+            else if (result == MessageBoxResult.No) { }
         }
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)

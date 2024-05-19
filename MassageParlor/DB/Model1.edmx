@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище MassageSalonModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище MassageSalonModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Appeals">
           <Key>
             <PropertyRef Name="ID" />
@@ -62,6 +62,16 @@
           <Property Name="ID_Worker" Type="int" />
           <Property Name="Time" Type="nvarchar" MaxLength="5" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "MassageSalon.dbo.Record2" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Record2">
+          <Property Name="Service" Type="int" />
+          <Property Name="Worker" Type="int" />
+          <Property Name="Client" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Time" Type="time" Precision="7" />
+        </EntityType>-->
         <EntityType Name="Service">
           <Key>
             <PropertyRef Name="ID" />
@@ -98,23 +108,11 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "MassageSalon.dbo.TheFirstNormalForm" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-        <EntityType Name="TheFirstNormalForm">
-          <Key>
-            <PropertyRef Name="Client" />
-          </Key>
-          <Property Name="Client" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Service" Type="nvarchar(max)" />
-          <Property Name="Worker" Type="nvarchar(max)" />
-          <Property Name="DateTime" Type="datetime" />
-          <Property Name="Price" Type="money" />
-        </EntityType>
         <EntityType Name="TypeOfService">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="Image" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -135,6 +133,13 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="Photo" Type="varbinary(max)" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "MassageSalon.dbo.WorkerService" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="WorkerService">
+          <Property Name="Worker" Type="nvarchar(max)" />
+          <Property Name="Service" Type="nvarchar(max)" />
+          <Property Name="DateTime" Type="datetime" />
+        </EntityType>-->
         <Association Name="FK_Appeals_Status1">
           <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
           <End Role="Appeals" Type="Self.Appeals" Multiplicity="*" />
@@ -225,6 +230,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Ошибки, обнаруженные при создании:
+ошибка 6004: Невозможно найти таблицу "MassageSalon.dbo.Record2", на которую ссылается связь.
+        <Association Name="FK_Record2_Client2" />-->
+        <!--Ошибки, обнаруженные при создании:
+ошибка 6004: Невозможно найти таблицу "MassageSalon.dbo.Record2", на которую ссылается связь.
+        <Association Name="FK_Record2_Service2" />-->
+        <!--Ошибки, обнаруженные при создании:
+ошибка 6004: Невозможно найти таблицу "MassageSalon.dbo.Record2", на которую ссылается связь.
+        <Association Name="FK_Record2_Worker2" />-->
         <Association Name="FK_Service_TypeOfService">
           <End Role="TypeOfService" Type="Self.TypeOfService" Multiplicity="0..1" />
           <End Role="Service" Type="Self.Service" Multiplicity="*" />
@@ -276,15 +290,6 @@
           <EntitySet Name="Taskk" EntityType="Self.Taskk" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeOfService" EntityType="Self.TypeOfService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TheFirstNormalForm" EntityType="Self.TheFirstNormalForm" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [TheFirstNormalForm].[Client] AS [Client], 
-    [TheFirstNormalForm].[Service] AS [Service], 
-    [TheFirstNormalForm].[Worker] AS [Worker], 
-    [TheFirstNormalForm].[DateTime] AS [DateTime], 
-    [TheFirstNormalForm].[Price] AS [Price]
-    FROM [dbo].[TheFirstNormalForm] AS [TheFirstNormalForm]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Appeals_Status1" Association="Self.FK_Appeals_Status1">
             <End Role="Status" EntitySet="Status" />
             <End Role="Appeals" EntitySet="Appeals" />
@@ -326,7 +331,8 @@
             <End Role="Worker" EntitySet="Worker" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MassageSalonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -404,13 +410,13 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="ID_TypeOfService" Type="Int32" />
-          <NavigationProperty Name="Record" Relationship="Self.FK_Record_Service" FromRole="Service" ToRole="Record" />
-          <NavigationProperty Name="TypeOfService" Relationship="Self.FK_Service_TypeOfService" FromRole="Service" ToRole="TypeOfService" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Duration" Type="Time" Precision="7" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Record" Relationship="Self.FK_Record_Service" FromRole="Service" ToRole="Record" />
+          <NavigationProperty Name="TypeOfService" Relationship="Self.FK_Service_TypeOfService" FromRole="Service" ToRole="TypeOfService" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -442,7 +448,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Service" Relationship="Self.FK_Service_TypeOfService" FromRole="TypeOfService" ToRole="Service" />
@@ -467,16 +473,6 @@
           <NavigationProperty Name="Gender" Relationship="Self.FK_Worker_Gender" FromRole="Worker" ToRole="Gender" />
           <NavigationProperty Name="Position" Relationship="Self.FK_Worker_Position" FromRole="Worker" ToRole="Position" />
           <NavigationProperty Name="Record" Relationship="Self.FK_Record_Worker" FromRole="Worker" ToRole="Record" />
-        </EntityType>
-        <EntityType Name="TheFirstNormalForm">
-          <Key>
-            <PropertyRef Name="Client" />
-          </Key>
-          <Property Name="Client" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Service" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Worker" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DateTime" Type="DateTime" Precision="3" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <Association Name="FK_Appeals_Status1">
           <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
@@ -595,9 +591,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Service_TypeOfService">
-          <End Role="TypeOfService" Type="Self.TypeOfService" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="TypeOfService" Type="Self.TypeOfService" Multiplicity="0..1" />
           <End Role="Service" Type="Self.Service" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TypeOfService">
@@ -621,7 +615,6 @@
           <EntitySet Name="Taskk" EntityType="Self.Taskk" />
           <EntitySet Name="TypeOfService" EntityType="Self.TypeOfService" />
           <EntitySet Name="Worker" EntityType="Self.Worker" />
-          <EntitySet Name="TheFirstNormalForm" EntityType="Self.TheFirstNormalForm" />
           <AssociationSet Name="FK_Appeals_Status1" Association="Self.FK_Appeals_Status1">
             <End Role="Status" EntitySet="Status" />
             <End Role="Appeals" EntitySet="Appeals" />
@@ -696,10 +689,10 @@
           <EntitySetMapping Name="Discount">
             <EntityTypeMapping TypeName="MassageSalonModel.Discount">
               <MappingFragment StoreEntitySet="Discount">
-                <ScalarProperty Name="Percent" ColumnName="Percent" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Percent" ColumnName="Percent" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -735,13 +728,13 @@
           <EntitySetMapping Name="Service">
             <EntityTypeMapping TypeName="MassageSalonModel.Service">
               <MappingFragment StoreEntitySet="Service">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ID_TypeOfService" ColumnName="ID_TypeOfService" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -796,17 +789,6 @@
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TheFirstNormalForm">
-            <EntityTypeMapping TypeName="MassageSalonModel.TheFirstNormalForm">
-              <MappingFragment StoreEntitySet="TheFirstNormalForm">
-                <ScalarProperty Name="Client" ColumnName="Client" />
-                <ScalarProperty Name="Service" ColumnName="Service" />
-                <ScalarProperty Name="Worker" ColumnName="Worker" />
-                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

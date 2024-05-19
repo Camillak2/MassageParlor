@@ -68,6 +68,8 @@ namespace MassageParlor.Pages
                 ServicesBTN.Visibility = Visibility.Visible;
                 WorkersBTN.Visibility = Visibility.Visible;
                 ClientsBTN.Visibility = Visibility.Visible;
+
+                AddBTN.Visibility = Visibility.Visible;
                 LogOutBTN.Visibility = Visibility.Visible;
 
                 //Не видно
@@ -86,6 +88,7 @@ namespace MassageParlor.Pages
 
                 //Не видно
                 WorkersBTN.Visibility = Visibility.Collapsed;
+                AddBTN.Visibility = Visibility.Collapsed;
                 ClientsBTN.Visibility = Visibility.Collapsed;
 
                 NameTB.Text = "Мои записи";

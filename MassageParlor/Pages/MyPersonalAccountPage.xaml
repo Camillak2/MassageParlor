@@ -124,11 +124,11 @@
                     <Border Style="{StaticResource BorderForPhoto}"
                             CornerRadius="40">
                         <Image Height="400"
-                               Width="300"
+                               Width="320"
                             x:Name="PhotoWorker"
                             Source="{Binding Photo}">
                             <Image.Clip>
-                                <RectangleGeometry RadiusX="40" RadiusY="40" Rect="0,0,300,400"/>
+                                <RectangleGeometry RadiusX="40" RadiusY="40" Rect="0,0,320,400"/>
                             </Image.Clip>
                         </Image>
                     </Border>

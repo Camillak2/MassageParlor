@@ -109,12 +109,13 @@ namespace MassageParlor.Pages
                 ServicesBTN.Visibility = Visibility.Visible;
                 WorkersBTN.Visibility = Visibility.Visible;
                 ClientsBTN.Visibility = Visibility.Visible;
+
                 LogOutBTN.Visibility = Visibility.Visible;
 
                 //Не видно
                 MassageBTN.Visibility = Visibility.Collapsed;
             }
-            else if (loggedWorker.Position.Name == "Мастер")
+            else if (loggedWorker.Position.Name == "Массажист")
             {
                 //Видно
                 ProfileBTN.Visibility = Visibility.Visible;

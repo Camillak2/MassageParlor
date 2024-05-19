@@ -58,11 +58,11 @@
                             Height="50"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            IsEditable="False"
+                            IsEnabled="False"
                             ItemsSource="{Binding statuses}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Name}" FontSize="40"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
@@ -84,11 +84,10 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 Click="EditBTN_Click"
-                Margin="0 0 0 40">
+                Margin="0 0 0 20">
             <TextBlock Text="Изменить"
                     FontSize="40"/>
         </Button>
-
         <Button x:Name="SaveBTN"
                 Height="80"
                 Width="300"
@@ -96,7 +95,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 Click="SaveBTN_Click"
-                Margin="0 0 0 40">
+                Margin="0 0 0 20">
             <TextBlock Text="Сохранить"
                     FontSize="40"/>
         </Button>

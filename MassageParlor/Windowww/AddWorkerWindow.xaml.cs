@@ -132,7 +132,7 @@ namespace MassageParlor.Windowww
                         }
                         else
                         {
-                            worker.Phone = PhoneTB.Text.Trim();
+                            worker.Phone = PhoneTB.Text;
                         }
                     }
 
@@ -241,6 +241,10 @@ namespace MassageParlor.Windowww
             {
                 MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
+            }
+            else
+            {
+                worker.Phone = PhoneTB.Text;
             }
         }
 

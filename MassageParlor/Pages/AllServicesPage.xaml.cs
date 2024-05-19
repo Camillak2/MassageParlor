@@ -35,7 +35,6 @@ namespace MassageParlor.Pages
             contextType = type;
             loggedWorker = DBConnection.loginedWorker;
             CheckConditionAndToggleButtonVisibility();
-            Refresh();
             types = DBConnection.massageSalon.TypeOfService.Where(i => i.Name == contextType.Name).ToList();
             ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID).ToList();
             NameTB.Text = Convert.ToString(contextType.Name);
@@ -45,6 +44,10 @@ namespace MassageParlor.Pages
         public void Refresh()
         {
             ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID).ToList();
+        }
+        public void Refresh1()
+        {
+            ServicesForMassagistLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID).ToList();
         }
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)
@@ -92,10 +95,17 @@ namespace MassageParlor.Pages
                 ServicesBTN.Visibility = Visibility.Visible;
                 WorkersBTN.Visibility = Visibility.Visible;
                 ClientsBTN.Visibility = Visibility.Visible;
+                ServicesLV.Visibility = Visibility.Visible;
+
+                AddBTN.Visibility = Visibility.Visible;
                 LogOutBTN.Visibility = Visibility.Visible;
 
                 //Не видно
                 MassageBTN.Visibility = Visibility.Collapsed;
+                ServicesForMassagistLV.Visibility = Visibility.Collapsed;
+
+
+                Refresh();
             }
             else if (loggedWorker.Position.Name == "Массажист")
             {
@@ -105,10 +115,16 @@ namespace MassageParlor.Pages
                 ServicesBTN.Visibility = Visibility.Visible;
                 MassageBTN.Visibility = Visibility.Visible;
                 LogOutBTN.Visibility = Visibility.Visible;
+                ServicesForMassagistLV.Visibility = Visibility.Visible;
 
                 //Не видно
                 WorkersBTN.Visibility = Visibility.Collapsed;
                 ClientsBTN.Visibility = Visibility.Collapsed;
+                ServicesLV.Visibility = Visibility.Collapsed;
+                AddBTN.Visibility = Visibility.Collapsed;
+
+
+                Refresh1();
             }
         }
 
@@ -121,6 +137,7 @@ namespace MassageParlor.Pages
 
         private void ServicesLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
             if (ServicesLV.SelectedItem is Service service)
             {
                 DBConnection.selectedForEditService = ServicesLV.SelectedItem as Service;
@@ -132,26 +149,49 @@ namespace MassageParlor.Pages
                 MessageBox.Show("Выберите услугу!");
             }
             Refresh();
+            
+        }
+
+        private bool IsServiceExists(Service service)
+        {
+            return DBConnection.massageSalon.Record.Any(c => c.ID_Service == service.ID);
         }
 
         private void DeleteHL_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
+            var service = (sender as Hyperlink).DataContext as Service;
             if (result == MessageBoxResult.Yes)
             {
-                var service = (sender as Hyperlink).DataContext as Service;
-                try
+                if (IsServiceExists(service))
                 {
-                    DBConnection.massageSalon.Service.Remove(service);
-                    DBConnection.massageSalon.SaveChanges();
+                    MessageBox.Show("Эта услуга не может быть удалена. Она участвует в записи.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
-                catch
+                else
                 {
-                    MessageBox.Show("Эта услуга не может быть удалена!");
-                }
+                    using (var db = new MassageSalonEntities())
+                    {
+                        // Находим клиента по его ID
+                        var serviceToDelete = DBConnection.massageSalon.Service.Find(service.ID);
 
-                Refresh();
+                        if (serviceToDelete != null)
+                        {
+                            // Удаляем клиента из контекста
+                            DBConnection.massageSalon.Service.Remove(service);
+                            DBConnection.massageSalon.SaveChanges();
+
+                            Refresh();
+                            MessageBox.Show("Услуга удалена.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Услуга не найдена.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+                }
             }
             else if (result == MessageBoxResult.No) { }
         }
@@ -163,12 +203,24 @@ namespace MassageParlor.Pages
 
         private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (SearchTB.Text.Length > 0)
+            if (loggedWorker.Position.Name == "Администратор")
+            {
+                if (SearchTB.Text.Length > 0)
 
-                ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID && i.Name.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
+                    ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID && i.Name.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
 
-            else
-                ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID == contextType.ID).ToList();
+                else
+                    Refresh();
+            }
+            else if (loggedWorker.Position.Name == "Массажист")
+            {
+                if (SearchTB.Text.Length > 0)
+
+                    ServicesForMassagistLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID && i.Name.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
+
+                else
+                    Refresh1();
+            } 
         }
     }
 }

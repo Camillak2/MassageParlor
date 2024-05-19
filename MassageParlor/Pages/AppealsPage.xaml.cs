@@ -34,6 +34,7 @@ namespace MassageParlor.Pages
             workers = DBConnection.massageSalon.Worker.ToList();
             statuses = DBConnection.massageSalon.Status.ToList();
             appeals = DBConnection.massageSalon.Appeals.ToList();
+            Refresh();
             CheckConditionAndToggleButtonVisibility();
         }
 

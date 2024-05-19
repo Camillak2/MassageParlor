@@ -43,7 +43,7 @@ namespace MassageParlor.Windowww
         {
             try
             {
-                if (DateTimeDP.SelectedDate == null || TaskCB.SelectedItem == null)
+                if (TaskCB.SelectedItem == null)
                 {
                     MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
@@ -53,7 +53,8 @@ namespace MassageParlor.Windowww
                     DateTime currentDateTime = DateTime.Now;
                     appeal.DateTime = currentDateTime;
                     appeal.ID_Worker = loggedWorker.ID;
-                    appeal.ID_Status = 0;
+                    appeal.ID_Status = 1;
+
                     var a = TaskCB.SelectedItem as Taskk;
                     appeal.ID_Task = a.ID;
 
@@ -64,7 +65,7 @@ namespace MassageParlor.Windowww
             }
             catch
             {
-                MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
         }

@@ -24,6 +24,7 @@ namespace MassageParlor.Windowww
         public static List<Taskk> tasks { get; set; }
         public static List<Worker> workers { get; set; }
         public static List<Appeals> appeals { get; set; }
+        public static List<Status> statuses { get; set; }
 
         public EditStatusWindow(Appeals appeal)
         {
@@ -37,17 +38,19 @@ namespace MassageParlor.Windowww
         {
             tasks = DBConnection.massageSalon.Taskk.ToList();
             workers = DBConnection.massageSalon.Worker.ToList();
+            statuses = DBConnection.massageSalon.Status.ToList();
             this.DataContext = this;
             TaskTB.Text = contextAppeal.Taskk.Name;
             DateTimeDP.SelectedDate = contextAppeal.DateTime;
             WorkerTB.Text = contextAppeal.Worker.Surname + " " + contextAppeal.Worker.Name + " " + contextAppeal.Worker.Patronymic;
-            StatusCB.SelectedIndex = (int)contextAppeal.ID_Status;
+            StatusCB.SelectedIndex = (int)contextAppeal.ID_Status - 1;
         }
 
         private void EditBTN_Click(object sender, RoutedEventArgs e)
         {
             EditBTN.Visibility = Visibility.Collapsed;
-            StatusCB.IsEditable = true;
+            SaveBTN.Visibility = Visibility.Visible;
+            StatusCB.IsEnabled = true;
         }
 
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
@@ -64,8 +67,6 @@ namespace MassageParlor.Windowww
                 {
                     appeal.ID_Status = (StatusCB.SelectedItem as Status).ID;
                     DBConnection.massageSalon.SaveChanges();
-
-
                 }
                 SaveBTN.Visibility = Visibility.Collapsed;
                 EditBTN.Visibility = Visibility.Visible;

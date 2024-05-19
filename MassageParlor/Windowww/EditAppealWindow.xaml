@@ -62,6 +62,7 @@
                             FontSize="40"
                             Width="400"
                             Height="50"
+                            IsReadOnly="True"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"/>
                     </StackPanel>

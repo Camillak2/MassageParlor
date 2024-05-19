@@ -122,9 +122,6 @@
     <Compile Include="DB\Taskk.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\TheFirstNormalForm.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="DB\TypeOfService.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -354,6 +351,16 @@
     </SplashScreen>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\lupa.png" />
+    <Resource Include="Images\oil.jpg" />
+    <Resource Include="Images\bali.jpg" />
+    <Resource Include="Images\figure.jpg" />
+    <Resource Include="Images\spabody.jpg" />
+    <Resource Include="Images\spaface.jpg" />
+    <Resource Include="Images\two.jpg" />
+    <Resource Include="Images\thai.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="DB\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -364,14 +371,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Resource Include="Images\lupa.png" />
-    <Resource Include="Images\oil.jpg" />
-    <Resource Include="Images\bali.jpg" />
-    <Resource Include="Images\figure.jpg" />
-    <Resource Include="Images\spabody.jpg" />
-    <Resource Include="Images\spaface.jpg" />
-    <Resource Include="Images\two.jpg" />
-    <Resource Include="Images\thai.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.5.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.5.0.0\build\MaterialDesignThemes.targets')" />

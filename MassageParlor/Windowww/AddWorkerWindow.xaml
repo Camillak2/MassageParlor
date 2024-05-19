@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MassageParlor.Windowww"
         mc:Ignorable="d"
-        Title="Golden Lotus" Height="800" Width="1200" WindowStartupLocation="CenterScreen">
+        Title="Golden Lotus" Height="800" Width="1300" WindowStartupLocation="CenterScreen">
     <Grid Background="#a98f81">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1200"/>
+            <ColumnDefinition Width="1300"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
             <StackPanel Orientation="Horizontal"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Left">
+                    HorizontalAlignment="Center">
                 <StackPanel Orientation="Vertical"
                         Margin="20"
                         HorizontalAlignment="Left"
@@ -144,16 +144,18 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Margin="30 50 0 0"
-                Height="680"
-                Width="300">
+                Height="680">
                     <Border Style="{StaticResource BorderForPhoto}"
-                    Width="250"
-                    Height="350"
-                    CornerRadius="10">
-                        <Image Width="250"
-                        Height="350"
-                        x:Name="PhotoWorker"
-                        Stretch="UniformToFill"/>
+                            CornerRadius="40">
+                        <Image Height="400"
+                               Width="320"
+                            x:Name="PhotoWorker"
+                            Source="{Binding Photo}"
+                            Stretch="Fill">
+                            <Image.Clip>
+                                <RectangleGeometry RadiusX="40" RadiusY="40" Rect="0,0,320,400"/>
+                            </Image.Clip>
+                        </Image>
                     </Border>
                     <Button x:Name="AddPhotoBTN"
                             Height="80"
@@ -172,7 +174,7 @@
                 Width="300"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Margin="0 0 46 80"
+                Margin="0 0 70 80"
                 Click="SaveBTN_Click">
             <TextBlock Text="Добавить"
             FontSize="40"/>

@@ -127,29 +127,53 @@ namespace MassageParlor.Pages
             }
             else if (ClientsLV.SelectedItem is null)
             {
-                MessageBox.Show("Выберите клиента!");
+                MessageBox.Show("Выберите клиента.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
             Refresh();
+        }
+
+        private bool IsClientExists(Client client)
+        {
+            return DBConnection.massageSalon.Record.Any(c => c.ID_Client == client.ID);
         }
 
         private void DeleteHL_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
+            var client = (sender as Hyperlink).DataContext as Client;
             if (result == MessageBoxResult.Yes)
             {
-                var client = (sender as Hyperlink).DataContext as Client;
-                try
+                if (IsClientExists(client))
                 {
-                    DBConnection.massageSalon.Client.Remove(client);
-                    DBConnection.massageSalon.SaveChanges();
+                    MessageBox.Show("Этот клиент не может быть удален. Он участвует в записи.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
-                catch
+                else
                 {
-                    MessageBox.Show("Этот клиент не может быть удален!");
-                }
+                    using (var db = new MassageSalonEntities())
+                    {
+                        // Находим клиента по его ID
+                        var clientToDelete = DBConnection.massageSalon.Client.Find(client.ID);
 
-                Refresh();
+                        if (clientToDelete != null)
+                        {
+                            // Удаляем клиента из контекста
+                            DBConnection.massageSalon.Client.Remove(client);
+                            DBConnection.massageSalon.SaveChanges();
+
+
+                            Refresh();
+                            MessageBox.Show("Клиент удален.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Клиент не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+                }
             }
             else if (result == MessageBoxResult.No) { }
         }

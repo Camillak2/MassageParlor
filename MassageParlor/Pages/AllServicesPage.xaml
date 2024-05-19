@@ -24,16 +24,16 @@
                 VerticalAlignment="Top"
                 x:Name="NameTB"/>
                 <ListView x:Name="ServicesLV"
-                VerticalAlignment="Top"
-                Margin="0 100 0 150"
-                Width="1200"
-                Height="650"
-                d:ItemsSource="{d:SampleData ItemCount=10}"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                ItemsSource="{Binding Service}"
-                BorderThickness="3"
-                ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" SelectionChanged="ServicesLV_SelectionChanged">
+                    VerticalAlignment="Top"
+                    Margin="0 100 0 150"
+                    Width="1200"
+                    Height="650"
+                    d:ItemsSource="{d:SampleData ItemCount=10}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    ItemsSource="{Binding Service}"
+                    BorderThickness="3"
+                    ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" SelectionChanged="ServicesLV_SelectionChanged">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal"
@@ -103,6 +103,90 @@
                                                 x:Name="DeleteHL"
                                                 Click="DeleteHL_Click">Удалить</Hyperlink>
                                         </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <ListView x:Name="ServicesForMassagistLV"
+                    VerticalAlignment="Top"
+                    Margin="0 100 0 150"
+                    Width="1200"
+                    Height="650"
+                    Visibility="Collapsed"
+                    d:ItemsSource="{d:SampleData ItemCount=10}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    ItemsSource="{Binding Service}"
+                    BorderThickness="3"
+                    ScrollViewer.CanContentScroll="False"
+                          Background="{x:Null}"
+                          BorderBrush="{x:Null}"
+                          Foreground="{x:Null}">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"
+                           VerticalAlignment="Top"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="625"
+                                Width="370"
+                                Margin="5">
+                                <Rectangle Fill="#6d584e"
+                                VerticalAlignment="Bottom"
+                                Width="370"
+                                Height="250"/>
+                                <Image Source="{Binding Image}"
+                                       Height="370"
+                                       Width="370"
+                                       VerticalAlignment="Top"/>
+                                <Grid Height="350"
+                                      VerticalAlignment="Bottom">
+                                    <Rectangle Fill="Black"
+                                        Opacity="0.3"
+                                        VerticalAlignment="Bottom"
+                                        Width="370"
+                                        Height="350"/>
+                                    <StackPanel Orientation="Vertical"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Top"
+                                        Margin="0 20 0 0"
+                                        Width="350">
+                                        <TextBlock Text="{Binding Name}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                            FontSize="30"
+                                            TextAlignment="Center"
+                                            TextWrapping="Wrap"
+                                            Margin="0 0 0 20"/>
+                                        <TextBlock Text="{Binding Description}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                            FontSize="20"
+                                            TextAlignment="Center"
+                                            TextWrapping="Wrap"
+                                            Margin="0 0 0 20"/>
+                                        <TextBlock Text="{Binding Duration}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                            FontSize="20"
+                                            TextAlignment="Center"
+                                            TextWrapping="Wrap"
+                                            Margin="0 0 0 20"/>
+                                        <TextBlock Text="{Binding Price, StringFormat={}{0:F2}₽}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                            FontSize="20"
+                                            TextAlignment="Center"
+                                            TextWrapping="Wrap"
+                                            Margin="0 0 0 20"/>
                                     </StackPanel>
                                 </Grid>
                             </Grid>

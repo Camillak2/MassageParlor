@@ -288,7 +288,8 @@
                         Orientation="Horizontal">
                 <CheckBox x:Name="AllCHB"
                       VerticalAlignment="Center"
-                      IsChecked="False" Checked="AllCHB_Checked"/>
+                      IsChecked="False"
+                      Checked="AllCHB_Checked"/>
                 <TextBlock Text="Показывать прошедшие"
                            Margin="20 0 0 0"/>
             </StackPanel>

@@ -78,9 +78,12 @@ namespace MassageParlor.Pages
                 WorkersBTN.Visibility = Visibility.Visible;
                 ClientsBTN.Visibility = Visibility.Visible;
                 LogOutBTN.Visibility = Visibility.Visible;
+                AppealsBTN.Visibility = Visibility.Visible;
+
 
                 //Не видно
                 MassageBTN.Visibility = Visibility.Collapsed;
+                ConnectionBTN.Visibility = Visibility.Collapsed;
             }
             else if (loggedWorker.Position.Name == "Массажист")
             {
@@ -90,10 +93,12 @@ namespace MassageParlor.Pages
                 ServicesBTN.Visibility = Visibility.Visible;
                 MassageBTN.Visibility = Visibility.Visible;
                 LogOutBTN.Visibility = Visibility.Visible;
+                ConnectionBTN.Visibility = Visibility.Visible;
 
                 //Не видно
                 WorkersBTN.Visibility = Visibility.Collapsed;
                 ClientsBTN.Visibility = Visibility.Collapsed;
+                AppealsBTN.Visibility= Visibility.Collapsed;
             }
         }
 
