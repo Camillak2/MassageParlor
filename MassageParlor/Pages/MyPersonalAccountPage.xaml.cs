@@ -156,22 +156,13 @@ namespace MassageParlor.Pages
         {
             try
             {
-                StringBuilder error = new StringBuilder();
-                Worker worker = loggedWorker;
                 if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) ||
                     string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
                         DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PhoneTB.Text) ||
                         string.IsNullOrWhiteSpace(LoginTB.Text) || string.IsNullOrWhiteSpace(PasswordTB.Text))
                 {
-                    error.AppendLine("Заполните все поля!");
-                }
-                if (DateOfBirthDP.SelectedDate != null && (DateTime.Now - (DateTime)DateOfBirthDP.SelectedDate).TotalDays < 365 * 18 + 4)
-                {
-                    error.AppendLine("Вы должны быть старше 18 лет.");
-                }
-                if (error.Length > 0)
-                {
-                    MessageBox.Show(error.ToString());
+                    MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
                 else
                 {
@@ -187,15 +178,24 @@ namespace MassageParlor.Pages
                     }
                     else
                     {
-                        worker.Password = PasswordTB.Text.Trim();
+                        loggedWorker.Password = PasswordTB.Text.Trim();
                     }
 
-                    worker.Surname = SurnameTB.Text;
-                    worker.Name = NameTB.Text;
-                    worker.Patronymic = PatronymicTB.Text;
-                    worker.DateOfBirth = DateOfBirthDP.SelectedDate;
-                    worker.Phone = PhoneTB.Text;
-                    worker.Login = LoginTB.Text;
+                    if (PhoneTB.Text.Length < 16)
+                    {
+                        MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
+                    }
+                    else
+                    {
+                        loggedWorker.Phone = PhoneTB.Text.Trim();
+                    }
+
+                    loggedWorker.Surname = SurnameTB.Text;
+                    loggedWorker.Name = NameTB.Text;
+                    loggedWorker.Patronymic = PatronymicTB.Text;
+                    loggedWorker.DateOfBirth = DateOfBirthDP.SelectedDate;
+                    loggedWorker.Login = LoginTB.Text;
                     DBConnection.massageSalon.SaveChanges();
                 }
 
@@ -212,7 +212,8 @@ namespace MassageParlor.Pages
             }
             catch
             {
-                MessageBox.Show("Произошла ошибка!");
+                MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
 
@@ -247,26 +248,9 @@ namespace MassageParlor.Pages
 
                 if (age < 18)
                 {
-                    MessageBox.Show("Вы должны быть старше 18 лет.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Вы должны быть старше 18 лет.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     datePicker.SelectedDate = null; // Сбрасываем выбранную дату
                 }
-            }
-        }
-
-        private void SavePhoneNumber(string phoneNumber)
-        {
-            try
-            {
-                var phoneNumberEntity = DBConnection.loginedWorker;
-                if (phoneNumberEntity != null)
-                {
-                    phoneNumberEntity.Phone = phoneNumber; // Обновите номер телефона
-                    DBConnection.massageSalon.SaveChanges(); // Сохраните изменения в базе данных
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ошибка при сохранении номера телефона: " + ex.Message);
             }
         }
 
@@ -317,13 +301,13 @@ namespace MassageParlor.Pages
 
             if (currentText.Length < 10)
             {
-                MessageBox.Show("Номер телефона должен содержать 11 цифр.");
+                MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             else
             {
-                // Сохранить номер телефона в базе данных
-                SavePhoneNumber(currentText);
+                loggedWorker.Phone = PhoneTB.Text;
+                DBConnection.massageSalon.SaveChanges();
             }
         }
 

@@ -1,7 +1,9 @@
 ﻿using MassageParlor.DB;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -23,6 +25,8 @@ namespace MassageParlor.Windowww
     public partial class AddServiceWindow : Window
     {
         Worker loggedWorker;
+
+        public static Service service = new Service();
 
         public static List<TypeOfService> types { get; set; }
         public static List<Service> services { get; set; }
@@ -48,10 +52,10 @@ namespace MassageParlor.Windowww
 
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
         {
-            Service service = new Service();
             try
             {
-                if (string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(CostTB.Text))
+                if (string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(DescriptionTB.Text) || string.IsNullOrWhiteSpace(CostTB.Text)
+                    || string.IsNullOrWhiteSpace(DurationTB.Text))
                 {
                     MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
@@ -60,9 +64,14 @@ namespace MassageParlor.Windowww
                 {
                     if (decimal.TryParse(CostTB.Text, out decimal cost))
                     {
-                        if (cost > 10000)
+                        if (cost > 30000)
                         {
-                            MessageBox.Show("Услуга не может быть дороже 10000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("Услуга не может быть дороже 30000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                            return;
+                        }
+                        else if (cost < 1000)
+                        {
+                            MessageBox.Show("Услуга не может быть дешевле 1000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                             return;
                         }
                         else
@@ -70,7 +79,18 @@ namespace MassageParlor.Windowww
                             service.Price = Convert.ToDecimal(CostTB.Text.Trim());
                         }
                     }
+
+                    if (DurationTB.Text.Trim().Length < 4)
+                    {
+                        MessageBox.Show("Неверный формат времени.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    else
+                    {
+                        service.Duration = TimeSpan.Parse(DurationTB.Text.Trim());
+                    }
                     service.Name = NameTB.Text.Trim();
+                    service.Description = DescriptionTB.Text.Trim();
                     service.ID_TypeOfService = contextType.ID;
                     DBConnection.massageSalon.Service.Add(service);
                     DBConnection.massageSalon.SaveChanges();
@@ -98,6 +118,48 @@ namespace MassageParlor.Windowww
                 e.Handled = true;
                 return;
             }
+        }
+
+        private void DurationTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Разрешаем только цифры
+            if (!char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            DurationTB.Text = Regex.Replace(DurationTB.Text, @"\s", "");
+            DurationTB.CaretIndex = DurationTB.Text.Length;
+
+            if (DurationTB.Text.Length >= 5 && !string.IsNullOrEmpty(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            // Форматирование маски ##:##
+            if (DurationTB.Text.Length == 2 && !DurationTB.Text.Contains(":"))
+            {
+                DurationTB.Text += ":";
+                DurationTB.SelectionStart = DurationTB.Text.Length;
+            }
+        }
+
+        private void DurationTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (DurationTB.Text.Length < 4)
+            {
+                MessageBox.Show("Неверный формат времени.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        }
+
+
+        private void DurationTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            DurationTB.Text = Regex.Replace(DurationTB.Text, @"\s", "");
+            DurationTB.CaretIndex = DurationTB.Text.Length;
         }
 
         private void CostTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -131,13 +193,20 @@ namespace MassageParlor.Windowww
                 MessageBox.Show("Неверный формат числа.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (decimal.TryParse(CostTB.Text, out decimal cost))
+        }
+
+        private void AddPhotoBTN_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
             {
-                if (cost > 10000)
-                {
-                    MessageBox.Show("Услуга не может быть дороже 10000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-                }
+                Filter = "*.png|*.png|*.jpeg|*.jpeg|*.jpg|*.jpg"
+            };
+            if (openFileDialog.ShowDialog().GetValueOrDefault())
+            {
+                service.Image = File.ReadAllBytes(openFileDialog.FileName);
+                PhotoService.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+
+                AddPhotoTB.Text = "Изменить фото";
             }
         }
     }

@@ -77,7 +77,7 @@
                             Height="50"
                             IsReadOnly="True"
                             PreviewTextInput="TextBox_PreviewTextInput"
-                             TextChanged="TextBox_TextChanged"/>
+                            TextChanged="TextBox_TextChanged"/>
                     <DatePicker x:Name="DateOfBirthDP"
                             Margin="10"
                             FontSize="40"

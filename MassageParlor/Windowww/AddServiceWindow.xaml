@@ -5,62 +5,105 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MassageParlor.Windowww"
         mc:Ignorable="d"
-        Title="Golden Lotus" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Golden Lotus" Height="900" Width="1500" WindowStartupLocation="CenterScreen">
     <Grid Background="#a98f81">
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="800"/>
+            <ColumnDefinition Width="1500"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
             <StackPanel Orientation="Vertical"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
+    Margin="0 0 20 0">
                 <StackPanel Orientation="Horizontal"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
+VerticalAlignment="Center"
+HorizontalAlignment="Center">
                     <StackPanel Orientation="Vertical"
-                        Margin="20"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
+    Margin="20"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Top">
                         <TextBlock Text="Название:"
-                        Margin="10"
-                        FontSize="40"/>
+    Margin="10 15"
+    FontSize="40"/>
+                        <TextBlock Text="Описание:"
+                Margin="10 60"
+                FontSize="40"/>
                         <TextBlock Text="Стоимость:"
-                        Margin="10"
-                        FontSize="40"/>
+                Margin="10 50 0 0"
+                FontSize="40"/>
+                        <TextBlock Text="Продолжительность:"
+        Margin="10"
+        FontSize="40"/>
                         <TextBlock Text="Тип услуги:"
-                        Margin="10"
-                        FontSize="40"/>
+    Margin="10 30 0 0"
+    FontSize="40"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical"
-                        Margin="20"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
+            Margin="20"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
                         <TextBox x:Name="NameTB"
-                        Margin="10"
-                        FontSize="40"
-                        Width="400"
-                        Height="50"
-                        PreviewTextInput="NameTB_PreviewTextInput"/>
+                            Margin="10"
+                            FontSize="40"
+                            Width="600"
+                            Height="100"
+                            TextWrapping="Wrap"
+                            PreviewTextInput="NameTB_PreviewTextInput"/>
+                        <TextBox x:Name="DescriptionTB"
+                            Margin="10"
+                            FontSize="40"
+                            Width="600"
+                            Height="150" TextWrapping="Wrap"/>
                         <TextBox x:Name="CostTB"
                             Margin="10"
                             FontSize="40"
-                            Width="400"
+                            Width="600"
                             Height="50"
                             PreviewTextInput="CostTB_PreviewTextInput"
                             TextChanged="CostTB_TextChanged"/>
+                        <TextBox x:Name="DurationTB"
+                            Margin="10"
+                            FontSize="40"
+                            Width="600"
+                            Height="50"
+                            PreviewTextInput="DurationTB_PreviewTextInput"/>
                         <TextBox x:Name="TypeTB"
-                        Margin="10"
-                        FontSize="40"
-                        Width="400"
-                        Height="50"
-                        IsEnabled="False"/>
-
+                            TextWrapping="Wrap"
+                            Margin="10"
+                            FontSize="40"
+                            Width="600"
+                            Height="100"
+                            IsEnabled="False"/>
+                    </StackPanel>
+                    <StackPanel Margin="0 40 0 0"
+                    VerticalAlignment="Top">
+                        <Border Style="{StaticResource BorderForImage}"
+                            CornerRadius="0"
+                            Height="350"
+                            Width="350">
+                            <Image Height="350"
+                    Width="350"
+                    x:Name="PhotoService"/>
+                        </Border>
+                        <Button x:Name="AddPhotoBTN"
+                            Height="80"
+                            Width="300"
+                            Margin="0 20 30 0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Click="AddPhotoBTN_Click">
+                            <TextBlock Text="Добавить фото"
+                    x:Name="AddPhotoTB"
+                    FontSize="36"/>
+                        </Button>
                     </StackPanel>
                 </StackPanel>
                 <Button x:Name="SaveBTN"
                     Height="80"
                     Width="300"
+                    Margin="40"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     Click="SaveBTN_Click">

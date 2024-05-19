@@ -68,7 +68,7 @@ namespace MassageParlor.Windowww
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
+                if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) ||
                         DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PassportTB.Text) || string.IsNullOrWhiteSpace(PhoneTB.Text) ||
                         string.IsNullOrWhiteSpace(LoginTB.Text) || PositionCB.SelectedItem == null || GenderCB.SelectedItem == null)
                 {
@@ -80,9 +80,7 @@ namespace MassageParlor.Windowww
                     worker.Surname = SurnameTB.Text.Trim();
                     worker.Name = NameTB.Text.Trim();
                     worker.Patronymic = PatronymicTB.Text.Trim();
-                    worker.Phone = PhoneTB.Text.Trim();
                     worker.DateOfBirth = DateOfBirthDP.SelectedDate;
-                    worker.PassportDetails = PassportTB.Text.Trim();
 
                     string login = LoginTB.Text;
                     bool loginExists = DBConnection.massageSalon.Worker.Any(w => w.Login == login);
@@ -123,6 +121,29 @@ namespace MassageParlor.Windowww
                     else
                     {
                         worker.Password = PasswordTB.Text.Trim();
+                    }
+
+                    if (PhoneTB.Text.Length < 16)
+                    {
+                        if (PhoneTB.Text.Length < 10)
+                        {
+                            MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                            return;
+                        }
+                        else
+                        {
+                            worker.Phone = PhoneTB.Text.Trim();
+                        }
+                    }
+
+                    if (PassportTB.Text.Length < 10)
+                    {
+                        MessageBox.Show("Паспортные данные должны содержать 10 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
+                    }
+                    else
+                    {
+                        worker.PassportDetails = PassportTB.Text;
                     }
 
                     var a = PositionCB.SelectedItem as Position;
@@ -168,24 +189,6 @@ namespace MassageParlor.Windowww
                     MessageBox.Show("Сотрудник должен быть старше 18 лет.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     datePicker.SelectedDate = null; // Сбрасываем выбранную дату
                 }
-            }
-        }
-
-        private void SavePhoneNumber(string phoneNumber)
-        {
-            try
-            {
-                var phoneNumberEntity = worker;
-                if (phoneNumberEntity != null)
-                {
-                    phoneNumberEntity.Phone = phoneNumber; // Обновите номер телефона
-                    DBConnection.massageSalon.SaveChanges(); // Сохраните изменения в базе данных
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Ошибка при сохранении номера телефона.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
             }
         }
 
@@ -239,11 +242,6 @@ namespace MassageParlor.Windowww
                 MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            else
-            {
-                // Сохранить номер телефона в базе данных
-                SavePhoneNumber(currentText);
-            }
         }
 
         private void PassportTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -265,10 +263,6 @@ namespace MassageParlor.Windowww
             {
                 MessageBox.Show("Паспортные данные должны содержать 10 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
-            }
-            else
-            {
-                worker.PassportDetails = PassportTB.Text;
             }
         }
 

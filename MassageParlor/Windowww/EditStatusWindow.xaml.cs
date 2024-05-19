@@ -46,6 +46,7 @@ namespace MassageParlor.Windowww
 
         private void EditBTN_Click(object sender, RoutedEventArgs e)
         {
+            EditBTN.Visibility = Visibility.Collapsed;
             StatusCB.IsEditable = true;
         }
 

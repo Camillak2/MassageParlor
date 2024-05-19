@@ -1,7 +1,9 @@
 ﻿using MassageParlor.DB;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -35,6 +37,8 @@ namespace MassageParlor.Windowww
             services = DBConnection.massageSalon.Service.ToList();
             typeOfServices = DBConnection.massageSalon.TypeOfService.ToList();
             NameTB.Text = contextService.Name;
+            DescriptionTB.Text = contextService.Description;
+            DurationTB.Text = contextService.Duration.ToString();
             CostTB.Text = contextService.Price.ToString();
             TypeTB.Text = contextService.TypeOfService.Name;
             this.DataContext = this;
@@ -56,9 +60,14 @@ namespace MassageParlor.Windowww
                 {
                     if (decimal.TryParse(CostTB.Text, out decimal cost))
                     {
-                        if (cost > 10000)
+                        if (cost > 30000)
                         {
-                            MessageBox.Show("Услуга не может быть дороже 10000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("Услуга не может быть дороже 30000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                            return;
+                        }
+                        else if (cost < 1000)
+                        {
+                            MessageBox.Show("Услуга не может быть дешевле 1000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                             return;
                         }
                         else
@@ -67,11 +76,25 @@ namespace MassageParlor.Windowww
                         }
                     }
                     service.Name = NameTB.Text.Trim();
+                    service.Description = DescriptionTB.Text.Trim();
 
                     EditBTN.Visibility = Visibility.Visible;
                     SaveBTN.Visibility = Visibility.Collapsed;
                     NameTB.IsReadOnly = true;
                     CostTB.IsReadOnly = true;
+                    DescriptionTB.IsReadOnly = true;
+                    DurationTB.IsReadOnly = true;
+                    AddPhotoBTN.Visibility = Visibility.Hidden;
+
+                    if (DurationTB.Text.Trim().Length < 4)
+                    {
+                        MessageBox.Show("Неверный формат времени.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    else
+                    {
+                        service.Duration = TimeSpan.Parse(DurationTB.Text.Trim());
+                    }
 
                     DBConnection.massageSalon.SaveChanges();
                     Close();
@@ -86,6 +109,11 @@ namespace MassageParlor.Windowww
 
         private void EditBTN_Click(object sender, RoutedEventArgs e)
         {
+            NameTB.IsReadOnly = false;
+            DescriptionTB.IsReadOnly = false;
+            DurationTB.IsReadOnly = false;
+            CostTB.IsReadOnly = false;
+            AddPhotoBTN.Visibility = Visibility.Visible;
             EditBTN.Visibility = Visibility.Collapsed;
             SaveBTN.Visibility = Visibility.Visible;
             NameTB.IsReadOnly = false;
@@ -105,6 +133,12 @@ namespace MassageParlor.Windowww
                 e.Handled = true;
                 return;
             }
+        }
+
+        private void DurationTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[0-9]$");
+            e.Handled = !regex.IsMatch(e.Text);
         }
 
         private void CostTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -140,11 +174,29 @@ namespace MassageParlor.Windowww
             }
             if (decimal.TryParse(CostTB.Text, out decimal cost))
             {
-                if (cost > 10000)
+                if (cost > 30000)
                 {
-                    MessageBox.Show("Услуга не может быть дороже 10000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Услуга не может быть дороже 30000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
+                else if (cost < 1000)
+                {
+                    MessageBox.Show("Услуга не может быть дешевле 1000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+            }
+        }
+
+        private void AddPhotoBTN_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "*.png|*.png|*.jpeg|*.jpeg|*.jpg|*.jpg"
+            };
+            if (openFileDialog.ShowDialog().GetValueOrDefault())
+            {
+                contextService.Image = File.ReadAllBytes(openFileDialog.FileName);
+                PhotoService.Source = new BitmapImage(new Uri(openFileDialog.FileName));
             }
         }
     }

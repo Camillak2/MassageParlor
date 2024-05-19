@@ -24,12 +24,18 @@ namespace MassageParlor.Pages
     {
         Worker loggedWorker;
         public static List<Client> clients { get; set; }
-        
         public static List<Gender> genders { get; set; }
+        public static List<Worker> workers { get; set; }
+        public static List<Record> records { get; set; }
+
         public ClientsPage()
         {
             InitializeComponent();
             loggedWorker = DBConnection.loginedWorker;
+            workers = DBConnection.massageSalon.Worker.ToList();
+            genders = DBConnection.massageSalon.Gender.ToList();
+            clients = DBConnection.massageSalon.Client.ToList();
+            records = DBConnection.massageSalon.Record.ToList();
             Refresh();
             CheckConditionAndToggleButtonVisibility();
         }
@@ -140,6 +146,17 @@ namespace MassageParlor.Pages
         private void BackBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainMenuPage());
+        }
+
+        private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SearchTB.Text.Length > 0)
+
+                ClientsLV.ItemsSource = DBConnection.massageSalon.Client.Where(i => i.Surname.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())
+                || i.Name.ToLower().StartsWith(SearchTB.Text.Trim().ToLower()) || i.Patronymic.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
+
+            else
+                ClientsLV.ItemsSource = DBConnection.massageSalon.Client.ToList();
         }
     }
 }

@@ -43,7 +43,6 @@ namespace MassageParlor.Windowww
         {
             try
             {
-                Client client = new Client();
                 if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
                    DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PhoneTB.Text) || GenderCB.SelectedItem == null)
                 {
@@ -55,8 +54,17 @@ namespace MassageParlor.Windowww
                     client.Surname = SurnameTB.Text.Trim();
                     client.Name = NameTB.Text.Trim();
                     client.Patronymic = PatronymicTB.Text.Trim();
-                    client.Phone = PhoneTB.Text.Trim();
                     client.DateOfBirth = DateOfBirthDP.SelectedDate;
+
+                    if (PhoneTB.Text.Length < 16)
+                    {
+                        MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
+                    }
+                    else
+                    {
+                        client.Phone = PhoneTB.Text.Trim();
+                    }
 
                     var a = GenderCB.SelectedItem as Gender;
                     client.ID_Gender = a.ID;
@@ -110,24 +118,6 @@ namespace MassageParlor.Windowww
             }
         }
 
-        private void SavePhoneNumber(string phoneNumber)
-        {
-            try
-            {
-                var phoneNumberEntity = client;
-                if (phoneNumberEntity != null)
-                {
-                    phoneNumberEntity.Phone = phoneNumber; // Обновите номер телефона
-                    DBConnection.massageSalon.SaveChanges(); // Сохраните изменения в базе данных
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Ошибка при сохранении номера телефона.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-        }
-
         private string FormatPhoneNumber(string phoneNumber)
         {
             string digitsOnly = new string(phoneNumber.Where(char.IsDigit).ToArray());
@@ -177,11 +167,6 @@ namespace MassageParlor.Windowww
             {
                 MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK,MessageBoxImage.Information);
                 return;
-            }
-            else
-            {
-                // Сохранить номер телефона в базе данных
-                SavePhoneNumber(currentText);
             }
         }
 

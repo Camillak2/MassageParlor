@@ -104,6 +104,20 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <TextBox x:Name="SearchTB"
+                Width="500"
+                Height="50"
+                FontSize="30"
+                TextChanged="SearchTB_TextChanged"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                Margin="15 0 0 50"/>
+            <Image Source="/Images/lupa.png"
+                Width="500"
+                Height="50"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Center"
+                Margin="0 0 170 50"/>
             <Button HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 Height="100"
@@ -142,7 +156,7 @@
                         Width="48"
                         Height="48"
                         Grid.Row="0"/>
-                    <TextBlock Text="Назад"
+                    <TextBlock Text="На главную"
                     HorizontalAlignment="Center"
                     Grid.Row="1"/>
                 </Grid>

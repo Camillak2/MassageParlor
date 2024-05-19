@@ -145,12 +145,12 @@
                 </StackPanel>
             </StackPanel>
             <Button HorizontalAlignment="Right"
-    VerticalAlignment="Bottom"
-    Height="100"
-    Width="250"
-    x:Name="BackBTN"
-    Margin="0 0 100 30"
-    Click="BackBTN_Click">
+                VerticalAlignment="Bottom"
+                Height="100"
+                Width="250"
+                x:Name="BackBTN"
+                Margin="0 0 100 30"
+                Click="BackBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>

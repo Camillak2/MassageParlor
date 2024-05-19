@@ -139,8 +139,7 @@ namespace MassageParlor.Windowww
         {
             try
             {
-                Worker worker = contextWorker;
-                if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
+                if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) ||
                 DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PhoneTB.Text) || string.IsNullOrWhiteSpace(LoginTB.Text) ||
                 string.IsNullOrWhiteSpace(PasswordTB.Text) || GenderCB.SelectedItem == null || PositionCB.SelectedItem == null) 
                 {
@@ -161,17 +160,35 @@ namespace MassageParlor.Windowww
                     }
                     else
                     {
-                        worker.Password = PasswordTB.Text.Trim();
+                        contextWorker.Password = PasswordTB.Text.Trim();
                     }
 
-                    worker.Surname = SurnameTB.Text;
-                    worker.Name = NameTB.Text;
-                    worker.Patronymic = PatronymicTB.Text;
-                    worker.DateOfBirth = DateOfBirthDP.SelectedDate;
-                    worker.Phone = PhoneTB.Text;
-                    worker.PassportDetails = PassportTB.Text;
-                    worker.ID_Position = (PositionCB.SelectedItem as Position).ID;
-                    worker.ID_Gender = (GenderCB.SelectedItem as Gender).ID;
+                    if (PhoneTB.Text.Length < 16)
+                    {
+                        MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
+                    }
+                    else
+                    {
+                        contextWorker.Phone = PhoneTB.Text.Trim();
+                    }
+
+                    if (PassportTB.Text.Length < 10)
+                    {
+                        MessageBox.Show("Паспортные данные должны содержать 10 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
+                    }
+                    else
+                    {
+                        contextWorker.PassportDetails = PassportTB.Text;
+                    }
+
+                    contextWorker.Surname = SurnameTB.Text;
+                    contextWorker.Name = NameTB.Text;
+                    contextWorker.Patronymic = PatronymicTB.Text;
+                    contextWorker.DateOfBirth = DateOfBirthDP.SelectedDate;
+                    contextWorker.ID_Position = (PositionCB.SelectedItem as Position).ID;
+                    contextWorker.ID_Gender = (GenderCB.SelectedItem as Gender).ID;
                     DBConnection.massageSalon.SaveChanges();
                 }
                 SurnameTB.IsReadOnly = true;
@@ -312,12 +329,7 @@ namespace MassageParlor.Windowww
             {
                 MessageBox.Show("Паспортные данные должны содержать 10 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
-            }
-            else
-            {
-                 worker.PassportDetails = PassportTB.Text;
-                 DBConnection.massageSalon.SaveChanges();
-            }
+            } 
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

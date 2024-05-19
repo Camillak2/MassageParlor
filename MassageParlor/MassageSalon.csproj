@@ -364,6 +364,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\lupa.png" />
     <Resource Include="Images\oil.jpg" />
     <Resource Include="Images\bali.jpg" />
     <Resource Include="Images\figure.jpg" />

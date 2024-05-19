@@ -42,20 +42,20 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="350"
+                        <Grid Height="400"
                             Width="380"
                             Margin="0">
                             <Rectangle Fill="#6d584e"
                                 VerticalAlignment="Center"
                                 Width="370"
-                                Height="350"
+                                Height="400"
                                 RadiusX="20"
                                 RadiusY="20"/>
                             <StackPanel
                                 Orientation="Vertical"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Bottom"
-                                Height="350"
+                                Height="400"
                                 Width="380">
                                 <StackPanel Margin="20">
                                     <StackPanel Margin="0 0 0 10">
@@ -122,13 +122,13 @@
                                                 TextWrapping="Wrap"
                                                 TextAlignment="Left"
                                                 FontSize="22"/>
-                                            <TextBlock Text="{Binding Client.Patronymic}"
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding Client.Patronymic}"
                                                 HorizontalAlignment="Left"
                                                 Foreground="White"
                                                 TextWrapping="Wrap"
                                                 TextAlignment="Left"
                                                 FontSize="22"/>
-                                        </StackPanel>
                                     </StackPanel>
                                     <StackPanel Margin="0 0 0 10">
                                         <TextBlock Text="Услуга:"
@@ -198,16 +198,20 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="220"
-                            Width="380"
-                            Background="#907669">
-                            <StackPanel Background="#6d584e"
-                                Orientation="Vertical"
+                        <Grid Height="300"
+                            Width="380">
+                            <Rectangle Fill="#6d584e"
+                                    VerticalAlignment="Center"
+                                    Width="370"
+                                    Height="300"
+                                    RadiusX="20"
+                                    RadiusY="20"/>
+                            <StackPanel Orientation="Vertical"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Bottom"
-                                Height="220"
+                                Height="300"
                                 Width="380">
-                                <StackPanel Margin="10">
+                                <StackPanel Margin="20">
                                     <StackPanel Margin="0 0 0 10">
                                         <TextBlock Text="Клиент:"
                                             FontSize="24"/>
@@ -230,19 +234,13 @@
                                                 TextWrapping="Wrap"
                                                 TextAlignment="Left"
                                                 FontSize="22"/>
-                                            <TextBlock Text=" "
-                                                HorizontalAlignment="Left"
-                                                Foreground="White"
-                                                TextWrapping="Wrap"
-                                                TextAlignment="Left"
-                                                FontSize="22"/>
-                                            <TextBlock Text="{Binding Client.Patronymic}"
-                                                HorizontalAlignment="Left"
-                                                Foreground="White"
-                                                TextWrapping="Wrap"
-                                                TextAlignment="Left"
-                                                FontSize="22"/>
                                         </StackPanel>
+                                        <TextBlock Text="{Binding Client.Patronymic}"
+                                                HorizontalAlignment="Left"
+                                                Foreground="White"
+                                                TextWrapping="Wrap"
+                                                TextAlignment="Left"
+                                                FontSize="22"/>
                                     </StackPanel>
                                     <StackPanel Margin="0 0 0 10">
                                         <TextBlock Text="Услуга:"
@@ -332,7 +330,7 @@
                         Width="48"
                         Height="48"
                         Grid.Row="0"/>
-                    <TextBlock Text="Назад"
+                    <TextBlock Text="На главную"
                         HorizontalAlignment="Center"
                         Grid.Row="1"/>
                 </Grid>

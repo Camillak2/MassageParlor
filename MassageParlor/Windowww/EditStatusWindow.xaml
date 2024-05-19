@@ -92,6 +92,7 @@
         <Button x:Name="SaveBTN"
                 Height="80"
                 Width="300"
+                Visibility="Collapsed"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 Click="SaveBTN_Click"

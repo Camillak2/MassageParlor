@@ -29,6 +29,7 @@ namespace MassageParlor.Windowww
         public static List<Client> clients { get; set; }
         public static List<Gender> genders { get; set; }
         public static List<Service> services { get; set; }
+        public static List<TypeOfService> types { get; set; }
 
         public static Record record = new Record();
 
@@ -39,6 +40,7 @@ namespace MassageParlor.Windowww
             clients = DBConnection.massageSalon.Client.ToList();
             genders = DBConnection.massageSalon.Gender.ToList();
             services = DBConnection.massageSalon.Service.ToList();
+            types = DBConnection.massageSalon.TypeOfService.ToList();
             Refresh();
             this.DataContext = this;
 
@@ -315,7 +317,7 @@ namespace MassageParlor.Windowww
             if (Search1TB.Text.Length > 0)
 
                 WorkersLV.ItemsSource = DBConnection.massageSalon.Worker.Where(i => i.Position.Name == "Массажист" && i.Surname.ToLower().StartsWith(Search1TB.Text.Trim().ToLower())
-                || i.Name.ToLower().StartsWith(Search1TB.Text.Trim().ToLower()) || i.Patronymic.ToLower().StartsWith(Search1TB.Text.Trim().ToLower())).ToList();
+                || i.Position.Name == "Массажист" && i.Name.ToLower().StartsWith(Search1TB.Text.Trim().ToLower()) || i.Position.Name == "Массажист" && i.Patronymic.ToLower().StartsWith(Search1TB.Text.Trim().ToLower())).ToList();
 
             else
                 WorkersLV.ItemsSource = DBConnection.massageSalon.Worker.Where(i => i.Position.Name == "Массажист").ToList();
@@ -335,13 +337,9 @@ namespace MassageParlor.Windowww
         private void Search3TB_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Search3TB.Text.Length > 0)
-            {
-                ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.Name.ToLower().StartsWith(Search3TB.Text.Trim().ToLower()));
-            }
+                ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.Name.ToLower().StartsWith(Search3TB.Text.Trim().ToLower())).ToList();
             else
-            {
                 ServicesLV.ItemsSource = DBConnection.massageSalon.Service.ToList();
-            }
         }
 
         private void TimeTB_TextChanged(object sender, TextChangedEventArgs e)

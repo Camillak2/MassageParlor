@@ -26,6 +26,7 @@ namespace MassageParlor.Pages
         public static List<Worker> workers {  get; set; }
         public static List<Position> positions { get; set; }
         public static List<Gender> genders { get; set; }
+
         public WorkersPage()
         {
             InitializeComponent();
@@ -137,6 +138,15 @@ namespace MassageParlor.Pages
             NavigationService.Navigate(new MainMenuPage());
         }
 
-        
+        private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SearchTB.Text.Length > 0)
+
+                WorkersLV.ItemsSource = DBConnection.massageSalon.Worker.Where(i => i.Surname.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())
+                || i.Name.ToLower().StartsWith(SearchTB.Text.Trim().ToLower()) || i.Patronymic.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
+
+            else
+                WorkersLV.ItemsSource = DBConnection.massageSalon.Worker.Where(i => i.Position.Name == "Массажист").ToList();
+        }
     }
 }

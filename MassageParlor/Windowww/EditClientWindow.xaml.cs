@@ -108,11 +108,19 @@ namespace MassageParlor.Windowww
                     client.Name = NameTB.Text;
                     client.Patronymic = PatronymicTB.Text;
                     client.DateOfBirth = DateOfBirthDP.SelectedDate;
-                    client.Phone = PhoneTB.Text;
                     client.ID_Gender = (GenderCB.SelectedItem as Gender).ID;
+
+                    if (PhoneTB.Text.Length < 16)
+                    {
+                        MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
+                    }
+                    else
+                    {
+                        client.Phone = PhoneTB.Text.Trim();
+                    }
+
                     DBConnection.massageSalon.SaveChanges();
-
-
                 }
                 SurnameTB.IsReadOnly = true;
                 NameTB.IsReadOnly = true;
@@ -151,24 +159,6 @@ namespace MassageParlor.Windowww
                     MessageBox.Show("Клиент не может быть младше 7 лет.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     datePicker.SelectedDate = null; // Сбрасываем выбранную дату
                 }
-            }
-        }
-
-        private void SavePhoneNumber(string phoneNumber)
-        {
-            try
-            {
-                var phoneNumberEntity = DBConnection.loginedWorker;
-                if (phoneNumberEntity != null)
-                {
-                    phoneNumberEntity.Phone = phoneNumber; // Обновите номер телефона
-                    DBConnection.massageSalon.SaveChanges(); // Сохраните изменения в базе данных
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Ошибка при сохранении номера телефона.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
             }
         }
 
@@ -221,11 +211,6 @@ namespace MassageParlor.Windowww
             {
                 MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
-            }
-            else
-            {
-                // Сохранить номер телефона в базе данных
-                SavePhoneNumber(currentText);
             }
         }
 
