@@ -45,6 +45,12 @@
                             Width="1150"
                             Margin="5"
                             Background="#907669">
+                            <Rectangle Fill="#6d584e"
+                                VerticalAlignment="Center"
+                                Width="1150"
+                                Height="620"
+                                RadiusX="20"
+                                RadiusY="20"/>
                             <Image Stretch="Fill"
                                 Source="{Binding Image}"
                                 Width="1150"

@@ -26,7 +26,6 @@
             <Setter Property="Background" Value="#907669"/>
             <Setter Property="BorderBrush" Value="#FF3F3333"/>
             <Setter Property="BorderThickness" Value="5"/>
-            <Setter Property="CornerRadius" Value="400"/>
         </Style>
 
         <Style TargetType="Button">

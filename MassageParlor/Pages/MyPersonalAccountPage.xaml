@@ -122,14 +122,15 @@
                             Margin="30 40 0 0"
                             Height="700">
                     <Border Style="{StaticResource BorderForPhoto}"
-                            Width="300"
-                            Height="400"
-                            CornerRadius="10">
-                        <Image Width="300"
-                            Height="400"
+                            CornerRadius="40">
+                        <Image Height="400"
+                               Width="300"
                             x:Name="PhotoWorker"
-                            Source="{Binding Photo}"
-                           Stretch="UniformToFill"/>
+                            Source="{Binding Photo}">
+                            <Image.Clip>
+                                <RectangleGeometry RadiusX="40" RadiusY="40" Rect="0,0,300,400"/>
+                            </Image.Clip>
+                        </Image>
                     </Border>
 
                     <Button x:Name="EditPhotoBTN"

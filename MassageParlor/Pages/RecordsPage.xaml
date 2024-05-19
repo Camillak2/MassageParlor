@@ -44,15 +44,20 @@
                     <DataTemplate>
                         <Grid Height="350"
                             Width="380"
-                            Margin="0"
-                            Background="#907669">
-                            <StackPanel Background="#6d584e"
+                            Margin="0">
+                            <Rectangle Fill="#6d584e"
+                                VerticalAlignment="Center"
+                                Width="370"
+                                Height="350"
+                                RadiusX="20"
+                                RadiusY="20"/>
+                            <StackPanel
                                 Orientation="Vertical"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Bottom"
                                 Height="350"
                                 Width="380">
-                                <StackPanel Margin="10">
+                                <StackPanel Margin="20">
                                     <StackPanel Margin="0 0 0 10">
                                         <TextBlock Text="Массажист:"
                                                    FontSize="24"/>

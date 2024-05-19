@@ -44,13 +44,13 @@
                         <DataTemplate>
                             <Grid Height="250"
                                 Width="370"
-                                Margin="5"
-                                Background="#907669">
-                                <Rectangle Fill="Black"
-                                Opacity="0.3"
+                                Margin="5">
+                                <Rectangle Fill="#6d584e"
                                 VerticalAlignment="Center"
                                 Width="370"
-                                Height="250"/>
+                                Height="250"
+                                RadiusX="20"
+                                RadiusY="20"/>
                                 <StackPanel Orientation="Vertical"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
