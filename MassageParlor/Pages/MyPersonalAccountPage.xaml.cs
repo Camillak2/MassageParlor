@@ -114,7 +114,7 @@ namespace MassageParlor.Pages
                 //Не видно
                 MassageBTN.Visibility = Visibility.Collapsed;
             }
-            else if (loggedWorker.Position.Name == "Массажист")
+            else if (loggedWorker.Position.Name == "Мастер")
             {
                 //Видно
                 ProfileBTN.Visibility = Visibility.Visible;
@@ -172,10 +172,8 @@ namespace MassageParlor.Pages
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) ||
-                    string.IsNullOrWhiteSpace(PatronymicTB.Text) ||
-                        DateOfBirthDP.SelectedDate == null || string.IsNullOrWhiteSpace(PhoneTB.Text) ||
-                        string.IsNullOrWhiteSpace(LoginTB.Text) || string.IsNullOrWhiteSpace(PasswordTB.Text))
+                if (string.IsNullOrWhiteSpace(SurnameTB.Text) || string.IsNullOrWhiteSpace(NameTB.Text) || DateOfBirthDP.SelectedDate == null || 
+                    string.IsNullOrWhiteSpace(PhoneTB.Text) || string.IsNullOrWhiteSpace(LoginTB.Text) || string.IsNullOrWhiteSpace(PasswordTB.Text))
                 {
                     MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;

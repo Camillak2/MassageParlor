@@ -72,7 +72,8 @@
                             Width="600"
                             Height="50"
                             IsReadOnly="True"
-                            PreviewTextInput="DurationTB_PreviewTextInput"/>
+                            PreviewTextInput="DurationTB_PreviewTextInput"
+                                  LostFocus="DurationTB_LostFocus"/>
                         <TextBox x:Name="TypeTB"
                             TextWrapping="Wrap"
                             Margin="10"

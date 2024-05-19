@@ -41,6 +41,20 @@ namespace MassageParlor.Windowww
             DurationTB.Text = contextService.Duration.ToString();
             CostTB.Text = contextService.Price.ToString();
             TypeTB.Text = contextService.TypeOfService.Name;
+
+            if (contextService.Image != null)
+            {
+                using (var stream = new MemoryStream(contextService.Image))
+                {
+                    var bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.StreamSource = stream;
+                    bitmap.EndInit();
+                    PhotoService.Source = bitmap;
+                }
+            }
+
             this.DataContext = this;
 
             CostTB.TextChanged += CostTB_TextChanged;
@@ -137,8 +151,37 @@ namespace MassageParlor.Windowww
 
         private void DurationTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex(@"^[0-9]$");
-            e.Handled = !regex.IsMatch(e.Text);
+            // Разрешаем только цифры
+            if (!char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            DurationTB.Text = Regex.Replace(DurationTB.Text, @"\s", "");
+            DurationTB.CaretIndex = DurationTB.Text.Length;
+
+            if (DurationTB.Text.Length >= 5 && !string.IsNullOrEmpty(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            // Форматирование маски ##:##
+            if (DurationTB.Text.Length == 2 && !DurationTB.Text.Contains(":"))
+            {
+                DurationTB.Text += ":";
+                DurationTB.SelectionStart = DurationTB.Text.Length;
+            }
+        }
+
+        private void DurationTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (DurationTB.Text.Length < 4)
+            {
+                MessageBox.Show("Неверный формат времени.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
 
         private void CostTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -171,19 +214,6 @@ namespace MassageParlor.Windowww
                 // Обработка ошибки, если ввод не является числом
                 MessageBox.Show("Неверный формат числа.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
-            }
-            if (decimal.TryParse(CostTB.Text, out decimal cost))
-            {
-                if (cost > 30000)
-                {
-                    MessageBox.Show("Услуга не может быть дороже 30000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-                }
-                else if (cost < 1000)
-                {
-                    MessageBox.Show("Услуга не может быть дешевле 1000 рублей.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-                }
             }
         }
 

@@ -51,6 +51,9 @@ namespace MassageParlor.Pages
 
                 //Не видно
                 MassageBTN.Visibility = Visibility.Collapsed;
+                AddBTN.Visibility = Visibility.Collapsed;
+
+                NameTB.Text = "Обращения";
             }
             else if (loggedWorker.Position.Name == "Массажист")
             {
@@ -59,11 +62,14 @@ namespace MassageParlor.Pages
                 RecordsBTN.Visibility = Visibility.Visible;
                 ServicesBTN.Visibility = Visibility.Visible;
                 MassageBTN.Visibility = Visibility.Visible;
+                AddBTN.Visibility = Visibility.Visible;
                 LogOutBTN.Visibility = Visibility.Visible;
 
                 //Не видно
                 WorkersBTN.Visibility = Visibility.Collapsed;
                 ClientsBTN.Visibility = Visibility.Collapsed;
+
+                NameTB.Text = "Мои обращения";
             }
         }
 
