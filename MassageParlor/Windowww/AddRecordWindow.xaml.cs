@@ -79,7 +79,7 @@ namespace MassageParlor.Windowww
                         MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
-                    record.Date = DateDP.SelectedDate;
+                    record.Date = DateDP.SelectedDate.Value;
                     record.Time = TimeTB.Text.Trim();
 
                     DBConnection.massageSalon.Record.Add(record);

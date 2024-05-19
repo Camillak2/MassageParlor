@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MassageParlor.DB;
 using MassageParlor.Windowww;
+using static MaterialDesignThemes.Wpf.Theme;
 
 namespace MassageParlor.Pages
 {
@@ -24,26 +26,35 @@ namespace MassageParlor.Pages
     /// </summary>
     public partial class RecordsPage : Page
     {
+        //private CollectionViewSource _collectionViewSource;
         Worker loggedWorker;
         public static List<Record> records {  get; set; }
         public RecordsPage()
         {
             InitializeComponent();
             loggedWorker = DBConnection.loginedWorker;
-            CheckConditionAndToggleButtonVisibility();
             Refresh();
+            records = DBConnection.massageSalon.Record.ToList();
+            CheckConditionAndToggleButtonVisibility();
+        }
+
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DateDP.SelectedDate is null)
+            {
+                Refresh();
+            }
+            else
+            {
+                RecordsForAdminLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.Date == DateDP.SelectedDate).ToList();
+                RecordsForMassagistLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.ID_Worker == loggedWorker.ID && i.Date == DateDP.SelectedDate).ToList();
+            }
         }
 
         public void Refresh()
         {
-            if (loggedWorker.Position.Name == "Администратор")
-            {
-                RecordsForAdminLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.Date >= DateTime.Now).ToList();
-            }
-            else if (loggedWorker.Position.Name == "Массажист")
-            {
-                RecordsForMassagistLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.ID_Worker == loggedWorker.ID && i.Date >= DateTime.Now).ToList();
-            }
+            RecordsForAdminLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.Date >= DateTime.Now).ToList();
+            RecordsForMassagistLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.ID_Worker == loggedWorker.ID && i.Date >= DateTime.Now).ToList();
         }
 
         public void Refresh2()
@@ -164,16 +175,15 @@ namespace MassageParlor.Pages
             NavigationService.Navigate(new MainMenuPage());
         }
 
+        private void AllCHB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Refresh();
+        }
+
         private void AllCHB_Checked(object sender, RoutedEventArgs e)
         {
-            if (AllCHB.IsChecked == true)
-            {
-                Refresh();
-            }
-            else if (AllCHB.IsChecked == false)
-            {
-                Refresh2();
-            }
+            DateDP.SelectedDate = null;
+            Refresh2();
         }
 
         private void RecordsForAdminLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -188,6 +198,12 @@ namespace MassageParlor.Pages
             {
                 MessageBox.Show("Выберите запись!");
             }
+            Refresh();
+        }
+
+        private void CleanBTN_Click(object sender, RoutedEventArgs e)
+        {
+            DateDP.SelectedDate = null;
             Refresh();
         }
     }

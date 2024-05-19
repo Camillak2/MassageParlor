@@ -33,7 +33,11 @@
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                 ItemsSource="{Binding Record}"
                 BorderThickness="3"
-                ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" SelectionChanged="RecordsForAdminLV_SelectionChanged">
+                ScrollViewer.CanContentScroll="False"
+                      Background="{x:Null}"
+                      BorderBrush="{x:Null}"
+                      Foreground="{x:Null}"
+                      SelectionChanged="RecordsForAdminLV_SelectionChanged">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"
@@ -44,7 +48,7 @@
                     <DataTemplate>
                         <Grid Height="400"
                             Width="380"
-                            Margin="0">
+                            Margin="0 0 0 15">
                             <Rectangle Fill="#6d584e"
                                 VerticalAlignment="Center"
                                 Width="370"
@@ -275,7 +279,6 @@
                                                 TextAlignment="Left"
                                                 FontSize="22"/>
                                         </StackPanel>
-                                        
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
@@ -288,10 +291,28 @@
                         Orientation="Horizontal">
                 <CheckBox x:Name="AllCHB"
                       VerticalAlignment="Center"
-                      IsChecked="False"
-                      Checked="AllCHB_Checked"/>
+                      Checked="AllCHB_Checked"
+                      Unchecked="AllCHB_Unchecked"/>
                 <TextBlock Text="Показывать прошедшие"
-                           Margin="20 0 0 0"/>
+                            Margin="20 0 0 0"/>
+            </StackPanel>
+            <StackPanel Margin="30 550 0 0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <DatePicker x:Name="DateDP"
+                    VerticalAlignment="Center"
+                    SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+                <Button HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Height="50"
+                    Width="50"
+                    x:Name="CleanBTN"
+                    Margin="20 0 0 0"
+                    Click="CleanBTN_Click">
+                    <TextBlock Text="X"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                </Button>
             </StackPanel>
             <Button HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
@@ -300,20 +321,20 @@
                 x:Name="AddBTN"
                 Margin="300 0 0 30"
                 Click="AddBTN_Click">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Image Source="/Images/add.png"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image Source="/Images/add.png"
                         Width="48"
                         Height="48"
                         Grid.Row="0"/>
-                    <TextBlock Text="Добавить"
+                        <TextBlock Text="Добавить"
                         HorizontalAlignment="Center"
                         Grid.Row="1"/>
-                </Grid>
-            </Button>
+                    </Grid>
+                </Button>
 
             <Button HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
