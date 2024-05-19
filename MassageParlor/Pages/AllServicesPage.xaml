@@ -16,8 +16,8 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0"
-      HorizontalAlignment="Center"
-      VerticalAlignment="Center">
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
                 <TextBlock Style="{StaticResource Title}"
                 Margin="10"
                 HorizontalAlignment="Center"
@@ -109,6 +109,20 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                <TextBox x:Name="SearchTB"
+                    Width="500"
+                    Height="50"
+                    FontSize="30"
+                    TextChanged="SearchTB_TextChanged"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Left"
+                    Margin="15 0 0 50"/>
+                <Image Source="/Images/lupa.png"
+                    Width="500"
+                    Height="50"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Center"
+                    Margin="0 0 170 50"/>
                 <Button HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     Height="100"

@@ -103,12 +103,12 @@ namespace MassageParlor.Pages
                 ProfileBTN.Visibility = Visibility.Visible;
                 RecordsBTN.Visibility = Visibility.Visible;
                 ServicesBTN.Visibility = Visibility.Visible;
+                MassageBTN.Visibility = Visibility.Visible;
                 LogOutBTN.Visibility = Visibility.Visible;
 
                 //Не видно
                 WorkersBTN.Visibility = Visibility.Collapsed;
                 ClientsBTN.Visibility = Visibility.Collapsed;
-                MassageBTN.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -159,6 +159,16 @@ namespace MassageParlor.Pages
         private void BackBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new ServicesPage());
+        }
+
+        private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SearchTB.Text.Length > 0)
+
+                ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID && i.Name.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
+
+            else
+                ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID == contextType.ID).ToList();
         }
     }
 }

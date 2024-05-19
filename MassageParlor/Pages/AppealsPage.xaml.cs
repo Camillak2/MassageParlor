@@ -58,12 +58,12 @@ namespace MassageParlor.Pages
                 ProfileBTN.Visibility = Visibility.Visible;
                 RecordsBTN.Visibility = Visibility.Visible;
                 ServicesBTN.Visibility = Visibility.Visible;
+                MassageBTN.Visibility = Visibility.Visible;
                 LogOutBTN.Visibility = Visibility.Visible;
 
                 //Не видно
                 WorkersBTN.Visibility = Visibility.Collapsed;
                 ClientsBTN.Visibility = Visibility.Collapsed;
-                MassageBTN.Visibility = Visibility.Collapsed;
             }
         }
 

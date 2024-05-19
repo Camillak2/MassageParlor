@@ -195,7 +195,7 @@
                 Width="250"
                 x:Name="ClientsBTN"
                 VerticalAlignment="Top"
-                Margin="0 320 0 0"
+                Margin="0 620 0 0"
                 Click="ClientsBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -234,7 +234,7 @@
             <Button Height="95"
                 Width="250"
                 VerticalAlignment="Top"
-                Margin="0 520 0 0"
+                Margin="0 320 0 0"
                 x:Name="ServicesBTN"
                 Click="ServicesBTN_Click">
                 <Grid>
@@ -257,8 +257,8 @@
                 Width="250"
                 x:Name="WorkersBTN"
                 VerticalAlignment="Top"
-                Margin="0 620 0 0"
-                Visibility="Collapsed"
+                Margin="0 520 0 0"
+                Visibility="Visible"
                 Click="WorkersBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -281,7 +281,7 @@
                 Width="250"
                 x:Name="MassageBTN"
                 VerticalAlignment="Top"
-                Margin="0 620 0 0"
+                Margin="0 520 0 0"
                 Visibility="Collapsed"
                 Click="MassageBTN_Click">
                 <Grid>

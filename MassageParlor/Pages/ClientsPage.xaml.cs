@@ -44,18 +44,29 @@ namespace MassageParlor.Pages
         {
             if (loggedWorker.Position.Name == "Администратор")
             {
+                //Видно
+                ProfileBTN.Visibility = Visibility.Visible;
+                RecordsBTN.Visibility = Visibility.Visible;
+                ServicesBTN.Visibility = Visibility.Visible;
                 WorkersBTN.Visibility = Visibility.Visible;
+                ClientsBTN.Visibility = Visibility.Visible;
+                LogOutBTN.Visibility = Visibility.Visible;
+
+                //Не видно
                 MassageBTN.Visibility = Visibility.Collapsed;
-                NameTB.Text = "Клиенты";
-                ClientsLV.IsEnabled = true;
             }
             else if (loggedWorker.Position.Name == "Массажист")
             {
-                WorkersBTN.Visibility = Visibility.Collapsed;
-                AddBTN.Visibility = Visibility.Collapsed;
+                //Видно
+                ProfileBTN.Visibility = Visibility.Visible;
+                RecordsBTN.Visibility = Visibility.Visible;
+                ServicesBTN.Visibility = Visibility.Visible;
                 MassageBTN.Visibility = Visibility.Visible;
-                NameTB.Text = "Мои клиенты";
-                ClientsLV.IsEnabled = false;
+                LogOutBTN.Visibility = Visibility.Visible;
+
+                //Не видно
+                WorkersBTN.Visibility = Visibility.Collapsed;
+                ClientsBTN.Visibility = Visibility.Collapsed;
             }
         }
 
