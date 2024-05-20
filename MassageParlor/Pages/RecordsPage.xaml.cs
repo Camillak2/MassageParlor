@@ -79,12 +79,13 @@ namespace MassageParlor.Pages
                 ServicesBTN.Visibility = Visibility.Visible;
                 WorkersBTN.Visibility = Visibility.Visible;
                 ClientsBTN.Visibility = Visibility.Visible;
-
                 AddBTN.Visibility = Visibility.Visible;
                 LogOutBTN.Visibility = Visibility.Visible;
+                RecordsForAdminLV.Visibility = Visibility.Visible;
 
                 //Не видно
                 MassageBTN.Visibility = Visibility.Collapsed;
+                RecordsForMassagistLV.Visibility = Visibility.Collapsed;
 
                 NameTB.Text = "Записи";
             }
@@ -95,12 +96,14 @@ namespace MassageParlor.Pages
                 RecordsBTN.Visibility = Visibility.Visible;
                 ServicesBTN.Visibility = Visibility.Visible;
                 MassageBTN.Visibility = Visibility.Visible;
+                RecordsForMassagistLV.Visibility= Visibility.Visible;
                 LogOutBTN.Visibility = Visibility.Visible;
 
                 //Не видно
                 WorkersBTN.Visibility = Visibility.Collapsed;
                 AddBTN.Visibility = Visibility.Collapsed;
                 ClientsBTN.Visibility = Visibility.Collapsed;
+                RecordsForAdminLV.Visibility= Visibility.Collapsed;
 
                 NameTB.Text = "Мои записи";
             }

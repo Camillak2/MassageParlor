@@ -159,9 +159,9 @@
                                Width="300"
                             x:Name="PhotoWorker"
                             Source="{Binding Photo}"
-                              Stretch="Fill">
+                              Stretch="UniformToFill">
                             <Image.Clip>
-                                <RectangleGeometry RadiusX="40" RadiusY="40" Rect="0,0,320,400"/>
+                                <RectangleGeometry RadiusX="40" RadiusY="40" Rect="0,0,300,400"/>
                             </Image.Clip>
                         </Image>
                     </Border>
