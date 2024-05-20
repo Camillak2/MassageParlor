@@ -10,7 +10,6 @@
         <EntityTypeShape EntityType="MassageSalonModel.Discount" Width="1.5" PointX="7.75" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MassageSalonModel.Gender" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MassageSalonModel.Position" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MassageSalonModel.Record" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MassageSalonModel.Service" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MassageSalonModel.Status" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MassageSalonModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="3.5" IsExpanded="true" />
@@ -21,12 +20,13 @@
         <AssociationConnector Association="MassageSalonModel.FK_Appeals_Task" ManuallyRouted="false" />
         <AssociationConnector Association="MassageSalonModel.FK_Appeals_Worker" ManuallyRouted="false" />
         <AssociationConnector Association="MassageSalonModel.FK_Client_Gender" ManuallyRouted="false" />
-        <AssociationConnector Association="MassageSalonModel.FK_Record_Client" ManuallyRouted="false" />
         <AssociationConnector Association="MassageSalonModel.FK_Worker_Gender" ManuallyRouted="false" />
         <AssociationConnector Association="MassageSalonModel.FK_Worker_Position" ManuallyRouted="false" />
-        <AssociationConnector Association="MassageSalonModel.FK_Record_Service" ManuallyRouted="false" />
-        <AssociationConnector Association="MassageSalonModel.FK_Record_Worker" ManuallyRouted="false" />
         <AssociationConnector Association="MassageSalonModel.FK_Service_TypeOfService" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MassageSalonModel.Record" Width="1.5" PointX="5.25" PointY="8" />
+        <AssociationConnector Association="MassageSalonModel.FK_Record_Client" />
+        <AssociationConnector Association="MassageSalonModel.FK_Record_Service" />
+        <AssociationConnector Association="MassageSalonModel.FK_Record_Worker" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

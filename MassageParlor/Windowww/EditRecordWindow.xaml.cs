@@ -103,7 +103,7 @@ namespace MassageParlor.Windowww
                         record.ID_Service = contextRecord.ID_Service;
                     }
                     record.Date = DateDP.SelectedDate.Value;
-                    record.Time = TimeTB.Text.Trim();
+                    //record.Time = TimeTB.Text.Trim();
 
                     DBConnection.massageSalon.SaveChanges();
                     Close();

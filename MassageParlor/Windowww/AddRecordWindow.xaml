@@ -3,9 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         xmlns:local="clr-namespace:MassageParlor.Windowww"
         mc:Ignorable="d"
-        Title="Golden Lotus" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
+        Title="Golden Lotus" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Background="#a98f81">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1000"/>
@@ -21,26 +30,18 @@
                 <StackPanel Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-                    <TextBlock Text="Массажист:"
-                Margin="10"
-                FontSize="40"/>
-                    <TextBlock Text="Клиент:"
-                Margin="10"
-                FontSize="40"/>
-                    <TextBlock Text="Услуга:"
-                Margin="10"
-                FontSize="40"/>
-                    <TextBlock Text="Дата:"
-                Margin="10"
-                FontSize="40"/>
-                    <TextBlock Text="Время:"
-                Margin="10"
-                FontSize="40"/>
+
+
+
+
                 </StackPanel>
                 <StackPanel Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Массажист:"
+                            Margin="15 10"
+                            FontSize="40"/>
                         <TextBox x:Name="MassagistTB"
                             Margin="10"
                             FontSize="40"
@@ -54,8 +55,11 @@
                             Style="{StaticResource ChooseButton}" Click="ChooseMassagistBTN_Click"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Клиент:"
+                            Margin="15 10"
+                            FontSize="40"/>
                         <TextBox x:Name="ClientTB"
-                            Margin="10"
+                            Margin="75 10 10 10"
                             FontSize="40"
                             Width="650"
                             Height="60"
@@ -67,8 +71,11 @@
                             Style="{StaticResource ChooseButton}" Click="ChooseClientBTN_Click"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Услуга:"
+                            Margin="15 10"
+                            FontSize="40"/>
                         <TextBox x:Name="ServiceTB"
-                            Margin="10"
+                            Margin="86 10 10 10"
                             FontSize="40"
                             Width="650"
                             Height="60"
@@ -79,14 +86,37 @@
                             Content="+"
                             Style="{StaticResource ChooseButton}" Click="ChooseServiceBTN_Click"/>
                     </StackPanel>
-                    <DatePicker x:Name="DateDP"
-                        Margin="10"
-                        FontSize="40"
-                        Width="400"
-                        Height="60"
-                        HorizontalAlignment="Left"
-                        SelectedDateChanged="DatePicker_SelectedDateChanged"/>
-                    <TextBox x:Name="TimeTB"
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Дата:"
+                            Margin="15 10"
+                            FontSize="40"/>
+                        <DatePicker x:Name="DateDP"
+                            Margin="125 10 10 10"
+                            FontSize="40"
+                            Width="400"
+                            Height="60"
+                            BorderBrush="#6d584e"
+                            HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Время:"
+                            Margin="15 10"
+                            FontSize="40"/>
+                        <Border Style="{StaticResource TimePicker}"
+                            Width="60"
+                            Height="60"
+                            Margin="98 10 10 10"
+                            CornerRadius="180"
+                            HorizontalAlignment="Left">
+                            <materialDesign:TimePicker
+                                x:Name="TimeTP"
+                                FontSize="40"
+                                HorizontalAlignment="Center"
+                                SelectedTimeChanged="TimeTP_SelectedTimeChanged"/>
+                        </Border>
+                    </StackPanel>
+                    <!--<TextBox x:Name="TimeTB"
                         Margin="10"
                         FontSize="40"
                         Width="400"
@@ -94,7 +124,7 @@
                         TextChanged="TimeTB_TextChanged"
                         PreviewTextInput="TimeTB_PreviewTextInput" 
                         LostFocus="TimeTB_LostFocus"
-                        HorizontalAlignment="Left"/>
+                        HorizontalAlignment="Left"/>-->
                 </StackPanel>
                 <StackPanel Orientation="Vertical"
                     Margin="20"

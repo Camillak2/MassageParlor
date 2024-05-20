@@ -46,23 +46,23 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="400"
-                            Width="380"
-                            Margin="0 0 0 15">
+                        <Grid Height="500"
+                            Width="570"
+                            Margin="0 0 0 5">
                             <Rectangle Fill="#6d584e"
                                 VerticalAlignment="Center"
-                                Width="370"
-                                Height="400"
+                                Width="570"
+                                Height="500"
                                 RadiusX="20"
                                 RadiusY="20"/>
                             <StackPanel
                                 Orientation="Vertical"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Bottom"
-                                Height="400"
-                                Width="380">
+                                Height="500"
+                                Width="570">
                                 <StackPanel Margin="20">
-                                    <StackPanel Margin="0 0 0 10">
+                                    <StackPanel>
                                         <TextBlock Text="Массажист:"
                                                    FontSize="24"/>
                                         <StackPanel Orientation="Horizontal">
@@ -98,7 +98,7 @@
                                             FontSize="22"/>
                                         </StackPanel>
                                     </StackPanel>
-                                    <StackPanel Margin="0 0 0 10">
+                                    <StackPanel>
                                         <TextBlock Text="Клиент:"
                                             FontSize="24"/>
                                         <StackPanel Orientation="Horizontal">
@@ -126,15 +126,15 @@
                                                 TextWrapping="Wrap"
                                                 TextAlignment="Left"
                                                 FontSize="22"/>
-                                        </StackPanel>
-                                        <TextBlock Text="{Binding Client.Patronymic}"
+                                            <TextBlock Text="{Binding Client.Patronymic}"
                                                 HorizontalAlignment="Left"
                                                 Foreground="White"
                                                 TextWrapping="Wrap"
                                                 TextAlignment="Left"
                                                 FontSize="22"/>
+                                        </StackPanel>
                                     </StackPanel>
-                                    <StackPanel Margin="0 0 0 10">
+                                    <StackPanel>
                                         <TextBlock Text="Услуга:"
                                             FontSize="24"/>
                                         <TextBlock Text="{Binding Service.Name}"
@@ -144,7 +144,17 @@
                                             TextAlignment="Left"
                                             FontSize="24"/>
                                     </StackPanel>
-                                    <StackPanel Margin="0 0 0 30">
+                                    <StackPanel>
+                                        <TextBlock Text="Стоимость услуги:"
+                                            FontSize="24"/>
+                                        <TextBlock Text="{Binding Service.Price, StringFormat={}{0:F2}₽}"
+                                            HorizontalAlignment="Left"
+                                            Foreground="White"
+                                            TextWrapping="Wrap"
+                                            TextAlignment="Left"
+                                            FontSize="24"/>
+                                    </StackPanel>
+                                    <StackPanel>
                                         <TextBlock Text="Дата и время:"
                                             FontSize="24"/>
                                         <StackPanel Orientation="Horizontal">
@@ -167,6 +177,34 @@
                                                 TextAlignment="Left"
                                                 FontSize="22"/>
                                         </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="Скидка:"
+                                            FontSize="24"/>
+                                        <TextBlock Text="{Binding Discount.Name}"
+                                            HorizontalAlignment="Left"
+                                            Foreground="White"
+                                            TextWrapping="Wrap"
+                                            TextAlignment="Left"
+                                            FontSize="24"/>
+                                        <TextBlock Text="{Binding Discount.Percent}"
+                                            HorizontalAlignment="Left"
+                                            Foreground="White"
+                                            TextWrapping="Wrap"
+                                            TextAlignment="Left"
+                                            FontSize="24"/>
+                                    </StackPanel>
+                                    <StackPanel Margin="0 10 0 10"
+                                                Orientation="Horizontal">
+                                        <TextBlock Text="Конечная стоимость:"
+                                            FontSize="24"
+                                                   Margin="0 0 20 0"/>
+                                        <TextBlock Text="{Binding FinalPrice, StringFormat={}{0:F2}₽}"
+                                            HorizontalAlignment="Left"
+                                            Foreground="White"
+                                            TextWrapping="Wrap"
+                                            TextAlignment="Left"
+                                            FontSize="24"/>
                                     </StackPanel>
                                     <TextBlock>
                                         <Hyperlink Style="{StaticResource DeleteKey}"

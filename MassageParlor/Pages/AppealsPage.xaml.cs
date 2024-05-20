@@ -33,6 +33,9 @@ namespace MassageParlor.Pages
             loggedWorker = DBConnection.loginedWorker;
             workers = DBConnection.massageSalon.Worker.ToList();
             statuses = DBConnection.massageSalon.Status.ToList();
+            statuses.Insert(0, new Status() { Name = "Все" });
+            StatusCB.SelectedIndex = 0;
+
             appeals = DBConnection.massageSalon.Appeals.ToList();
             Refresh();
             CheckConditionAndToggleButtonVisibility();
@@ -163,6 +166,22 @@ namespace MassageParlor.Pages
         private void BackBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainMenuPage());
+        }
+
+        private void StatusCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (StatusCB.SelectedIndex == 0)
+            {
+                AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.ToList();
+            }
+            else if (StatusCB.SelectedIndex == 1)
+            {
+                AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.Where(i => i.Status.Name == "Не выполнено").ToList();
+            }
+            else if (StatusCB.SelectedIndex == 2)
+            {
+                AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.Where(i => i.Status.Name == "Выполнено").ToList();
+            }
         }
     }
 }

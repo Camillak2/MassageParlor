@@ -107,6 +107,21 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <ComboBox x:Name="StatusCB" Style="{StaticResource ComboboxStyle}"
+                            Margin="15 0 0 55"
+                            FontSize="40"
+                            Width="400"
+                            Height="50"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            ItemsSource="{Binding statuses}"
+                            SelectionChanged="StatusCB_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <Button HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 Height="100"

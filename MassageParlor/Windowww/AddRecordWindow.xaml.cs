@@ -1,4 +1,5 @@
 ﻿using MassageParlor.DB;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,8 +45,11 @@ namespace MassageParlor.Windowww
             Refresh();
             this.DataContext = this;
 
-            TimeTB.TextChanged += TimeTB_TextChanged;
+            //TimeTB.TextChanged += TimeTB_TextChanged;
 
+
+            // Настройка DatePicker
+            DateDP.SelectedDateChanged += DatePicker_SelectedDateChanged;
             DateDP.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now.Date.AddDays(-1)));
         }
 
@@ -56,12 +60,27 @@ namespace MassageParlor.Windowww
             ServicesLV.ItemsSource = DBConnection.massageSalon.Service.ToList();
         }
 
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DateDP.SelectedDate < DateTime.Now.Date)
+            {
+                MessageBox.Show("Нельзя выбрать прошедшую дату.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                DateDP.SelectedDate = null;
+            }
+        }
+
+        private void TimeTP_SelectedTimeChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TimeSpan selectedTime = TimeTP.SelectedTime.Value.TimeOfDay;
+            record.Time = selectedTime;
+        }
+
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(MassagistTB.Text) || string.IsNullOrWhiteSpace(ServiceTB.Text) || string.IsNullOrWhiteSpace(ClientTB.Text) ||
-                        DateDP.SelectedDate == null || string.IsNullOrWhiteSpace(TimeTB.Text))
+                        DateDP.SelectedDate == null || TimeTP.SelectedTime == null)
                 {
                     MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
@@ -80,7 +99,32 @@ namespace MassageParlor.Windowww
                         return;
                     }
                     record.Date = DateDP.SelectedDate.Value;
-                    record.Time = TimeTB.Text.Trim();
+
+                    if (TimeTP.SelectedTime.HasValue)
+                    {
+                        // Получаем выбранное время
+                        TimeSpan selectedTime = TimeTP.SelectedTime.Value.TimeOfDay;
+                        record.Time = selectedTime;
+                        //// Получаем текущее время
+                        //TimeSpan currentTime = DateTime.Now.TimeOfDay;
+
+                        //// Сравниваем времена
+                        //int comparisonResult = selectedTime.CompareTo(currentTime);
+
+                        //if (comparisonResult < 0)
+                        //{
+                        //    TimeTB.Text = "Выбранное время раньше текущего.";
+                        //}
+                        //else if (comparisonResult > 0)
+                        //{
+                        //    TimeTB.Text = "Выбранное время позже текущего.";
+                        //    record.Time = selectedTime;
+                        //}
+                        //else
+                        //{
+                        //    TimeTB.Text = "Выбранное время совпадает с текущим.";
+                        //}
+                    }
 
                     DBConnection.massageSalon.Record.Add(record);
                     DBConnection.massageSalon.SaveChanges();
@@ -217,76 +261,67 @@ namespace MassageParlor.Windowww
             Grid4.Visibility = Visibility.Collapsed;
         }
 
-        private void TimeTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            // Разрешаем только цифры
-            if (!char.IsDigit(e.Text, 0))
-            {
-                e.Handled = true;
-                return;
-            }
+        //private void TimeTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        //{
+        //    // Разрешаем только цифры
+        //    if (!char.IsDigit(e.Text, 0))
+        //    {
+        //        e.Handled = true;
+        //        return;
+        //    }
 
-            TimeTB.Text = Regex.Replace(TimeTB.Text, @"\s", "");
-            TimeTB.CaretIndex = TimeTB.Text.Length;
+        //    TimeTB.Text = Regex.Replace(TimeTB.Text, @"\s", "");
+        //    TimeTB.CaretIndex = TimeTB.Text.Length;
 
-            if (TimeTB.Text.Length >= 5 && !string.IsNullOrEmpty(e.Text))
-            {
-                e.Handled = true;
-                return;
-            }
+        //    if (TimeTB.Text.Length >= 5 && !string.IsNullOrEmpty(e.Text))
+        //    {
+        //        e.Handled = true;
+        //        return;
+        //    }
 
-            // Форматирование маски ##:##
-            if (TimeTB.Text.Length == 2 && !TimeTB.Text.Contains(":"))
-            {
-                TimeTB.Text += ":";
-                TimeTB.SelectionStart = TimeTB.Text.Length;
-            }
+        //    // Форматирование маски ##:##
+        //    if (TimeTB.Text.Length == 2 && !TimeTB.Text.Contains(":"))
+        //    {
+        //        TimeTB.Text += ":";
+        //        TimeTB.SelectionStart = TimeTB.Text.Length;
+        //    }
 
-            switch (TimeTB.Text.Length)
-            {
-                case 0:
-                    if (e.Text != "1") e.Handled = true;
-                    break;
-                case 1:
-                    if (int.Parse(e.Text) < 0 || int.Parse(e.Text) > 9) e.Handled = true;
-                    break;
-                case 3:
-                    if (int.Parse(e.Text) < 0 || int.Parse(e.Text) > 5) e.Handled = true;
-                    break;
-                case 4:
-                    if (int.Parse(e.Text) < 0 || int.Parse(e.Text) > 9) e.Handled = true;
-                    break;
-            }
+        //    switch (TimeTB.Text.Length)
+        //    {
+        //        case 0:
+        //            if (e.Text != "1") e.Handled = true;
+        //            break;
+        //        case 1:
+        //            if (int.Parse(e.Text) < 0 || int.Parse(e.Text) > 9) e.Handled = true;
+        //            break;
+        //        case 3:
+        //            if (int.Parse(e.Text) < 0 || int.Parse(e.Text) > 5) e.Handled = true;
+        //            break;
+        //        case 4:
+        //            if (int.Parse(e.Text) < 0 || int.Parse(e.Text) > 9) e.Handled = true;
+        //            break;
+        //    }
 
-            // Проверка на 4 цифры
-        }
+        //    // Проверка на 4 цифры
+        //}
 
-        private void TimeTB_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (TimeTB.Text.Length < 4)
-            {
-                MessageBox.Show("Неверный формат времени.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else
-            {
-                // Сохранение времени в базе данных
-                DBConnection.massageSalon.SaveChanges();
-            }
-        }
+        //private void TimeTB_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (TimeTB.Text.Length < 4)
+        //    {
+        //        MessageBox.Show("Неверный формат времени.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        // Сохранение времени в базе данных
+        //        DBConnection.massageSalon.SaveChanges();
+        //    }
+        //}
 
         private bool IsDigit(string text)
         {
             return Regex.IsMatch(text, "[0-9]");
-        }
-
-        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (DateDP.SelectedDate < DateTime.Now.Date)
-            {
-                MessageBox.Show("Нельзя выбрать прошедшую дату.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                DateDP.SelectedDate = null;
-            }
         }
 
         private void Search1TB_TextChanged(object sender, TextChangedEventArgs e)
@@ -319,10 +354,15 @@ namespace MassageParlor.Windowww
                 ServicesLV.ItemsSource = DBConnection.massageSalon.Service.ToList();
         }
 
-        private void TimeTB_TextChanged(object sender, TextChangedEventArgs e)
+        private void TimeTP_SelectedTimeChanged(object sender, RoutedPropertyChangedEventArgs<DateTime?> e)
         {
-            TimeTB.Text = Regex.Replace(TimeTB.Text, @"\s", "");
-            TimeTB.CaretIndex = TimeTB.Text.Length;
+
         }
+
+        //private void TimeTB_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    TimeTB.Text = Regex.Replace(TimeTB.Text, @"\s", "");
+        //    TimeTB.CaretIndex = TimeTB.Text.Length;
+        //}
     }
 }

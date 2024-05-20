@@ -26,17 +26,28 @@ namespace MassageParlor.Pages
     /// </summary>
     public partial class RecordsPage : Page
     {
-        //private CollectionViewSource _collectionViewSource;
+        public ObservableCollection<Record> Records { get; set; }
         Worker loggedWorker;
         public static List<Record> records {  get; set; }
         public RecordsPage()
         {
             InitializeComponent();
             loggedWorker = DBConnection.loginedWorker;
-            Refresh();
             records = DBConnection.massageSalon.Record.ToList();
+            RecordsForAdminLV.ItemsSource = records;
+            RecordsForMassagistLV.ItemsSource = records;
+            Refresh();
             CheckConditionAndToggleButtonVisibility();
+            this.DataContext = this;
         }
+
+        //private void LoadRecords()
+        //{
+        //    records = DBConnection.massageSalon.Record.ToList();
+        //    var sortedRecords = records.Where(i => i.Date == DateDP.SelectedDate).OrderBy(r => r.Date).ThenBy(r => r.Time).ToList();
+        //    Records = new ObservableCollection<Record>(sortedRecords);
+        //    recordListView.ItemsSource = Records;
+        //}
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -46,27 +57,33 @@ namespace MassageParlor.Pages
             }
             else
             {
-                RecordsForAdminLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.Date == DateDP.SelectedDate).ToList();
-                RecordsForMassagistLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.ID_Worker == loggedWorker.ID && i.Date == DateDP.SelectedDate).ToList();
+                records = DBConnection.massageSalon.Record.ToList();
+                var sortedRecords = records.OrderBy(r => r.Date).ThenBy(r => r.Time).ToList();
+                Records = new ObservableCollection<Record>(sortedRecords);
+
+                RecordsForAdminLV.ItemsSource = Records.Where(i => i.Date == DateDP.SelectedDate);
+                RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID && i.Date == DateDP.SelectedDate);
             }
         }
 
         public void Refresh()
         {
-            RecordsForAdminLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.Date >= DateTime.Today).ToList();
-            RecordsForMassagistLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.ID_Worker == loggedWorker.ID && i.Date >= DateTime.Today).ToList();
+            records = DBConnection.massageSalon.Record.ToList();
+            var sortedRecords = records.OrderBy(r => r.Date).ThenBy(r => r.Time).ToList();
+            Records = new ObservableCollection<Record>(sortedRecords);
+
+            RecordsForAdminLV.ItemsSource = Records.Where(i => i.Date >= DateTime.Today);
+            RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID && i.Date >= DateTime.Today);
         }
 
         public void Refresh2()
         {
-            if (loggedWorker.Position.Name == "Администратор")
-            {
-                RecordsForAdminLV.ItemsSource = DBConnection.massageSalon.Record.ToList();
-            }
-            else if (loggedWorker.Position.Name == "Массажист")
-            {
-                RecordsForMassagistLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.ID_Worker == loggedWorker.ID).ToList();
-            }
+            records = DBConnection.massageSalon.Record.ToList();
+            var sortedRecords = records.OrderBy(r => r.Date).ThenBy(r => r.Time).ToList();
+            Records = new ObservableCollection<Record>(sortedRecords);
+
+            RecordsForAdminLV.ItemsSource = Records;
+            RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID);
         }
 
         private void CheckConditionAndToggleButtonVisibility()

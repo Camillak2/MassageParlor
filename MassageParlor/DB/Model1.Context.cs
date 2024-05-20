@@ -30,12 +30,12 @@ namespace MassageParlor.DB
         public virtual DbSet<Discount> Discount { get; set; }
         public virtual DbSet<Gender> Gender { get; set; }
         public virtual DbSet<Position> Position { get; set; }
-        public virtual DbSet<Record> Record { get; set; }
         public virtual DbSet<Service> Service { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Taskk> Taskk { get; set; }
         public virtual DbSet<TypeOfService> TypeOfService { get; set; }
         public virtual DbSet<Worker> Worker { get; set; }
+        public virtual DbSet<Record> Record { get; set; }
     }
 }

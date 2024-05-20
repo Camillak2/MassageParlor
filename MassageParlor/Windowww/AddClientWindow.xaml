@@ -78,7 +78,8 @@
                             PreviewTextInput="PhoneTextBox_PreviewTextInput" 
                             LostFocus="PhoneTextBox_LostFocus"
                              TextChanged="TextBox_TextChanged"/>
-                    <ComboBox x:Name="GenderCB" Style="{StaticResource ComboboxStyle}"
+                    <ComboBox x:Name="GenderCB"
+                              Style="{StaticResource ComboboxStyle}"
                             Margin="10"
                             FontSize="40"
                             Width="400"
