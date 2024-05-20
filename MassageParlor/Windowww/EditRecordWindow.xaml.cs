@@ -79,26 +79,32 @@ namespace MassageParlor.Windowww
                 if (string.IsNullOrWhiteSpace(MassagistTB.Text) || string.IsNullOrWhiteSpace(ServiceTB.Text) || string.IsNullOrWhiteSpace(ClientTB.Text) ||
                         DateDP.SelectedDate == null || string.IsNullOrWhiteSpace(TimeTB.Text))
                 {
-                    MessageBox.Show("Номер телефона должен содержать 11 цифр.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
                 else
                 {
-                    if ((WorkersLV.SelectedItem is Worker worker) && (ClientsLV.SelectedItem is Client client) && (ServicesLV.SelectedItem is Service service))
+                    if (WorkersLV.SelectedItem is Worker worker)
                     {
                         record.ID_Worker = worker.ID;
+                    }
+                    else if (ClientsLV.SelectedItem is Client client)
+                    {
                         record.ID_Client = client.ID;
+                    }
+                    else if (ServicesLV.SelectedItem is Service service)
+                    {
                         record.ID_Service = service.ID;
                     }
                     else
                     {
-                        MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-                        return;
+                        record.ID_Worker = contextRecord.ID_Worker;
+                        record.ID_Client = contextRecord.ID_Client;
+                        record.ID_Service = contextRecord.ID_Service;
                     }
                     record.Date = DateDP.SelectedDate.Value;
                     record.Time = TimeTB.Text.Trim();
 
-                    DBConnection.massageSalon.Record.Add(record);
                     DBConnection.massageSalon.SaveChanges();
                     Close();
                 }
@@ -137,29 +143,6 @@ namespace MassageParlor.Windowww
             Grid4.Visibility = Visibility.Visible;
         }
 
-        private void Choose1BTN_Click(object sender, RoutedEventArgs e)
-        {
-            if (WorkersLV.SelectedItem != null)
-            {
-                // Получаем выбранный объект
-                dynamic selectedItem = WorkersLV.SelectedItem;
-
-                // Отображаем ФИО в TextBox
-                MassagistTB.Text = selectedItem.Surname + " " + selectedItem.Name + " " + selectedItem.Patronymic;
-
-                Grid1.Visibility = Visibility.Visible;
-                SaveBTN.Visibility = Visibility.Visible;
-                Grid2.Visibility = Visibility.Collapsed;
-                Grid3.Visibility = Visibility.Collapsed;
-                Grid4.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                // Если строка не выбрана, очищаем TextBox
-                MassagistTB.Text = "";
-            }
-        }
-
         private void WorkersLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (WorkersLV.SelectedItem != null)
@@ -178,8 +161,7 @@ namespace MassageParlor.Windowww
             }
             else
             {
-                // Если строка не выбрана, очищаем TextBox
-                MassagistTB.Text = "";
+                MassagistTB.Text = contextRecord.Worker.Surname + " " + contextRecord.Worker.Name + " " + contextRecord.Worker.Patronymic;
             }
         }
 
@@ -210,8 +192,7 @@ namespace MassageParlor.Windowww
             }
             else
             {
-                // Если строка не выбрана, очищаем TextBox
-                ClientTB.Text = "";
+                ClientTB.Text = contextRecord.Client.Surname + " " + contextRecord.Client.Name + " " + contextRecord.Client.Patronymic;
             }
         }
 
@@ -242,8 +223,7 @@ namespace MassageParlor.Windowww
             }
             else
             {
-                // Если строка не выбрана, очищаем TextBox
-                ServiceTB.Text = "";
+                ServiceTB.Text = contextRecord.Service.Name;
             }
         }
 
@@ -354,7 +334,7 @@ namespace MassageParlor.Windowww
         {
             if (Search3TB.Text.Length > 0)
             {
-                ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.Name.ToLower().StartsWith(Search3TB.Text.Trim().ToLower()));
+                ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.Name.ToLower().StartsWith(Search3TB.Text.Trim().ToLower())).ToList();
             }
             else
             {

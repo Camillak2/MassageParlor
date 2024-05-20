@@ -126,7 +126,11 @@
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
                     ItemsSource="{Binding Worker}"
                     BorderThickness="3"
-                    ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" SelectionChanged="WorkersLV_SelectionChanged">
+                    ScrollViewer.CanContentScroll="False"
+                          Background="{x:Null}"
+                          BorderBrush="{x:Null}"
+                          Foreground="{x:Null}"
+                          SelectionChanged="WorkersLV_SelectionChanged">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal"

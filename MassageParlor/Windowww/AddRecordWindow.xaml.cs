@@ -121,29 +121,6 @@ namespace MassageParlor.Windowww
             Grid4.Visibility = Visibility.Visible;
         }
 
-        private void Choose1BTN_Click(object sender, RoutedEventArgs e)
-        {
-            if (WorkersLV.SelectedItem != null)
-            {
-                // Получаем выбранный объект
-                dynamic selectedItem = WorkersLV.SelectedItem;
-
-                // Отображаем ФИО в TextBox
-                MassagistTB.Text = selectedItem.Surname + " " + selectedItem.Name + " " + selectedItem.Patronymic;
-
-                Grid1.Visibility = Visibility.Visible;
-                SaveBTN.Visibility = Visibility.Visible;
-                Grid2.Visibility = Visibility.Collapsed;
-                Grid3.Visibility = Visibility.Collapsed;
-                Grid4.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                // Если строка не выбрана, очищаем TextBox
-                MassagistTB.Text = "";
-            }
-        }
-
         private void WorkersLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (WorkersLV.SelectedItem != null)
