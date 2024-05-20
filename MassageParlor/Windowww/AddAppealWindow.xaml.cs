@@ -69,5 +69,10 @@ namespace MassageParlor.Windowww
                 return;
             }
         }
+
+        private void CancelBTN_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

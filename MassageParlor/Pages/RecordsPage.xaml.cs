@@ -53,8 +53,8 @@ namespace MassageParlor.Pages
 
         public void Refresh()
         {
-            RecordsForAdminLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.Date >= DateTime.Now).ToList();
-            RecordsForMassagistLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.ID_Worker == loggedWorker.ID && i.Date >= DateTime.Now).ToList();
+            RecordsForAdminLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.Date >= DateTime.Today).ToList();
+            RecordsForMassagistLV.ItemsSource = DBConnection.massageSalon.Record.Where(i => i.ID_Worker == loggedWorker.ID && i.Date >= DateTime.Today).ToList();
         }
 
         public void Refresh2()

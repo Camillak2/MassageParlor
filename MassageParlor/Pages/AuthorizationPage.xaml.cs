@@ -45,12 +45,14 @@ namespace MassageParlor.Pages
                 }
                 else
                 {
-                    MessageBox.Show("Проверьте правильность логина и пароля.");
+                    MessageBox.Show("Проверьте правильность логина и пароля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
             }
             catch
             {
-                MessageBox.Show("Возникла ошибка.");
+                MessageBox.Show("Возникла ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
     }

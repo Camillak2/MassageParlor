@@ -79,8 +79,6 @@ namespace MassageParlor.Pages
                 ClientsBTN.Visibility = Visibility.Visible;
                 LogOutBTN.Visibility = Visibility.Visible;
                 AppealsBTN.Visibility = Visibility.Visible;
-
-
                 //Не видно
                 MassageBTN.Visibility = Visibility.Collapsed;
                 ConnectionBTN.Visibility = Visibility.Collapsed;
@@ -94,7 +92,6 @@ namespace MassageParlor.Pages
                 MassageBTN.Visibility = Visibility.Visible;
                 LogOutBTN.Visibility = Visibility.Visible;
                 ConnectionBTN.Visibility = Visibility.Visible;
-
                 //Не видно
                 WorkersBTN.Visibility = Visibility.Collapsed;
                 ClientsBTN.Visibility = Visibility.Collapsed;
