@@ -61,48 +61,48 @@
                                         Width="370"
                                         Height="350"/>
                                     <StackPanel Orientation="Vertical"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Top"
-                                        Margin="0 20 0 0"
-                                        Width="350">
-                                        <TextBlock Text="{Binding Name}"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Foreground="White"
-                                            FontSize="30"
-                                            TextAlignment="Center"
-                                            TextWrapping="Wrap"
-                                            Margin="0 0 0 20"/>
-                                        <TextBlock Text="{Binding Description}"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Foreground="White"
-                                            FontSize="20"
-                                            TextAlignment="Center"
-                                            TextWrapping="Wrap"
-                                            Margin="0 0 0 20"/>
-                                        <TextBlock Text="{Binding Duration}"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Foreground="White"
-                                            FontSize="20"
-                                            TextAlignment="Center"
-                                            TextWrapping="Wrap"
-                                            Margin="0 0 0 20"/>
-                                        <TextBlock Text="{Binding Price, StringFormat={}{0:F2}₽}"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Foreground="White"
-                                            FontSize="20"
-                                            TextAlignment="Center"
-                                            TextWrapping="Wrap"
-                                            Margin="0 0 0 20"/>
-                                        <TextBlock HorizontalAlignment="Center"
-                                            VerticalAlignment="Center">
-                                            <Hyperlink Style="{StaticResource DeleteKey}"
-                                                x:Name="DeleteHL"
-                                                Click="DeleteHL_Click">Удалить</Hyperlink>
-                                        </TextBlock>
+                                                Height="350"
+                                                Width="350">
+                                        <StackPanel Height="90">
+                                            <TextBlock Text="{Binding Name}"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="White"
+                                                FontSize="30"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                        <StackPanel Height="220">
+                                            <TextBlock Text="{Binding Description}"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="White"
+                                                FontSize="20"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding Duration}"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="White"
+                                                FontSize="20"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding Price, StringFormat={}{0:F2}₽}"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="White"
+                                                FontSize="20"
+                                                TextAlignment="Center"
+                                                TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                        <StackPanel Height="40">
+                                            <TextBlock HorizontalAlignment="Center"
+                                                VerticalAlignment="Center">
+                                                <Hyperlink Style="{StaticResource DeleteKey}"
+                                                    x:Name="DeleteHL"
+                                                    Click="DeleteHL_Click">Удалить</Hyperlink>
+                                            </TextBlock>
+                                        </StackPanel>
                                     </StackPanel>
                                 </Grid>
                             </Grid>
