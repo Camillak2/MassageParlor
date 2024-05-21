@@ -217,6 +217,7 @@ namespace MassageParlor.Pages
                             DBConnection.massageSalon.SaveChanges();
 
                             Refresh();
+                            SearchTB.Text = "";
                             MessageBox.Show("Услуга удалена.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
                             return;
                         }

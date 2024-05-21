@@ -43,6 +43,11 @@ namespace MassageParlor.Windowww
             CostTB.TextChanged += CostTB_TextChanged;
         }
 
+        private void RefreshData()
+        {
+            
+        }
+
         private void InitializeDataInPage()
         {
             types = DBConnection.massageSalon.TypeOfService.Where(i => i.Name == contextType.Name).ToList();
@@ -76,7 +81,7 @@ namespace MassageParlor.Windowww
                         }
                         else
                         {
-                            service.Price = Convert.ToDecimal(CostTB.Text.Trim());
+                            service.Price = Convert.ToInt32(CostTB.Text.Trim());
                         }
                     }
 

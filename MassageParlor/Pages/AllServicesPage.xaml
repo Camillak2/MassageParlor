@@ -217,8 +217,11 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Margin="5 0 0 0"
-                        ValueChanged="PriceSlider_ValueChanged"
-                        Background="Transparent">
+                        Value="20000"
+                        Minimum="0"
+                        Maximum="20000"
+                        Background="Transparent"
+                        IsSnapToTickEnabled="True">
                     </Slider>
                     <TextBlock VerticalAlignment="Center"
                         Text="{Binding ElementName=PriceSlider, 

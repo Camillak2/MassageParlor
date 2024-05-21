@@ -12,20 +12,10 @@ namespace MassageParlor.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Record
+    public partial class Service2
     {
-        public int ID { get; set; }
-        public Nullable<int> ID_Client { get; set; }
-        public Nullable<int> ID_Service { get; set; }
-        public System.DateTime Date { get; set; }
-        public Nullable<System.TimeSpan> Time { get; set; }
-        public Nullable<int> ID_Worker { get; set; }
-        public Nullable<decimal> FinalPrice { get; set; }
-        public Nullable<int> ID_Discount { get; set; }
-    
-        public virtual Client Client { get; set; }
-        public virtual Discount Discount { get; set; }
-        public virtual Worker Worker { get; set; }
-        public virtual Service Service { get; set; }
+        public int Name { get; set; }
+        public string TypeOfService { get; set; }
+        public Nullable<decimal> Price { get; set; }
     }
 }

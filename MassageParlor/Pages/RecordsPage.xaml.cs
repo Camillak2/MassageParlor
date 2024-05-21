@@ -121,19 +121,21 @@ namespace MassageParlor.Pages
         private void DeleteHL_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var lastTime = records.Select(x => x.Time);
+           
 
             if (result == MessageBoxResult.Yes)
             {
                 var record = (sender as Hyperlink).DataContext as Record;
-                if (record.Date < DateTime.Now)
-                {
-                    MessageBox.Show("Эта запись не может быть удалена.", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
-                    return;
-                }
-                else
+                if (record.Date > DateTime.Now)
                 {
                     DBConnection.massageSalon.Record.Remove(record);
                     DBConnection.massageSalon.SaveChanges();
+                }
+                else
+                {
+                    MessageBox.Show("Эта запись не может быть удалена.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
 
                 Refresh();

@@ -86,7 +86,7 @@ namespace MassageParlor.Windowww
                         }
                         else
                         {
-                            service.Price = Convert.ToDecimal(CostTB.Text.Trim());
+                            service.Price = Convert.ToInt32(CostTB.Text.Trim());
                         }
                     }
                     service.Name = NameTB.Text.Trim();
