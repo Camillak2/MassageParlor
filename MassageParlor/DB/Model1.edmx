@@ -62,6 +62,7 @@
           <Property Name="Time" Type="time" Precision="7" />
           <Property Name="ID_Worker" Type="int" />
           <Property Name="FinalPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ID_Discount" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6013: Первичный ключ в таблице или представлении "MassageSalon.dbo.Record2" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
@@ -203,6 +204,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Record_Discount">
+          <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+          <End Role="Record" Type="Self.Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="ID_Discount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Record_Service">
           <End Role="Service" Type="Self.Service" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -311,6 +324,10 @@
             <End Role="Client" EntitySet="Client" />
             <End Role="Record" EntitySet="Record" />
           </AssociationSet>
+          <AssociationSet Name="FK_Record_Discount" Association="Self.FK_Record_Discount">
+            <End Role="Discount" EntitySet="Discount" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
           <AssociationSet Name="FK_Record_Service" Association="Self.FK_Record_Service">
             <End Role="Service" EntitySet="Service" />
             <End Role="Record" EntitySet="Record" />
@@ -371,6 +388,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Percent" Type="Int32" />
+          <NavigationProperty Name="Record" Relationship="MassageSalonModel.FK_Record_Discount" FromRole="Discount" ToRole="Record" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
@@ -591,6 +609,10 @@
             <End Role="Client" EntitySet="Client" />
             <End Role="Record" EntitySet="Record" />
           </AssociationSet>
+          <AssociationSet Name="FK_Record_Discount" Association="MassageSalonModel.FK_Record_Discount">
+            <End Role="Discount" EntitySet="Discount" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
           <AssociationSet Name="FK_Record_Service" Association="MassageSalonModel.FK_Record_Service">
             <End Role="Service" EntitySet="Service" />
             <End Role="Record" EntitySet="Record" />
@@ -611,7 +633,9 @@
           <Property Name="Time" Type="Time" Precision="7" />
           <Property Name="ID_Worker" Type="Int32" />
           <Property Name="FinalPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ID_Discount" Type="Int32" />
           <NavigationProperty Name="Client" Relationship="MassageSalonModel.FK_Record_Client" FromRole="Record" ToRole="Client" />
+          <NavigationProperty Name="Discount" Relationship="MassageSalonModel.FK_Record_Discount" FromRole="Record" ToRole="Discount" />
           <NavigationProperty Name="Service" Relationship="MassageSalonModel.FK_Record_Service" FromRole="Record" ToRole="Service" />
           <NavigationProperty Name="Worker" Relationship="MassageSalonModel.FK_Record_Worker" FromRole="Record" ToRole="Worker" />
         </EntityType>
@@ -626,6 +650,18 @@
             </Principal>
             <Dependent Role="Record">
               <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Record_Discount">
+          <End Type="MassageSalonModel.Discount" Role="Discount" Multiplicity="0..1" />
+          <End Type="MassageSalonModel.Record" Role="Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="ID_Discount" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -784,6 +820,7 @@
           <EntitySetMapping Name="Record">
             <EntityTypeMapping TypeName="MassageSalonModel.Record">
               <MappingFragment StoreEntitySet="Record">
+                <ScalarProperty Name="ID_Discount" ColumnName="ID_Discount" />
                 <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
                 <ScalarProperty Name="ID_Worker" ColumnName="ID_Worker" />
                 <ScalarProperty Name="Time" ColumnName="Time" />

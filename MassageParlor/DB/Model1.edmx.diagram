@@ -23,8 +23,9 @@
         <AssociationConnector Association="MassageSalonModel.FK_Worker_Gender" ManuallyRouted="false" />
         <AssociationConnector Association="MassageSalonModel.FK_Worker_Position" ManuallyRouted="false" />
         <AssociationConnector Association="MassageSalonModel.FK_Service_TypeOfService" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="MassageSalonModel.Record" Width="1.5" PointX="5.25" PointY="8" />
+        <EntityTypeShape EntityType="MassageSalonModel.Record" Width="1.5" PointX="10" PointY="7.75" />
         <AssociationConnector Association="MassageSalonModel.FK_Record_Client" />
+        <AssociationConnector Association="MassageSalonModel.FK_Record_Discount" />
         <AssociationConnector Association="MassageSalonModel.FK_Record_Service" />
         <AssociationConnector Association="MassageSalonModel.FK_Record_Worker" />
       </Diagram>

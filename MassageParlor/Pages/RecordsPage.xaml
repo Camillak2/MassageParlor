@@ -46,20 +46,20 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="500"
+                        <Grid Height="480"
                             Width="570"
                             Margin="0 0 0 5">
                             <Rectangle Fill="#6d584e"
                                 VerticalAlignment="Center"
                                 Width="570"
-                                Height="500"
+                                Height="480"
                                 RadiusX="20"
                                 RadiusY="20"/>
                             <StackPanel
                                 Orientation="Vertical"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Bottom"
-                                Height="500"
+                                Height="480"
                                 Width="570">
                                 <StackPanel Margin="20">
                                     <StackPanel>
@@ -181,18 +181,26 @@
                                     <StackPanel>
                                         <TextBlock Text="Скидка:"
                                             FontSize="24"/>
-                                        <TextBlock Text="{Binding Discount.Name}"
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Discount.Name}"
                                             HorizontalAlignment="Left"
                                             Foreground="White"
                                             TextWrapping="Wrap"
                                             TextAlignment="Left"
                                             FontSize="24"/>
-                                        <TextBlock Text="{Binding Discount.Percent}"
+                                        <TextBlock Text=" "
                                             HorizontalAlignment="Left"
                                             Foreground="White"
                                             TextWrapping="Wrap"
                                             TextAlignment="Left"
                                             FontSize="24"/>
+                                            <TextBlock Text="{Binding Discount.Percent, StringFormat={}{0}%}"
+                                            HorizontalAlignment="Left"
+                                            Foreground="White"
+                                            TextWrapping="Wrap"
+                                            TextAlignment="Left"
+                                            FontSize="24"/>
+                                        </StackPanel>
                                     </StackPanel>
                                     <StackPanel Margin="0 10 0 10"
                                                 Orientation="Horizontal">

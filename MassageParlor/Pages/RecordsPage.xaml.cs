@@ -41,14 +41,6 @@ namespace MassageParlor.Pages
             this.DataContext = this;
         }
 
-        //private void LoadRecords()
-        //{
-        //    records = DBConnection.massageSalon.Record.ToList();
-        //    var sortedRecords = records.Where(i => i.Date == DateDP.SelectedDate).OrderBy(r => r.Date).ThenBy(r => r.Time).ToList();
-        //    Records = new ObservableCollection<Record>(sortedRecords);
-        //    recordListView.ItemsSource = Records;
-        //}
-
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DateDP.SelectedDate is null)
@@ -133,14 +125,15 @@ namespace MassageParlor.Pages
             if (result == MessageBoxResult.Yes)
             {
                 var record = (sender as Hyperlink).DataContext as Record;
-                try
+                if (record.Date < DateTime.Now)
+                {
+                    MessageBox.Show("Эта запись не может быть удалена.", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    return;
+                }
+                else
                 {
                     DBConnection.massageSalon.Record.Remove(record);
                     DBConnection.massageSalon.SaveChanges();
-                }
-                catch
-                {
-                    MessageBox.Show("Эта запись не может быть удалена!");
                 }
 
                 Refresh();
@@ -210,13 +203,22 @@ namespace MassageParlor.Pages
         {
             if (RecordsForAdminLV.SelectedItem is Record record)
             {
-                DBConnection.selectedForEditRecord = RecordsForAdminLV.SelectedItem as Record;
-                EditRecordWindow editRecordWindow = new EditRecordWindow(record);
-                editRecordWindow.ShowDialog();
+                if (record.Date < DateTime.Today)
+                {
+                    MessageBox.Show("Эту запись нельзя изменить.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                else
+                {
+                    DBConnection.selectedForEditRecord = RecordsForAdminLV.SelectedItem as Record;
+                    EditRecordWindow editRecordWindow = new EditRecordWindow(record);
+                    editRecordWindow.ShowDialog();
+                }
             }
             else if (RecordsForAdminLV.SelectedItem is null)
             {
-                MessageBox.Show("Выберите запись!");
+                MessageBox.Show("Выберите запись.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
             Refresh();
         }

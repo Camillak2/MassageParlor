@@ -208,13 +208,44 @@
                     TextChanged="SearchTB_TextChanged"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Left"
-                    Margin="15 0 0 50"/>
+                    Margin="15 0 0 80"/>
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Bottom"
+                            Margin="15 0 0 30">
+                    <Slider Name="PriceSlider"
+                        Width="400"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="5 0 0 0"
+                        ValueChanged="PriceSlider_ValueChanged"
+                        Background="Transparent">
+                    </Slider>
+                    <TextBlock VerticalAlignment="Center"
+                        Text="{Binding ElementName=PriceSlider, 
+                        Path=Value, 
+                        StringFormat='{}{0}₽'}"
+                        Margin="5 15 0 0"/>
+                </StackPanel>
+                
+                <!--<Slider Width="500"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Value="50"
+                    Minimum="0"
+                    Maximum="200" 
+                    SmallChange="1"
+                    LargeChange="10"
+                    TickPlacement="BottomRight"
+                    TickFrequency="10"
+                    Name="PriceSlider"
+                    Margin="15 0 0 30"/>-->
                 <Image Source="/Images/lupa.png"
                     Width="500"
                     Height="50"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Center"
-                    Margin="0 0 170 50"/>
+                    Margin="0 0 170 80"/>
                 <Button HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     Height="100"

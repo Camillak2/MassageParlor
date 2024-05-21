@@ -30,6 +30,7 @@ namespace MassageParlor.Windowww
         public static List<Client> clients { get; set; }
         public static List<Gender> genders { get; set; }
         public static List<Service> services { get; set; }
+        public static List<Discount> discounts { get; set; }
         public static List<TypeOfService> types { get; set; }
 
         public static Record record = new Record();
@@ -42,13 +43,11 @@ namespace MassageParlor.Windowww
             genders = DBConnection.massageSalon.Gender.ToList();
             services = DBConnection.massageSalon.Service.ToList();
             types = DBConnection.massageSalon.TypeOfService.ToList();
+            discounts = DBConnection.massageSalon.Discount.ToList();
+            DiscountCB.SelectedIndex = 0;
             Refresh();
             this.DataContext = this;
 
-            //TimeTB.TextChanged += TimeTB_TextChanged;
-
-
-            // Настройка DatePicker
             DateDP.SelectedDateChanged += DatePicker_SelectedDateChanged;
             DateDP.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now.Date.AddDays(-1)));
         }
@@ -98,8 +97,8 @@ namespace MassageParlor.Windowww
                         MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
-                    record.Date = DateDP.SelectedDate.Value;
 
+                    record.Date = DateDP.SelectedDate.Value;
                     if (TimeTP.SelectedTime.HasValue)
                     {
                         // Получаем выбранное время
@@ -169,10 +168,8 @@ namespace MassageParlor.Windowww
         {
             if (WorkersLV.SelectedItem != null)
             {
-                // Получаем выбранный объект
                 dynamic selectedItem = WorkersLV.SelectedItem;
 
-                // Отображаем ФИО в TextBox
                 MassagistTB.Text = selectedItem.Surname + " " + selectedItem.Name + " " + selectedItem.Patronymic;
 
                 Grid1.Visibility = Visibility.Visible;
@@ -183,7 +180,6 @@ namespace MassageParlor.Windowww
             }
             else
             {
-                // Если строка не выбрана, очищаем TextBox
                 MassagistTB.Text = "";
             }
         }
@@ -201,10 +197,8 @@ namespace MassageParlor.Windowww
         {
             if (ClientsLV.SelectedItem != null)
             {
-                // Получаем выбранный объект
                 dynamic selectedItem = ClientsLV.SelectedItem;
 
-                // Отображаем ФИО в TextBox
                 ClientTB.Text = selectedItem.Surname + " " + selectedItem.Name + " " + selectedItem.Patronymic;
 
                 Grid1.Visibility = Visibility.Visible;
@@ -215,7 +209,6 @@ namespace MassageParlor.Windowww
             }
             else
             {
-                // Если строка не выбрана, очищаем TextBox
                 ClientTB.Text = "";
             }
         }
@@ -233,11 +226,13 @@ namespace MassageParlor.Windowww
         {
             if (ServicesLV.SelectedItem != null)
             {
-                // Получаем выбранный объект
                 dynamic selectedItem = ServicesLV.SelectedItem;
 
-                // Отображаем ФИО в TextBox
                 ServiceTB.Text = selectedItem.Name;
+                PriceServiceTB.Text = selectedItem.Price.ToString();
+                FinalPriceTB.Text = PriceServiceTB.Text;
+                record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                record.ID_Discount = 1;
 
                 Grid1.Visibility = Visibility.Visible;
                 SaveBTN.Visibility = Visibility.Visible;
@@ -247,7 +242,6 @@ namespace MassageParlor.Windowww
             }
             else
             {
-                // Если строка не выбрана, очищаем TextBox
                 ServiceTB.Text = "";
             }
         }
@@ -260,64 +254,6 @@ namespace MassageParlor.Windowww
             Grid3.Visibility = Visibility.Collapsed;
             Grid4.Visibility = Visibility.Collapsed;
         }
-
-        //private void TimeTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        //{
-        //    // Разрешаем только цифры
-        //    if (!char.IsDigit(e.Text, 0))
-        //    {
-        //        e.Handled = true;
-        //        return;
-        //    }
-
-        //    TimeTB.Text = Regex.Replace(TimeTB.Text, @"\s", "");
-        //    TimeTB.CaretIndex = TimeTB.Text.Length;
-
-        //    if (TimeTB.Text.Length >= 5 && !string.IsNullOrEmpty(e.Text))
-        //    {
-        //        e.Handled = true;
-        //        return;
-        //    }
-
-        //    // Форматирование маски ##:##
-        //    if (TimeTB.Text.Length == 2 && !TimeTB.Text.Contains(":"))
-        //    {
-        //        TimeTB.Text += ":";
-        //        TimeTB.SelectionStart = TimeTB.Text.Length;
-        //    }
-
-        //    switch (TimeTB.Text.Length)
-        //    {
-        //        case 0:
-        //            if (e.Text != "1") e.Handled = true;
-        //            break;
-        //        case 1:
-        //            if (int.Parse(e.Text) < 0 || int.Parse(e.Text) > 9) e.Handled = true;
-        //            break;
-        //        case 3:
-        //            if (int.Parse(e.Text) < 0 || int.Parse(e.Text) > 5) e.Handled = true;
-        //            break;
-        //        case 4:
-        //            if (int.Parse(e.Text) < 0 || int.Parse(e.Text) > 9) e.Handled = true;
-        //            break;
-        //    }
-
-        //    // Проверка на 4 цифры
-        //}
-
-        //private void TimeTB_LostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    if (TimeTB.Text.Length < 4)
-        //    {
-        //        MessageBox.Show("Неверный формат времени.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        // Сохранение времени в базе данных
-        //        DBConnection.massageSalon.SaveChanges();
-        //    }
-        //}
 
         private bool IsDigit(string text)
         {
@@ -354,15 +290,61 @@ namespace MassageParlor.Windowww
                 ServicesLV.ItemsSource = DBConnection.massageSalon.Service.ToList();
         }
 
-        private void TimeTP_SelectedTimeChanged(object sender, RoutedPropertyChangedEventArgs<DateTime?> e)
+        private void DiscountCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (ServicesLV.SelectedItem != null)
+            {
+                dynamic selectedItem = ServicesLV.SelectedItem;
 
+                if (DiscountCB.SelectedIndex == 0)
+                {
+                    PriceServiceTB.Text = selectedItem.Price.ToString();
+                    FinalPriceTB.Text = PriceServiceTB.Text;
+                    record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                    record.ID_Discount = 1;
+                }
+                else
+                {
+                    if (DiscountCB.SelectedIndex == 1)
+                    {
+                        FinalPriceTB.Text = (selectedItem.Price - selectedItem.Price / 100 * 20).ToString();
+                        record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                        record.ID_Discount = 2;
+                    }
+
+                    else if (DiscountCB.SelectedIndex == 2)
+                    {
+                        FinalPriceTB.Text = (selectedItem.Price - selectedItem.Price / 100 * 30).ToString();
+                        record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                        record.ID_Discount = 3;
+                    }
+
+                    else if (DiscountCB.SelectedIndex == 3)
+                    {
+                        if (selectedItem.TypeOfService.Name == "SPA для лица")
+                        {
+                            FinalPriceTB.Text = (selectedItem.Price - selectedItem.Price / 100 * 2).ToString();
+                            record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                            record.ID_Discount = 4;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Эта скидка применяется только к программе массажа лица.", "Внимание", 
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+                            DiscountCB.SelectedIndex = 0;
+                            FinalPriceTB.Text = PriceServiceTB.Text;
+                            record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                            record.ID_Discount = 1;
+                            return;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                ServiceTB.Text = "";
+                PriceServiceTB.Text = "";
+            }
         }
-
-        //private void TimeTB_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    TimeTB.Text = Regex.Replace(TimeTB.Text, @"\s", "");
-        //    TimeTB.CaretIndex = TimeTB.Text.Length;
-        //}
     }
 }

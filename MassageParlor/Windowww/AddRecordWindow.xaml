@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         xmlns:local="clr-namespace:MassageParlor.Windowww"
         mc:Ignorable="d"
-        Title="Golden Lotus" Height="600" Width="1000"
+        Title="Golden Lotus" Height="800" Width="1050"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
@@ -17,7 +17,7 @@
     </Window.Resources>
     <Grid Background="#a98f81">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1000"/>
+            <ColumnDefinition Width="1050"/>
         </Grid.ColumnDefinitions>
 
         <Grid x:Name="Grid1" 
@@ -30,20 +30,12 @@
                 <StackPanel Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-
-
-
-
-                </StackPanel>
-                <StackPanel Orientation="Vertical"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Массажист:"
                             Margin="15 10"
                             FontSize="40"/>
                         <TextBox x:Name="MassagistTB"
-                            Margin="10"
+                            Margin="15 10 10 10"
                             FontSize="40"
                             Width="650"
                             Height="60"
@@ -59,7 +51,7 @@
                             Margin="15 10"
                             FontSize="40"/>
                         <TextBox x:Name="ClientTB"
-                            Margin="75 10 10 10"
+                            Margin="79 10 10 10"
                             FontSize="40"
                             Width="650"
                             Height="60"
@@ -75,7 +67,7 @@
                             Margin="15 10"
                             FontSize="40"/>
                         <TextBox x:Name="ServiceTB"
-                            Margin="86 10 10 10"
+                            Margin="91 10 10 10"
                             FontSize="40"
                             Width="650"
                             Height="60"
@@ -87,18 +79,64 @@
                             Style="{StaticResource ChooseButton}" Click="ChooseServiceBTN_Click"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Стоимость:"
+                            Margin="15 10"
+                            FontSize="40"/>
+                        <TextBox x:Name="PriceServiceTB"
+                            Margin="19 10 10 10"
+                            FontSize="40"
+                            Width="650"
+                            Height="60"
+                            IsReadOnly="True"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Скидка:"
+                            Margin="15 10"
+                            FontSize="40"/>
+                        <ComboBox x:Name="DiscountCB" Style="{StaticResource ComboboxStyle}"
+                            Margin="80 10 10 10"
+                            FontSize="40"
+                            Width="650"
+                            Height="60"
+                            ItemsSource="{Binding discounts}" SelectionChanged="DiscountCB_SelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name}"
+                                            FontSize="40"/>
+                                        <TextBlock Text=" "
+                                            FontSize="40"/>
+                                        <TextBlock Text="{Binding Percent, StringFormat={}{0}%}"
+                                            FontSize="40"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Итого:"
+                            Margin="15 10"
+                            FontSize="40"/>
+                        <TextBox x:Name="FinalPriceTB"
+                            Margin="105 10 10 10"
+                            FontSize="40"
+                            Width="650"
+                            Height="60"
+                            IsReadOnly="True"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Дата:"
                             Margin="15 10"
                             FontSize="40"/>
                         <DatePicker x:Name="DateDP"
-                            Margin="125 10 10 10"
+                            Margin="130 10 10 10"
                             FontSize="40"
                             Width="400"
                             Height="60"
                             BorderBrush="#6d584e"
                             HorizontalAlignment="Left"/>
                     </StackPanel>
-                    
+
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Время:"
                             Margin="15 10"
@@ -106,25 +144,15 @@
                         <Border Style="{StaticResource TimePicker}"
                             Width="60"
                             Height="60"
-                            Margin="98 10 10 10"
+                            Margin="103 10 10 10"
                             CornerRadius="180"
                             HorizontalAlignment="Left">
                             <materialDesign:TimePicker
                                 x:Name="TimeTP"
                                 FontSize="40"
-                                HorizontalAlignment="Center"
-                                SelectedTimeChanged="TimeTP_SelectedTimeChanged"/>
+                                HorizontalAlignment="Center"/>
                         </Border>
                     </StackPanel>
-                    <!--<TextBox x:Name="TimeTB"
-                        Margin="10"
-                        FontSize="40"
-                        Width="400"
-                        Height="60"
-                        TextChanged="TimeTB_TextChanged"
-                        PreviewTextInput="TimeTB_PreviewTextInput" 
-                        LostFocus="TimeTB_LostFocus"
-                        HorizontalAlignment="Left"/>-->
                 </StackPanel>
                 <StackPanel Orientation="Vertical"
                     Margin="20"
@@ -486,7 +514,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Bottom"
             Click="SaveBTN_Click"
-            Margin="0 0 0 40">
+            Margin="0 0 0 20">
             <TextBlock Text="Добавить"
                 FontSize="40"/>
         </Button>

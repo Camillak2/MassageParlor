@@ -41,6 +41,41 @@ namespace MassageParlor.Pages
             services = DBConnection.massageSalon.Service.ToList();
             this.DataContext = this;
         }
+
+        private void SliderGo()
+        {
+            var vilterServices = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID).ToList();
+
+            double max = Convert.ToDouble(services[0].Price);
+            double min = Convert.ToDouble(services[0].Price);
+
+
+            foreach (Service service in services)
+            {
+                if (Convert.ToDouble(service.Price) > max)
+                {
+                    max = Convert.ToDouble(service.Price);
+                }
+                if (Convert.ToDouble(service.Price) < min)
+                {
+                    min = Convert.ToDouble(service.Price);
+                }
+            }
+            PriceSlider.Maximum = max;
+            PriceSlider.Minimum = min;
+            PriceSlider.Value = max;
+
+            vilterServices = vilterServices.Where(x => (double)x.ID <= PriceSlider.Value).ToList();
+
+            ServicesLV.ItemsSource = vilterServices;
+            ServicesForMassagistLV.ItemsSource = vilterServices;
+        }
+
+        private void PriceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            SliderGo();
+        }
+
         public void Refresh()
         {
             ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID).ToList();
