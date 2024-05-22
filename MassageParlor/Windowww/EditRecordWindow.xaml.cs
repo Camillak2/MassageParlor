@@ -260,15 +260,11 @@ namespace MassageParlor.Windowww
 
         private void DiscountCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Discount selectedDiscount = (Discount)DiscountCB.SelectedItem;
-            Client selectedClient = (Client)ClientsLV.SelectedItem;
-            dynamic selectedService = ServicesLV.SelectedItem;
-            //dynamic selectedClient = ClientsLV.SelectedItem;
             if (ServicesLV.SelectedItem != null)
             {
                 if (DiscountCB.SelectedIndex == 0)
                 {
-                    PriceServiceTB.Text = selectedService.Price.ToString();
+                    PriceServiceTB.Text = contextRecord.Service.Price.ToString();
                     FinalPriceTB.Text = PriceServiceTB.Text;
                     contextRecord.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
                     contextRecord.ID_Discount = 1;
@@ -277,13 +273,7 @@ namespace MassageParlor.Windowww
                 {
                     if (DiscountCB.SelectedIndex == 1)
                     {
-                        if (records.Any(i => i.ID_Client == selectedClient.ID))
-                        {
-                            MessageBox.Show($"Клиенту {selectedClient.Name} эта скидка недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
-                            DiscountCB.SelectedIndex = 0;
-                            return;
-                        }
-                        else if (records.Any(i => i.ID_Client == contextRecord.ID_Client))
+                        if (records.Any(i => i.ID_Client == contextRecord.Client.ID))
                         {
                             MessageBox.Show($"Клиенту {contextRecord.Client.Name} эта скидка недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
                             DiscountCB.SelectedIndex = 0;
@@ -291,43 +281,31 @@ namespace MassageParlor.Windowww
                         }
                         else
                         {
-                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
+                            FinalPriceTB.Text = contextRecord.FinalPrice.ToString();
                             contextRecord.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
                             contextRecord.ID_Discount = 2;
                         }
                     }
                     else if (DiscountCB.SelectedIndex == 2)
                     {
-                        if (Convert.ToDateTime(selectedClient.DateOfBirth).Day == DateTime.Now.Day)
+                        if (Convert.ToDateTime(contextRecord.Client.DateOfBirth).Day == DateTime.Now.Day)
                         {
-                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 30).ToString();
-                            contextRecord.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                            contextRecord.ID_Discount = 3;
-                        }
-                        else if (Convert.ToDateTime(contextRecord.Client.DateOfBirth).Day == DateTime.Now.Day)
-                        {
-                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 30).ToString();
+                            FinalPriceTB.Text = (contextRecord.FinalPrice).ToString();
                             contextRecord.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
                             contextRecord.ID_Discount = 3;
                         }
                         else
                         {
-                            MessageBox.Show($"Клиенту {selectedClient.Name} эта скидка недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show($"Клиенту {contextRecord.Client.Name} эта скидка недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
                             DiscountCB.SelectedIndex = 0;
                             return;
                         }
                     }
                     else if (DiscountCB.SelectedIndex == 3)
                     {
-                        if (selectedService.TypeOfService.Name == "SPA для лица")
+                        if (contextRecord.Service.TypeOfService.Name == "SPA для лица")
                         {
-                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 2).ToString();
-                            contextRecord.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                            contextRecord.ID_Discount = 4;
-                        }
-                        else if (contextRecord.Service.TypeOfService.Name == "SPA для лица")
-                        {
-                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 2).ToString();
+                            FinalPriceTB.Text = (contextRecord.FinalPrice).ToString();
                             contextRecord.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
                             contextRecord.ID_Discount = 4;
                         }
@@ -346,73 +324,8 @@ namespace MassageParlor.Windowww
             }
             else
             {
-                if (DiscountCB.SelectedIndex == 1)
-                {
-                    if (records.Any(i => i.ID_Client == selectedClient.ID))
-                    {
-                        MessageBox.Show($"Клиенту {selectedClient.Name} эта скидка недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
-                        DiscountCB.SelectedIndex = 0;
-                        return;
-                    }
-                    else if (records.Any(i => i.ID_Client == contextRecord.ID_Client))
-                    {
-                        MessageBox.Show($"Клиенту {contextRecord.Client.Name} эта скидка недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
-                        DiscountCB.SelectedIndex = 0;
-                        return;
-                    }
-                    else
-                    {
-                        FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
-                        contextRecord.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                        contextRecord.ID_Discount = 2;
-                    }
-                }
-                else if (DiscountCB.SelectedIndex == 2)
-                {
-                    if (selectedClient.DateOfBirth == null)
-                    {
-                        FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 30).ToString();
-                        contextRecord.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                        contextRecord.ID_Discount = 3;
-                    }
-                    else if (Convert.ToDateTime(contextRecord.Client.DateOfBirth).Day == DateTime.Now.Day)
-                    {
-                        FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 30).ToString();
-                        contextRecord.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                        contextRecord.ID_Discount = 3;
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Клиенту {selectedClient.Name} эта скидка недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
-                        DiscountCB.SelectedIndex = 0;
-                        return;
-                    }
-                }
-                else if (DiscountCB.SelectedIndex == 3)
-                {
-                    if (selectedService.TypeOfService.Name == "SPA для лица")
-                    {
-                        FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 2).ToString();
-                        contextRecord.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                        contextRecord.ID_Discount = 4;
-                    }
-                    else if (contextRecord.Service.TypeOfService.Name == "SPA для лица")
-                    {
-                        FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 2).ToString();
-                        contextRecord.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                        contextRecord.ID_Discount = 4;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Эта скидка применяется только к программе массажа лица.", "Внимание",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                        DiscountCB.SelectedIndex = 0;
-                        FinalPriceTB.Text = PriceServiceTB.Text;
-                        contextRecord.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                        contextRecord.ID_Discount = 1;
-                        return;
-                    }
-                }
+                ServiceTB.Text = "";
+                PriceServiceTB.Text = "";
             }
         }
 

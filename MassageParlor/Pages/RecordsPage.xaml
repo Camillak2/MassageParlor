@@ -325,6 +325,13 @@
                     Checked="LastRB_Checked"/>
                 <TextBlock Text="Показывать прошедшие"
                 Margin="20 0 0 0"/>
+                <StackPanel Orientation="Horizontal"
+                            Margin=" 30 0 0 0"
+                            x:Name="ForAdmin">
+                    <TextBlock Text="Итого по прошедшим:"
+                               Margin="20 0 20 0"/>
+                    <TextBox x:Name="SumPriceTB"/>
+                </StackPanel>
             </StackPanel>
             <StackPanel Margin="30 550 0 0"
                 VerticalAlignment="Center"
@@ -335,7 +342,7 @@
                 <TextBlock Text="Показывать все"
                 Margin="20 0 0 0"/>
             </StackPanel>
-            <StackPanel Margin="30 0 0 80"
+            <StackPanel Margin="30 0 0 100"
                         VerticalAlignment="Bottom"
                         Orientation="Horizontal">
                 <DatePicker x:Name="DateDP"
@@ -356,13 +363,10 @@
             <StackPanel Margin="30 0 0 40"
             VerticalAlignment="Bottom"
             Orientation="Horizontal">
-                <TextBlock Text="Прибыль за прошедшие"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"/>
-                <TextBlock x:Name="SumTB"
-                           Margin="20 0 0 0"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"/>
+                <Button x:Name="ChartBTN"
+                        Width="200" Click="ChartBTN_Click">
+                    <TextBlock Text="График"/>
+                </Button>
             </StackPanel>
             <Button HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"

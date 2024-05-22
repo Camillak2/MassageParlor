@@ -45,7 +45,7 @@ namespace MassageParlor.Windowww
 
         private void RefreshData()
         {
-            
+
         }
 
         private void InitializeDataInPage()
@@ -81,7 +81,7 @@ namespace MassageParlor.Windowww
                         }
                         else
                         {
-                            service.Price = Convert.ToInt32(CostTB.Text.Trim());
+                            service.Price = Convert.ToDecimal(CostTB.Text.Trim());
                         }
                     }
 

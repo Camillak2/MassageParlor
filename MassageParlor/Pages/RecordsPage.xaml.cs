@@ -33,13 +33,33 @@ namespace MassageParlor.Pages
         {
             InitializeComponent();
             loggedWorker = DBConnection.loginedWorker;
-            records = DBConnection.massageSalon.Record.ToList();
-            RecordsForAdminLV.ItemsSource = records;
-            RecordsForMassagistLV.ItemsSource = records;
             ActualRB.IsChecked = true;
+            AllRB.IsChecked = false;
+            LastRB.IsChecked = false;
+            records = DBConnection.massageSalon.Record.ToList();
             Refresh();
+            RefreshSumPrice();
             CheckConditionAndToggleButtonVisibility();
             this.DataContext = this;
+        }
+
+        private void RefreshSumPrice()
+        {
+            decimal result = 0;
+            foreach (var i in records)
+            {
+                if (i.DateTime < DateTime.Now)
+                {
+                    decimal c = Convert.ToDecimal(i.FinalPrice);
+                    result += c;
+                }
+                else
+                {
+                    result += 0;
+                }
+            }
+            SumPriceTB.Text = result.ToString() + "₽";
+            RecordsForAdminLV.ItemsSource = DBConnection.massageSalon.Record.ToList();
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -105,6 +125,7 @@ namespace MassageParlor.Pages
                 AddBTN.Visibility = Visibility.Visible;
                 LogOutBTN.Visibility = Visibility.Visible;
                 RecordsForAdminLV.Visibility = Visibility.Visible;
+                ForAdmin.Visibility = Visibility.Visible;
 
                 //Не видно
                 MassageBTN.Visibility = Visibility.Collapsed;
@@ -127,6 +148,7 @@ namespace MassageParlor.Pages
                 AddBTN.Visibility = Visibility.Collapsed;
                 ClientsBTN.Visibility = Visibility.Collapsed;
                 RecordsForAdminLV.Visibility= Visibility.Collapsed;
+                ForAdmin.Visibility= Visibility.Collapsed;
 
                 NameTB.Text = "Мои записи";
             }
@@ -258,6 +280,12 @@ namespace MassageParlor.Pages
             Refresh3();
             ActualRB.IsChecked = false;
             AllRB.IsChecked = false;
+        }
+
+        private void ChartBTN_Click(object sender, RoutedEventArgs e)
+        {
+            StatisticWindow statisticWindow = new StatisticWindow();
+            statisticWindow.Show();
         }
     }
 }

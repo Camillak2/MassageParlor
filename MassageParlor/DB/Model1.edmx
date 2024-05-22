@@ -327,14 +327,15 @@
     <edmx:ConceptualModels>
       <Schema Namespace="MassageSalonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="MassageSalonEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Gender" EntityType="MassageSalonModel.Gender" />
+          <EntitySet Name="Position" EntityType="MassageSalonModel.Position" />
+          <EntitySet Name="sysdiagrams" EntityType="MassageSalonModel.sysdiagrams" />
           <EntitySet Name="Appeals" EntityType="MassageSalonModel.Appeals" />
           <EntitySet Name="Client" EntityType="MassageSalonModel.Client" />
           <EntitySet Name="Discount" EntityType="MassageSalonModel.Discount" />
-          <EntitySet Name="Gender" EntityType="MassageSalonModel.Gender" />
-          <EntitySet Name="Position" EntityType="MassageSalonModel.Position" />
+          <EntitySet Name="Record" EntityType="MassageSalonModel.Record" />
           <EntitySet Name="Service" EntityType="MassageSalonModel.Service" />
           <EntitySet Name="Status" EntityType="MassageSalonModel.Status" />
-          <EntitySet Name="sysdiagrams" EntityType="MassageSalonModel.sysdiagrams" />
           <EntitySet Name="Taskk" EntityType="MassageSalonModel.Taskk" />
           <EntitySet Name="TypeOfService" EntityType="MassageSalonModel.TypeOfService" />
           <EntitySet Name="Worker" EntityType="MassageSalonModel.Worker" />
@@ -354,19 +355,6 @@
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Client" EntitySet="Client" />
           </AssociationSet>
-          <AssociationSet Name="FK_Worker_Gender" Association="MassageSalonModel.FK_Worker_Gender">
-            <End Role="Gender" EntitySet="Gender" />
-            <End Role="Worker" EntitySet="Worker" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Worker_Position" Association="MassageSalonModel.FK_Worker_Position">
-            <End Role="Position" EntitySet="Position" />
-            <End Role="Worker" EntitySet="Worker" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Service_TypeOfService" Association="MassageSalonModel.FK_Service_TypeOfService">
-            <End Role="TypeOfService" EntitySet="TypeOfService" />
-            <End Role="Service" EntitySet="Service" />
-          </AssociationSet>
-          <EntitySet Name="Record" EntityType="MassageSalonModel.Record" />
           <AssociationSet Name="FK_Record_Client" Association="MassageSalonModel.FK_Record_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="Record" EntitySet="Record" />
@@ -374,6 +362,14 @@
           <AssociationSet Name="FK_Record_Discount" Association="MassageSalonModel.FK_Record_Discount">
             <End Role="Discount" EntitySet="Discount" />
             <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Gender" Association="MassageSalonModel.FK_Worker_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Position" Association="MassageSalonModel.FK_Worker_Position">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="Worker" EntitySet="Worker" />
           </AssociationSet>
           <AssociationSet Name="FK_Record_Service" Association="MassageSalonModel.FK_Record_Service">
             <End Role="Service" EntitySet="Service" />
@@ -383,7 +379,39 @@
             <End Role="Worker" EntitySet="Worker" />
             <End Role="Record" EntitySet="Record" />
           </AssociationSet>
-        </EntityContainer>
+          <AssociationSet Name="FK_Service_TypeOfService" Association="MassageSalonModel.FK_Service_TypeOfService">
+            <End Role="TypeOfService" EntitySet="TypeOfService" />
+            <End Role="Service" EntitySet="Service" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="MassageSalonModel.FK_Client_Gender" FromRole="Gender" ToRole="Client" />
+          <NavigationProperty Name="Worker" Relationship="MassageSalonModel.FK_Worker_Gender" FromRole="Gender" ToRole="Worker" />
+          </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Worker" Relationship="MassageSalonModel.FK_Worker_Position" FromRole="Position" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="Appeals">
           <Key>
             <PropertyRef Name="ID" />
@@ -421,23 +449,21 @@
           <Property Name="Percent" Type="Int32" />
           <NavigationProperty Name="Record" Relationship="MassageSalonModel.FK_Record_Discount" FromRole="Discount" ToRole="Record" />
         </EntityType>
-        <EntityType Name="Gender">
+        <EntityType Name="Record">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Client" Relationship="MassageSalonModel.FK_Client_Gender" FromRole="Gender" ToRole="Client" />
-          <NavigationProperty Name="Worker" Relationship="MassageSalonModel.FK_Worker_Gender" FromRole="Gender" ToRole="Worker" />
-        </EntityType>
-        <EntityType Name="Position">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="Worker" Relationship="MassageSalonModel.FK_Worker_Position" FromRole="Position" ToRole="Worker" />
+          <Property Name="ID_Client" Type="Int32" />
+          <Property Name="ID_Service" Type="Int32" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ID_Worker" Type="Int32" />
+          <Property Name="FinalPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ID_Discount" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="MassageSalonModel.FK_Record_Client" FromRole="Record" ToRole="Client" />
+          <NavigationProperty Name="Discount" Relationship="MassageSalonModel.FK_Record_Discount" FromRole="Record" ToRole="Discount" />
+          <NavigationProperty Name="Service" Relationship="MassageSalonModel.FK_Record_Service" FromRole="Record" ToRole="Service" />
+          <NavigationProperty Name="Worker" Relationship="MassageSalonModel.FK_Record_Worker" FromRole="Record" ToRole="Worker" />
         </EntityType>
         <EntityType Name="Service">
           <Key>
@@ -450,8 +476,8 @@
           <Property Name="ID_TypeOfService" Type="Int32" />
           <Property Name="Duration" Type="Time" Precision="7" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="TypeOfService" Relationship="MassageSalonModel.FK_Service_TypeOfService" FromRole="Service" ToRole="TypeOfService" />
           <NavigationProperty Name="Record" Relationship="MassageSalonModel.FK_Record_Service" FromRole="Service" ToRole="Record" />
+          <NavigationProperty Name="TypeOfService" Relationship="MassageSalonModel.FK_Service_TypeOfService" FromRole="Service" ToRole="TypeOfService" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -460,16 +486,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Appeals" Relationship="MassageSalonModel.FK_Appeals_Status1" FromRole="Status" ToRole="Appeals" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Taskk">
           <Key>
@@ -557,60 +573,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Worker_Gender">
-          <End Type="MassageSalonModel.Gender" Role="Gender" Multiplicity="0..1" />
-          <End Type="MassageSalonModel.Worker" Role="Worker" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gender">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Worker">
-              <PropertyRef Name="ID_Gender" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Worker_Position">
-          <End Type="MassageSalonModel.Position" Role="Position" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="MassageSalonModel.Worker" Role="Worker" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Position">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Worker">
-              <PropertyRef Name="ID_Position" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Service_TypeOfService">
-          <End Type="MassageSalonModel.TypeOfService" Role="TypeOfService" Multiplicity="0..1" />
-          <End Type="MassageSalonModel.Service" Role="Service" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TypeOfService">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Service">
-              <PropertyRef Name="ID_TypeOfService" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Record">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Client" Type="Int32" />
-          <Property Name="ID_Service" Type="Int32" />
-          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ID_Worker" Type="Int32" />
-          <Property Name="FinalPrice" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ID_Discount" Type="Int32" />
-          <NavigationProperty Name="Client" Relationship="MassageSalonModel.FK_Record_Client" FromRole="Record" ToRole="Client" />
-          <NavigationProperty Name="Discount" Relationship="MassageSalonModel.FK_Record_Discount" FromRole="Record" ToRole="Discount" />
-          <NavigationProperty Name="Service" Relationship="MassageSalonModel.FK_Record_Service" FromRole="Record" ToRole="Service" />
-          <NavigationProperty Name="Worker" Relationship="MassageSalonModel.FK_Record_Worker" FromRole="Record" ToRole="Worker" />
-        </EntityType>
         <Association Name="FK_Record_Client">
           <End Type="MassageSalonModel.Client" Role="Client" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -634,6 +596,32 @@
             </Principal>
             <Dependent Role="Record">
               <PropertyRef Name="ID_Discount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Gender">
+          <End Type="MassageSalonModel.Gender" Role="Gender" Multiplicity="0..1" />
+          <End Type="MassageSalonModel.Worker" Role="Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="ID_Gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Position">
+          <End Type="MassageSalonModel.Position" Role="Position" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MassageSalonModel.Worker" Role="Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="ID_Position" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -665,12 +653,52 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Service_TypeOfService">
+          <End Type="MassageSalonModel.TypeOfService" Role="TypeOfService" Multiplicity="0..1" />
+          <End Type="MassageSalonModel.Service" Role="Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeOfService">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="ID_TypeOfService" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище MassageSalonModelContainer" CdmEntityContainer="MassageSalonEntities">
+          <EntitySetMapping Name="Gender">
+            <EntityTypeMapping TypeName="MassageSalonModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Position">
+            <EntityTypeMapping TypeName="MassageSalonModel.Position">
+              <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="MassageSalonModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Appeals">
             <EntityTypeMapping TypeName="MassageSalonModel.Appeals">
               <MappingFragment StoreEntitySet="Appeals">
@@ -705,19 +733,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Gender">
-            <EntityTypeMapping TypeName="MassageSalonModel.Gender">
-              <MappingFragment StoreEntitySet="Gender">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Position">
-            <EntityTypeMapping TypeName="MassageSalonModel.Position">
-              <MappingFragment StoreEntitySet="Position">
-                <ScalarProperty Name="Salary" ColumnName="Salary" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+          <EntitySetMapping Name="Record">
+            <EntityTypeMapping TypeName="MassageSalonModel.Record">
+              <MappingFragment StoreEntitySet="Record">
+                <ScalarProperty Name="ID_Discount" ColumnName="ID_Discount" />
+                <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
+                <ScalarProperty Name="ID_Worker" ColumnName="ID_Worker" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="ID_Service" ColumnName="ID_Service" />
+                <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -740,17 +764,6 @@
               <MappingFragment StoreEntitySet="Status">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="MassageSalonModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -789,20 +802,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Record">
-            <EntityTypeMapping TypeName="MassageSalonModel.Record">
-              <MappingFragment StoreEntitySet="Record">
-                <ScalarProperty Name="ID_Discount" ColumnName="ID_Discount" />
-                <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
-                <ScalarProperty Name="ID_Worker" ColumnName="ID_Worker" />
-                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
-                <ScalarProperty Name="ID_Service" ColumnName="ID_Service" />
-                <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

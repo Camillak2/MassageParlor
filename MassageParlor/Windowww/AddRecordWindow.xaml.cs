@@ -74,8 +74,12 @@ namespace MassageParlor.Windowww
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(MassagistTB.Text) || string.IsNullOrWhiteSpace(ServiceTB.Text) || string.IsNullOrWhiteSpace(ClientTB.Text) ||
-                        DateDP.SelectedDate == null || TimeTP.SelectedTime == null)
+                if (string.IsNullOrWhiteSpace(MassagistTB.Text) 
+                    || string.IsNullOrWhiteSpace(ServiceTB.Text) 
+                    || string.IsNullOrWhiteSpace(ClientTB.Text) 
+                    || DiscountCB.SelectedItem == null
+                    || DateDP.SelectedDate == null
+                    || TimeTP.SelectedTime == null)
                 {
                     MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
@@ -283,19 +287,6 @@ namespace MassageParlor.Windowww
                 ServicesLV.ItemsSource = DBConnection.massageSalon.Service.ToList();
         }
 
-        //private bool IsAppointmentConflict(Client client)
-        //{
-        //    // Проверка, есть ли уже запись в указанное время
-        //    return records.Any(a =>
-        //        a.ID_Client == client.ID &&
-        //        a.ID_Service == service.ID &&
-        //        a.ID_Worker == masseur.ID &&
-        //        a.Date.Date == appointmentDateTime.Date &&
-        //        a.Time.Value.Hours == appointmentDateTime.Hour &&
-        //        a.Time.Value.Minutes == appointmentDateTime.Minute
-        //    );
-        //}
-
         private void DiscountCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Discount selectedDiscount = (Discount)DiscountCB.SelectedItem;
@@ -366,8 +357,7 @@ namespace MassageParlor.Windowww
             }
             else
             {
-                ServiceTB.Text = "";
-                PriceServiceTB.Text = "";
+                MessageBox.Show("Выберите услугу.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }
