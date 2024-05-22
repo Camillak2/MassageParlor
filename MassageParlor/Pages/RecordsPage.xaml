@@ -294,19 +294,7 @@
                                         <TextBlock Text="Дата и время:"
                                             FontSize="24"/>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Date, StringFormat = dd.MM.yyyy}"
-                                                HorizontalAlignment="Left"
-                                                Foreground="White"
-                                                TextWrapping="Wrap"
-                                                TextAlignment="Left"
-                                                FontSize="22"/>
-                                            <TextBlock Text=" "
-                                                HorizontalAlignment="Left"
-                                                Foreground="White"
-                                                TextWrapping="Wrap"
-                                                TextAlignment="Left"
-                                                FontSize="22"/>
-                                            <TextBlock Text="{Binding Time}"
+                                            <TextBlock Text="{Binding DateTime, StringFormat = dd.MM.yyyy HH:mm}"
                                                 HorizontalAlignment="Left"
                                                 Foreground="White"
                                                 TextWrapping="Wrap"
@@ -323,15 +311,32 @@
             <StackPanel Margin="30 450 0 0"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
-                <CheckBox x:Name="AllCHB"
+                <RadioButton x:Name="ActualRB"
                       VerticalAlignment="Center"
-                      Checked="AllCHB_Checked"
-                      Unchecked="AllCHB_Unchecked"/>
-                <TextBlock Text="Показывать прошедшие"
+                      Checked="ActualCHB_Checked"/>
+                <TextBlock Text="Показывать актуальные"
                             Margin="20 0 0 0"/>
             </StackPanel>
+            <StackPanel Margin="30 500 0 0"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <RadioButton x:Name="LastRB"
+                    VerticalAlignment="Center"
+                    Checked="LastRB_Checked"/>
+                <TextBlock Text="Показывать прошедшие"
+                Margin="20 0 0 0"/>
+            </StackPanel>
             <StackPanel Margin="30 550 0 0"
-                        VerticalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <RadioButton x:Name="AllRB"
+                    VerticalAlignment="Center"
+                    Checked="AllCHB_Checked"/>
+                <TextBlock Text="Показывать все"
+                Margin="20 0 0 0"/>
+            </StackPanel>
+            <StackPanel Margin="30 0 0 80"
+                        VerticalAlignment="Bottom"
                         Orientation="Horizontal">
                 <DatePicker x:Name="DateDP"
                     VerticalAlignment="Center"
@@ -348,8 +353,8 @@
                                HorizontalAlignment="Center"/>
                 </Button>
             </StackPanel>
-            <StackPanel Margin="30 650 0 0"
-            VerticalAlignment="Center"
+            <StackPanel Margin="30 0 0 40"
+            VerticalAlignment="Bottom"
             Orientation="Horizontal">
                 <TextBlock Text="Прибыль за прошедшие"
                     VerticalAlignment="Center"

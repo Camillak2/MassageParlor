@@ -186,13 +186,6 @@
             <Setter Property="Foreground" Value="#FF3F3333"/>
         </Style>
 
-        <Style TargetType="RadioButton">
-            <Setter Property="FontSize" Value="30"/>
-            <Setter Property="FontFamily" Value="Book Antiqua"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="Black"/>
-        </Style>
-
         <Style TargetType="DatePicker">
             <Setter Property="FontSize" Value="30"/>
             <Setter Property="FontFamily" Value="Courier New"/>
@@ -329,6 +322,42 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
+        <Style TargetType="RadioButton">
+            <!-- Установим базовые свойства -->
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="ellipse"
+                                 Width="20"
+                                 Height="20"
+                                 Stroke="#6d584e"
+                                 StrokeThickness="2"
+                                 Fill="#907669"
+                                 Margin="0,0,5,0"/>
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="ellipse" Property="Fill" Value="#6d584e"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ellipse" Property="Stroke" Value="#FF3F3333"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ellipse" Property="Stroke" Value="#6d584e"/>
+                                <Setter TargetName="ellipse" Property="Fill" Value="#907669"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Application.Resources>
 </Application>

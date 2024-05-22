@@ -36,6 +36,7 @@ namespace MassageParlor.Pages
             records = DBConnection.massageSalon.Record.ToList();
             RecordsForAdminLV.ItemsSource = records;
             RecordsForMassagistLV.ItemsSource = records;
+            ActualRB.IsChecked = true;
             Refresh();
             CheckConditionAndToggleButtonVisibility();
             this.DataContext = this;
@@ -49,6 +50,9 @@ namespace MassageParlor.Pages
             }
             else
             {
+                ActualRB.IsChecked = false;
+                AllRB.IsChecked = false;
+                LastRB.IsChecked = false;
                 records = DBConnection.massageSalon.Record.ToList();
                 var sortedRecords = records.OrderBy(r => r.DateTime.Date).ThenBy(r => r.DateTime.TimeOfDay).ToList();
                 Records = new ObservableCollection<Record>(sortedRecords);
@@ -76,6 +80,16 @@ namespace MassageParlor.Pages
 
             RecordsForAdminLV.ItemsSource = Records;
             RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID);
+        }
+
+        public void Refresh3()
+        {
+            records = DBConnection.massageSalon.Record.ToList();
+            var sortedRecords = records.OrderBy(r => r.DateTime.Date).ThenBy(r => r.DateTime.TimeOfDay).ToList();
+            Records = new ObservableCollection<Record>(sortedRecords);
+
+            RecordsForAdminLV.ItemsSource = Records.Where(i => i.DateTime < DateTime.Now);
+            RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID && i.DateTime < DateTime.Now);
         }
 
         private void CheckConditionAndToggleButtonVisibility()
@@ -190,17 +204,6 @@ namespace MassageParlor.Pages
             NavigationService.Navigate(new MainMenuPage());
         }
 
-        private void AllCHB_Unchecked(object sender, RoutedEventArgs e)
-        {
-            Refresh();
-        }
-
-        private void AllCHB_Checked(object sender, RoutedEventArgs e)
-        {
-            DateDP.SelectedDate = null;
-            Refresh2();
-        }
-
         private void RecordsForAdminLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (RecordsForAdminLV.SelectedItem is Record record)
@@ -229,6 +232,30 @@ namespace MassageParlor.Pages
         {
             DateDP.SelectedDate = null;
             Refresh();
+        }
+
+        private void ActualCHB_Checked(object sender, RoutedEventArgs e)
+        {
+            DateDP.SelectedDate = null;
+            Refresh();
+            AllRB.IsChecked = false;
+            LastRB.IsChecked = false;
+        }
+
+        private void AllCHB_Checked(object sender, RoutedEventArgs e)
+        {
+            DateDP.SelectedDate = null;
+            Refresh2();
+            ActualRB.IsChecked = false;
+            LastRB.IsChecked = false;
+        }
+
+        private void LastRB_Checked(object sender, RoutedEventArgs e)
+        {
+            DateDP.SelectedDate = null;
+            Refresh3();
+            ActualRB.IsChecked = false;
+            AllRB.IsChecked = false;
         }
     }
 }

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net.Http;
 
 namespace MassageParlor.Pages
 {
@@ -26,33 +27,46 @@ namespace MassageParlor.Pages
         public MassagePage()
         {
             InitializeComponent();
-            Image image1 = new Image();
-            image1.Source = new BitmapImage(new Uri("path/to/Images/body.png", UriKind.Relative)); // Замените путь на ваш файл изображения
-            image1.MouseEnter += Image_MouseEnter;
-            image1.MouseLeave += Image_MouseLeave;
-            image1.ToolTip = tooltip;
-
-            tooltip.Content = "Это описание для изображения 1.";
         }
 
-        private void Image_MouseEnter(object sender, MouseEventArgs e)
+        private async void SpeakButton_Click(object sender, RoutedEventArgs e)
         {
-            // Показать tooltip
-            Image image = (Image)sender;
-            Point mousePosition = e.GetPosition(image); // Получите позицию курсора над картинкой
+            string textToSpeak = "Привет, мир!";
+            string apiUrl = "https://api.voicerss.org/?key=YOUR_API_KEY&hl=ru-RU&src=" + textToSpeak;
 
-            // Настройка положения tooltip 
-            // (Например, разместите его справа от курсора)
-            tooltip.PlacementTarget = image;
-            tooltip.Placement = System.Windows.Controls.Primitives.PlacementMode.Right;
+            using (HttpClient client = new HttpClient())
+            {
+                var response = await client.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    byte[] audioData = await response.Content.ReadAsByteArrayAsync();
+                    // Воспроизведение полученного аудио
+                    // ...
+                }
+                else
+                {
+                    // Обработка ошибки
+                }
+            }
+        }
+
+        private void Canvas_MouseEnter(object sender, MouseEventArgs e)
+        {
+            // Покажите tooltip
             tooltip.IsOpen = true;
         }
 
-        private void Image_MouseLeave(object sender, MouseEventArgs e)
+        private void Canvas_MouseLeave(object sender, MouseEventArgs e)
         {
-            // Скрыть tooltip
+            // Скройте tooltip
             tooltip.IsOpen = false;
         }
+
+        //private void Image_MouseLeave(object sender, MouseEventArgs e)
+        //{
+        //    // Скрыть tooltip
+        //    tooltip.IsOpen = false;
+        //}
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)
         {
@@ -88,6 +102,8 @@ namespace MassageParlor.Pages
             }
             //printDialog.PrintQueue.Dispose();
         }
+
+
 
         //private void One_Click(object sender, RoutedEventArgs e)
         //{
