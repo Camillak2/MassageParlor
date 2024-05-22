@@ -226,6 +226,8 @@ namespace MassageParlor.Pages
                 return;
             }
             Refresh();
+            //MessageBox.Show("Запись изменить нельзя. Удалите запись и создайте новую.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+            //return;
         }
 
         private void CleanBTN_Click(object sender, RoutedEventArgs e)
