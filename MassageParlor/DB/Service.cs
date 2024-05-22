@@ -23,13 +23,13 @@ namespace MassageParlor.DB
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Nullable<int> Price { get; set; }
+        public Nullable<decimal> Price { get; set; }
         public Nullable<int> ID_TypeOfService { get; set; }
         public Nullable<System.TimeSpan> Duration { get; set; }
         public byte[] Image { get; set; }
     
+        public virtual TypeOfService TypeOfService { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Record> Record { get; set; }
-        public virtual TypeOfService TypeOfService { get; set; }
     }
 }

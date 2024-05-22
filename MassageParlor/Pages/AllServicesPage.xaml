@@ -209,7 +209,7 @@
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Left"
                     Margin="15 0 0 80"/>
-                <StackPanel Orientation="Horizontal"
+                <!--<StackPanel Orientation="Horizontal"
                             VerticalAlignment="Bottom"
                             Margin="15 0 0 30">
                     <Slider Name="PriceSlider"
@@ -228,8 +228,32 @@
                         Path=Value, 
                         StringFormat='{}{0}₽'}"
                         Margin="5 15 0 0"/>
+                </StackPanel>-->
+                <StackPanel Orientation="Horizontal"
+                            Margin="15 0 0 30"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Left">
+                    <TextBlock Text="Цена: "
+                               VerticalAlignment="Center"
+                               Margin="0,0,5,0"/>
+                    <Slider x:Name="PriceSlider"
+                            Width="300"
+                            VerticalAlignment="Center"
+                            Minimum="0"
+                            Maximum="20000"
+                            Value="20000"
+                            TickFrequency="10"
+                            IsSnapToTickEnabled="True"
+                            Background="#907669"
+                            ValueChanged="PriceSlider_ValueChanged"/>
+                    <TextBlock x:Name="PriceTB"
+                        VerticalAlignment="Center"
+                        Text="{Binding ElementName=PriceSlider, 
+                        Path=Value,
+                        StringFormat='{}{0:F2}₽'}"
+                        Margin="10 0 0 0"/>
                 </StackPanel>
-                
+
                 <!--<Slider Width="500"
                     Orientation="Horizontal"
                     HorizontalAlignment="Left"

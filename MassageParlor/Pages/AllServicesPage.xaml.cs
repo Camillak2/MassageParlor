@@ -42,46 +42,34 @@ namespace MassageParlor.Pages
             this.DataContext = this;
         }
 
-        private void SliderGo()
-        {
-            var vilterServices = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID).ToList();
-
-            double max = Convert.ToDouble(services[0].Price);
-            double min = Convert.ToDouble(services[0].Price);
-
-
-            foreach (Service service in services)
-            {
-                if (Convert.ToDouble(service.Price) > max)
-                {
-                    max = Convert.ToDouble(service.Price);
-                }
-                if (Convert.ToDouble(service.Price) < min)
-                {
-                    min = Convert.ToDouble(service.Price);
-                }
-            }
-            PriceSlider.Maximum = max;
-            PriceSlider.Minimum = min;
-            PriceSlider.Value = max;
-
-            vilterServices = vilterServices.Where(x => (double)x.ID <= PriceSlider.Value).ToList();
-
-            ServicesLV.ItemsSource = vilterServices;
-            ServicesForMassagistLV.ItemsSource = vilterServices;
-        }
-
         private void PriceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            SliderGo();
+            if (PriceTB != null)
+            {
+                PriceTB.Text = PriceSlider.Value.ToString("F2") + "₽";
+                FilterAndSortRecords();
+            }
+        }
+
+        private void FilterAndSortRecords()
+        {
+            if (SearchTB.Text.Length > 0)
+            {
+                var filteredRecords = services.Where(r => r.ID_TypeOfService == contextType.ID && r.Price <= (decimal)PriceSlider.Value && r.Name.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())).OrderBy(r => r.Price).ToList();
+                ServicesLV.ItemsSource = filteredRecords;
+                ServicesForMassagistLV.ItemsSource = filteredRecords;
+            }
+            else
+            {
+                var filteredRecords = services.Where(r => r.ID_TypeOfService == contextType.ID && r.Price <= (decimal)PriceSlider.Value).OrderBy(r => r.Price).ToList();
+                ServicesLV.ItemsSource = filteredRecords;
+                ServicesForMassagistLV.ItemsSource = filteredRecords;
+            }
         }
 
         public void Refresh()
         {
             ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID).ToList();
-        }
-        public void Refresh1()
-        {
             ServicesForMassagistLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID).ToList();
         }
 
@@ -139,7 +127,6 @@ namespace MassageParlor.Pages
                 MassageBTN.Visibility = Visibility.Collapsed;
                 ServicesForMassagistLV.Visibility = Visibility.Collapsed;
 
-
                 Refresh();
             }
             else if (loggedWorker.Position.Name == "Массажист")
@@ -158,8 +145,7 @@ namespace MassageParlor.Pages
                 ServicesLV.Visibility = Visibility.Collapsed;
                 AddBTN.Visibility = Visibility.Collapsed;
 
-
-                Refresh1();
+                Refresh();
             }
         }
 
@@ -239,24 +225,16 @@ namespace MassageParlor.Pages
 
         private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (loggedWorker.Position.Name == "Администратор")
+            PriceSlider.Value = 200000;
+            if (SearchTB.Text.Length > 0)
             {
-                if (SearchTB.Text.Length > 0)
-
-                    ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID && i.Name.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
-
-                else
-                    Refresh();
+                ServicesForMassagistLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID && i.Name.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
+                ServicesLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID && i.Name.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
             }
-            else if (loggedWorker.Position.Name == "Массажист")
+            else
             {
-                if (SearchTB.Text.Length > 0)
-
-                    ServicesForMassagistLV.ItemsSource = DBConnection.massageSalon.Service.Where(i => i.ID_TypeOfService == contextType.ID && i.Name.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
-
-                else
-                    Refresh1();
-            } 
+                Refresh();
+            }
         }
     }
 }

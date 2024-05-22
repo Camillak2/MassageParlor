@@ -50,28 +50,28 @@ namespace MassageParlor.Pages
             else
             {
                 records = DBConnection.massageSalon.Record.ToList();
-                var sortedRecords = records.OrderBy(r => r.Date).ThenBy(r => r.Time).ToList();
+                var sortedRecords = records.OrderBy(r => r.DateTime.Date).ThenBy(r => r.DateTime.TimeOfDay).ToList();
                 Records = new ObservableCollection<Record>(sortedRecords);
 
-                RecordsForAdminLV.ItemsSource = Records.Where(i => i.Date == DateDP.SelectedDate);
-                RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID && i.Date == DateDP.SelectedDate);
+                RecordsForAdminLV.ItemsSource = Records.Where(i => i.DateTime.Date == DateDP.SelectedDate);
+                RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID && i.DateTime == DateDP.SelectedDate);
             }
         }
 
         public void Refresh()
         {
             records = DBConnection.massageSalon.Record.ToList();
-            var sortedRecords = records.OrderBy(r => r.Date).ThenBy(r => r.Time).ToList();
+            var sortedRecords = records.OrderBy(r => r.DateTime.Date).ThenBy(r => r.DateTime.TimeOfDay).ToList();
             Records = new ObservableCollection<Record>(sortedRecords);
 
-            RecordsForAdminLV.ItemsSource = Records.Where(i => i.Date >= DateTime.Today);
-            RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID && i.Date >= DateTime.Today);
+            RecordsForAdminLV.ItemsSource = Records.Where(i => i.DateTime >= DateTime.Now);
+            RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID && i.DateTime >= DateTime.Now);
         }
 
         public void Refresh2()
         {
             records = DBConnection.massageSalon.Record.ToList();
-            var sortedRecords = records.OrderBy(r => r.Date).ThenBy(r => r.Time).ToList();
+            var sortedRecords = records.OrderBy(r => r.DateTime.Date).ThenBy(r => r.DateTime.TimeOfDay).ToList();
             Records = new ObservableCollection<Record>(sortedRecords);
 
             RecordsForAdminLV.ItemsSource = Records;
@@ -121,13 +121,13 @@ namespace MassageParlor.Pages
         private void DeleteHL_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            var lastTime = records.Select(x => x.Time);
+            var lastTime = records.Select(x => x.DateTime.TimeOfDay);
            
 
             if (result == MessageBoxResult.Yes)
             {
                 var record = (sender as Hyperlink).DataContext as Record;
-                if (record.Date > DateTime.Now)
+                if (record.DateTime > DateTime.Now)
                 {
                     DBConnection.massageSalon.Record.Remove(record);
                     DBConnection.massageSalon.SaveChanges();
@@ -205,7 +205,7 @@ namespace MassageParlor.Pages
         {
             if (RecordsForAdminLV.SelectedItem is Record record)
             {
-                if (record.Date < DateTime.Today)
+                if (record.DateTime < DateTime.Now)
                 {
                     MessageBox.Show("Эту запись нельзя изменить.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;

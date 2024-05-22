@@ -32,6 +32,7 @@ namespace MassageParlor.Windowww
         public static List<Service> services { get; set; }
         public static List<Discount> discounts { get; set; }
         public static List<TypeOfService> types { get; set; }
+        public static List<Record> records { get; set; }
 
         public static Record record = new Record();
 
@@ -44,6 +45,7 @@ namespace MassageParlor.Windowww
             services = DBConnection.massageSalon.Service.ToList();
             types = DBConnection.massageSalon.TypeOfService.ToList();
             discounts = DBConnection.massageSalon.Discount.ToList();
+            records = DBConnection.massageSalon.Record.ToList();
             DiscountCB.SelectedIndex = 0;
             Refresh();
             this.DataContext = this;
@@ -66,12 +68,6 @@ namespace MassageParlor.Windowww
                 MessageBox.Show("Нельзя выбрать прошедшую дату.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 DateDP.SelectedDate = null;
             }
-        }
-
-        private void TimeTP_SelectedTimeChanged(object sender, SelectionChangedEventArgs e)
-        {
-            TimeSpan selectedTime = TimeTP.SelectedTime.Value.TimeOfDay;
-            record.Time = selectedTime;
         }
 
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
@@ -98,31 +94,15 @@ namespace MassageParlor.Windowww
                         return;
                     }
 
-                    record.Date = DateDP.SelectedDate.Value;
-                    if (TimeTP.SelectedTime.HasValue)
+                    if (DateDP.SelectedDate == null || TimeTP.SelectedTime == null)
                     {
-                        // Получаем выбранное время
-                        TimeSpan selectedTime = TimeTP.SelectedTime.Value.TimeOfDay;
-                        record.Time = selectedTime;
-                        //// Получаем текущее время
-                        //TimeSpan currentTime = DateTime.Now.TimeOfDay;
-
-                        //// Сравниваем времена
-                        //int comparisonResult = selectedTime.CompareTo(currentTime);
-
-                        //if (comparisonResult < 0)
-                        //{
-                        //    TimeTB.Text = "Выбранное время раньше текущего.";
-                        //}
-                        //else if (comparisonResult > 0)
-                        //{
-                        //    TimeTB.Text = "Выбранное время позже текущего.";
-                        //    record.Time = selectedTime;
-                        //}
-                        //else
-                        //{
-                        //    TimeTB.Text = "Выбранное время совпадает с текущим.";
-                        //}
+                        MessageBox.Show("Пожалуйста, выберите дату и время.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
+                    }
+                    else
+                    {
+                        DateTime recordDateTime = DateDP.SelectedDate.Value.Date.Add(TimeTP.SelectedTime.Value.TimeOfDay);
+                        record.DateTime = recordDateTime;
                     }
 
                     DBConnection.massageSalon.Record.Add(record);
@@ -136,6 +116,19 @@ namespace MassageParlor.Windowww
                 return;
             }
         }
+
+        //private bool IsAppointmentConflict(Client client, Service service, Worker masseur, DateTime appointmentDateTime)
+        //{
+        //    // Проверка, есть ли уже запись в указанное время
+        //    return records.Any(a =>
+        //        a.ID_Client == client.ID &&
+        //        a.ID_Service == service.ID &&
+        //        a.ID_Worker == masseur.ID &&
+        //        a.Date.Date == appointmentDateTime.Date &&
+        //        a.Time.Value.Hours == appointmentDateTime.Hour &&
+        //        a.Time.Value.Minutes == appointmentDateTime.Minute
+        //    );
+        //}
 
         private void ChooseMassagistBTN_Click(object sender, RoutedEventArgs e)
         {
@@ -290,12 +283,27 @@ namespace MassageParlor.Windowww
                 ServicesLV.ItemsSource = DBConnection.massageSalon.Service.ToList();
         }
 
+        //private bool IsAppointmentConflict(Client client)
+        //{
+        //    // Проверка, есть ли уже запись в указанное время
+        //    return records.Any(a =>
+        //        a.ID_Client == client.ID &&
+        //        a.ID_Service == service.ID &&
+        //        a.ID_Worker == masseur.ID &&
+        //        a.Date.Date == appointmentDateTime.Date &&
+        //        a.Time.Value.Hours == appointmentDateTime.Hour &&
+        //        a.Time.Value.Minutes == appointmentDateTime.Minute
+        //    );
+        //}
+
         private void DiscountCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Discount selectedDiscount = (Discount)DiscountCB.SelectedItem;
+            Client selectedClient = (Client)ClientsLV.SelectedItem;
+
+            dynamic selectedItem = ServicesLV.SelectedItem;
             if (ServicesLV.SelectedItem != null)
             {
-                dynamic selectedItem = ServicesLV.SelectedItem;
-
                 if (DiscountCB.SelectedIndex == 0)
                 {
                     PriceServiceTB.Text = selectedItem.Price.ToString();
@@ -307,18 +315,34 @@ namespace MassageParlor.Windowww
                 {
                     if (DiscountCB.SelectedIndex == 1)
                     {
-                        FinalPriceTB.Text = (selectedItem.Price - selectedItem.Price / 100 * 20).ToString();
-                        record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                        record.ID_Discount = 2;
+                        if(records.Any(i => i.ID_Client == selectedClient.ID))
+                        {
+                            MessageBox.Show($"Клиенту {selectedClient.Name} эта скидка недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+                            DiscountCB.SelectedIndex = 0;
+                            return;
+                        }
+                        else
+                        {
+                            FinalPriceTB.Text = (selectedItem.Price - selectedItem.Price / 100 * 20).ToString();
+                            record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                            record.ID_Discount = 2;
+                        }
                     }
-
                     else if (DiscountCB.SelectedIndex == 2)
                     {
-                        FinalPriceTB.Text = (selectedItem.Price - selectedItem.Price / 100 * 30).ToString();
-                        record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                        record.ID_Discount = 3;
+                        if (Convert.ToDateTime(selectedClient.DateOfBirth).Day == DateTime.Now.Day)
+                        {
+                            FinalPriceTB.Text = (selectedItem.Price - selectedItem.Price / 100 * 30).ToString();
+                            record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                            record.ID_Discount = 3;
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Клиенту {selectedClient.Name} эта скидка недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+                            DiscountCB.SelectedIndex = 0;
+                            return;
+                        }
                     }
-
                     else if (DiscountCB.SelectedIndex == 3)
                     {
                         if (selectedItem.TypeOfService.Name == "SPA для лица")
@@ -330,7 +354,7 @@ namespace MassageParlor.Windowww
                         else
                         {
                             MessageBox.Show("Эта скидка применяется только к программе массажа лица.", "Внимание", 
-                                MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBoxButton.OK, MessageBoxImage.Information);
                             DiscountCB.SelectedIndex = 0;
                             FinalPriceTB.Text = PriceServiceTB.Text;
                             record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());

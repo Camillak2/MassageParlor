@@ -149,6 +149,10 @@
                         <TextBlock Text="Время:"
                             Margin="15 10"
                             FontSize="40"/>
+                        <TextBlock x:Name="TimeTB"
+                            Margin="15 10"
+                            FontSize="40"
+                            Visibility="Collapsed"/>
                         <Border Style="{StaticResource TimePicker}"
                             Width="60"
                             Height="60"

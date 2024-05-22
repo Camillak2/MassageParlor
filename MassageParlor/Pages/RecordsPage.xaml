@@ -66,31 +66,31 @@
                                         <TextBlock Text="Массажист:"
                                                    FontSize="24"/>
                                         <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Worker.Surname}"
+                                            <TextBlock Text="{Binding Worker.Surname}"
                                             HorizontalAlignment="Left"
                                             Foreground="White"
                                             TextWrapping="Wrap"
                                             TextAlignment="Left"
                                             FontSize="22"/>
-                                        <TextBlock Text=" "
+                                            <TextBlock Text=" "
                                             HorizontalAlignment="Left"
                                             Foreground="White"
                                             TextWrapping="Wrap"
                                             TextAlignment="Left"
                                             FontSize="22"/>
-                                        <TextBlock Text="{Binding Worker.Name}"
+                                            <TextBlock Text="{Binding Worker.Name}"
                                             HorizontalAlignment="Left"
                                             Foreground="White"
                                             TextWrapping="Wrap"
                                             TextAlignment="Left"
                                             FontSize="22"/>
-                                        <TextBlock Text=" "
+                                            <TextBlock Text=" "
                                             HorizontalAlignment="Left"
                                             Foreground="White"
                                             TextWrapping="Wrap"
                                             TextAlignment="Left"
                                             FontSize="22"/>
-                                        <TextBlock Text="{Binding Worker.Patronymic}"
+                                            <TextBlock Text="{Binding Worker.Patronymic}"
                                             HorizontalAlignment="Left"
                                             Foreground="White"
                                             TextWrapping="Wrap"
@@ -158,19 +158,7 @@
                                         <TextBlock Text="Дата и время:"
                                             FontSize="24"/>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Date, StringFormat = dd.MM.yyyy}"
-                                                HorizontalAlignment="Left"
-                                                Foreground="White"
-                                                TextWrapping="Wrap"
-                                                TextAlignment="Left"
-                                                FontSize="22"/>
-                                            <TextBlock Text=" "
-                                                HorizontalAlignment="Left"
-                                                Foreground="White"
-                                                TextWrapping="Wrap"
-                                                TextAlignment="Left"
-                                                FontSize="22"/>
-                                            <TextBlock Text="{Binding Time}"
+                                            <TextBlock Text="{Binding DateTime, StringFormat = dd.MM.yyyy HH:mm}"
                                                 HorizontalAlignment="Left"
                                                 Foreground="White"
                                                 TextWrapping="Wrap"
@@ -188,7 +176,7 @@
                                             TextWrapping="Wrap"
                                             TextAlignment="Left"
                                             FontSize="24"/>
-                                        <TextBlock Text=" "
+                                            <TextBlock Text=" "
                                             HorizontalAlignment="Left"
                                             Foreground="White"
                                             TextWrapping="Wrap"
@@ -360,6 +348,17 @@
                                HorizontalAlignment="Center"/>
                 </Button>
             </StackPanel>
+            <StackPanel Margin="30 650 0 0"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+                <TextBlock Text="Прибыль за прошедшие"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
+                <TextBlock x:Name="SumTB"
+                           Margin="20 0 0 0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+            </StackPanel>
             <Button HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 Height="100"
@@ -367,20 +366,20 @@
                 x:Name="AddBTN"
                 Margin="300 0 0 30"
                 Click="AddBTN_Click">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Image Source="/Images/add.png"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Images/add.png"
                         Width="48"
                         Height="48"
                         Grid.Row="0"/>
-                        <TextBlock Text="Добавить"
+                    <TextBlock Text="Добавить"
                         HorizontalAlignment="Center"
                         Grid.Row="1"/>
-                    </Grid>
-                </Button>
+                </Grid>
+            </Button>
 
             <Button HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
