@@ -33,10 +33,10 @@ namespace MassageParlor.Pages
             loggedWorker = DBConnection.loginedWorker;
             workers = DBConnection.massageSalon.Worker.ToList();
             statuses = DBConnection.massageSalon.Status.ToList();
-            statuses.Insert(0, new Status() { Name = "Все" });
-            StatusCB.SelectedIndex = 0;
-
+            StatusCB.SelectedIndex = 1;
             appeals = DBConnection.massageSalon.Appeals.ToList();
+
+            StatusCB.SelectedIndex = 1;
             Refresh();
             CheckConditionAndToggleButtonVisibility();
         }
@@ -81,11 +81,11 @@ namespace MassageParlor.Pages
         {
             if (loggedWorker.Position.Name == "Администратор")
             {
-                AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.ToList();
+                AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.Where(i => i.Status.Name == "Не выполнено").ToList();
             }
             if (loggedWorker.Position.Name == "Массажист")
             {
-                AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.Where(i => i.ID_Worker == loggedWorker.ID).ToList();
+                AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.Where(i => i.Status.Name == "Не выполнено" && i.ID_Worker == loggedWorker.ID).ToList();
             }
         }
 
@@ -172,15 +172,36 @@ namespace MassageParlor.Pages
         {
             if (StatusCB.SelectedIndex == 0)
             {
-                AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.ToList();
+                if (loggedWorker.Position.Name == "Администратор")
+                {
+                    AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.ToList();
+                }
+                if (loggedWorker.Position.Name == "Массажист")
+                {
+                    AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.Where(i => i.ID_Worker == loggedWorker.ID).ToList();
+                }
             }
             else if (StatusCB.SelectedIndex == 1)
             {
-                AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.Where(i => i.Status.Name == "Не выполнено").ToList();
+                if (loggedWorker.Position.Name == "Администратор")
+                {
+                    AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.Where(i => i.Status.Name == "Не выполнено").ToList();
+                }
+                if (loggedWorker.Position.Name == "Массажист")
+                {
+                    AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.Where(i => i.Status.Name == "Не выполнено" && i.ID_Worker == loggedWorker.ID).ToList();
+                }
             }
             else if (StatusCB.SelectedIndex == 2)
             {
-                AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.Where(i => i.Status.Name == "Выполнено").ToList();
+                if (loggedWorker.Position.Name == "Администратор")
+                {
+                    AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.Where(i => i.Status.Name == "Выполнено").ToList();
+                }
+                if (loggedWorker.Position.Name == "Массажист")
+                {
+                    AppealsLV.ItemsSource = DBConnection.massageSalon.Appeals.Where(i => i.Status.Name == "Выполнено" && i.ID_Worker == loggedWorker.ID).ToList();
+                }
             }
         }
     }

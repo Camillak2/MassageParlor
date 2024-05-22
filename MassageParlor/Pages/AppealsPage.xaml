@@ -114,13 +114,10 @@
                             Height="50"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Bottom"
-                            ItemsSource="{Binding statuses}"
                             SelectionChanged="StatusCB_SelectionChanged">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
+                <ComboBoxItem Content="Все"/>
+                <ComboBoxItem Content="Не выполнено"/>
+                <ComboBoxItem Content="Выполнено"/>
             </ComboBox>
             <Button HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
