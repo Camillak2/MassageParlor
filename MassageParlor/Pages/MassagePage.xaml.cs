@@ -22,51 +22,24 @@ namespace MassageParlor.Pages
     /// </summary>
     public partial class MassagePage : Page
     {
-        private ToolTip tooltip = new ToolTip();
-
         public MassagePage()
         {
             InitializeComponent();
         }
 
-        private async void SpeakButton_Click(object sender, RoutedEventArgs e)
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
-            string textToSpeak = "Привет, мир!";
-            string apiUrl = "https://api.voicerss.org/?key=YOUR_API_KEY&hl=ru-RU&src=" + textToSpeak;
-
-            using (HttpClient client = new HttpClient())
+            if (sender is Button button)
             {
-                var response = await client.GetAsync(apiUrl);
-                if (response.IsSuccessStatusCode)
-                {
-                    byte[] audioData = await response.Content.ReadAsByteArrayAsync();
-                    // Воспроизведение полученного аудио
-                    // ...
-                }
-                else
-                {
-                    // Обработка ошибки
-                }
+                DescriptionTextBlock.Text = button.Tag.ToString();
+                DescriptionTextBlock.Visibility = Visibility.Visible;
             }
         }
 
-        private void Canvas_MouseEnter(object sender, MouseEventArgs e)
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
         {
-            // Покажите tooltip
-            tooltip.IsOpen = true;
+            DescriptionTextBlock.Visibility = Visibility.Collapsed;
         }
-
-        private void Canvas_MouseLeave(object sender, MouseEventArgs e)
-        {
-            // Скройте tooltip
-            tooltip.IsOpen = false;
-        }
-
-        //private void Image_MouseLeave(object sender, MouseEventArgs e)
-        //{
-        //    // Скрыть tooltip
-        //    tooltip.IsOpen = false;
-        //}
 
         private void ProfileBTN_Click(object sender, RoutedEventArgs e)
         {
