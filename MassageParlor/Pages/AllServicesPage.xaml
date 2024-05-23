@@ -28,6 +28,7 @@
                     Margin="0 100 0 150"
                     Width="1200"
                     Height="650"
+                          Visibility="Visible"
                     d:ItemsSource="{d:SampleData ItemCount=10}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -185,15 +186,6 @@
                                                     TextAlignment="Center"
                                                     TextWrapping="Wrap"/>
                                             </Grid>
-                                            <Grid Height="20" Margin="0 5 0 0">
-                                                <TextBlock Text="{Binding Price, StringFormat={}{0:F2}₽}"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    Foreground="White"
-                                                    FontSize="20"
-                                                    TextAlignment="Center"
-                                                    TextWrapping="Wrap"/>
-                                            </Grid>
                                         </StackPanel>
                                     </StackPanel>
                                 </Grid>
@@ -209,30 +201,11 @@
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Left"
                     Margin="15 0 0 80"/>
-                <!--<StackPanel Orientation="Horizontal"
-                            VerticalAlignment="Bottom"
-                            Margin="15 0 0 30">
-                    <Slider Name="PriceSlider"
-                        Width="400"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Margin="5 0 0 0"
-                        Value="20000"
-                        Minimum="0"
-                        Maximum="20000"
-                        Background="Transparent"
-                        IsSnapToTickEnabled="True">
-                    </Slider>
-                    <TextBlock VerticalAlignment="Center"
-                        Text="{Binding ElementName=PriceSlider, 
-                        Path=Value, 
-                        StringFormat='{}{0}₽'}"
-                        Margin="5 15 0 0"/>
-                </StackPanel>-->
                 <StackPanel Orientation="Horizontal"
                             Margin="15 0 0 30"
                             VerticalAlignment="Bottom"
-                            HorizontalAlignment="Left">
+                            HorizontalAlignment="Left"
+                            Visibility="Collapsed"              >
                     <TextBlock Text="Цена: "
                                VerticalAlignment="Center"
                                Margin="0,0,5,0"/>
@@ -253,20 +226,6 @@
                         StringFormat='{}{0:F2}₽'}"
                         Margin="10 0 0 0"/>
                 </StackPanel>
-
-                <!--<Slider Width="500"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom"
-                    Value="50"
-                    Minimum="0"
-                    Maximum="200" 
-                    SmallChange="1"
-                    LargeChange="10"
-                    TickPlacement="BottomRight"
-                    TickFrequency="10"
-                    Name="PriceSlider"
-                    Margin="15 0 0 30"/>-->
                 <Image Source="/Images/lupa.png"
                     Width="500"
                     Height="50"

@@ -361,8 +361,9 @@
                 </Button>
             </StackPanel>
             <StackPanel Margin="30 0 0 40"
-            VerticalAlignment="Bottom"
-            Orientation="Horizontal">
+                VerticalAlignment="Bottom"
+                Visibility="Collapsed"
+                Orientation="Horizontal">
                 <Button x:Name="ChartBTN"
                         Width="200" Click="ChartBTN_Click">
                     <TextBlock Text="График"/>

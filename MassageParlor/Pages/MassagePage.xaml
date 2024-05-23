@@ -16,6 +16,9 @@
         <Grid Grid.Column="0"
               VerticalAlignment="Center">
             <Grid>
+                <TextBlock Text="Массажные точки"
+                           HorizontalAlignment="Center"
+                    Style="{StaticResource Title}"/>
                 <Border Style="{StaticResource BorderForPhoto}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"

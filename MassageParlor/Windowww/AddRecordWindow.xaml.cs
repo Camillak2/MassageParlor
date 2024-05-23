@@ -360,5 +360,10 @@ namespace MassageParlor.Windowww
                 MessageBox.Show("Выберите услугу.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
+        private void CancelBTN_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
