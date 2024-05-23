@@ -119,20 +119,7 @@ namespace MassageParlor.Windowww
                 MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-        }
-
-        //private bool IsAppointmentConflict(Client client, Service service, Worker masseur, DateTime appointmentDateTime)
-        //{
-        //    // Проверка, есть ли уже запись в указанное время
-        //    return records.Any(a =>
-        //        a.ID_Client == client.ID &&
-        //        a.ID_Service == service.ID &&
-        //        a.ID_Worker == masseur.ID &&
-        //        a.Date.Date == appointmentDateTime.Date &&
-        //        a.Time.Value.Hours == appointmentDateTime.Hour &&
-        //        a.Time.Value.Minutes == appointmentDateTime.Minute
-        //    );
-        //}
+        };
 
         private void ChooseMassagistBTN_Click(object sender, RoutedEventArgs e)
         {
