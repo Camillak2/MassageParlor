@@ -19,7 +19,7 @@ namespace MassageParlor.DB
         public Nullable<int> ID_Service { get; set; }
         public System.DateTime DateTime { get; set; }
         public Nullable<int> ID_Worker { get; set; }
-        public Nullable<decimal> FinalPrice { get; set; }
+        public decimal FinalPrice { get; set; }
         public Nullable<int> ID_Discount { get; set; }
     
         public virtual Client Client { get; set; }

@@ -11,7 +11,6 @@
         <EntityTypeShape EntityType="MassageSalonModel.Appeals" Width="1.5" PointX="5.25" PointY="3.5" />
         <EntityTypeShape EntityType="MassageSalonModel.Client" Width="1.5" PointX="3" PointY="10.75" />
         <EntityTypeShape EntityType="MassageSalonModel.Discount" Width="1.5" PointX="3" PointY="17.875" />
-        <EntityTypeShape EntityType="MassageSalonModel.Record" Width="1.5" PointX="5.25" PointY="7" />
         <EntityTypeShape EntityType="MassageSalonModel.Service" Width="1.5" PointX="3" PointY="20.5" />
         <EntityTypeShape EntityType="MassageSalonModel.Status" Width="1.5" PointX="3" PointY="15.125" />
         <EntityTypeShape EntityType="MassageSalonModel.Taskk" Width="1.5" PointX="3" PointY="0.75" />
@@ -21,13 +20,14 @@
         <AssociationConnector Association="MassageSalonModel.FK_Appeals_Task" />
         <AssociationConnector Association="MassageSalonModel.FK_Appeals_Worker" />
         <AssociationConnector Association="MassageSalonModel.FK_Client_Gender" />
-        <AssociationConnector Association="MassageSalonModel.FK_Record_Client" />
-        <AssociationConnector Association="MassageSalonModel.FK_Record_Discount" />
         <AssociationConnector Association="MassageSalonModel.FK_Worker_Gender" />
         <AssociationConnector Association="MassageSalonModel.FK_Worker_Position" />
+        <AssociationConnector Association="MassageSalonModel.FK_Service_TypeOfService" />
+        <EntityTypeShape EntityType="MassageSalonModel.Record" Width="1.5" PointX="5.25" PointY="11.875" />
+        <AssociationConnector Association="MassageSalonModel.FK_Record_Client" />
+        <AssociationConnector Association="MassageSalonModel.FK_Record_Discount" />
         <AssociationConnector Association="MassageSalonModel.FK_Record_Service" />
         <AssociationConnector Association="MassageSalonModel.FK_Record_Worker" />
-        <AssociationConnector Association="MassageSalonModel.FK_Service_TypeOfService" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

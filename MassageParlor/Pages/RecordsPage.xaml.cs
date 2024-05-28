@@ -225,32 +225,6 @@ namespace MassageParlor.Pages
             NavigationService.Navigate(new MainMenuPage());
         }
 
-        //private void RecordsForAdminLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if (RecordsForAdminLV.SelectedItem is Record record)
-        //    {
-        //        if (record.DateTime < DateTime.Now)
-        //        {
-        //            MessageBox.Show("Эту запись нельзя изменить.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-        //            return;
-        //        }
-        //        else
-        //        {
-        //            DBConnection.selectedForEditRecord = RecordsForAdminLV.SelectedItem as Record;
-        //            EditRecordWindow editRecordWindow = new EditRecordWindow(record);
-        //            editRecordWindow.ShowDialog();
-        //        }
-        //    }
-        //    else if (RecordsForAdminLV.SelectedItem is null)
-        //    {
-        //        MessageBox.Show("Выберите запись.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-        //        return;
-        //    }
-        //    Refresh();
-        //    //MessageBox.Show("Запись изменить нельзя. Удалите запись и создайте новую.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-        //    //return;
-        //}
-
         private void CleanBTN_Click(object sender, RoutedEventArgs e)
         {
             ActualRB.IsChecked = true;
@@ -286,6 +260,9 @@ namespace MassageParlor.Pages
         {
             StatisticWindow statisticWindow = new StatisticWindow();
             statisticWindow.Show();
+
+            //PopulationWindow populationWindow = new PopulationWindow();
+            //populationWindow.Show();
         }
     }
 }
