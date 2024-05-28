@@ -193,6 +193,9 @@
     <Compile Include="Windowww\AddWorkerWindow.xaml.cs">
       <DependentUpon>AddWorkerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windowww\ChartWindow.xaml.cs">
+      <DependentUpon>ChartWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windowww\EditAppealWindow.xaml.cs">
       <DependentUpon>EditAppealWindow.xaml</DependentUpon>
     </Compile>
@@ -284,6 +287,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windowww\AddWorkerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windowww\ChartWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

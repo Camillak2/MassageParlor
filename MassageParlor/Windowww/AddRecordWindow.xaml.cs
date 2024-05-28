@@ -70,6 +70,37 @@ namespace MassageParlor.Windowww
             }
         }
 
+        private bool IsWorkerBusy(int workerId, DateTime dateTime)
+        {
+            TimeSpan breakTime = TimeSpan.FromMinutes(15); // Время перерыва
+
+            // Поиск записи для данного работника и даты
+            var existingRecords = records.Where(r => r.ID_Worker == workerId && r.DateTime.Date == dateTime.Date).ToList();
+
+            // Проверка на занятость
+            foreach (var record in existingRecords)
+            {
+                // Время начала и окончания предыдущей услуги
+                DateTime startTime = record.DateTime;
+                DateTime endTime = startTime + record.Service.Duration.Value + breakTime;
+
+                // Проверка, не попадает ли новое время в занятый интервал
+                if (dateTime >= startTime && dateTime < endTime)
+                {
+                    return true; // Мастер занят
+                }
+
+                // Проверка, не попадает ли новое время в интервал 15 минут до начала предыдущей услуги
+                if (dateTime >= (startTime - record.Service.Duration - breakTime) && dateTime < startTime)
+                {
+                    return true; // Мастер занят
+                }
+            }
+
+            return false; // Мастер свободен
+        }
+
+
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -109,6 +140,17 @@ namespace MassageParlor.Windowww
                         record.DateTime = recordDateTime;
                     }
 
+                    Client client2 = (Client)ClientsLV.SelectedItem;
+                    Worker worker2 = (Worker)WorkersLV.SelectedItem;
+                    Service service2 = (Service)ServicesLV.SelectedItem;
+                    DateTime recordDateTime2 = DateDP.SelectedDate.Value.Date.Add(TimeTP.SelectedTime.Value.TimeOfDay);
+
+                    if (IsWorkerBusy(workerId, dateTime))
+                    {
+                        MessageBox.Show("Мастер занят в это время.");
+                        return;
+                    }
+
                     DBConnection.massageSalon.Record.Add(record);
                     DBConnection.massageSalon.SaveChanges();
                     Close();
@@ -119,7 +161,7 @@ namespace MassageParlor.Windowww
                 MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-        };
+        }
 
         private void ChooseMassagistBTN_Click(object sender, RoutedEventArgs e)
         {

@@ -36,8 +36,7 @@
                 ScrollViewer.CanContentScroll="False"
                       Background="{x:Null}"
                       BorderBrush="{x:Null}"
-                      Foreground="{x:Null}"
-                      SelectionChanged="RecordsForAdminLV_SelectionChanged">
+                      Foreground="{x:Null}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"
