@@ -6,20 +6,21 @@
         xmlns:local="clr-namespace:MassageParlor.Windowww"
         mc:Ignorable="d"
         Title="Golden Lotus"
-        Height="800" Width="1500"
+        Height="800" Width="1400"
         WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
         WindowStyle="None">
     <Border Style="{StaticResource BorderForWindow}">
         <Grid Background="#a98f81">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1500"/>
+            <ColumnDefinition Width="1400"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
             <StackPanel Orientation="Vertical"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Margin="0 0 20 0">
+                Margin="0 0 40 0">
                     <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center">
@@ -51,7 +52,7 @@
                             Margin="10"
                             TextWrapping="Wrap"
                             FontSize="40"
-                            Width="600"
+                            Width="500"
                             Height="100"
                             IsReadOnly="True"
                             PreviewTextInput="NameTB_PreviewTextInput"/>
@@ -59,13 +60,13 @@
                             TextWrapping="Wrap"
                             Margin="10"
                             FontSize="40"
-                            Width="600"
+                            Width="500"
                             Height="150"
                             IsReadOnly="True"/>
                             <TextBox x:Name="CostTB"
                             Margin="10"
                             FontSize="40"
-                            Width="600"
+                            Width="500"
                             Height="50"
                             IsReadOnly="True"
                             PreviewTextInput="CostTB_PreviewTextInput"
@@ -73,7 +74,7 @@
                             <TextBox x:Name="DurationTB"
                             Margin="10"
                             FontSize="40"
-                            Width="600"
+                            Width="500"
                             Height="50"
                             IsReadOnly="True"
                             PreviewTextInput="DurationTB_PreviewTextInput"
@@ -82,7 +83,7 @@
                             TextWrapping="Wrap"
                             Margin="10"
                             FontSize="40"
-                            Width="600"
+                            Width="500"
                             Height="100"
                             IsEnabled="False"/>
                         </StackPanel>

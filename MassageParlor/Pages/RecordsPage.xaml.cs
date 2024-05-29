@@ -89,6 +89,10 @@ namespace MassageParlor.Pages
 
             RecordsForAdminLV.ItemsSource = Records.Where(i => i.DateTime >= DateTime.Now);
             RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID && i.DateTime >= DateTime.Now);
+
+            ActualRB.IsChecked = true;
+            AllRB.IsChecked = false;
+            LastRB.IsChecked = false;
         }
 
         public void Refresh2()
@@ -99,6 +103,10 @@ namespace MassageParlor.Pages
 
             RecordsForAdminLV.ItemsSource = Records;
             RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID);
+
+            ActualRB.IsChecked = false;
+            AllRB.IsChecked = true;
+            LastRB.IsChecked = false;
         }
 
         public void Refresh3()
@@ -109,6 +117,10 @@ namespace MassageParlor.Pages
 
             RecordsForAdminLV.ItemsSource = Records.Where(i => i.DateTime < DateTime.Now);
             RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID && i.DateTime < DateTime.Now);
+
+            ActualRB.IsChecked = false;
+            AllRB.IsChecked = false;
+            LastRB.IsChecked = true;
         }
 
         private void CheckConditionAndToggleButtonVisibility()

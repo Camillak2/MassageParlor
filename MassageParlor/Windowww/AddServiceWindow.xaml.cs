@@ -118,7 +118,7 @@ namespace MassageParlor.Windowww
             TextBox textBox = (TextBox)sender;
             string currentText = textBox.Text;
 
-            if (currentText.Length >= 50 && !string.IsNullOrEmpty(e.Text))
+            if (currentText.Length >= 100 && !string.IsNullOrEmpty(e.Text))
             {
                 e.Handled = true;
                 return;

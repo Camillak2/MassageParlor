@@ -8,6 +8,7 @@
         Title="Golden Lotus"
         Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
         WindowStyle="None">
     <Border Style="{StaticResource BorderForWindow}">
     <Grid Background="#a98f81">

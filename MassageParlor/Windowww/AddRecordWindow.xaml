@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         xmlns:local="clr-namespace:MassageParlor.Windowww"
         mc:Ignorable="d"
-        Title="Golden Lotus" Height="800" Width="1050"
+        Title="Golden Lotus" Height="900" Width="1050"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="None">
@@ -136,11 +136,56 @@
                             <TextBlock Text="Время:"
                             Margin="15 10"
                             FontSize="40"/>
-                            <ComboBox Style="{StaticResource ComboboxStyle}"
+                            <ListView x:Name="TimeLV"
+                                VerticalAlignment="Top"
+                                Margin="103 0 0 0"
+                                Width="650"
+                                Height="125"
+                                Visibility="Visible"
+                                d:ItemsSource="{d:SampleData ItemCount=10}"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                ItemsSource="{Binding Record}"
+                                BorderThickness="3"
+                                ScrollViewer.CanContentScroll="False"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Foreground="{x:Null}" SelectionChanged="TimeLV_SelectionChanged">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"
+                                            VerticalAlignment="Top"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Height="50"
+                                            Width="146"
+                                            Margin="0 0 0 5">
+                                            <Rectangle Fill="#6d584e"
+                                                VerticalAlignment="Center"
+                                                Width="146"
+                                                Height="50"
+                                                RadiusX="20"
+                                                RadiusY="20"/>
+                                            <StackPanel
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding}"
+                                                   Foreground="White"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="22"
+                                                   HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <!--<ComboBox Style="{StaticResource ComboboxStyle}"
                                   Width="350"
                                   Height="60"
                                   x:Name="TimeCB"
-                                  Margin="103 0 0 0"/>
+                                  Margin="103 0 0 0"/>-->
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Vertical"
@@ -167,7 +212,7 @@
                     <ListView x:Name="WorkersLV"
                     VerticalAlignment="Top"
                     Width="950"
-                    Height="410"
+                    Height="700"
                     d:ItemsSource="{d:SampleData ItemCount=10}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -293,7 +338,7 @@
                     <ListView x:Name="ClientsLV"
                     VerticalAlignment="Center"
                     Width="950"
-                    Height="410"
+                    Height="700"
                     d:ItemsSource="{d:SampleData ItemCount=10}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -366,16 +411,27 @@
                         </ListView.ItemTemplate>
                     </ListView>
                     <StackPanel Margin="10"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center">
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                        <Button x:Name="AddClientBTN"
+                            Height="50"
+                            Width="300"
+                            Margin="0 0 70 0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Click="AddClientBTN_Click">
+                            <TextBlock Text="Нет клиента"
+                                FontSize="30"/>
+                        </Button>
                         <Button x:Name="Close2BTN"
-                Height="50"
-                Width="300"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Click="Close2BTN_Click">
+                            Height="50"
+                            Width="300"
+                            Margin="70 0 0 0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Click="Close2BTN_Click">
                             <TextBlock Text="Закрыть"
-                    FontSize="30"/>
+                                FontSize="30"/>
                         </Button>
                     </StackPanel>
                 </StackPanel>
@@ -398,7 +454,7 @@
                     <ListView x:Name="ServicesLV"
                     VerticalAlignment="Center"
                     Width="950"
-                    Height="410"
+                    Height="700"
                     d:ItemsSource="{d:SampleData ItemCount=10}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -413,30 +469,28 @@
                         </ListView.ItemsPanel>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid Height="200"
+                                <Grid Height="220"
                                 Width="288"
                                 Margin="5">
                                     <Rectangle Fill="#907669"
                                     VerticalAlignment="Center"
                                     Width="288"
-                                    Height="200"
+                                    Height="220"
                                     RadiusX="20"
                                     RadiusY="20"/>
                                     <Image Stretch="Fill"
                                     Source="{Binding Image}"
                                     Width="288"
-                                    Height="200"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Top">
+                                    Height="220">
                                         <Image.Clip>
-                                            <RectangleGeometry RadiusX="20" RadiusY="20" Rect="0,0,288,200"/>
+                                            <RectangleGeometry RadiusX="20" RadiusY="20" Rect="0,0,288,220"/>
                                         </Image.Clip>
                                     </Image>
                                     <Rectangle Fill="#6d584e"
                                     Opacity="0.3"
                                     VerticalAlignment="Center"
                                     Width="288"
-                                    Height="200"
+                                    Height="220"
                                     RadiusX="20"
                                     RadiusY="20"/>
                                     <StackPanel Orientation="Vertical"

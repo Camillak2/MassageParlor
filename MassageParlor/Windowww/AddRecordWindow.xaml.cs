@@ -47,13 +47,13 @@ namespace MassageParlor.Windowww
             records = DBConnection.massageSalon.Record.ToList();
             DiscountCB.SelectedIndex = 0;
             DateDP.IsEnabled = false;
-            TimeCB.IsEnabled = false;
+            //TimeCB.IsEnabled = false;
             Refresh();
 
             this.DataContext = this;
 
             DateDP.SelectedDateChanged += DatePicker_SelectedDateChanged;
-            DateDP.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now.Date.AddDays(-1)));
+            //DateDP.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now.Date.AddDays(-1)));
         }
 
         public void Refresh()
@@ -65,15 +65,22 @@ namespace MassageParlor.Windowww
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DateDP.SelectedDate < DateTime.Now.Date)
-            {
-                MessageBox.Show("Нельзя выбрать прошедшую дату.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                DateDP.SelectedDate = null;
-            }
-            else
-            {
-                UpdateAvailableTimes();
-            }
+            //if (DateDP.SelectedDate < DateTime.Now.Date)
+            //{
+            //    MessageBox.Show("Нельзя выбрать прошедшую дату.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    DateDP.SelectedDate = null;
+            //}
+            //else
+            //{
+            //    UpdateAvailableTimes();
+            //}
+
+            UpdateAvailableTimes();
+        }
+
+        private void TimeLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateAvailableTimes();
         }
 
         private void UpdateAvailableTimes()
@@ -82,7 +89,8 @@ namespace MassageParlor.Windowww
             var selectedDate = DateDP.SelectedDate;
             if (selectedWorker == null || selectedDate == null)
             {
-                TimeCB.ItemsSource = null;
+                //TimeCB.ItemsSource = null;
+                TimeLV.ItemsSource = null;
                 return;
             }
 
@@ -120,7 +128,8 @@ namespace MassageParlor.Windowww
                     availableTimes.Add(time);
                 }
             }
-            TimeCB.ItemsSource = availableTimes;
+            //TimeCB.ItemsSource = availableTimes;
+            TimeLV.ItemsSource = availableTimes.Select(t => t.ToString(@"hh\:mm")).ToList();
         }
 
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
@@ -132,20 +141,24 @@ namespace MassageParlor.Windowww
                 var selectedService = ServicesLV.SelectedItem as Service;
                 var selectedDiscount = DiscountCB.SelectedItem as Discount;
                 var selectedDate = DateDP.SelectedDate;
-                var selectedTime = TimeCB.SelectedItem as TimeSpan?;
+                var selectedTimeString = TimeLV.SelectedItem as string;
+                //var selectedTime = TimeCB.SelectedItem as TimeSpan?;
 
                 if (selectedClient == null ||
                     selectedWorker == null ||
                     selectedService == null ||
                     selectedDiscount == null ||
                     selectedDate == null ||
-                    selectedTime == null)
+                    //selectedTime == null)
+                    string.IsNullOrEmpty(selectedTimeString))
                 {
                     MessageBox.Show("Пожалуйста, заполните все поля.");
                     return;
                 }
 
-                DateTime appointmentDateTime = selectedDate.Value.Date + selectedTime.Value;
+                TimeSpan selectedTime = TimeSpan.Parse(selectedTimeString);
+                //DateTime appointmentDateTime = selectedDate.Value.Date + selectedTime.Value;
+                DateTime appointmentDateTime = selectedDate.Value.Date + selectedTime;
 
                 if (IsWorkerAvailable(selectedWorker.ID, appointmentDateTime, selectedService.Duration.Value))
                 {
@@ -260,6 +273,7 @@ namespace MassageParlor.Windowww
         {
             Grid1.Visibility = Visibility.Collapsed;
             SaveBTN.Visibility = Visibility.Collapsed;
+            CancelBTN.Visibility = Visibility.Collapsed;
             Grid2.Visibility = Visibility.Visible;
             Grid3.Visibility = Visibility.Collapsed;
             Grid4.Visibility = Visibility.Collapsed;
@@ -269,6 +283,7 @@ namespace MassageParlor.Windowww
         {
             Grid1.Visibility = Visibility.Collapsed;
             SaveBTN.Visibility = Visibility.Collapsed;
+            CancelBTN.Visibility = Visibility.Collapsed;
             Grid2.Visibility = Visibility.Collapsed;
             Grid3.Visibility = Visibility.Visible;
             Grid4.Visibility = Visibility.Collapsed;
@@ -278,6 +293,7 @@ namespace MassageParlor.Windowww
         {
             Grid1.Visibility = Visibility.Collapsed;
             SaveBTN.Visibility = Visibility.Collapsed;
+            CancelBTN.Visibility = Visibility.Collapsed;
             Grid2.Visibility = Visibility.Collapsed;
             Grid3.Visibility = Visibility.Collapsed;
             Grid4.Visibility = Visibility.Visible;
@@ -293,12 +309,13 @@ namespace MassageParlor.Windowww
 
                 Grid1.Visibility = Visibility.Visible;
                 SaveBTN.Visibility = Visibility.Visible;
+                CancelBTN.Visibility = Visibility.Visible;
                 Grid2.Visibility = Visibility.Collapsed;
                 Grid3.Visibility = Visibility.Collapsed;
                 Grid4.Visibility = Visibility.Collapsed;
 
                 DateDP.IsEnabled = true;
-                TimeCB.IsEnabled = true;
+                //TimeCB.IsEnabled = true;
 
                 UpdateAvailableTimes();
             }
@@ -313,6 +330,7 @@ namespace MassageParlor.Windowww
         {
             Grid1.Visibility = Visibility.Visible;
             SaveBTN.Visibility = Visibility.Visible;
+            CancelBTN.Visibility = Visibility.Visible;
             Grid2.Visibility = Visibility.Collapsed;
             Grid3.Visibility = Visibility.Collapsed;
             Grid4.Visibility = Visibility.Collapsed;
@@ -328,6 +346,7 @@ namespace MassageParlor.Windowww
 
                 Grid1.Visibility = Visibility.Visible;
                 SaveBTN.Visibility = Visibility.Visible;
+                CancelBTN.Visibility = Visibility.Visible;
                 Grid2.Visibility = Visibility.Collapsed;
                 Grid3.Visibility = Visibility.Collapsed;
                 Grid4.Visibility = Visibility.Collapsed;
@@ -342,6 +361,7 @@ namespace MassageParlor.Windowww
         {
             Grid1.Visibility = Visibility.Visible;
             SaveBTN.Visibility = Visibility.Visible;
+            CancelBTN.Visibility = Visibility.Visible;
             Grid2.Visibility = Visibility.Collapsed;
             Grid3.Visibility = Visibility.Collapsed;
             Grid4.Visibility = Visibility.Collapsed;
@@ -361,6 +381,7 @@ namespace MassageParlor.Windowww
 
                 Grid1.Visibility = Visibility.Visible;
                 SaveBTN.Visibility = Visibility.Visible;
+                CancelBTN.Visibility = Visibility.Visible;
                 Grid2.Visibility = Visibility.Collapsed;
                 Grid3.Visibility = Visibility.Collapsed;
                 Grid4.Visibility = Visibility.Collapsed;
@@ -375,6 +396,7 @@ namespace MassageParlor.Windowww
         {
             Grid1.Visibility = Visibility.Visible;
             SaveBTN.Visibility = Visibility.Visible;
+            CancelBTN.Visibility = Visibility.Visible;
             Grid2.Visibility = Visibility.Collapsed;
             Grid3.Visibility = Visibility.Collapsed;
             Grid4.Visibility = Visibility.Collapsed;
@@ -488,6 +510,13 @@ namespace MassageParlor.Windowww
         private void CancelBTN_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void AddClientBTN_Click(object sender, RoutedEventArgs e)
+        {
+            AddClientWindow addClientWindow = new AddClientWindow();
+            addClientWindow.ShowDialog();
+            Refresh();
         }
     }
 }

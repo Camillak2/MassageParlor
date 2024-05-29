@@ -232,22 +232,6 @@ namespace MassageParlor.Pages
             }
         }
 
-        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            // Проверяем, что введенный символ - русская буква
-            Regex regex = new Regex(@"^[а-яА-Я]+$");
-            e.Handled = !regex.IsMatch(e.Text);
-
-            TextBox textBox = (TextBox)sender;
-            string currentText = textBox.Text;
-
-            if (currentText.Length >= 50 && !string.IsNullOrEmpty(e.Text))
-            {
-                e.Handled = true;
-                return;
-            }
-        }
-
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DatePicker datePicker = (DatePicker)sender;
@@ -352,6 +336,88 @@ namespace MassageParlor.Pages
             //Пароль
             PasswordTB.Text = Regex.Replace(PasswordTB.Text, @"\s", "");
             PasswordTB.CaretIndex = PasswordTB.Text.Length;
+        }
+
+        //private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        //{
+        //    // Проверяем, что введенный символ - русская буква
+        //    Regex regex = new Regex(@"^[а-яА-Я]+$");
+        //    e.Handled = !regex.IsMatch(e.Text);
+
+        //    TextBox textBox = (TextBox)sender;
+        //    string currentText = textBox.Text;
+
+        //    if (currentText.Length >= 50 && !string.IsNullOrEmpty(e.Text))
+        //    {
+        //        e.Handled = true;
+        //        return;
+        //    }
+        //}
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!Regex.IsMatch(e.Text, @"^[\p{IsCyrillic}]+$"))
+            {
+                e.Handled = true;
+            }
+
+            TextBox textBox = (TextBox)sender;
+            string currentText = textBox.Text;
+
+            if (currentText.Length >= 50 && !string.IsNullOrEmpty(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.V && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox_Pasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(DataFormats.Text))
+            {
+                string text = (string)e.DataObject.GetData(DataFormats.Text);
+                if (!Regex.IsMatch(text, @"^[\p{IsCyrillic}]+$"))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
+        }
+
+        //для телефона
+        private void PhoneTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.V && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void PhoneTextBox_Pasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(DataFormats.Text))
+            {
+                string text = (string)e.DataObject.GetData(DataFormats.Text);
+                if (!Regex.IsMatch(text, @"^[0-9]+$"))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
         }
     }
 }

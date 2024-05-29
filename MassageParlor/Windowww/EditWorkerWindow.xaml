@@ -8,6 +8,7 @@
         Title="Golden Lotus"
         Height="800" Width="1300"
         WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
         WindowStyle="None">
     <Border Style="{StaticResource BorderForWindow}">
     <Grid Background="#a98f81">
@@ -64,22 +65,28 @@
                             Width="400"
                             Height="50"
                             IsReadOnly="True"
+                            PreviewKeyDown="TextBox_PreviewKeyDown"
+                            DataObject.Pasting="TextBox_Pasting"
                             PreviewTextInput="TextBox_PreviewTextInput"
-                             TextChanged="TextBox_TextChanged"/>
+                            TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="NameTB"
                             Margin="10"
                             FontSize="40"
                             Width="400"
                             Height="50"
                             IsReadOnly="True"
+                            PreviewKeyDown="TextBox_PreviewKeyDown"
+                            DataObject.Pasting="TextBox_Pasting"
                             PreviewTextInput="TextBox_PreviewTextInput"
-                             TextChanged="TextBox_TextChanged"/>
+                            TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="PatronymicTB"
                             Margin="10"
                             FontSize="40"
                             Width="400"
                             Height="50"
                             IsReadOnly="True"
+                            PreviewKeyDown="TextBox_PreviewKeyDown"
+                            DataObject.Pasting="TextBox_Pasting"
                             PreviewTextInput="TextBox_PreviewTextInput"
                             TextChanged="TextBox_TextChanged"/>
                     <DatePicker x:Name="DateOfBirthDP"
@@ -97,7 +104,9 @@
                             IsReadOnly="True"
                             PreviewTextInput="PhoneTextBox_PreviewTextInput" 
                             LostFocus="PhoneTextBox_LostFocus"
-                             TextChanged="TextBox_TextChanged"/>
+                            TextChanged="TextBox_TextChanged"
+                            PreviewKeyDown="PhoneTextBox_PreviewKeyDown" 
+                            DataObject.Pasting="PhoneTextBox_Pasting"/>
                     <ComboBox x:Name="PositionCB" Style="{StaticResource ComboboxStyle}"
                             Margin="10"
                             FontSize="40"
@@ -185,7 +194,7 @@
                 Height="80"
                 Width="300"
                 Visibility="Visible"
-                 Margin="0 0 70 120"
+                 Margin="0 0 70 110"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Click="EditBTN_Click">
@@ -198,7 +207,7 @@
                 Width="300"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Margin="0 0 70 120"
+                Margin="0 0 70 110"
                 Visibility="Collapsed"
                 Click="SaveBTN_Click">
                 <TextBlock Text="Сохранить"
