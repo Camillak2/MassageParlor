@@ -22,6 +22,11 @@
             <Setter Property="CornerRadius" Value="400"/>
         </Style>
 
+        <Style TargetType="Border" x:Key="BorderForWindow">
+            <Setter Property="BorderBrush" Value="#FF3F3333"/>
+            <Setter Property="BorderThickness" Value="5"/>
+        </Style>
+
         <Style TargetType="Border" x:Key="TimePicker">
             <Setter Property="Background" Value="#907669"/>
             <Setter Property="BorderBrush" Value="#6d584e"/>

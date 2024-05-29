@@ -260,9 +260,6 @@ namespace MassageParlor.Pages
         {
             StatisticWindow statisticWindow = new StatisticWindow();
             statisticWindow.Show();
-
-            //PopulationWindow populationWindow = new PopulationWindow();
-            //populationWindow.Show();
         }
     }
 }

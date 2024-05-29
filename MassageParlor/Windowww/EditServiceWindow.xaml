@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MassageParlor.Windowww"
         mc:Ignorable="d"
-        Title="Golden Lotus" Height="900" Width="1500" WindowStartupLocation="CenterScreen">
+        Title="Golden Lotus"
+        Height="900" Width="1500"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
+    <Border Style="{StaticResource BorderForWindow}">
     <Grid Background="#a98f81">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1500"/>
@@ -130,4 +134,5 @@
             </StackPanel>
         </Grid>
     </Grid>
+    </Border>
 </Window>

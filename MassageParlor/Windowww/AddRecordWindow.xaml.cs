@@ -1,4 +1,5 @@
-﻿using MassageParlor.DB;
+﻿using LiveCharts.Wpf;
+using MassageParlor.DB;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
@@ -26,91 +27,33 @@ namespace MassageParlor.Windowww
     /// </summary>
     public partial class AddRecordWindow : Window
     {
-        //public static List<Worker> workers { get; set; }
-        //public static List<Client> clients { get; set; }
-        //public static List<Gender> genders { get; set; }
-        //public static List<Service> services { get; set; }
-        //public static List<Discount> discounts { get; set; }
-        //public static List<TypeOfService> types { get; set; }
-        //public static List<Record> records { get; set; }
-
-        //public static Record record = new Record();
-
-        private List<Record> records = DBConnection.massageSalon.Record.ToList();
-        private List<Client> clients = DBConnection.massageSalon.Client.ToList();
-        private List<Service> services = DBConnection.massageSalon.Service.ToList();
-        private List<Worker> workers = DBConnection.massageSalon.Worker.ToList();
-        private List<TypeOfService> types = DBConnection.massageSalon.TypeOfService.ToList();
-        private List<Discount> discounts = DBConnection.massageSalon.Discount.ToList();
+        public static List<Worker> workers { get; set; }
+        public static List<Client> clients { get; set; }
+        public static List<Gender> genders { get; set; }
+        public static List<Service> services { get; set; }
+        public static List<Discount> discounts { get; set; }
+        public static List<TypeOfService> types { get; set; }
+        public static List<Record> records { get; set; }
+        public static Record record = new Record();
 
         public AddRecordWindow()
         {
             InitializeComponent();
-            //workers = DBConnection.massageSalon.Worker.ToList();
-            //clients = DBConnection.massageSalon.Client.ToList();
-            ////genders = DBConnection.massageSalon.Gender.ToList();
-            //services = DBConnection.massageSalon.Service.ToList();
-            //types = DBConnection.massageSalon.TypeOfService.ToList();
-            //discounts = DBConnection.massageSalon.Discount.ToList();
-            //records = DBConnection.massageSalon.Record.ToList();
-            //DiscountCB.SelectedIndex = 0;
-            //Refresh();
-            //this.DataContext = this;
+            workers = DBConnection.massageSalon.Worker.ToList();
+            clients = DBConnection.massageSalon.Client.ToList();
+            services = DBConnection.massageSalon.Service.ToList();
+            types = DBConnection.massageSalon.TypeOfService.ToList();
+            discounts = DBConnection.massageSalon.Discount.ToList();
+            records = DBConnection.massageSalon.Record.ToList();
+            DiscountCB.SelectedIndex = 0;
+            DateDP.IsEnabled = false;
+            TimeCB.IsEnabled = false;
+            Refresh();
 
-            LoadDatabaseData();
-
-            // Настройка элементов управления
-            //  - Настройка ListView для отображения клиентов, услуг, работников
-            //  - Настройка DatePicker для выбора даты
-            //  - Настройка TimePicker для выбора времени
-            //  - Настройка Button для добавления новой записи
-
-            ClientsLV.ItemsSource = clients;
-            ServicesLV.ItemsSource = services; 
-            WorkersLV.ItemsSource = workers;
-            DateDP = new DatePicker();
-            TimeTP = new TimePicker();
+            this.DataContext = this;
 
             DateDP.SelectedDateChanged += DatePicker_SelectedDateChanged;
             DateDP.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now.Date.AddDays(-1)));
-        }
-
-        private void LoadDatabaseData()
-        {
-            // Подключение к базе данных
-            string connectionString = massageSalon; // Вставьте строку подключения
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                // Получение данных из таблицы Record
-                using (SqlCommand command = new SqlCommand("SELECT * FROM Record", connection))
-                {
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        // Получение информации о услуге из таблицы Service
-                        int serviceId = (int)reader["ID_Service"];
-                        Service service = services.FirstOrDefault(s => s.ID == serviceId);
-
-                        records.Add(new Record
-                        {
-                            ID_Client = (int)reader["ID_Client"],
-                            ID_Service = serviceId,
-                            ID_Worker = (int)reader["ID_Worker"],
-                            DateTime = (DateTime)reader["DateTime"],
-                            Service = service // Привязка объекта Service к записи
-                        });
-                    }
-                }
-
-                // Получение данных из таблицы Client (аналогично)
-                // ...
-                // Получение данных из таблицы Service (аналогично)
-                // ...
-                // Получение данных из таблицы Worker (аналогично)
-                // ...
-            }
         }
 
         public void Refresh()
@@ -127,141 +70,191 @@ namespace MassageParlor.Windowww
                 MessageBox.Show("Нельзя выбрать прошедшую дату.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 DateDP.SelectedDate = null;
             }
+            else
+            {
+                UpdateAvailableTimes();
+            }
         }
 
-        //private bool IsWorkerBusy(int workerId, DateTime dateTime)
-        //{
-        //    TimeSpan breakTime = TimeSpan.FromMinutes(15); // Время перерыва
-
-        //    // Поиск записи для данного работника и даты
-        //    var existingRecords = records.Where(r => r.ID_Worker == workerId && r.DateTime.Date == dateTime.Date).ToList();
-
-        //    // Проверка на занятость
-        //    foreach (var record in existingRecords)
-        //    {
-        //        // Время начала и окончания предыдущей услуги
-        //        DateTime startTime = record.DateTime;
-        //        DateTime endTime = startTime + record.Service.Duration.Value + breakTime;
-
-        //        // Проверка, не попадает ли новое время в занятый интервал
-        //        if (dateTime >= startTime && dateTime < endTime)
-        //        {
-        //            return true; // Мастер занят
-        //        }
-
-        //        // Проверка, не попадает ли новое время в интервал 15 минут до начала предыдущей услуги
-        //        if (dateTime >= (startTime - record.Service.Duration - breakTime) && dateTime < startTime)
-        //        {
-        //            return true; // Мастер занят
-        //        }
-        //    }
-
-        //    return false; // Мастер свободен
-        //}
-
-        private bool IsWorkerBusy(int workerId, DateTime dateTime)
+        private void UpdateAvailableTimes()
         {
-            TimeSpan breakTime = TimeSpan.FromMinutes(15);
-
-            var existingRecords = records.Where(r => r.ID_Worker == workerId && r.DateTime.Date == dateTime.Date).ToList();
-
-            foreach (var record in existingRecords)
+            var selectedWorker = WorkersLV.SelectedItem as Worker;
+            var selectedDate = DateDP.SelectedDate;
+            if (selectedWorker == null || selectedDate == null)
             {
-                DateTime startTime = record.DateTime;
-                DateTime endTime = startTime + record.Service.Duration.Value + breakTime;
+                TimeCB.ItemsSource = null;
+                return;
+            }
 
-                if (dateTime >= startTime && dateTime < endTime)
-                {
-                    return true;
-                }
+            var unavailableTimes = new List<TimeSpan>();
 
-                if (dateTime >= (startTime - record.Service.Duration.Value - breakTime) && dateTime < startTime)
+            var workerRecords = records.Where(r => r.ID_Worker == selectedWorker.ID && r.DateTime.Date == selectedDate.Value.Date);
+
+            foreach (var record in workerRecords)
+            {
+                var service = services.FirstOrDefault(s => s.ID == record.ID_Service);
+                if (service != null)
                 {
-                    return true;
+                    TimeSpan start = record.DateTime.TimeOfDay;
+                    TimeSpan end = start.Add(service.Duration.Value).Add(TimeSpan.FromMinutes(15)); // добавляем 15 минут на перерыв
+
+                    for (TimeSpan time = start; time <= end; time = time.Add(TimeSpan.FromMinutes(15)))
+                    {
+                        unavailableTimes.Add(time);
+                    }
+
+                    start = record.DateTime.TimeOfDay.Subtract(service.Duration.Value).Subtract(TimeSpan.FromMinutes(15));
+                    end = record.DateTime.TimeOfDay;
+                    for (TimeSpan time = start; time <= end; time = time.Add(TimeSpan.FromMinutes(15)))
+                    {
+                        unavailableTimes.Add(time);
+                    }
                 }
             }
 
-            return false;
+            var availableTimes = new List<TimeSpan>();
+            for (TimeSpan time = new TimeSpan(8, 0, 0); time < new TimeSpan(20, 15, 0); time = time.Add(TimeSpan.FromMinutes(15)))
+            {
+                if (!unavailableTimes.Contains(time))
+                {
+                    availableTimes.Add(time);
+                }
+            }
+            TimeCB.ItemsSource = availableTimes;
         }
-
 
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-                if (string.IsNullOrWhiteSpace(MassagistTB.Text) 
-                    || string.IsNullOrWhiteSpace(ServiceTB.Text) 
-                    || string.IsNullOrWhiteSpace(ClientTB.Text) 
-                    || DiscountCB.SelectedItem == null
-                    || DateDP.SelectedDate == null
-                    || TimeTP.SelectedTime == null)
+            try
+            {
+                var selectedClient = ClientsLV.SelectedItem as Client;
+                var selectedWorker = WorkersLV.SelectedItem as Worker;
+                var selectedService = ServicesLV.SelectedItem as Service;
+                var selectedDiscount = DiscountCB.SelectedItem as Discount;
+                var selectedDate = DateDP.SelectedDate;
+                var selectedTime = TimeCB.SelectedItem as TimeSpan?;
+
+                if (selectedClient == null ||
+                    selectedWorker == null ||
+                    selectedService == null ||
+                    selectedDiscount == null ||
+                    selectedDate == null ||
+                    selectedTime == null)
                 {
-                    MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Пожалуйста, заполните все поля.");
                     return;
                 }
-                else
+
+                DateTime appointmentDateTime = selectedDate.Value.Date + selectedTime.Value;
+
+                if (IsWorkerAvailable(selectedWorker.ID, appointmentDateTime, selectedService.Duration.Value))
                 {
-                    //if ((WorkersLV.SelectedItem is Worker worker) && (ClientsLV.SelectedItem is Client client) && (ServicesLV.SelectedItem is Service service))
-                    //{
-                    //    record.ID_Worker = worker.ID;
-                    //    record.ID_Client = client.ID;
-                    //    record.ID_Service = service.ID;
-                    //}
-                    //else
-                    //{
-                    //    MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-                    //    return;
-                    //}
-
-                    //if (DateDP.SelectedDate == null || TimeTP.SelectedTime == null)
-                    //{
-                    //    MessageBox.Show("Пожалуйста, выберите дату и время.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-                    //    return;
-                    //}
-                    //else
-                    //{
-                    //    DateTime recordDateTime = DateDP.SelectedDate.Value.Date.Add(TimeTP.SelectedTime.Value.TimeOfDay);
-                    //    record.DateTime = recordDateTime;
-                    //}
-                    int clientId = int.Parse(ClientsLV.SelectedValue.ToString());
-                    int serviceId = int.Parse(ServicesLV.SelectedValue.ToString());
-                    int workerId = int.Parse(WorkersLV.SelectedValue.ToString());
-                    DateTime dateTime = DateDP.SelectedDate.Value;
-                    TimeSpan time = TimeTP.SelectedTime.Value.TimeOfDay;
-                    dateTime = dateTime.Date + time;
-
-                    // Проверка на занятость
-                    if (IsWorkerBusy(workerId, dateTime))
-                    {
-                        MessageBox.Show("Мастер занят в это время.");
-                        return;
-                    }
-
                     Record newRecord = new Record
                     {
-                        ID_Client = clientId,
-                        ID_Service = serviceId,
-                        ID_Worker = workerId,
-                        DateTime = dateTime,
-                        Service = services.FirstOrDefault(s => s.ID == serviceId) // Привязка объекта Service к записи
+                        ID_Client = selectedClient.ID,
+                        ID_Worker = selectedWorker.ID,
+                        ID_Service = selectedService.ID,
+                        DateTime = appointmentDateTime,
+                        ID_Discount = selectedDiscount.ID,
+                        FinalPrice = decimal.Parse(FinalPriceTB.Text)
                     };
-
-                    //Client client2 = (Client)ClientsLV.SelectedItem;
-                    //Worker worker2 = (Worker)WorkersLV.SelectedItem;
-                    //Service service2 = (Service)ServicesLV.SelectedItem;
-                    //DateTime recordDateTime2 = DateDP.SelectedDate.Value.Date.Add(TimeTP.SelectedTime.Value.TimeOfDay);
 
                     DBConnection.massageSalon.Record.Add(newRecord);
                     DBConnection.massageSalon.SaveChanges();
+                    MessageBox.Show("Запись успешно добавлена.");
+                    UpdateAvailableTimes();
                     Close();
                 }
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    return;
-            //}
+                else
+                {
+                    MessageBox.Show("Выбранное время занято.");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
+
+        private bool IsWorkerAvailable(int workerId, DateTime appointmentDateTime, TimeSpan serviceDuration)
+        {
+            var workerRecords = records.Where(r => r.ID_Worker == workerId && r.DateTime.Date == appointmentDateTime.Date);
+
+            foreach (var record in workerRecords)
+            {
+                var service = services.FirstOrDefault(s => s.ID == record.ID_Service);
+                if (service != null)
+                {
+                    DateTime start = record.DateTime;
+                    DateTime end = start.Add(service.Duration.Value).Add(TimeSpan.FromMinutes(15));
+
+                    if (appointmentDateTime >= start && appointmentDateTime < end)
+                    {
+                        return false;
+                    }
+
+                    start = record.DateTime.Subtract(service.Duration.Value).Subtract(TimeSpan.FromMinutes(15));
+                    end = record.DateTime;
+                    if (appointmentDateTime >= start && appointmentDateTime < end)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        //private void SaveBTN_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (string.IsNullOrWhiteSpace(MassagistTB.Text) 
+        //            || string.IsNullOrWhiteSpace(ServiceTB.Text) 
+        //            || string.IsNullOrWhiteSpace(ClientTB.Text) 
+        //            || DiscountCB.SelectedItem == null
+        //            || DateDP.SelectedDate == null
+        //            || TimeTP.SelectedTime == null)
+        //        {
+        //            MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            if ((WorkersLV.SelectedItem is Worker worker) && (ClientsLV.SelectedItem is Client client) && (ServicesLV.SelectedItem is Service service))
+        //            {
+        //                record.ID_Worker = worker.ID;
+        //                record.ID_Client = client.ID;
+        //                record.ID_Service = service.ID;
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+        //                return;
+        //            }
+
+        //            if (DateDP.SelectedDate == null || TimeTP.SelectedTime == null)
+        //            {
+        //                MessageBox.Show("Пожалуйста, выберите дату и время.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+        //                return;
+        //            }
+        //            else
+        //            {
+        //                DateTime recordDateTime = DateDP.SelectedDate.Value.Date.Add(TimeTP.SelectedTime.Value.TimeOfDay);
+        //                record.DateTime = recordDateTime;
+        //            }
+
+        //            DBConnection.massageSalon.Record.Add(record);
+        //            DBConnection.massageSalon.SaveChanges();
+        //            Close();
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        //        return;
+        //    }
+        //}
 
         private void ChooseMassagistBTN_Click(object sender, RoutedEventArgs e)
         {
@@ -303,10 +296,16 @@ namespace MassageParlor.Windowww
                 Grid2.Visibility = Visibility.Collapsed;
                 Grid3.Visibility = Visibility.Collapsed;
                 Grid4.Visibility = Visibility.Collapsed;
+
+                DateDP.IsEnabled = true;
+                TimeCB.IsEnabled = true;
+
+                UpdateAvailableTimes();
             }
             else
             {
                 MassagistTB.Text = "";
+                DateDP.IsEnabled = false;
             }
         }
 
@@ -352,10 +351,10 @@ namespace MassageParlor.Windowww
         {
             if (ServicesLV.SelectedItem != null)
             {
-                dynamic selectedItem = ServicesLV.SelectedItem;
+                dynamic selectedService = ServicesLV.SelectedItem;
 
-                ServiceTB.Text = selectedItem.Name;
-                PriceServiceTB.Text = selectedItem.Price.ToString();
+                ServiceTB.Text = selectedService.Name;
+                PriceServiceTB.Text = selectedService.Price.ToString();
                 FinalPriceTB.Text = PriceServiceTB.Text;
                 record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
                 record.ID_Discount = 1;
@@ -420,13 +419,13 @@ namespace MassageParlor.Windowww
         {
             Discount selectedDiscount = (Discount)DiscountCB.SelectedItem;
             Client selectedClient = (Client)ClientsLV.SelectedItem;
-
-            dynamic selectedItem = ServicesLV.SelectedItem;
+            Service selectedService = (Service)ServicesLV.SelectedItem;
+            
             if (ServicesLV.SelectedItem != null)
             {
                 if (DiscountCB.SelectedIndex == 0)
                 {
-                    PriceServiceTB.Text = selectedItem.Price.ToString();
+                    PriceServiceTB.Text = selectedService.Price.ToString();
                     FinalPriceTB.Text = PriceServiceTB.Text;
                     record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
                     record.ID_Discount = 1;
@@ -437,13 +436,13 @@ namespace MassageParlor.Windowww
                     {
                         if(records.Any(i => i.ID_Client == selectedClient.ID))
                         {
-                            MessageBox.Show($"Клиенту {selectedClient.Name} эта скидка недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show($"Клиенту {selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic} скидка «{selectedDiscount.Name}» недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
                             DiscountCB.SelectedIndex = 0;
                             return;
                         }
                         else
                         {
-                            FinalPriceTB.Text = (selectedItem.Price - selectedItem.Price / 100 * 20).ToString();
+                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
                             record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
                             record.ID_Discount = 2;
                         }
@@ -452,28 +451,28 @@ namespace MassageParlor.Windowww
                     {
                         if (Convert.ToDateTime(selectedClient.DateOfBirth).Day == DateTime.Now.Day)
                         {
-                            FinalPriceTB.Text = (selectedItem.Price - selectedItem.Price / 100 * 30).ToString();
+                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 30).ToString();
                             record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
                             record.ID_Discount = 3;
                         }
                         else
                         {
-                            MessageBox.Show($"Клиенту {selectedClient.Name} эта скидка недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show($"Клиенту {selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic} скидка «{selectedDiscount.Name}» недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
                             DiscountCB.SelectedIndex = 0;
                             return;
                         }
                     }
                     else if (DiscountCB.SelectedIndex == 3)
                     {
-                        if (selectedItem.TypeOfService.Name == "SPA для лица")
+                        if (selectedService.TypeOfService.Name == "SPA для лица" || selectedService.Name == "Волшебное прикосновение")
                         {
-                            FinalPriceTB.Text = (selectedItem.Price - selectedItem.Price / 100 * 2).ToString();
+                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 2).ToString();
                             record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
                             record.ID_Discount = 4;
                         }
                         else
                         {
-                            MessageBox.Show("Эта скидка применяется только к программе массажа лица.", "Внимание", 
+                            MessageBox.Show($"Скидка «{selectedDiscount.Name}» применяется только к программе массажа лица.", "Внимание", 
                             MessageBoxButton.OK, MessageBoxImage.Information);
                             DiscountCB.SelectedIndex = 0;
                             FinalPriceTB.Text = PriceServiceTB.Text;
@@ -483,10 +482,6 @@ namespace MassageParlor.Windowww
                         }
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Выберите услугу.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

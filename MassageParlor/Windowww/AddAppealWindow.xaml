@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="Golden Lotus"
         Height="450" Width="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
+    <Border Style="{StaticResource BorderForWindow}">
     <Grid Background="#a98f81">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="800"/>
@@ -68,29 +70,29 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <StackPanel Orientation="Horizontal"
+            <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     Margin="0 0 0 40">
-            <Button x:Name="CancelBTN"
+                <Button x:Name="CancelBTN"
                 Height="80"
                 Width="300"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 Click="CancelBTN_Click"
                 Margin="0 0 40 0">
-                <TextBlock Text="Отменить"
+                    <TextBlock Text="Отменить"
                     FontSize="40"/>
-            </Button>
-            <Button x:Name="AddBTN"
+                </Button>
+                <Button x:Name="AddBTN"
                 Height="80"
                 Width="300"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 Click="AddBTN_Click">
-                <TextBlock Text="Добавить"
+                    <TextBlock Text="Добавить"
             FontSize="40"/>
-            </Button>
-        </StackPanel>
-        
-    </Grid>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>
