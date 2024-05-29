@@ -178,11 +178,21 @@
                 Width="300"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Margin="0 0 70 80"
+                Margin="0 0 70 120"
                 Click="SaveBTN_Click">
             <TextBlock Text="Добавить"
             FontSize="40"/>
         </Button>
-    </Grid>
+            <Button x:Name="CancelBTN"
+            Height="80"
+            Width="300"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Click="CancelBTN_Click"
+            Margin="0 0 70 10">
+                <TextBlock Text="Отменить"
+                FontSize="40"/>
+        </Button>
+        </Grid>
     </Border>
 </Window>

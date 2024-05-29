@@ -76,24 +76,35 @@
             <Button x:Name="EditBTN"
                 Height="80"
                 Width="300"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Click="EditBTN_Click"
-                Margin="0 0 0 40">
+                Margin="0 0 30 40">
                 <TextBlock Text="Изменить"
                     FontSize="40"/>
             </Button>
             <Button x:Name="SaveBTN"
                 Height="80"
                 Width="300"
-                HorizontalAlignment="Center"
+                Visibility="Collapsed"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Click="SaveBTN_Click"
-                Margin="0 0 0 40">
+                Margin="0 0 30 40">
                 <TextBlock Text="Сохранить"
                     FontSize="40"/>
             </Button>
-        </Grid>
+                <Button x:Name="CancelBTN"
+                    Height="80"
+                    Width="300"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Click="CancelBTN_Click"
+                    Margin="30 0 0 40">
+                    <TextBlock Text="Отменить"
+                        FontSize="40"/>
+                </Button>
+            </Grid>
     </Grid>
     </Border>
 </Window>

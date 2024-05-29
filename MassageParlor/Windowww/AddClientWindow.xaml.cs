@@ -188,5 +188,10 @@ namespace MassageParlor.Windowww
             PhoneTB.Text = Regex.Replace(PhoneTB.Text, @"\s", "");
             PhoneTB.CaretIndex = PhoneTB.Text.Length;
         }
+
+        private void CancelBTN_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

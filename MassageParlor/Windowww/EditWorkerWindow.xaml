@@ -185,7 +185,7 @@
                 Height="80"
                 Width="300"
                 Visibility="Visible"
-                 Margin="0 0 70 80"
+                 Margin="0 0 70 120"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Click="EditBTN_Click">
@@ -193,17 +193,27 @@
                     FontSize="40"/>
         </Button>
 
-        <Button x:Name="SaveBTN"
+            <Button x:Name="SaveBTN"
                 Height="80"
                 Width="300"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Margin="0 0 70 80"
+                Margin="0 0 70 120"
                 Visibility="Collapsed"
                 Click="SaveBTN_Click">
-            <TextBlock Text="Сохранить"
+                <TextBlock Text="Сохранить"
                     FontSize="40"/>
-        </Button>
-    </Grid>
+            </Button>
+            <Button x:Name="CancelBTN"
+                Height="80"
+                Width="300"
+                Margin="0 0 70 10"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Click="CancelBTN_Click">
+                    <TextBlock Text="Отмена"
+                        FontSize="40"/>
+                </Button>
+        </Grid>
     </Border>
 </Window>

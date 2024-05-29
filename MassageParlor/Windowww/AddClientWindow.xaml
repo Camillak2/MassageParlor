@@ -102,17 +102,30 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-
-        <Button x:Name="SaveBTN"
+        <StackPanel Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="0 0 0 40">
+            <Button x:Name="CancelBTN"
+                Height="80"
+                Width="300"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Click="CancelBTN_Click"
+                Margin="0 0 70 0">
+                <TextBlock Text="Отменить"
+                    FontSize="40"/>
+            </Button>
+            <Button x:Name="SaveBTN"
                 Height="80"
                 Width="300"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 Click="SaveBTN_Click"
-                Margin="0 0 0 40">
-            <TextBlock Text="Добавить"
+                Margin="70 0 0 0">
+                <TextBlock Text="Добавить"
                     FontSize="40"/>
-        </Button>
-    </Grid>
+            </Button>
+        </StackPanel>
+        </Grid>
     </Border>
 </Window>

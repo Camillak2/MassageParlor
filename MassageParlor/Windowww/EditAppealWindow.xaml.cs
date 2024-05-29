@@ -45,6 +45,8 @@ namespace MassageParlor.Windowww
         private void EditBTN_Click(object sender, RoutedEventArgs e)
         {
             TaskCB.IsEditable = true;
+            SaveBTN.Visibility = Visibility.Visible;
+            EditBTN.Visibility = Visibility.Collapsed;
         }
 
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
@@ -73,6 +75,11 @@ namespace MassageParlor.Windowww
                 MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+        }
+
+        private void CancelBTN_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

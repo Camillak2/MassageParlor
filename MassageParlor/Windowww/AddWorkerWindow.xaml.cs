@@ -300,5 +300,10 @@ namespace MassageParlor.Windowww
             PasswordTB.Text = Regex.Replace(PasswordTB.Text, @"\s", "");
             PasswordTB.CaretIndex = PasswordTB.Text.Length;
         }
+
+        private void CancelBTN_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

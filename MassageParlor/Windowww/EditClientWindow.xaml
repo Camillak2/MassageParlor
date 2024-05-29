@@ -106,25 +106,35 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
+        <Button x:Name="CancelBTN"
+            Height="80"
+            Width="300"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Click="CancelBTN_Click"
+            Margin="80 0 0 40">
+            <TextBlock Text="Отменить"
+                FontSize="40"/>
+        </Button>
         <Button x:Name="EditBTN"
-                Height="80"
-                Width="300"
-                Visibility="Visible"
-                 Margin="0 0 0 40"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
-                Click="EditBTN_Click">
-            <TextBlock Text="Изменить"
-                    FontSize="40"/>
+            Height="80"
+            Width="300"
+            Visibility="Visible"
+             Margin="0 0 70 40"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Click="EditBTN_Click">
+        <TextBlock Text="Изменить"
+                FontSize="40"/>
         </Button>
         <Button x:Name="SaveBTN"
                 Height="80"
                 Width="300"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Click="SaveBTN_Click"
                 Visibility="Collapsed"
-                Margin="0 0 0 40">
+                Margin="0 0 70 40">
             <TextBlock Text="Сохранить"
                     FontSize="40"/>
         </Button>

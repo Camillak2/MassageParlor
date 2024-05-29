@@ -229,5 +229,10 @@ namespace MassageParlor.Windowww
                 PhotoService.Source = new BitmapImage(new Uri(openFileDialog.FileName));
             }
         }
+
+        private void CancelBTN_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
