@@ -132,17 +132,18 @@ namespace MassageParlor.Windowww
                     availableTimes1.Add(time);
                 }
             }
+            TimeLV.ItemsSource = availableTimes1.Select(t => t.ToString(@"hh\:mm")).ToList();
 
-            var availableTimes = new List<TimeSpan>();
-            for (TimeSpan time = new TimeSpan(8, 0, 0); time < new TimeSpan(20, 15, 0); time = time.Add(TimeSpan.FromMinutes(15)))
-            {
-                if (!unavailableTimes.Contains(time))
-                {
-                    availableTimes.Add(time);
-                }
-            }
-            //TimeCB.ItemsSource = availableTimes;
-            TimeLV.ItemsSource = availableTimes.Select(t => t.ToString(@"hh\:mm")).ToList();
+            //var availableTimes = new List<TimeSpan>();
+            //for (TimeSpan time = new TimeSpan(8, 0, 0); time < new TimeSpan(20, 15, 0); time = time.Add(TimeSpan.FromMinutes(15)))
+            //{
+            //    if (!unavailableTimes.Contains(time))
+            //    {
+            //        availableTimes.Add(time);
+            //    }
+            //}
+            ////TimeCB.ItemsSource = availableTimes;
+            //TimeLV.ItemsSource = availableTimes.Select(t => t.ToString(@"hh\:mm")).ToList();
         }
 
         private void SaveBTN_Click(object sender, RoutedEventArgs e)

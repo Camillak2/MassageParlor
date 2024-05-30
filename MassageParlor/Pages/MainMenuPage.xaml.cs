@@ -27,7 +27,7 @@ namespace MassageParlor.Pages
     /// <summary>
     /// Логика взаимодействия для MainMenuPage.xaml
     /// </summary>
-    public partial class MainMenuPage : System.Windows.Controls.Page
+    public partial class MainMenuPage : Page
     {
         public static List<Worker> workers { get; set; }
         Worker loggedWorker;
@@ -121,28 +121,35 @@ namespace MassageParlor.Pages
 
         private void RulesBTN_Click(object sender, RoutedEventArgs e)
         {
-            // Открытие проводника для выбора файла
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            MessageBoxResult result = MessageBox.Show("Открыть Word?", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
             {
-                Filter = "Word Documents|*.doc;*.docx",
-                Title = "Select a Word Document"
-            };
+                OpenFileDialog openFileDialog = new OpenFileDialog
+                {
+                    Filter = "Word Documents|*.doc;*.docx",
+                    Title = "Select a Word Document"
+                };
 
-            if (openFileDialog.ShowDialog() == true)
-            {
-                // Получение выбранного файла
-                string filePath = openFileDialog.FileName;
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    // Получение выбранного файла
+                    string filePath = openFileDialog.FileName;
 
-                // Открытие документа Word
-                OpenWordDocument(filePath);
+                    // Открытие документа Word
+                    OpenWordDocument(filePath);
+                }
             }
+            else if (result == MessageBoxResult.No)
+            {
+                
+            }           
         }
 
         private void OpenWordDocument(string filePath)
         {
             // Создание нового приложения Word
             Word.Application wordApp = new Word.Application();
-
+            
             try
             {
                 // Открытие документа
