@@ -139,10 +139,8 @@ namespace MassageParlor.Windowww
             bool isToday = selectedDate.Value.Date == now.Date;
             TimeSpan startTime = isToday ? now.TimeOfDay : new TimeSpan(8, 0, 0);
 
-            // Округление времени до ближайшего 15-минутного интервала
             startTime = new TimeSpan(startTime.Hours, (startTime.Minutes / 15) * 30, 0);
 
-            // Окончание интервала
             TimeSpan endTime = new TimeSpan(20, 15, 0);
 
             for (TimeSpan time = startTime; time < endTime; time = time.Add(TimeSpan.FromMinutes(15)))
