@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Xps.Packaging;
+using System.Xml.Linq;
 using MassageParlor.DB;
+using Microsoft.Win32;
+using Aspose.Words;
+using Aspose.Words.Rendering;
 
 namespace MassageParlor.Pages
 {
@@ -107,6 +113,50 @@ namespace MassageParlor.Pages
         private void AppealsBTN_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new AppealsPage());
+        }
+
+        private void PrintBTN_Click(object sender, RoutedEventArgs e)
+        {
+            // Открытие проводника для выбора файла
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Word Documents|*.doc;*.docx",
+                Title = "Select a Word Document to Print"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                // Получение выбранного файла
+                string filePath = openFileDialog.FileName;
+
+                // Печать документа Word
+                PrintWordDocument(filePath);
+            }
+        }
+
+        private void PrintWordDocument(string filePath)
+        {
+            try
+            {
+                // Загрузка документа Word
+                Document doc = new Document(filePath);
+
+                // Создание PrintDialog
+                PrintDialog printDialog = new PrintDialog();
+
+                if (printDialog.ShowDialog() == true)
+                {
+                    // Получение настроек принтера
+                    string printerName = printDialog.PrintQueue.FullName;
+
+                    // Печать документа на выбранном принтере
+                    doc.Print(printerName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while printing the document: " + ex.Message);
+            }
         }
     }
 }

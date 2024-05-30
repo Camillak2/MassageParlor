@@ -51,6 +51,13 @@
                        VerticalAlignment="Top"
                        x:Name="NameTB"
                        Style="{StaticResource Title}"/>
+            <Button x:Name="RulesBTN"
+                Width="200"
+                Height="60"
+                Content="Правила"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Margin="20" Click="RulesBTN_Click"/>
         </Grid>
         <Grid Grid.Column="1"
               Background="#907669">
