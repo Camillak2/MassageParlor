@@ -231,7 +231,7 @@
                     Height="50"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Center"
-                    Margin="0 0 170 80"/>
+                    Margin="0 0 120 80"/>
                 <Button HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     Height="100"

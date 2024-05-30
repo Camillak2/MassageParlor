@@ -122,27 +122,37 @@ namespace MassageParlor.Pages
         private void RulesBTN_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Открыть Word?", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            try
             {
-                OpenFileDialog openFileDialog = new OpenFileDialog
-                {
-                    Filter = "Word Documents|*.doc;*.docx",
-                    Title = "Select a Word Document"
-                };
 
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    // Получение выбранного файла
-                    string filePath = openFileDialog.FileName;
 
-                    // Открытие документа Word
-                    OpenWordDocument(filePath);
+                if (result == MessageBoxResult.Yes)
+                {
+                    OpenFileDialog openFileDialog = new OpenFileDialog
+                    {
+                        Filter = "Word Documents|*.doc;*.docx",
+                        Title = "Select a Word Document"
+                    };
+
+                    if (openFileDialog.ShowDialog() == true)
+                    {
+                        // Получение выбранного файла
+                        string filePath = openFileDialog.FileName;
+
+                        // Открытие документа Word
+                        OpenWordDocument(filePath);
+                    }
+                }
+                else if (result == MessageBoxResult.No)
+                {
+                    return;
                 }
             }
-            else if (result == MessageBoxResult.No)
+            catch
             {
+                MessageBox.Show("Ошибка:");
                 return;
-            }           
+            }
         }
 
         private void OpenWordDocument(string filePath)
