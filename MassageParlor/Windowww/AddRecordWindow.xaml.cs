@@ -120,18 +120,39 @@ namespace MassageParlor.Windowww
                 }
             }
 
+            //var availableTimes1 = new List<TimeSpan>();
+            //var now = DateTime.Now;
+            //bool isToday = selectedDate.Value.Date == now.Date;
+            //TimeSpan startTime = isToday ? now.TimeOfDay : new TimeSpan(8, 0, 0);
+
+            //for (TimeSpan time = startTime; time < new TimeSpan(20, 15, 0); time = time.Add(TimeSpan.FromMinutes(15)))
+            //{
+            //    if (!unavailableTimes.Contains(time))
+            //    {
+            //        availableTimes1.Add(time);
+            //    }
+            //}
+            //TimeLV.ItemsSource = availableTimes1.Select(t => t.ToString(@"hh\:mm")).ToList();
+
             var availableTimes1 = new List<TimeSpan>();
             var now = DateTime.Now;
             bool isToday = selectedDate.Value.Date == now.Date;
             TimeSpan startTime = isToday ? now.TimeOfDay : new TimeSpan(8, 0, 0);
 
-            for (TimeSpan time = startTime; time < new TimeSpan(20, 15, 0); time = time.Add(TimeSpan.FromMinutes(15)))
+            // Округление времени до ближайшего 15-минутного интервала
+            startTime = new TimeSpan(startTime.Hours, (startTime.Minutes / 15) * 15, 0);
+
+            // Окончание интервала
+            TimeSpan endTime = new TimeSpan(20, 15, 0);
+
+            for (TimeSpan time = startTime; time < endTime; time = time.Add(TimeSpan.FromMinutes(15)))
             {
                 if (!unavailableTimes.Contains(time))
                 {
                     availableTimes1.Add(time);
                 }
             }
+
             TimeLV.ItemsSource = availableTimes1.Select(t => t.ToString(@"hh\:mm")).ToList();
 
             //var availableTimes = new List<TimeSpan>();
