@@ -19,13 +19,15 @@ using MassageParlor.DB;
 using Microsoft.Win32;
 using Aspose.Words;
 using Aspose.Words.Rendering;
+using Word = Microsoft.Office.Interop.Word;
+
 
 namespace MassageParlor.Pages
 {
     /// <summary>
     /// Логика взаимодействия для MainMenuPage.xaml
     /// </summary>
-    public partial class MainMenuPage : Page
+    public partial class MainMenuPage : System.Windows.Controls.Page
     {
         public static List<Worker> workers { get; set; }
         Worker loggedWorker;
@@ -115,13 +117,13 @@ namespace MassageParlor.Pages
             NavigationService.Navigate(new AppealsPage());
         }
 
-        private void PrintBTN_Click(object sender, RoutedEventArgs e)
+        private void RulesBTN_Click(object sender, RoutedEventArgs e)
         {
             // Открытие проводника для выбора файла
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Filter = "Word Documents|*.doc;*.docx",
-                Title = "Select a Word Document to Print"
+                Title = "Select a Word Document"
             };
 
             if (openFileDialog.ShowDialog() == true)
@@ -129,33 +131,29 @@ namespace MassageParlor.Pages
                 // Получение выбранного файла
                 string filePath = openFileDialog.FileName;
 
-                // Печать документа Word
-                PrintWordDocument(filePath);
+                // Открытие документа Word
+                OpenWordDocument(filePath);
             }
         }
 
-        private void PrintWordDocument(string filePath)
+        private void OpenWordDocument(string filePath)
         {
+            // Создание нового приложения Word
+            Word.Application wordApp = new Word.Application();
+
             try
             {
-                // Загрузка документа Word
-                Document doc = new Document(filePath);
+                // Открытие документа
+                Word.Document wordDoc = wordApp.Documents.Open(filePath);
+                wordApp.Visible = true; // Сделать приложение Word видимым
 
-                // Создание PrintDialog
-                PrintDialog printDialog = new PrintDialog();
-
-                if (printDialog.ShowDialog() == true)
-                {
-                    // Получение настроек принтера
-                    string printerName = printDialog.PrintQueue.FullName;
-
-                    // Печать документа на выбранном принтере
-                    doc.Print(printerName);
-                }
+                // Освобождение ресурсов
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(wordDoc);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(wordApp);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while printing the document: " + ex.Message);
+                MessageBox.Show("An error occurred while opening the document: " + ex.Message);
             }
         }
     }
