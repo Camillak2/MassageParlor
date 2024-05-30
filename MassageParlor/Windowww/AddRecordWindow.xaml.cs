@@ -47,7 +47,6 @@ namespace MassageParlor.Windowww
             records = DBConnection.massageSalon.Record.ToList();
             DiscountCB.SelectedIndex = 0;
             DateDP.IsEnabled = false;
-            //TimeCB.IsEnabled = false;
             Refresh();
 
             this.DataContext = this;
@@ -284,28 +283,37 @@ namespace MassageParlor.Windowww
 
         private void WorkersLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (WorkersLV.SelectedItem != null)
+            try
             {
-                dynamic selectedItem = WorkersLV.SelectedItem;
 
-                MassagistTB.Text = selectedItem.Surname + " " + selectedItem.Name + " " + selectedItem.Patronymic;
 
-                Grid1.Visibility = Visibility.Visible;
-                SaveBTN.Visibility = Visibility.Visible;
-                CancelBTN.Visibility = Visibility.Visible;
-                Grid2.Visibility = Visibility.Collapsed;
-                Grid3.Visibility = Visibility.Collapsed;
-                Grid4.Visibility = Visibility.Collapsed;
+                if (WorkersLV.SelectedItem != null)
+                {
+                    dynamic selectedItem = WorkersLV.SelectedItem;
 
-                DateDP.IsEnabled = true;
-                //TimeCB.IsEnabled = true;
+                    MassagistTB.Text = selectedItem.Surname + " " + selectedItem.Name + " " + selectedItem.Patronymic;
 
-                UpdateAvailableTimes();
+                    Grid1.Visibility = Visibility.Visible;
+                    SaveBTN.Visibility = Visibility.Visible;
+                    CancelBTN.Visibility = Visibility.Visible;
+                    Grid2.Visibility = Visibility.Collapsed;
+                    Grid3.Visibility = Visibility.Collapsed;
+                    Grid4.Visibility = Visibility.Collapsed;
+
+                    DateDP.IsEnabled = true;
+                    //TimeCB.IsEnabled = true;
+
+                    UpdateAvailableTimes();
+                }
+                else
+                {
+                    MassagistTB.Text = "";
+                    DateDP.IsEnabled = false;
+                }
             }
-            else
+            catch
             {
-                MassagistTB.Text = "";
-                DateDP.IsEnabled = false;
+                return;
             }
         }
 
@@ -322,36 +330,47 @@ namespace MassageParlor.Windowww
         private void ClientsLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             dynamic selectedClient = ClientsLV.SelectedItem;
-            int clientCount = records.Where(i => i.DateTime < DateTime.Now).Count(r => r.ID_Client == selectedClient.ID);
-            dynamic selectedService = ServicesLV.SelectedItem;
+            try
+            {
 
-            ClientTB.Text = selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic;
-            //if (selectedService != null)
-            //{
-            //    ServiceTB.Text = selectedService.Name;
-            //    if (records.Any(i => i.ID_Client == selectedClient.ID))
-            //    {
-            //        DiscountCB.SelectedIndex = 0;
-            //        PriceServiceTB.Text = selectedService.Price.ToString();
-            //        FinalPriceTB.Text = PriceServiceTB.Text;
-            //    }
-            //    else if (records.Any(i => i.ID_Client == selectedClient.ID) && clientCount >= 5)
-            //    {
-            //        DiscountCB.SelectedIndex = 4;
-            //        PriceServiceTB.Text = selectedService.Price.ToString();
-            //        FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 10).ToString();
-            //    }
-            //    else
-            //    {
-            //        DiscountCB.SelectedIndex = 1;
-            //        PriceServiceTB.Text = selectedService.Price.ToString();
-            //        FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
-            //    }
-            //}
-            //else
-            //{
-            //    ServiceTB.Text = "";
-            //}
+
+                int clientCount = records.Where(i => i.DateTime < DateTime.Now).Count(r => r.ID_Client == selectedClient.ID);
+                dynamic selectedService = ServicesLV.SelectedItem;
+
+                ClientTB.Text = selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic;
+                if (selectedService != null)
+                {
+                    ClientTB.Text = selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic;
+                    ServiceTB.Text = selectedService.Name;
+
+                    if (records.Any(i => i.ID_Client == selectedClient.ID))
+                    {
+                        DiscountCB.SelectedIndex = 0;
+                        PriceServiceTB.Text = selectedService.Price.ToString();
+                        FinalPriceTB.Text = PriceServiceTB.Text;
+                    }
+                    else if (records.Any(i => i.ID_Client == selectedClient.ID) && clientCount >= 5)
+                    {
+                        DiscountCB.SelectedIndex = 4;
+                        PriceServiceTB.Text = selectedService.Price.ToString();
+                        FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 10).ToString();
+                    }
+                    else
+                    {
+                        DiscountCB.SelectedIndex = 1;
+                        PriceServiceTB.Text = selectedService.Price.ToString();
+                        FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
+                    }
+                }
+                else
+                {
+                    ServiceTB.Text = "";
+                }
+            }
+            catch
+            {
+                return;
+            }
             Grid1.Visibility = Visibility.Visible;
             SaveBTN.Visibility = Visibility.Visible;
             CancelBTN.Visibility = Visibility.Visible;
@@ -373,20 +392,26 @@ namespace MassageParlor.Windowww
         private void ServicesLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             dynamic selectedService = ServicesLV.SelectedItem;
-
-            if (selectedService.TypeOfService.Name == "SPA для лица" || selectedService.Name == "Волшебное прикосновение")
+            try
             {
-                DiscountCB.SelectedIndex = 3;
-                ServiceTB.Text = selectedService.Name;
-                PriceServiceTB.Text = selectedService.Price.ToString();
-                FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
+                if (selectedService.TypeOfService.Name == "SPA для лица" || selectedService.Name == "Волшебное прикосновение")
+                {
+                    DiscountCB.SelectedIndex = 3;
+                    ServiceTB.Text = selectedService.Name;
+                    PriceServiceTB.Text = selectedService.Price.ToString();
+                    FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
+                }
+                else
+                {
+                    DiscountCB.SelectedIndex = 0;
+                    ServiceTB.Text = selectedService.Name;
+                    PriceServiceTB.Text = selectedService.Price.ToString();
+                    FinalPriceTB.Text = PriceServiceTB.Text;
+                }
             }
-            else
+            catch
             {
-                DiscountCB.SelectedIndex = 0;
-                ServiceTB.Text = selectedService.Name;
-                PriceServiceTB.Text = selectedService.Price.ToString();
-                FinalPriceTB.Text = PriceServiceTB.Text;
+                return;
             }
 
             Grid1.Visibility = Visibility.Visible;
@@ -447,89 +472,96 @@ namespace MassageParlor.Windowww
             Discount selectedDiscount = (Discount)DiscountCB.SelectedItem;
             Client selectedClient = (Client)ClientsLV.SelectedItem;
             Service selectedService = (Service)ServicesLV.SelectedItem;
-            
-            if (ServicesLV.SelectedItem != null)
+            try
             {
-                if (DiscountCB.SelectedIndex == 0)
-                {
-                    PriceServiceTB.Text = selectedService.Price.ToString();
-                    FinalPriceTB.Text = PriceServiceTB.Text;
-                    record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                    record.ID_Discount = 1;
-                }
-                else
-                {
-                    if (DiscountCB.SelectedIndex == 1)
-                    {
-                        if(records.Any(i => i.ID_Client == selectedClient.ID))
-                        {
-                            MessageBox.Show($"Клиенту {selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic} скидка «{selectedDiscount.Name}» недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
-                            DiscountCB.SelectedIndex = 0;
-                            PriceServiceTB.Text = selectedService.Price.ToString();
-                            record.ID_Discount = 1;
-                            return;
-                        }
-                        else
-                        {
-                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
-                            record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                            record.ID_Discount = 2;
-                        }
-                    }
-                    else if (DiscountCB.SelectedIndex == 2)
-                    {
-                        if (Convert.ToDateTime(selectedClient.DateOfBirth).Day == DateTime.Now.Day)
-                        {
-                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 30).ToString();
-                            record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                            record.ID_Discount = 3;
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Клиенту {selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic} скидка «{selectedDiscount.Name}» недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
-                            DiscountCB.SelectedIndex = 0;
-                            record.ID_Discount = 1;
-                            return;
-                        }
-                    }
-                    else if (DiscountCB.SelectedIndex == 3)
-                    {
-                        if (selectedService.TypeOfService.Name == "SPA для лица" || selectedService.Name == "Волшебное прикосновение")
-                        {
-                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
-                            record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                            record.ID_Discount = 4;
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Скидка «{selectedDiscount.Name}» применяется только к программе массажа лица.", "Внимание", 
-                            MessageBoxButton.OK, MessageBoxImage.Information);
-                            DiscountCB.SelectedIndex = 0;
-                            FinalPriceTB.Text = PriceServiceTB.Text;
-                            record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                            record.ID_Discount = 1;
-                            return;
-                        }
-                    }
-                    if (DiscountCB.SelectedIndex == 4 || DiscountCB.Text == "Постоянный клиент")
-                    {
-                        int clientCount = records.Where(i => i.DateTime < DateTime.Now).Count(r => r.ID_Client == selectedClient.ID);
 
-                        if (clientCount >= 5)
+                if (ServicesLV.SelectedItem != null)
+                {
+                    if (DiscountCB.SelectedIndex == 0)
+                    {
+                        PriceServiceTB.Text = selectedService.Price.ToString();
+                        FinalPriceTB.Text = PriceServiceTB.Text;
+                        record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                        record.ID_Discount = 1;
+                    }
+                    else
+                    {
+                        if (DiscountCB.SelectedIndex == 1)
                         {
-                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
-                            record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
-                            record.ID_Discount = 5;
+                            if (records.Any(i => i.ID_Client == selectedClient.ID))
+                            {
+                                MessageBox.Show($"Клиенту {selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic} скидка «{selectedDiscount.Name}» недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+                                DiscountCB.SelectedIndex = 0;
+                                PriceServiceTB.Text = selectedService.Price.ToString();
+                                record.ID_Discount = 1;
+                                return;
+                            }
+                            else
+                            {
+                                FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
+                                record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                                record.ID_Discount = 2;
+                            }
                         }
-                        else
+                        else if (DiscountCB.SelectedIndex == 2)
                         {
-                            MessageBox.Show($"Клиенту {selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic} скидка «{selectedDiscount.Name}» недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
-                            DiscountCB.SelectedIndex = 0;
-                            record.ID_Discount = 1;
-                            return;
+                            if (Convert.ToDateTime(selectedClient.DateOfBirth).Day == DateTime.Now.Day)
+                            {
+                                FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 30).ToString();
+                                record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                                record.ID_Discount = 3;
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Клиенту {selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic} скидка «{selectedDiscount.Name}» недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+                                DiscountCB.SelectedIndex = 0;
+                                record.ID_Discount = 1;
+                                return;
+                            }
                         }
-                    } 
+                        else if (DiscountCB.SelectedIndex == 3)
+                        {
+                            if (selectedService.TypeOfService.Name == "SPA для лица" || selectedService.Name == "Волшебное прикосновение")
+                            {
+                                FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
+                                record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                                record.ID_Discount = 4;
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Скидка «{selectedDiscount.Name}» применяется только к программе массажа лица.", "Внимание",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+                                DiscountCB.SelectedIndex = 0;
+                                FinalPriceTB.Text = PriceServiceTB.Text;
+                                record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                                record.ID_Discount = 1;
+                                return;
+                            }
+                        }
+                        if (DiscountCB.SelectedIndex == 4 || DiscountCB.Text == "Постоянный клиент")
+                        {
+                            int clientCount = records.Where(i => i.DateTime < DateTime.Now).Count(r => r.ID_Client == selectedClient.ID);
+
+                            if (clientCount >= 5)
+                            {
+                                FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
+                                record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                                record.ID_Discount = 5;
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Клиенту {selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic} скидка «{selectedDiscount.Name}» недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+                                DiscountCB.SelectedIndex = 0;
+                                record.ID_Discount = 1;
+                                return;
+                            }
+                        }
+                    }
                 }
+            }
+            catch
+            {
+                return;
             }
         }
 
