@@ -9,7 +9,8 @@
         Height="960"
         Width="1550"
         Icon="/Images/logoo.png"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
     <Grid>
         <Frame x:Name="NaFr"
                NavigationUIVisibility="Hidden"/>

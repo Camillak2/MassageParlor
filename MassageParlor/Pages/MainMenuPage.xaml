@@ -35,17 +35,18 @@
             <Button x:Name="ConnectionBTN"
                     Width="500"
                     Height="60"
+                    Visibility="Collapsed"
                     Content="Связаться с администратором"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Left"
                     Margin="20" Click="ConnectionBTN_Click"/>
             <Button x:Name="AppealsBTN"
-                Width="500"
+                Width="300"
                 Height="60"
                 Content="Обращения"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Left"
-                Margin="20" Click="AppealsBTN_Click"/>
+                Margin="120 0 0 20" Click="AppealsBTN_Click"/>
             <TextBlock Margin="20"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"

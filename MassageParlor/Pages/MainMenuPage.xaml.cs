@@ -141,7 +141,7 @@ namespace MassageParlor.Pages
             }
             else if (result == MessageBoxResult.No)
             {
-                
+                return;
             }           
         }
 
