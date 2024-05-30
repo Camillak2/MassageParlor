@@ -124,8 +124,6 @@ namespace MassageParlor.Pages
             MessageBoxResult result = MessageBox.Show("Открыть Word?", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question);
             try
             {
-
-
                 if (result == MessageBoxResult.Yes)
                 {
                     OpenFileDialog openFileDialog = new OpenFileDialog
@@ -173,6 +171,7 @@ namespace MassageParlor.Pages
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred while opening the document: " + ex.Message);
+                return;
             }
         }
     }
