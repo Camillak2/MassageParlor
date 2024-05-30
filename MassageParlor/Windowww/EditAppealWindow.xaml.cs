@@ -37,14 +37,14 @@ namespace MassageParlor.Windowww
             tasks = DBConnection.massageSalon.Taskk.ToList();
             workers = DBConnection.massageSalon.Worker.ToList();
             this.DataContext = this;
-            TaskCB.SelectedIndex = (int)contextAppeal.ID_Task;
+            TaskCB.SelectedIndex = (int)contextAppeal.ID_Task - 1;
             DateTimeDP.SelectedDate = contextAppeal.DateTime;
             StatusTB.Text = contextAppeal.Status.Name;
         }
 
         private void EditBTN_Click(object sender, RoutedEventArgs e)
         {
-            TaskCB.IsEditable = true;
+            TaskCB.IsEnabled = true;
             SaveBTN.Visibility = Visibility.Visible;
             EditBTN.Visibility = Visibility.Collapsed;
         }
@@ -63,8 +63,6 @@ namespace MassageParlor.Windowww
                 {
                     appeal.ID_Task = (TaskCB.SelectedItem as Taskk).ID;
                     DBConnection.massageSalon.SaveChanges();
-
-
                 }
                 SaveBTN.Visibility = Visibility.Collapsed;
                 EditBTN.Visibility = Visibility.Visible;

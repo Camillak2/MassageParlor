@@ -326,34 +326,32 @@ namespace MassageParlor.Windowww
             dynamic selectedService = ServicesLV.SelectedItem;
 
             ClientTB.Text = selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic;
-            if (selectedService != null)
-            {
-                ServiceTB.Text = selectedService.Name;
-                if (records.Any(i => i.ID_Client == selectedClient.ID))
-                {
-                    DiscountCB.SelectedIndex = 0;
-                    PriceServiceTB.Text = selectedService.Price.ToString();
-                    FinalPriceTB.Text = PriceServiceTB.Text;
-                }
-                else if (records.Any(i => i.ID_Client == selectedClient.ID) && clientCount >= 5)
-                {
-                    DiscountCB.SelectedIndex = 4;
-                    PriceServiceTB.Text = selectedService.Price.ToString();
-                    FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 10).ToString();
-                }
-                else
-                {
-                    DiscountCB.SelectedIndex = 1;
-                    PriceServiceTB.Text = selectedService.Price.ToString();
-                    FinalPriceTB.Text = PriceServiceTB.Text;
-                }
-            }
-            else
-            {
-                ServiceTB.Text = "";
-            }
-
-            
+            //if (selectedService != null)
+            //{
+            //    ServiceTB.Text = selectedService.Name;
+            //    if (records.Any(i => i.ID_Client == selectedClient.ID))
+            //    {
+            //        DiscountCB.SelectedIndex = 0;
+            //        PriceServiceTB.Text = selectedService.Price.ToString();
+            //        FinalPriceTB.Text = PriceServiceTB.Text;
+            //    }
+            //    else if (records.Any(i => i.ID_Client == selectedClient.ID) && clientCount >= 5)
+            //    {
+            //        DiscountCB.SelectedIndex = 4;
+            //        PriceServiceTB.Text = selectedService.Price.ToString();
+            //        FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 10).ToString();
+            //    }
+            //    else
+            //    {
+            //        DiscountCB.SelectedIndex = 1;
+            //        PriceServiceTB.Text = selectedService.Price.ToString();
+            //        FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
+            //    }
+            //}
+            //else
+            //{
+            //    ServiceTB.Text = "";
+            //}
             Grid1.Visibility = Visibility.Visible;
             SaveBTN.Visibility = Visibility.Visible;
             CancelBTN.Visibility = Visibility.Visible;
