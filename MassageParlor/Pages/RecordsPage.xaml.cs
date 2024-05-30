@@ -39,8 +39,18 @@ namespace MassageParlor.Pages
             records = DBConnection.massageSalon.Record.ToList();
             Refresh();
             RefreshSumPrice();
+            RefreshForMassagist();
             CheckConditionAndToggleButtonVisibility();
+            
             this.DataContext = this;
+        }
+
+        private void RefreshForMassagist()
+        {
+            records = DBConnection.massageSalon.Record.ToList();
+            var sortedRecords = records.OrderBy(r => r.DateTime.Date).ThenBy(r => r.DateTime.TimeOfDay).ToList();
+            Records = new ObservableCollection<Record>(sortedRecords);
+            RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID && i.DateTime > DateTime.Now && i.DateTime.Date == DateTime.Today);
         }
 
         private void RefreshSumPrice()
@@ -92,7 +102,6 @@ namespace MassageParlor.Pages
                 Records = new ObservableCollection<Record>(sortedRecords);
 
                 RecordsForAdminLV.ItemsSource = Records.Where(i => i.DateTime.Date == DateDP.SelectedDate);
-                RecordsForMassagistLV.ItemsSource = Records.Where(i => i.DateTime == DateDP.SelectedDate && i.ID_Worker == loggedWorker.ID);
             }
             RefreshSumPrice();
         }
@@ -104,7 +113,6 @@ namespace MassageParlor.Pages
             Records = new ObservableCollection<Record>(sortedRecords);
 
             RecordsForAdminLV.ItemsSource = Records.Where(i => i.DateTime >= DateTime.Now);
-            //RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID && i.DateTime >= DateTime.Now);
 
             ActualRB.IsChecked = true;
             AllRB.IsChecked = false;
@@ -118,7 +126,6 @@ namespace MassageParlor.Pages
             Records = new ObservableCollection<Record>(sortedRecords);
 
             RecordsForAdminLV.ItemsSource = Records;
-           //RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID);
 
             ActualRB.IsChecked = false;
             AllRB.IsChecked = true;
@@ -132,7 +139,6 @@ namespace MassageParlor.Pages
             Records = new ObservableCollection<Record>(sortedRecords);
 
             RecordsForAdminLV.ItemsSource = Records.Where(i => i.DateTime < DateTime.Now);
-            //RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID && i.DateTime < DateTime.Now);
 
             ActualRB.IsChecked = false;
             AllRB.IsChecked = false;
@@ -154,6 +160,10 @@ namespace MassageParlor.Pages
                 RecordsForAdminLV.Visibility = Visibility.Visible;
                 ForAdmin.Visibility = Visibility.Visible;
                 ChartBTN.Visibility = Visibility.Visible;
+                ActualSP.Visibility = Visibility.Visible;
+                LastSP.Visibility = Visibility.Visible;
+                AllSP.Visibility = Visibility.Visible;
+                DateSP.Visibility = Visibility.Visible;
 
                 //Не видно
                 MassageBTN.Visibility = Visibility.Collapsed;
@@ -178,6 +188,10 @@ namespace MassageParlor.Pages
                 RecordsForAdminLV.Visibility= Visibility.Collapsed;
                 ForAdmin.Visibility= Visibility.Collapsed;
                 ChartBTN.Visibility = Visibility.Collapsed;
+                ActualSP.Visibility = Visibility.Collapsed;
+                LastSP.Visibility = Visibility.Collapsed;
+                AllSP.Visibility = Visibility.Collapsed;
+                DateSP.Visibility = Visibility.Collapsed;
 
                 NameTB.Text = "Мои записи";
             }

@@ -309,7 +309,8 @@
             </ListView>
             <StackPanel Margin="30 450 0 0"
                         VerticalAlignment="Center"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        x:Name="ActualSP">
                 <RadioButton x:Name="ActualRB"
                       VerticalAlignment="Center"
                       Checked="ActualCHB_Checked"/>
@@ -318,7 +319,8 @@
             </StackPanel>
             <StackPanel Margin="30 500 0 0"
                 VerticalAlignment="Center"
-                Orientation="Horizontal">
+                Orientation="Horizontal"
+                 x:Name="LastSP">
                 <RadioButton x:Name="LastRB"
                     VerticalAlignment="Center"
                     Checked="LastRB_Checked"/>
@@ -335,7 +337,8 @@
             </StackPanel>
             <StackPanel Margin="30 550 0 0"
                 VerticalAlignment="Center"
-                Orientation="Horizontal">
+                Orientation="Horizontal"
+                x:Name="AllSP">
                 <RadioButton x:Name="AllRB"
                     VerticalAlignment="Center"
                     Checked="AllCHB_Checked"/>
@@ -344,7 +347,8 @@
             </StackPanel>
             <StackPanel Margin="30 0 0 100"
                         VerticalAlignment="Bottom"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        x:Name="DateSP">
                 <DatePicker x:Name="DateDP"
                     VerticalAlignment="Center"
                     SelectedDateChanged="DatePicker_SelectedDateChanged"/>
