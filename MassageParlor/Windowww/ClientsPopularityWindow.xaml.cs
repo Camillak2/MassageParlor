@@ -18,15 +18,15 @@ using System.Windows.Shapes;
 namespace MassageParlor.Windowww
 {
     /// <summary>
-    /// Логика взаимодействия для PopulationWindow.xaml
+    /// Логика взаимодействия для ClientsPopularityWindow.xaml
     /// </summary>
-    public partial class PopulationWindow : Window
+    public partial class ClientsPopularityWindow : Window
     {
         public static List<Record> records { get; set; }
-        public static List<Service> services { get; set; }
+        public static List<Client> clients { get; set; }
         public static MainViewModel main { get; set; }
 
-        public PopulationWindow()
+        public ClientsPopularityWindow()
         {
             InitializeComponent();
             records = DBConnection.massageSalon.Record.ToList();
@@ -47,7 +47,7 @@ namespace MassageParlor.Windowww
         {
             public int Year { get; set; }
             public int Month { get; set; }
-            public string ServiceName { get; set; }
+            public string WorkerName { get; set; }
             public int Count { get; set; }
         }
 
@@ -56,16 +56,16 @@ namespace MassageParlor.Windowww
             public static List<MonthlyBookingSummary> GetMonthlySummaries(DateTime selectedDate)
             {
                 return records.Where(i => i.DateTime.Month == selectedDate.Month && i.DateTime.Year == selectedDate.Year)
-                    .GroupBy(b => b.Service.Name)
+                    .GroupBy(b => b.Client.Surname + " " + b.Client.Name + " " + b.Client.Patronymic)
                     .Select(g => new MonthlyBookingSummary
                     {
                         Year = selectedDate.Year,
                         Month = selectedDate.Month,
-                        ServiceName = g.Key,
+                        WorkerName = g.Key,
                         Count = g.Count()
                     })
                     .OrderByDescending(s => s.Count) // Сортировка по убыванию количества
-                    .Take(5) // Берем первые 5 самых популярных
+                    /*.Take(5)*/ // Берем первые 5 самых популярных
                     .ToList();
             }
         }
@@ -84,7 +84,7 @@ namespace MassageParlor.Windowww
 
                 foreach (var summary in summaries)
                 {
-                    Labels.Add(summary.ServiceName); // Добавляем название услуги в Labels
+                    Labels.Add(summary.WorkerName.ToString()); // Добавляем название услуги в Labels
                     values.Add(summary.Count);
                 }
 

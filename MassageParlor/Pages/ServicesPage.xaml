@@ -74,6 +74,27 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Height="100"
+                Width="250"
+                x:Name="PopularBTN"
+                Margin="0 0 0 30"
+                Click="PopularBTN_Click">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Source="/Images/popularity.png"
+                        Width="48"
+                        Height="48"
+                        Grid.Row="0"/>
+                    <TextBlock Text="Популярные"
+                        HorizontalAlignment="Center"
+                        Grid.Row="1"/>
+                </Grid>
+            </Button>
             <Button HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Height="100"

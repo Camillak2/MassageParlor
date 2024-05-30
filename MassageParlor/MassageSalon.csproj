@@ -193,6 +193,9 @@
     <Compile Include="Windowww\AddWorkerWindow.xaml.cs">
       <DependentUpon>AddWorkerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windowww\ClientsPopularityWindow.xaml.cs">
+      <DependentUpon>ClientsPopularityWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windowww\EditAppealWindow.xaml.cs">
       <DependentUpon>EditAppealWindow.xaml</DependentUpon>
     </Compile>
@@ -213,6 +216,9 @@
     </Compile>
     <Compile Include="Windowww\StatisticWindow.xaml.cs">
       <DependentUpon>StatisticWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windowww\WorkersPopularityWindow.xaml.cs">
+      <DependentUpon>WorkersPopularityWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -287,6 +293,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windowww\ClientsPopularityWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windowww\EditAppealWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -312,6 +322,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windowww\StatisticWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windowww\WorkersPopularityWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -416,6 +430,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\popularity.png" />
     <Resource Include="Images\body.png" />
     <Resource Include="Images\face.jpg" />
   </ItemGroup>

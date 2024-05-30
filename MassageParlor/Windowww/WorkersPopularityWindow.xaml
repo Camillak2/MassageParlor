@@ -1,0 +1,35 @@
+﻿<Window x:Class="MassageParlor.Windowww.WorkersPopularityWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MassageParlor.Windowww"
+        mc:Ignorable="d"
+        Title="WorkersPopularityWindow" Height="450" Width="800">
+    <Grid>
+        <DatePicker Name="DateDP"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Margin="10"/>
+        <Button 
+            Name="PrintBTN"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Margin="10"
+            Click="PrintBTN_Click"
+            Width="200">
+            <TextBlock Text="Печать"
+               FontSize="30"/>
+        </Button>
+        <lvc:CartesianChart Name="recordsChart" Series="{Binding Values}"
+                    Margin="20,50,20,20">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Labels="{Binding Labels}"/>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.ToolTip>
+                <lvc:DefaultTooltip/>
+            </lvc:CartesianChart.ToolTip>
+        </lvc:CartesianChart>
+    </Grid>
+</Window>

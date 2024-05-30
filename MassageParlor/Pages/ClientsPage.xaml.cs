@@ -193,5 +193,11 @@ namespace MassageParlor.Pages
             else
                 ClientsLV.ItemsSource = DBConnection.massageSalon.Client.ToList();
         }
+
+        private void WorkersChartBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ClientsPopularityWindow clientsPopularityWindow = new ClientsPopularityWindow();
+            clientsPopularityWindow.ShowDialog();
+        }
     }
 }

@@ -366,7 +366,7 @@
                 Orientation="Horizontal">
                 <Button x:Name="ChartBTN"
                         Width="200" Click="ChartBTN_Click">
-                    <TextBlock Text="График"/>
+                    <TextBlock Text="Итог"/>
                 </Button>
             </StackPanel>
             <Button HorizontalAlignment="Center"

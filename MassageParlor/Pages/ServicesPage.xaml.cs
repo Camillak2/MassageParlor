@@ -117,5 +117,11 @@ namespace MassageParlor.Pages
         {
             NavigationService.Navigate(new MainMenuPage());
         }
+
+        private void PopularBTN_Click(object sender, RoutedEventArgs e)
+        {
+            PopulationWindow populationWindow = new PopulationWindow();
+            populationWindow.Show();
+        }
     }
 }

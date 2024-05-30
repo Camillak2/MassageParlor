@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Golden Lotus" Height="450" Width="800">
     <Grid>
-        <lvc:CartesianChart x:Name="recordsChart">
+        <!--<lvc:CartesianChart x:Name="recordsChart">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="Month"
                   FontSize="24"
@@ -24,6 +24,37 @@
                           FontFamily="Bahnschrift SemiCondensed"
                           Values="{Binding Values}" Fill="#8A284F"/>
             </lvc:CartesianChart.Series>
+        </lvc:CartesianChart>
+
+        <DatePicker x:Name="DateDP" 
+                  Grid.Row="0"
+                  HorizontalAlignment="Left" 
+                  Margin="10"
+                  Width="300"
+                  Height="60"
+                  VerticalAlignment="Bottom"/>-->
+        <DatePicker Name="DateDP"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="10"/>
+        <Button 
+                Name="PrintBTN"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="10"
+                Click="PrintBTN_Click"
+                Width="200">
+            <TextBlock Text="Печать"
+                       FontSize="30"/>
+        </Button>
+        <lvc:CartesianChart Name="recordsChart" Series="{Binding Values}"
+                            Margin="20,50,20,20">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Labels="{Binding Labels}"/>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.ToolTip>
+                <lvc:DefaultTooltip/>
+            </lvc:CartesianChart.ToolTip>
         </lvc:CartesianChart>
     </Grid>
 </Window>

@@ -53,7 +53,7 @@ namespace MassageParlor.Windowww
             this.DataContext = this;
 
             DateDP.SelectedDateChanged += DatePicker_SelectedDateChanged;
-            //DateDP.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now.Date.AddDays(-1)));
+            DateDP.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now.Date.AddDays(-1)));
         }
 
         public void Refresh()
@@ -65,15 +65,15 @@ namespace MassageParlor.Windowww
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if (DateDP.SelectedDate < DateTime.Now.Date)
-            //{
-            //    MessageBox.Show("Нельзя выбрать прошедшую дату.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    DateDP.SelectedDate = null;
-            //}
-            //else
-            //{
-            //    UpdateAvailableTimes();
-            //}
+            if (DateDP.SelectedDate < DateTime.Now.Date)
+            {
+                MessageBox.Show("Нельзя выбрать прошедшую дату.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                DateDP.SelectedDate = null;
+            }
+            else
+            {
+                UpdateAvailableTimes();
+            }
 
             UpdateAvailableTimes();
         }
@@ -120,6 +120,19 @@ namespace MassageParlor.Windowww
                 }
             }
 
+            var availableTimes1 = new List<TimeSpan>();
+            var now = DateTime.Now;
+            bool isToday = selectedDate.Value.Date == now.Date;
+            TimeSpan startTime = isToday ? now.TimeOfDay : new TimeSpan(8, 0, 0);
+
+            for (TimeSpan time = startTime; time < new TimeSpan(20, 15, 0); time = time.Add(TimeSpan.FromMinutes(15)))
+            {
+                if (!unavailableTimes.Contains(time))
+                {
+                    availableTimes1.Add(time);
+                }
+            }
+
             var availableTimes = new List<TimeSpan>();
             for (TimeSpan time = new TimeSpan(8, 0, 0); time < new TimeSpan(20, 15, 0); time = time.Add(TimeSpan.FromMinutes(15)))
             {
@@ -156,6 +169,7 @@ namespace MassageParlor.Windowww
                     return;
                 }
 
+
                 TimeSpan selectedTime = TimeSpan.Parse(selectedTimeString);
                 //DateTime appointmentDateTime = selectedDate.Value.Date + selectedTime.Value;
                 DateTime appointmentDateTime = selectedDate.Value.Date + selectedTime;
@@ -174,7 +188,7 @@ namespace MassageParlor.Windowww
 
                     DBConnection.massageSalon.Record.Add(newRecord);
                     DBConnection.massageSalon.SaveChanges();
-                    MessageBox.Show("Запись успешно добавлена.");
+                    MessageBox.Show("Запись успешно добавлена.", "Успех", MessageBoxButton.OK, MessageBoxImage.None);
                     UpdateAvailableTimes();
                     Close();
                 }
@@ -217,57 +231,6 @@ namespace MassageParlor.Windowww
             }
             return true;
         }
-
-        //private void SaveBTN_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        if (string.IsNullOrWhiteSpace(MassagistTB.Text) 
-        //            || string.IsNullOrWhiteSpace(ServiceTB.Text) 
-        //            || string.IsNullOrWhiteSpace(ClientTB.Text) 
-        //            || DiscountCB.SelectedItem == null
-        //            || DateDP.SelectedDate == null
-        //            || TimeTP.SelectedTime == null)
-        //        {
-        //            MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-        //            return;
-        //        }
-        //        else
-        //        {
-        //            if ((WorkersLV.SelectedItem is Worker worker) && (ClientsLV.SelectedItem is Client client) && (ServicesLV.SelectedItem is Service service))
-        //            {
-        //                record.ID_Worker = worker.ID;
-        //                record.ID_Client = client.ID;
-        //                record.ID_Service = service.ID;
-        //            }
-        //            else
-        //            {
-        //                MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-        //                return;
-        //            }
-
-        //            if (DateDP.SelectedDate == null || TimeTP.SelectedTime == null)
-        //            {
-        //                MessageBox.Show("Пожалуйста, выберите дату и время.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-        //                return;
-        //            }
-        //            else
-        //            {
-        //                DateTime recordDateTime = DateDP.SelectedDate.Value.Date.Add(TimeTP.SelectedTime.Value.TimeOfDay);
-        //                record.DateTime = recordDateTime;
-        //            }
-
-        //            DBConnection.massageSalon.Record.Add(record);
-        //            DBConnection.massageSalon.SaveChanges();
-        //            Close();
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        return;
-        //    }
-        //}
 
         private void ChooseMassagistBTN_Click(object sender, RoutedEventArgs e)
         {
@@ -338,11 +301,21 @@ namespace MassageParlor.Windowww
 
         private void ClientsLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ClientsLV.SelectedItem != null)
-            {
-                dynamic selectedItem = ClientsLV.SelectedItem;
+            dynamic selectedClient = ClientsLV.SelectedItem;
+            Service selectedService = (Service)ServicesLV.SelectedItem;
 
-                ClientTB.Text = selectedItem.Surname + " " + selectedItem.Name + " " + selectedItem.Patronymic;
+            if (ClientsLV.SelectedItem != null && ServicesLV.SelectedItems != null)
+            {
+                if (records.Any(i => i.ID_Client == selectedClient.ID))
+                {
+                    DiscountCB.SelectedIndex = 0;
+                }
+                else
+                {
+                    DiscountCB.SelectedIndex = 1;
+                }
+
+                ClientTB.Text = selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic;
 
                 Grid1.Visibility = Visibility.Visible;
                 SaveBTN.Visibility = Visibility.Visible;
@@ -354,6 +327,7 @@ namespace MassageParlor.Windowww
             else
             {
                 ClientTB.Text = "";
+                ServiceTB.Text = "";
             }
         }
 
@@ -460,6 +434,7 @@ namespace MassageParlor.Windowww
                         {
                             MessageBox.Show($"Клиенту {selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic} скидка «{selectedDiscount.Name}» недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
                             DiscountCB.SelectedIndex = 0;
+                            record.ID_Discount = 1;
                             return;
                         }
                         else
@@ -481,6 +456,7 @@ namespace MassageParlor.Windowww
                         {
                             MessageBox.Show($"Клиенту {selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic} скидка «{selectedDiscount.Name}» недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
                             DiscountCB.SelectedIndex = 0;
+                            record.ID_Discount = 1;
                             return;
                         }
                     }
@@ -488,7 +464,7 @@ namespace MassageParlor.Windowww
                     {
                         if (selectedService.TypeOfService.Name == "SPA для лица" || selectedService.Name == "Волшебное прикосновение")
                         {
-                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 2).ToString();
+                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
                             record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
                             record.ID_Discount = 4;
                         }
@@ -503,6 +479,23 @@ namespace MassageParlor.Windowww
                             return;
                         }
                     }
+                    if (DiscountCB.SelectedIndex == 4)
+                    {
+                        int clientCount = records.Count(r => r.ID_Client == selectedClient.ID);
+
+                        if (clientCount < 6)
+                        {
+                            MessageBox.Show($"Клиенту {selectedClient.Surname + " " + selectedClient.Name + " " + selectedClient.Patronymic} скидка «{selectedDiscount.Name}» недоступна.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+                            DiscountCB.SelectedIndex = 0;
+                            return;
+                        }
+                        else
+                        {
+                            FinalPriceTB.Text = (selectedService.Price - selectedService.Price / 100 * 20).ToString();
+                            record.FinalPrice = Convert.ToDecimal(FinalPriceTB.Text.Trim());
+                            record.ID_Discount = 5;
+                        }
+                    } 
                 }
             }
         }

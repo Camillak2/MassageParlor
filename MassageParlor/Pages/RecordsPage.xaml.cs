@@ -46,18 +46,34 @@ namespace MassageParlor.Pages
         private void RefreshSumPrice()
         {
             decimal result = 0;
-            foreach (var i in records)
+            if (DateDP.SelectedDate == null)
             {
-                if (i.DateTime < DateTime.Now)
+                foreach (var i in records)
                 {
-                    decimal c = Convert.ToDecimal(i.FinalPrice);
-                    result += c;
-                }
-                else
-                {
-                    result += 0;
+                    if (i.DateTime < DateTime.Now)
+                    {
+                        decimal c = Convert.ToDecimal(i.FinalPrice);
+                        result += c;
+                    }
+                    else
+                    {
+                        result += 0;
+                    }
                 }
             }
+            if (DateDP.SelectedDate.HasValue)
+            {
+                DateTime selectedDate = DateDP.SelectedDate.Value;
+                foreach (var i in records)
+                {
+                    // Проверяем, что дата записи находится в выбранном месяце
+                    if (i.DateTime.Year == selectedDate.Year && i.DateTime.Month == selectedDate.Month && i.DateTime < DateTime.Now)
+                    {
+                        result += Convert.ToDecimal(i.FinalPrice);
+                    }
+                }
+            }
+
             SumPriceTB.Text = result.ToString() + "₽";
         }
 
@@ -79,6 +95,7 @@ namespace MassageParlor.Pages
                 RecordsForAdminLV.ItemsSource = Records.Where(i => i.DateTime.Date == DateDP.SelectedDate);
                 RecordsForMassagistLV.ItemsSource = Records.Where(i => i.ID_Worker == loggedWorker.ID && i.DateTime == DateDP.SelectedDate);
             }
+            RefreshSumPrice();
         }
 
         public void Refresh()
@@ -271,7 +288,7 @@ namespace MassageParlor.Pages
         private void ChartBTN_Click(object sender, RoutedEventArgs e)
         {
             StatisticWindow statisticWindow = new StatisticWindow();
-            statisticWindow.Show();
+            statisticWindow.ShowDialog();
         }
     }
 }

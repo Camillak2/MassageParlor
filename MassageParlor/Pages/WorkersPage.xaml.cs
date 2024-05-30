@@ -186,5 +186,11 @@ namespace MassageParlor.Pages
             else
                 WorkersLV.ItemsSource = DBConnection.massageSalon.Worker.Where(i => i.Position.Name == "Массажист").ToList();
         }
+
+        private void WorkersChartBTN_Click(object sender, RoutedEventArgs e)
+        {
+            WorkersPopularityWindow workersPopularityWindow = new WorkersPopularityWindow();
+            workersPopularityWindow.ShowDialog();
+        }
     }
 }

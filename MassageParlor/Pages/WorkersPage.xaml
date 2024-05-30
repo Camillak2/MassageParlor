@@ -146,7 +146,7 @@
                 Height="100"
                 Width="250"
                 x:Name="AddBTN"
-                Margin="300 0 0 30"
+                Margin="400 0 0 30"
                 Click="AddBTN_Click">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -161,6 +161,17 @@
                         HorizontalAlignment="Center"
                         Grid.Row="1"/>
                 </Grid>
+            </Button>
+            <Button HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Height="60"
+                Width="90"
+                x:Name="WorkersChartBTN"
+                Margin="10 0 0 50"
+                Click="WorkersChartBTN_Click">
+                <TextBlock Text="Итог"
+                        HorizontalAlignment="Center"
+                        Grid.Row="1"/>
             </Button>
 
             <Button HorizontalAlignment="Right"
