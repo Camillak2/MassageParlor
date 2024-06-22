@@ -143,7 +143,7 @@ namespace MassageParlor.Pages
                 }
                 else if (AppealsLV.SelectedItem is null)
                 {
-                    MessageBox.Show("Выберите обращение!");
+                    //MessageBox.Show("Выберите обращение!");
                 }
                 Refresh();
             }
@@ -157,7 +157,7 @@ namespace MassageParlor.Pages
                 }
                 else if (AppealsLV.SelectedItem is null)
                 {
-                    MessageBox.Show("Выберите обращение!");
+                    //MessageBox.Show("Выберите обращение!");
                 }
                 Refresh();
             }
