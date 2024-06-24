@@ -55,5 +55,10 @@ namespace MassageParlor.Pages
                 return;
             }
         }
+
+        private void RegBTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

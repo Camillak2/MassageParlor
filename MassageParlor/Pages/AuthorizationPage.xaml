@@ -95,5 +95,19 @@
             Height="80"
             VerticalAlignment="Center"
             Click="EnterBTN_Click"/>
+        <Button Style="{StaticResource EnterButton}"
+            Content="У меня нет аккаунта"
+            x:Name="RegBTN"
+            Grid.Column="3"
+            Grid.ColumnSpan="3"
+            Grid.Row="7"
+            Grid.RowSpan="2"
+            Width="400"
+            Height="50"
+            Margin="0 10 0 0"
+            Background="Transparent"
+            BorderBrush="Transparent"
+            VerticalAlignment="Center"
+            Click="RegBTN_Click"/>
     </Grid>
 </Page>
