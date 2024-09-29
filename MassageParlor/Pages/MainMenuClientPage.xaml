@@ -32,14 +32,6 @@
                        Height="800"
                        Margin="10 0 0 0">
             </Image>
-            <Button x:Name="ConnectionBTN"
-                    Width="500"
-                    Height="60"
-                    Visibility="Collapsed"
-                    Content="Связаться с администратором"
-                    VerticalAlignment="Bottom"
-                    HorizontalAlignment="Left"
-                    Margin="20" Click="ConnectionBTN_Click"/>
             <TextBlock Margin="20"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"

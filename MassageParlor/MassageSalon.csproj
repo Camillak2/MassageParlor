@@ -194,6 +194,9 @@
     <Compile Include="Pages\MyAccountPage.xaml.cs">
       <DependentUpon>MyAccountPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\RecordsPageClient.xaml.cs">
+      <DependentUpon>RecordsPageClient.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ServicesPage.xaml.cs">
       <DependentUpon>ServicesPage.xaml</DependentUpon>
     </Compile>
@@ -289,6 +292,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\RecordsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RecordsPageClient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

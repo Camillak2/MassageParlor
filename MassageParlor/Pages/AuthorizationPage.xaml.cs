@@ -23,6 +23,8 @@ namespace MassageParlor.Pages
     {
         public static List<Worker> workers { get; set; }
 
+        public static List<Client> clients { get; set; }
+
         public AuthorizationPage()
         {
             InitializeComponent();
@@ -36,6 +38,7 @@ namespace MassageParlor.Pages
                 string password = PasswordTB.Password.Trim();
 
                 workers = DBConnection.massageSalon.Worker.ToList();
+                clients = DBConnection.massageSalon.Client.ToList();
                 var currentWorker = workers.FirstOrDefault(i => i.Login.Trim() == login && i.Password.Trim() == password);
                 DBConnection.loginedWorker = currentWorker;
 

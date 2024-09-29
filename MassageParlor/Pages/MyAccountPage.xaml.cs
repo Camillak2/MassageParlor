@@ -287,22 +287,6 @@ namespace MassageParlor.Pages
             PasswordTB.CaretIndex = PasswordTB.Text.Length;
         }
 
-        //private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        //{
-        //    // Проверяем, что введенный символ - русская буква
-        //    Regex regex = new Regex(@"^[а-яА-Я]+$");
-        //    e.Handled = !regex.IsMatch(e.Text);
-
-        //    TextBox textBox = (TextBox)sender;
-        //    string currentText = textBox.Text;
-
-        //    if (currentText.Length >= 50 && !string.IsNullOrEmpty(e.Text))
-        //    {
-        //        e.Handled = true;
-        //        return;
-        //    }
-        //}
-
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Regex.IsMatch(e.Text, @"^[\p{IsCyrillic}]+$"))
