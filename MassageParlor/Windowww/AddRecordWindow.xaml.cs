@@ -119,20 +119,6 @@ namespace MassageParlor.Windowww
                 }
             }
 
-            //var availableTimes1 = new List<TimeSpan>();
-            //var now = DateTime.Now;
-            //bool isToday = selectedDate.Value.Date == now.Date;
-            //TimeSpan startTime = isToday ? now.TimeOfDay : new TimeSpan(8, 0, 0);
-
-            //for (TimeSpan time = startTime; time < new TimeSpan(20, 15, 0); time = time.Add(TimeSpan.FromMinutes(15)))
-            //{
-            //    if (!unavailableTimes.Contains(time))
-            //    {
-            //        availableTimes1.Add(time);
-            //    }
-            //}
-            //TimeLV.ItemsSource = availableTimes1.Select(t => t.ToString(@"hh\:mm")).ToList();
-
             var availableTimes1 = new List<TimeSpan>();
             var now = DateTime.Now;
             bool isToday = selectedDate.Value.Date == now.Date;
@@ -151,17 +137,6 @@ namespace MassageParlor.Windowww
             }
 
             TimeLV.ItemsSource = availableTimes1.Select(t => t.ToString(@"hh\:mm")).ToList();
-
-            //var availableTimes = new List<TimeSpan>();
-            //for (TimeSpan time = new TimeSpan(8, 0, 0); time < new TimeSpan(20, 15, 0); time = time.Add(TimeSpan.FromMinutes(15)))
-            //{
-            //    if (!unavailableTimes.Contains(time))
-            //    {
-            //        availableTimes.Add(time);
-            //    }
-            //}
-            ////TimeCB.ItemsSource = availableTimes;
-            //TimeLV.ItemsSource = availableTimes.Select(t => t.ToString(@"hh\:mm")).ToList();
         }
 
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
@@ -174,7 +149,6 @@ namespace MassageParlor.Windowww
                 var selectedDiscount = DiscountCB.SelectedItem as Discount;
                 var selectedDate = DateDP.SelectedDate;
                 var selectedTimeString = TimeLV.SelectedItem as string;
-                //var selectedTime = TimeCB.SelectedItem as TimeSpan?;
 
                 if (selectedClient == null ||
                     selectedWorker == null ||
@@ -190,7 +164,6 @@ namespace MassageParlor.Windowww
 
 
                 TimeSpan selectedTime = TimeSpan.Parse(selectedTimeString);
-                //DateTime appointmentDateTime = selectedDate.Value.Date + selectedTime.Value;
                 DateTime appointmentDateTime = selectedDate.Value.Date + selectedTime;
 
                 if (IsWorkerAvailable(selectedWorker.ID, appointmentDateTime, selectedService.Duration.Value))
@@ -285,8 +258,6 @@ namespace MassageParlor.Windowww
         {
             try
             {
-
-
                 if (WorkersLV.SelectedItem != null)
                 {
                     dynamic selectedItem = WorkersLV.SelectedItem;
@@ -332,8 +303,6 @@ namespace MassageParlor.Windowww
             dynamic selectedClient = ClientsLV.SelectedItem;
             try
             {
-
-
                 int clientCount = records.Where(i => i.DateTime < DateTime.Now).Count(r => r.ID_Client == selectedClient.ID);
                 dynamic selectedService = ServicesLV.SelectedItem;
 

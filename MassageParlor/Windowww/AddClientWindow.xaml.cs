@@ -173,15 +173,6 @@ namespace MassageParlor.Windowww
             PhoneTB.CaretIndex = PhoneTB.Text.Length;
         }
 
-        //private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        //{
-        //    // Проверяем, что введенный символ - русская буква
-        //    Regex regex = new Regex(@"^[а-яА-Я]$");
-        //    e.Handled = !regex.IsMatch(e.Text);
-
-            
-        //}
-
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Regex.IsMatch(e.Text, @"^[\p{IsCyrillic}]+$"))
